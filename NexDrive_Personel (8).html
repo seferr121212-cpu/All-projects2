@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1d2b">
+<meta name="application-name" content="NexDrive Personel">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NexDrive Personel">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>NexDrive Saha · Personel</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1d2b'/%3E%3Cpath d='M16 46V18h6l14 18V18h6v28h-6L22 28v18z' fill='%23e9f2f7'/%3E%3Cpath d='M40 18l10 14-10 14' stroke='%233fc1c6' stroke-width='5' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f3f6f9;--p1:#ffffff;--p2:#f7f9fb;--ln:#dfe6ec;--ln2:#c9d4dd;--tx:#13202b;--mu:#5b6f7c;--nav:#0d1d2b;--nav2:#132a3d;--navtx:#cfdde7;--ac:#119ea4;--ac2:#3fc1c6;--acbg:#e3f6f7;--am:#d98a14;--ambg:#fdf3e2;--rd:#d93a4a;--rdbg:#fde8ea;--gr:#1f9d61;--grbg:#e4f6ed;--sh:0 1px 2px rgba(16,32,48,.06),0 6px 20px rgba(16,32,48,.06);--fh:'Bahnschrift','DIN Alternate','Segoe UI',system-ui,sans-serif;--fb:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;--fm:'Cascadia Code',Consolas,monospace}
+:root[data-tema="koyu"]{--bg:#081521;--p1:#0d1d2b;--p2:#112638;--ln:#1f3a52;--ln2:#2a4a66;--tx:#e3edf3;--mu:#86a0b3;--acbg:rgba(63,193,198,.12);--ambg:rgba(240,166,58,.12);--rdbg:rgba(255,93,108,.12);--grbg:rgba(57,217,138,.12);--ac:#3fc1c6;--am:#f0a63a;--rd:#ff5d6c;--gr:#39d98a;--sh:none}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 var(--fb)}
+button,input,select,textarea{font:inherit;color:inherit}a{color:var(--ac)}
+/* ---- uygulama iskeleti ---- */
+#uyg{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+#yan{background:var(--nav);color:var(--navtx);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto}
+#yan .mk{padding:18px 16px 10px;border-bottom:1px solid rgba(255,255,255,.07)}
+#yan .mk svg{height:26px;display:block}#yan .mk small{display:block;margin-top:6px;font:600 10px var(--fh);letter-spacing:.2em;color:#7fa3b8}
+#yan .fr{padding:12px 16px;font-weight:600;color:#fff;font-size:13px;border-bottom:1px solid rgba(255,255,255,.07)}#yan .fr small{display:block;color:#7fa3b8;font-weight:400;font-size:11px}
+#yan nav{padding:8px;flex:1}
+#yan .gb{font:600 10px var(--fh);letter-spacing:.16em;color:#6f8ea3;padding:12px 10px 4px}
+#yan a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;color:var(--navtx);text-decoration:none;font-size:13.5px}
+#yan a:hover{background:var(--nav2)}#yan a.on{background:rgba(63,193,198,.16);color:#fff;box-shadow:inset 3px 0 0 var(--ac2)}
+#yan a i{font-style:normal;width:18px;text-align:center;opacity:.9}#yan a b{margin-left:auto;font:600 11px var(--fb);background:var(--rd);color:#fff;border-radius:999px;padding:0 7px}
+#yan .alt{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);font-size:11px;color:#6f8ea3}#yan .alt svg{height:14px;vertical-align:-2px}
+#ana{min-width:0;display:flex;flex-direction:column}
+#ust{position:sticky;top:0;z-index:5;background:var(--p1);border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:10px;padding:10px 22px;min-height:56px}
+#ust h1{font:600 18px var(--fh);margin:0;letter-spacing:.01em}#ust .sp{flex:1}
+#ust .dur{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--mu);padding:5px 10px;border:1px solid var(--ln);border-radius:999px;cursor:pointer;white-space:nowrap}
+.led{width:8px;height:8px;border-radius:50%;background:var(--mu)}.led.g{background:var(--gr)}.led.a{background:var(--am)}.led.r{background:var(--rd)}.led.c{background:var(--ac);animation:nb 1s infinite}@keyframes nb{50%{opacity:.3}}
+#icerik{padding:20px 22px 60px;max-width:1500px;width:100%}
+#menuBtn{display:none}
+/* ---- bileşenler ---- */
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ln2);background:var(--p1);border-radius:8px;padding:7px 13px;cursor:pointer;font-weight:500;white-space:nowrap;text-decoration:none;color:var(--tx)}
+.btn:hover{border-color:var(--ac)}.btn.p{background:var(--ac);border-color:var(--ac);color:#fff}.btn.p:hover{filter:brightness(1.07)}.btn.r{color:var(--rd);border-color:color-mix(in srgb,var(--rd) 40%,transparent)}.btn.k{padding:4px 9px;font-size:12.5px}.btn:disabled{opacity:.5;cursor:default}
+.kart{background:var(--p1);border:1px solid var(--ln);border-radius:12px;padding:16px;box-shadow:var(--sh)}
+.kart h3{margin:0 0 10px;font:600 14px var(--fh);letter-spacing:.02em}
+.izg{display:grid;gap:14px}.i4{grid-template-columns:repeat(4,minmax(0,1fr))}.i3{grid-template-columns:repeat(3,minmax(0,1fr))}.i2{grid-template-columns:repeat(2,minmax(0,1fr))}.i21{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.kpi{background:var(--p1);border:1px solid var(--ln);border-radius:12px;padding:14px 16px;box-shadow:var(--sh);border-left:4px solid var(--ac)}
+.kpi small{display:block;color:var(--mu);font-size:12px}.kpi b{display:block;font:600 22px var(--fh);margin:4px 0 2px;letter-spacing:.01em}.kpi span{font-size:12px;color:var(--mu)}
+.kpi.a{border-left-color:var(--am)}.kpi.r{border-left-color:var(--rd)}.kpi.g{border-left-color:var(--gr)}
+.ara{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:12px}
+.ara label{display:grid;gap:3px;font-size:12px;color:var(--mu)}
+input,select,textarea{background:var(--p1);border:1px solid var(--ln2);border-radius:8px;padding:7px 9px;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid color-mix(in srgb,var(--ac) 35%,transparent);border-color:var(--ac)}
+.tw{overflow:auto;border:1px solid var(--ln);border-radius:10px;background:var(--p1)}
+table.t{border-collapse:collapse;width:100%;font-size:13px}
+table.t th{position:sticky;top:0;background:var(--p2);text-align:left;font-weight:600;color:var(--mu);font-size:12px;padding:8px 10px;border-bottom:1px solid var(--ln);white-space:nowrap;cursor:pointer;user-select:none}
+table.t td{padding:7px 10px;border-bottom:1px solid var(--ln);white-space:nowrap}
+table.t tr:last-child td{border-bottom:0}table.t tbody tr:hover td{background:var(--p2)}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tfoot td{font-weight:700;background:var(--p2);border-top:2px solid var(--ln)}
+.et{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;background:var(--p2);color:var(--mu);border:1px solid var(--ln)}
+.et.g{background:var(--grbg);color:var(--gr);border-color:transparent}.et.a{background:var(--ambg);color:var(--am);border-color:transparent}.et.r{background:var(--rdbg);color:var(--rd);border-color:transparent}.et.c{background:var(--acbg);color:var(--ac);border-color:transparent}
+.bas{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.bas h2{margin:0;font:600 16px var(--fh)}.bas .sp{flex:1}
+.sekme{display:flex;gap:4px;border-bottom:1px solid var(--ln);margin-bottom:14px;overflow-x:auto}
+.sekme a{padding:8px 14px;text-decoration:none;color:var(--mu);font-weight:600;border-bottom:2px solid transparent;white-space:nowrap}.sekme a.on{color:var(--ac);border-bottom-color:var(--ac)}
+.bos{text-align:center;color:var(--mu);padding:30px 10px}.bos b{display:block;color:var(--tx);font-size:15px;margin-bottom:4px}
+.uyari{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:9px;margin-bottom:6px;font-size:13px;background:var(--p2);border:1px solid var(--ln)}
+.uyari.r{background:var(--rdbg);border-color:transparent}.uyari.a{background:var(--ambg);border-color:transparent}.uyari i{font-style:normal}
+.cubuk{height:8px;border-radius:99px;background:var(--p2);overflow:hidden;border:1px solid var(--ln)}.cubuk>span{display:block;height:100%;background:var(--ac)}
+.not{color:var(--mu);font-size:12.5px}
+/* ---- pencere ---- */
+#pen{position:fixed;inset:0;background:rgba(10,22,34,.5);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:5vh 14px;overflow:auto}
+#pen .kutu{background:var(--p1);border-radius:14px;width:min(720px,100%);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+#pen .pb{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--ln);font:600 16px var(--fh)}#pen .pb span{flex:1}
+#pen .pi{padding:16px 18px}#pen .pa{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--ln)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.form label{display:grid;gap:4px;font-size:12.5px;color:var(--mu)}.form label.tam{grid-column:1/-1}.form .ck{display:flex;align-items:center;gap:8px;color:var(--tx);font-size:14px}.form .ck input{width:18px;height:18px}
+#bil{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--nav);color:#fff;padding:10px 16px;border-radius:10px;z-index:60;display:none;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:90vw}
+/* ---- giriş ---- */
+#giris{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 30% 20%,#173149,#081521 70%)}
+#giris .kutu{background:var(--p1);border-radius:16px;padding:28px;width:min(420px,100%);box-shadow:0 30px 80px rgba(0,0,0,.4)}
+#giris .kutu svg.lg{height:34px;display:block;margin-bottom:6px}
+/* ---- saha (telefon) ---- */
+#saha{max-width:560px;margin:0 auto;min-height:100vh;background:var(--bg)}
+#saha .sb{background:var(--nav);color:#fff;padding:14px 16px calc(14px + env(safe-area-inset-top,0));display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+#saha .sb svg{height:20px}#saha .sb .sp{flex:1}#saha .sb small{display:block;color:#7fa3b8;font-size:11px}
+#saha .ic{padding:14px}
+.karo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.karo button{border:0;border-radius:16px;padding:20px 14px;min-height:118px;font:600 17px var(--fh);color:#fff;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;cursor:pointer;box-shadow:var(--sh);text-align:left}
+.karo button i{font-style:normal;font-size:30px;line-height:1}.karo button small{font:400 12px var(--fb);opacity:.85}
+.sf label{display:grid;gap:5px;font-size:13px;color:var(--mu);margin-bottom:12px}.sf input,.sf select,.sf textarea{font-size:17px;padding:12px;border-radius:10px}
+.sf .buyuk{width:100%;padding:16px;font:600 18px var(--fh);border-radius:12px}
+.secim{display:flex;flex-wrap:wrap;gap:8px}.secim button{flex:1 1 auto;min-width:72px;padding:12px 10px;border-radius:10px;border:1px solid var(--ln2);background:var(--p1);font-weight:600;cursor:pointer}.secim button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+/* ---- yazdırma ---- */
+@media print{#yan,#ust,.yok-yaz{display:none!important}#icerik{padding:0}}
+/* ---- dar ekran ---- */
+@media (max-width:980px){.i4{grid-template-columns:repeat(2,minmax(0,1fr))}.i3,.i21{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+ #uyg{grid-template-columns:minmax(0,1fr)}#yan{position:fixed;z-index:40;width:250px;transform:translateX(-100%);transition:transform .2s}#yan.ac{transform:none;box-shadow:0 0 50px rgba(0,0,0,.5)}
+ #menuBtn{display:inline-flex}#ust{padding:8px 12px}#ust h1{font-size:16px}#icerik{padding:14px 12px 60px}
+ .i2{grid-template-columns:minmax(0,1fr)}.form{grid-template-columns:minmax(0,1fr)}.kpi b{font-size:19px}#ust .dur span{display:none}
+}
+/* ---- personel paneli ---- */
+#saha.navli{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+#alt{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--p1);border-top:1px solid var(--ln);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:0 -6px 20px rgba(16,32,48,.08)}
+#alt button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font:600 11px var(--fb);color:var(--mu);padding:6px 0;cursor:pointer;border-radius:10px}
+#alt button i{font-style:normal;font-size:20px;line-height:1.15;filter:grayscale(1);opacity:.65}
+#alt button.on{color:var(--ac);background:var(--acbg)}#alt button.on i{filter:none;opacity:1}
+body:has(#alt) #bil{bottom:96px}
+.buyuk{width:100%;justify-content:center;padding:14px;font:600 16px var(--fh);border-radius:12px}
+.takvim{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.takvim>div{min-height:48px;border-radius:9px;background:var(--p2);border:1px solid var(--ln);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:var(--mu);cursor:pointer;line-height:1.2}
+.takvim>div b{font:600 14px var(--fh);color:var(--tx)}.takvim>div.d{background:var(--acbg);border-color:transparent;color:var(--ac);font-weight:600}
+.takvim>div.bg{outline:2px solid var(--ac);outline-offset:-1px}.takvim>div.gel{opacity:.35;cursor:default}
+.takvim>div.gb{min-height:0;background:none;border:0;font-weight:600;cursor:default;padding:2px 0}.takvim>div.bosg{visibility:hidden}
+.ozet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ozet>div{background:var(--p2);border:1px solid var(--ln);border-radius:10px;padding:10px 6px;text-align:center}.ozet b{display:block;font:600 21px var(--fh)}.ozet small{color:var(--mu);font-size:11.5px}
+.pkutu{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--ln2);border-radius:10px;background:var(--p2);margin-bottom:14px;font-size:16px;color:var(--tx)}.pkutu .not{margin-left:auto;font-size:13px}
+.sf label{grid-template-columns:minmax(0,1fr)}
+</style>
+</head>
+<body>
+<div id="kok"></div>
+<div id="pen"><div class="kutu"><div class="pb"><span id="penB"></span><button class="btn k" onclick="UI.kapat()">✕</button></div><div class="pi" id="penI"></div><div class="pa" id="penA"></div></div></div>
+<div id="bil"></div>
+<script>window.NX_LOGO={a:"M308.0 110.2L307.6 110.6L307.4 111.5L307.4 138.6L307.6 139.4L308.6 139.9L312.9 139.8L313.4 139.0L313.4 132.1L313.6 131.6L314.1 131.2L319.6 131.2L321.0 131.8L321.9 132.5L324.8 136.5L326.2 139.1L326.9 139.6L327.8 139.9L332.8 139.8L332.8 138.6L327.1 130.8L327.1 130.1L329.6 128.1L331.6 125.8L332.8 123.1L333.0 121.5L332.9 118.8L332.0 116.1L330.8 114.1L329.6 113.0L327.9 111.8L325.9 110.9L323.1 110.2ZM313.5 115.6L314.1 115.1L321.5 115.1L323.4 115.5L324.8 116.1L325.8 117.1L326.8 119.0L326.9 122.0L326.2 123.5L325.2 124.8L323.0 125.9L318.4 126.4L314.6 126.4L313.9 126.1L313.4 125.5ZM366.8 110.2L366.2 111.0L366.2 139.4L367.2 139.9L371.5 139.9L372.2 139.2L372.2 121.6L372.9 121.4L376.9 125.9L387.6 139.4L388.1 139.8L389.1 140.0L393.0 139.9L393.4 139.6L393.6 139.1L393.5 110.6L392.4 110.0L388.8 110.0L388.2 110.1L387.6 110.9L387.6 128.0L387.4 128.5L386.9 128.6L383.8 125.4L377.2 117.1L371.4 110.2L370.5 110.0L367.5 110.0ZM350.4 110.0L346.4 110.1L345.6 111.0L345.5 139.1L345.8 139.6L346.6 140.0L350.5 140.0L351.4 139.8L351.8 139.2L351.8 110.9L351.2 110.2ZM271.6 110.4L271.4 110.9L271.4 139.0L271.6 139.5L272.5 139.9L293.6 139.9L294.1 139.4L294.2 138.9L294.2 135.6L293.6 134.9L278.0 134.8L277.2 133.9L277.2 128.4L277.8 127.4L278.5 127.1L290.5 127.2L291.4 127.0L291.9 126.2L291.9 123.4L291.8 122.9L290.9 122.2L280.6 122.4L277.9 122.1L277.4 121.6L277.2 121.1L277.2 116.1L277.5 115.5L278.1 115.1L293.0 115.1L293.6 114.4L293.6 110.9L293.4 110.4L293.0 110.1L272.4 110.0ZM236.4 110.1L235.9 110.9L235.8 118.1L235.9 139.5L236.4 139.9L257.5 139.9L258.1 139.6L258.6 138.8L258.6 135.4L258.1 134.9L242.6 134.9L242.0 134.5L241.8 133.9L241.8 128.4L242.4 127.4L244.2 127.1L255.6 127.1L256.2 126.5L256.4 124.9L256.2 123.1L255.6 122.4L255.2 122.2L242.5 122.1L241.9 121.5L241.9 115.8L242.4 115.2L243.1 115.1L256.9 115.2L257.5 115.0L257.9 114.5L258.0 111.4L257.8 110.6L257.0 110.1ZM194.2 110.1L194.0 110.5L193.9 136.8L194.0 139.2L194.2 139.6L194.8 139.9L199.1 140.0L199.8 139.8L200.1 139.0L199.9 121.5L200.2 121.1L200.8 121.2L209.0 131.4L212.5 135.4L214.1 137.6L215.9 139.5L216.6 139.9L220.5 139.9L221.0 139.6L221.2 139.2L221.4 112.0L221.1 110.5L220.5 110.0L216.0 110.1L215.4 110.6L215.2 127.5L215.1 128.1L214.9 128.4L214.4 128.4L209.6 122.4L199.6 110.8L198.2 110.0ZM174.2 110.0L173.4 110.8L173.2 113.2L173.2 139.1L174.0 139.8L178.1 139.9L179.0 139.5L179.2 138.9L179.4 110.9L178.8 110.1L178.2 110.0ZM91.5 110.4L91.1 111.4L91.0 138.9L91.2 139.5L91.9 139.9L96.4 140.0L97.2 139.2L97.2 121.5L97.8 121.2L98.9 122.2L111.1 137.5L113.1 139.6L114.2 140.0L117.8 139.9L118.2 139.2L118.4 138.2L118.4 110.8L117.2 110.0L113.2 110.0L112.6 110.2L112.2 110.8L112.1 128.0L111.5 128.4L110.2 127.2L99.0 113.1L96.5 110.4L95.4 110.0L92.0 110.1ZM55.8 110.2L55.4 110.9L55.2 139.4L56.0 139.9L77.9 139.8L78.2 139.0L78.4 136.0L78.1 135.2L77.6 134.9L61.9 134.8L61.4 134.4L61.1 133.5L61.2 128.0L62.0 127.2L75.1 127.2L76.0 126.5L76.0 123.1L75.9 122.8L75.1 122.2L61.8 122.0L61.2 121.4L61.4 115.6L61.9 115.2L77.0 115.1L77.6 114.6L77.8 111.6L77.5 110.5L76.5 110.0L56.4 110.0ZM415.2 111.0L411.6 113.1L409.4 115.2L407.5 118.1L406.6 120.5L406.1 123.2L406.2 127.5L407.1 130.8L408.9 134.0L410.8 136.1L413.0 137.9L415.0 139.0L418.1 140.0L420.1 140.2L424.9 140.2L426.9 140.0L430.9 138.9L432.8 137.9L433.8 137.0L434.2 135.5L434.2 125.5L433.9 124.8L433.4 124.5L429.6 124.5L428.9 124.9L428.6 125.4L428.5 132.8L428.2 133.4L427.5 134.1L425.8 134.9L421.5 135.0L419.6 134.8L417.0 133.6L415.8 132.8L414.2 131.1L413.1 129.1L412.5 127.0L412.4 123.4L413.0 120.9L414.1 118.9L415.6 117.2L417.5 116.0L420.6 115.0L425.1 115.0L428.1 116.1L430.0 117.4L430.9 117.4L433.8 115.2L434.2 114.6L434.2 114.0L433.6 113.2L432.1 112.2L429.4 110.9L426.6 110.0L420.8 109.8L418.2 110.0ZM143.1 110.1L140.2 111.1L136.9 113.0L134.6 115.1L133.2 117.0L132.0 119.5L131.1 122.5L131.1 127.4L132.0 130.6L133.2 133.0L135.9 136.2L137.2 137.4L139.8 138.9L142.1 139.8L146.0 140.4L150.0 140.4L153.9 139.6L155.8 138.9L158.9 137.0L159.4 136.0L159.5 125.4L158.9 124.6L155.2 124.5L154.5 124.6L153.9 125.1L153.6 127.4L153.6 133.0L153.0 133.9L151.6 134.6L150.5 134.9L146.4 135.0L144.8 134.8L142.0 133.6L140.8 132.8L139.1 131.0L138.0 129.1L137.5 127.2L137.4 123.1L138.1 120.5L139.2 118.6L140.8 117.1L142.4 116.0L145.4 115.1L149.4 115.0L152.9 116.0L155.0 117.5L156.1 117.6L159.1 114.8L159.1 114.1L158.4 113.1L154.8 111.0L152.2 110.1L148.1 109.6ZM427.9 30.4L414.2 30.2L412.1 30.5L411.2 31.4L406.0 39.9L404.4 43.0L398.2 52.6L393.8 60.4L392.9 61.5L391.5 64.0L390.6 64.9L390.0 64.2L389.8 62.1L387.0 51.2L386.8 49.1L385.2 42.9L384.8 39.5L384.0 37.1L382.6 30.9L381.8 30.2L367.0 30.1L366.4 30.6L366.2 31.6L366.8 33.1L367.0 35.1L368.8 41.8L369.1 44.4L370.6 49.6L370.9 51.5L374.8 67.9L375.0 69.8L377.9 81.0L378.2 83.4L378.6 84.4L379.1 84.9L395.4 84.9L395.9 84.5L422.8 40.5L425.2 35.9L428.0 31.5ZM359.8 30.2L345.5 30.1L344.8 30.2L344.1 30.9L339.1 55.9L337.8 64.0L337.2 65.5L336.9 68.4L336.1 71.0L335.8 74.0L333.6 83.6L333.6 84.4L334.2 84.9L348.9 85.0L349.5 84.9L350.0 84.4L350.9 80.9L351.4 77.2L354.9 60.2L355.2 57.4L356.8 51.2L357.2 47.6L358.8 41.4L359.1 38.4L360.0 35.1L360.1 33.4L360.5 32.2L360.5 30.9ZM335.5 29.5L332.9 29.4L327.9 30.0L323.5 31.2L320.0 33.0L316.2 36.0L315.8 35.5L316.2 31.0L315.6 30.2L302.6 30.2L301.6 31.0L301.0 32.9L299.8 40.5L298.0 47.9L297.6 50.5L297.0 52.5L295.8 60.0L295.1 61.9L294.9 64.2L293.0 73.0L292.8 75.4L290.9 83.5L290.9 84.2L291.4 84.9L306.5 85.0L307.1 84.6L307.9 82.8L308.2 80.1L308.8 78.6L309.0 76.2L309.9 72.8L310.1 70.8L310.8 68.8L311.1 66.0L311.8 63.8L312.2 60.4L312.9 58.6L313.1 56.6L315.1 51.6L318.0 48.2L321.4 46.1L323.4 45.2L329.2 44.4L332.6 44.5L333.4 43.9L334.0 41.4L335.1 33.5L335.9 31.1L335.9 30.1ZM127.9 30.1L124.1 29.5L115.8 29.5L112.6 29.9L108.8 30.9L106.2 31.9L102.2 34.0L99.5 35.9L97.2 37.9L94.2 41.1L91.2 45.6L89.2 49.9L87.9 54.8L87.5 58.9L87.5 62.9L88.0 67.2L89.8 71.9L92.1 75.9L95.2 79.1L98.6 81.5L103.4 83.8L107.9 85.0L112.1 85.6L117.0 85.8L120.8 85.5L125.2 84.8L127.9 83.9L128.0 83.2L132.9 81.4L134.1 80.6L137.4 78.0L137.4 76.9L133.8 71.9L131.5 68.2L130.9 68.2L128.0 70.2L127.9 70.0L127.2 70.0L125.6 70.9L123.5 71.6L119.5 72.4L117.4 72.5L111.6 71.9L108.4 70.5L107.2 69.8L105.8 68.2L104.2 66.0L103.4 62.9L104.1 62.0L127.9 62.1L128.0 61.6L128.8 61.5L143.5 61.6L144.1 61.1L144.8 58.4L144.8 48.8L143.8 44.5L142.2 41.2L139.1 37.0L137.2 35.2L134.8 33.5L132.4 32.2L130.1 31.4L128.0 30.9ZM105.0 51.1L106.1 49.0L107.4 47.2L109.5 45.1L111.0 44.0L112.9 43.0L115.6 42.0L120.9 41.9L123.9 42.8L126.4 44.2L127.4 45.2L128.0 45.1L130.1 48.2L130.8 50.8L130.8 51.9L130.2 52.5L129.1 52.9L128.0 52.8L127.9 52.1L126.4 52.0L107.0 52.2L105.4 52.0ZM469.2 31.8L464.6 30.1L459.0 29.4L454.5 29.2L448.2 30.1L442.9 32.0L438.4 34.5L434.8 37.2L432.1 39.9L430.2 42.2L428.4 45.0L427.0 47.6L425.0 53.2L424.2 59.5L424.4 64.2L425.0 68.1L426.1 71.4L427.0 73.0L429.6 76.6L432.6 79.5L436.6 82.0L440.5 83.8L443.2 84.6L448.8 85.5L455.8 85.6L461.5 84.9L465.2 83.9L466.9 83.1L468.4 82.8L472.1 80.6L475.4 77.6L475.1 76.4L474.0 75.1L469.1 68.1L468.5 67.6L467.5 67.9L464.9 69.9L463.1 70.8L459.8 71.9L457.5 72.0L455.8 72.4L452.6 72.4L449.5 72.0L446.6 71.1L443.6 69.2L441.2 66.2L440.2 63.4L440.2 62.6L440.8 62.1L480.4 62.1L481.5 61.5L482.0 59.5L482.4 51.6L482.0 48.0L480.9 43.9L479.0 40.1L476.4 36.8L473.0 33.9ZM441.9 51.1L444.0 47.4L447.1 44.4L449.1 43.1L450.9 42.4L454.2 41.8L456.9 41.8L459.8 42.2L463.4 44.1L465.1 45.9L466.6 48.1L467.2 50.6L467.1 51.6L466.2 52.2L442.8 52.1L442.0 51.6ZM281.0 23.6L278.4 21.2L273.5 18.2L268.1 16.0L264.8 15.0L262.8 14.9L259.2 14.1L236.2 13.9L224.2 14.1L223.8 14.8L223.1 16.9L222.8 20.1L222.0 22.8L221.9 24.5L220.0 32.8L219.8 35.2L219.1 37.2L216.8 49.2L216.6 50.8L215.6 54.8L214.8 60.4L214.0 62.9L213.9 64.5L212.5 71.9L212.0 73.5L211.9 75.1L211.0 78.1L211.0 82.0L210.6 83.1L210.6 84.1L211.0 84.4L211.0 84.9L248.2 84.9L250.6 84.8L256.2 83.9L261.1 82.5L267.6 79.9L272.5 76.9L276.4 73.9L278.6 71.6L280.8 69.0L282.8 66.0L285.0 61.9L286.9 57.1L287.1 55.5L287.8 53.6L288.5 48.6L288.8 44.0L288.4 40.1L287.6 35.8L286.6 32.6L284.6 28.5ZM265.9 32.6L267.6 34.4L269.8 37.9L271.0 41.8L271.2 46.5L270.9 50.5L269.5 55.4L267.8 59.2L264.9 63.0L262.9 64.9L258.8 67.6L256.5 68.8L253.0 69.9L246.0 70.6L230.5 70.5L230.1 70.1L230.1 69.0L231.9 61.1L232.1 58.6L233.9 50.8L235.0 43.8L235.9 40.5L237.0 33.4L237.8 30.6L237.8 29.8L238.1 28.9L239.0 28.4L243.4 28.1L254.2 28.1L256.2 28.4L259.8 29.1L263.9 31.1ZM20.8 14.1L20.2 14.8L18.9 20.4L18.8 21.9L18.1 23.9L15.8 37.5L15.2 39.0L14.6 42.9L14.0 44.8L13.8 47.1L13.1 49.0L12.8 52.1L12.0 54.6L10.8 62.1L9.0 69.6L8.6 72.9L7.9 75.8L7.6 78.0L7.0 80.0L6.8 82.4L6.4 83.4L6.4 84.5L7.1 85.0L22.6 85.0L23.5 84.4L26.0 72.1L27.0 65.5L27.9 62.0L28.2 59.2L28.8 57.9L30.2 49.4L30.9 47.2L31.4 43.6L31.8 43.2L32.1 43.2L32.9 44.0L36.0 49.5L40.5 56.6L41.2 58.4L56.9 84.1L57.5 84.8L58.2 85.0L66.8 85.0L71.6 84.8L72.1 84.1L73.0 80.9L73.1 79.4L74.9 70.9L75.1 68.4L75.6 66.8L76.1 63.4L78.9 50.5L79.2 47.5L79.9 45.4L81.1 37.2L81.6 35.8L83.0 28.0L83.9 24.8L84.1 22.6L85.6 16.1L85.6 14.5L85.0 14.0L69.5 14.0L69.0 14.4L68.1 17.2L66.8 25.4L65.0 33.1L64.8 35.6L64.0 38.2L63.8 40.5L63.2 41.9L62.8 45.4L61.1 51.8L60.8 54.5L60.4 55.5L59.9 55.6L59.2 55.1L52.8 43.6L42.0 26.4L36.8 17.1L35.2 14.9L34.4 14.1L32.5 13.9ZM354.9 5.5L352.2 6.0L349.9 7.1L348.5 8.1L347.5 9.2L346.5 11.0L345.9 12.8L345.8 16.5L346.1 18.1L347.0 19.6L349.1 21.8L351.9 23.0L354.4 23.5L356.5 23.5L359.4 22.9L361.4 21.9L363.0 20.4L364.6 17.9L365.1 16.0L365.4 13.8L364.9 11.0L363.6 8.8L362.1 7.2L360.0 6.1L358.8 5.8Z",x:"M187.8 61.4L184.2 65.5L180.6 69.2L178.0 72.6L178.1 73.6L178.9 74.6L180.1 77.8L183.1 83.8L184.2 84.8L201.2 84.6L201.2 83.8L195.6 73.2L195.0 72.5L194.8 71.8L193.8 70.4L190.6 64.6L189.9 63.6L188.9 61.4ZM210.6 30.5L193.1 30.5L192.0 31.0L190.8 32.2L184.4 39.6L182.6 42.1L182.9 43.2L183.9 44.6L188.2 52.4L189.5 54.1L190.2 54.1L191.8 52.2L195.9 48.1L204.6 38.2L206.1 36.2L210.6 31.6ZM170.0 30.6L169.2 30.4L153.0 30.5L152.2 30.9L152.4 32.0L156.0 37.9L157.1 40.4L158.8 42.6L162.8 49.4L163.2 50.6L165.9 54.9L167.0 57.4L166.8 58.0L164.8 60.5L159.2 66.2L153.0 73.5L144.9 82.0L132.6 96.0L129.2 99.4L129.4 100.2L138.0 100.5L147.5 100.4L149.1 99.6L158.9 88.6L162.0 84.8L169.1 77.1L172.8 72.8L174.0 70.9L179.1 65.2L185.4 57.8L185.4 56.8L183.0 53.0L177.9 43.4L176.8 41.9L171.6 32.8Z"};</script>
+<script>
+/* ===== NexDrive Saha · 00 · Veri şeması (uygulama ve Supabase SQL aynı tanımdan üretilir) ===== */
+'use strict';
+const SEMA = {
+  ayarlar: {ad: 'Ayarlar', yetki: 'ref', alan: {firma_adi: 'text', vergi_no: 'text', vergi_dairesi: 'text', adres: 'text', telefon: 'text', eposta: 'text', iban: 'text', logo: 'text', kdv_orani: 'numeric', hakedis_onek: 'text', teklif: 'jsonb', kasa_bakiye: 'numeric', kasa_tarih: 'date'}},
+  musteriler: {ad: 'Müşteriler', yetki: 'ref', alan: {ad: 'text', yetkili: 'text', vergi_no: 'text', vergi_dairesi: 'text', telefon: 'text', eposta: 'text', adres: 'text', vade_gun: 'int', notlar: 'text'}},
+  santiyeler: {ad: 'İşler / şantiyeler', yetki: 'ref', alan: {ad: 'text', musteri_id: 'uuid', adres: 'text', saat_ucreti: 'numeric', baslangic: 'date', durum: 'text', notlar: 'text'}},
+  yukleme_sahalari: {ad: 'Yükleme sahaları', yetki: 'ortak', alan: {ad: 'text', adres: 'text', notlar: 'text'}},
+  dokum_sahalari: {ad: 'Döküm sahaları', yetki: 'ortak', alan: {ad: 'text', adres: 'text', sefer_ucreti: 'numeric', mesafe_km: 'numeric', notlar: 'text'}},
+  araclar: {ad: 'Araçlar', yetki: 'ref', alan: {kod: 'text', plaka: 'text', tip: 'text', marka_model: 'text', yil: 'int', sahiplik: 'text', sayac_tipi: 'text', sayac: 'numeric', bakim_araligi: 'numeric', son_bakim_sayac: 'numeric', saat_ucreti: 'numeric', durum: 'text', notlar: 'text'}},
+  personel: {ad: 'Personel', yetki: 'ref', alan: {ad: 'text', gorev: 'text', telefon: 'text', gunluk_ucret: 'numeric', mesai_ucreti: 'numeric', varsayilan_arac: 'uuid', varsayilan_santiye: 'uuid', aktif: 'bool', kullanici_adi: 'text', parola_hash: 'text'}},
+  seferler: {ad: 'Seferler', yetki: 'saha', alan: {tarih: 'date', saat: 'text', arac_id: 'uuid', personel_id: 'uuid', santiye_id: 'uuid', yukleme_id: 'uuid', dokum_id: 'uuid', yuk: 'text', ucret: 'numeric', fis_no: 'text', notlar: 'text', konum: 'text'}},
+  yakit: {ad: 'Yakıt', yetki: 'saha', alan: {tarih: 'date', arac_id: 'uuid', personel_id: 'uuid', litre: 'numeric', tutar: 'numeric', sayac: 'numeric', istasyon: 'text', tam_depo: 'bool', notlar: 'text'}},
+  puantaj: {ad: 'Puantaj', yetki: 'saha', alan: {tarih: 'date', personel_id: 'uuid', arac_id: 'uuid', santiye_id: 'uuid', saat: 'numeric', mesai: 'numeric', saat_ucreti: 'numeric', sayac_bas: 'numeric', sayac_bit: 'numeric', notlar: 'text', giris: 'text', cikis: 'text', mola_dk: 'int', konum_giris: 'text', konum_cikis: 'text'}},
+  bakim: {ad: 'Bakım & arıza', yetki: 'saha', alan: {tarih: 'date', arac_id: 'uuid', tip: 'text', sayac: 'numeric', aciklama: 'text', maliyet: 'numeric', durum: 'text', bildiren_id: 'uuid', konum: 'text'}},
+  hakedis: {ad: 'Hakedişler', yetki: 'ofis', alan: {no: 'text', santiye_id: 'uuid', musteri_id: 'uuid', donem_bas: 'date', donem_bit: 'date', kalemler: 'jsonb', ara_toplam: 'numeric', kdv_orani: 'numeric', tevkifat: 'text', kdv: 'numeric', toplam: 'numeric', fatura_no: 'text', fatura_tarihi: 'date', vade: 'date', durum: 'text', notlar: 'text'}},
+  tahsilat: {ad: 'Tahsilatlar', yetki: 'ofis', alan: {musteri_id: 'uuid', hakedis_id: 'uuid', tarih: 'date', tutar: 'numeric', yontem: 'text', aciklama: 'text'}},
+  /* Komuta modülleri (NexDrive Saha v1.1 ile aynı şema) */
+  arac_durum: {ad: 'Araç durum bildirimleri', yetki: 'saha', alan: {tarih: 'date', saat: 'text', arac_id: 'uuid', personel_id: 'uuid', durum: 'text', notlar: 'text', konum: 'text'}},
+  nakit_plan: {ad: 'Planlı ödemeler', yetki: 'ofis', alan: {tarih: 'date', aciklama: 'text', tip: 'text', tutar: 'numeric', tekrar: 'text', notlar: 'text'}},
+  asistan_bilgi: {ad: 'Asistan bilgileri', yetki: 'ofis', alan: {soru: 'text', cevap: 'text'}}
+};
+const SEMA_ORTAK = ['id', 'olusturan', 'olusturma', 'guncelleme', 'silindi'];
+const AYAR_ID = '00000000-0000-4000-8000-000000000001';
+/* Saha rolü ücret / fiyat görmez: araç ve iş listeleri ücret sütunu olmayan görünümlerden okunur,
+   personel tablosunda yalnızca kendi kartını görür */
+const SAHA_GORUNUM = {araclar: 'saha_araclar', santiyeler: 'saha_santiyeler'};
+const SAHA_GIZLI_ALAN = {araclar: ['saat_ucreti'], santiyeler: ['saat_ucreti']};
+const ROLLER = {yonetici: 'Yönetici', ofis: 'Ofis', saha: 'Saha (şoför / operatör)', beklemede: 'Onay bekliyor'};
+/* personel paneli girişi: kullanıcı adı, giriş e-postası ve parola özeti */
+const PERSONEL_ALAN = 'personel.nexdriveengineering.com.tr';
+const PKAD = s => String(s || '').trim().toLocaleLowerCase('tr').replace(/[çğıöşü]/g, c => ({ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u'}[c])).replace(/\s+/g, '.').replace(/[^a-z0-9._-]/g, '').replace(/\.{2,}/g, '.').replace(/^\.|\.$/g, '');
+const PEPOSTA = k => String(k || '').includes('@') ? String(k).trim().toLowerCase() : PKAD(k) + '@' + PERSONEL_ALAN;
+const SHA256 = m => {
+  const K = [], H = []; let n = 2, c = 0; const f = x => (x - Math.floor(x)) * 4294967296 | 0;
+  while (c < 64) {let p = true; for (let i = 2; i * i <= n; i++) if (n % i == 0) {p = false; break} if (p) {if (c < 8) H[c] = f(Math.pow(n, 1 / 2)); K[c++] = f(Math.pow(n, 1 / 3))} n++}
+  const b = [...new TextEncoder().encode(m)], l = b.length * 8; b.push(0x80); while (b.length % 64 != 56) b.push(0); for (let i = 7; i >= 0; i--) b.push(i > 3 ? 0 : (l >>> (i * 8)) & 255);
+  const r = (x, y) => (x >>> y) | (x << (32 - y));
+  for (let j = 0; j < b.length; j += 64) {
+    const w = []; for (let i = 0; i < 16; i++) w[i] = b[j + 4 * i] << 24 | b[j + 4 * i + 1] << 16 | b[j + 4 * i + 2] << 8 | b[j + 4 * i + 3];
+    for (let i = 16; i < 64; i++) {const s0 = r(w[i - 15], 7) ^ r(w[i - 15], 18) ^ (w[i - 15] >>> 3), s1 = r(w[i - 2], 17) ^ r(w[i - 2], 19) ^ (w[i - 2] >>> 10); w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0}
+    let [a, bb, cc, d, e, ff, g, h] = H;
+    for (let i = 0; i < 64; i++) {const t1 = (h + (r(e, 6) ^ r(e, 11) ^ r(e, 25)) + ((e & ff) ^ (~e & g)) + K[i] + w[i]) | 0, t2 = ((r(a, 2) ^ r(a, 13) ^ r(a, 22)) + ((a & bb) ^ (a & cc) ^ (bb & cc))) | 0; h = g; g = ff; ff = e; e = (d + t1) | 0; d = cc; cc = bb; bb = a; a = (t1 + t2) | 0}
+    [a, bb, cc, d, e, ff, g, h].forEach((v, i) => H[i] = (H[i] + v) | 0);
+  }
+  return H.map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
+};
+const PHASH = (kad, parola) => SHA256('nxsaha|' + kad + '|' + parola);
+
+
+/* Supabase SQL üretici (build.js tarafından kullanılır) */
+const SEMA_SQL = () => {
+  const tip = {text: 'text', numeric: 'numeric', int: 'integer', date: 'date', uuid: 'uuid', bool: 'boolean', jsonb: 'jsonb'};
+  let s = `-- NexDrive Saha · Supabase kurulum betiği\n-- NexDrive Engineering · Supabase panelinde SQL Editor'a yapıştırıp bir kez çalıştırın.\n-- Betik tekrar çalıştırılabilir (idempotent).\n\n`;
+  s += `create table if not exists public.kullanicilar (\n  id uuid primary key references auth.users(id) on delete cascade,\n  ad text,\n  eposta text,\n  rol text not null default 'beklemede' check (rol in ('yonetici','ofis','saha','beklemede')),\n  personel_id uuid,\n  olusturma timestamptz not null default now(),\n  guncelleme timestamptz not null default now(),\n  silindi boolean not null default false\n);\n\n`;
+  s += `-- Oturum açan kullanıcının rolü (RLS politikalarında kullanılır)\ncreate or replace function public.nx_rol() returns text\nlanguage sql stable security definer set search_path = public as $$\n  select rol from public.kullanicilar where id = auth.uid() and not silindi\n$$;\n\n`;
+  s += `-- Oturum açan kullanıcının eşlendiği personel kartı (saha kendi adına girilen kayıtları görür)\ncreate or replace function public.nx_personel() returns uuid\nlanguage sql stable security definer set search_path = public as $$\n  select personel_id from public.kullanicilar where id = auth.uid() and not silindi\n$$;\n\n`;
+  s += `-- Personel paneli hesabı: yönetici kullanıcı adı / parola belirler (pgcrypto)\ncreate extension if not exists pgcrypto with schema extensions;\ncreate or replace function public.nx_personel_hesap(p_personel uuid, p_eposta text, p_parola text, p_ad text) returns uuid\nlanguage plpgsql security definer set search_path = public, extensions as $$\ndeclare u uuid; r text;\nbegin\n  if public.nx_rol() is distinct from 'yonetici' then raise exception 'Parolayı yalnızca yönetici belirleyebilir'; end if;\n  p_eposta := lower(trim(p_eposta));\n  select id into u from public.kullanicilar where personel_id = p_personel and not silindi limit 1;\n  if u is null then select id into u from auth.users where lower(email) = p_eposta limit 1; end if;\n  if u is null then\n    if coalesce(p_parola,'') = '' then raise exception 'Yeni hesap için parola girin'; end if;\n    if exists (select 1 from auth.users where lower(email) = p_eposta) then raise exception 'Bu kullanıcı adı başka bir hesapta kullanılıyor'; end if;\n    u := gen_random_uuid();\n    -- e-posta doğrulaması gönderilmez: hesap doğrudan onaylı açılır\n    insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, reauthentication_token)\n      values ('00000000-0000-0000-0000-000000000000', u, 'authenticated', 'authenticated', p_eposta, crypt(p_parola, gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}'::jsonb, jsonb_build_object('ad', p_ad), now(), now(), '', '', '', '', '', '');\n    insert into auth.identities (id, user_id, provider_id, identity_data, provider, last_sign_in_at, created_at, updated_at)\n      values (gen_random_uuid(), u, u::text, jsonb_build_object('sub', u::text, 'email', p_eposta, 'email_verified', true), 'email', now(), now(), now());\n  end if;\n  select rol into r from public.kullanicilar where id = u;\n  if r in ('yonetici','ofis') then raise exception 'Bu kullanıcı adı bir ofis / yönetici hesabına ait'; end if;\n  if exists (select 1 from auth.users where lower(email) = p_eposta and id <> u) then raise exception 'Bu kullanıcı adı başka bir hesapta kullanılıyor'; end if;\n  update auth.users set email = p_eposta, encrypted_password = case when coalesce(p_parola,'') <> '' then crypt(p_parola, gen_salt('bf')) else encrypted_password end, email_confirmed_at = coalesce(email_confirmed_at, now()), confirmation_token = '', updated_at = now() where id = u;\n  update auth.identities set identity_data = identity_data || jsonb_build_object('email', p_eposta, 'email_verified', true) where user_id = u and provider = 'email';\n  insert into public.kullanicilar(id, ad, eposta, rol, personel_id) values (u, p_ad, p_eposta, 'saha', p_personel)\n    on conflict (id) do update set ad = excluded.ad, eposta = excluded.eposta, rol = 'saha', personel_id = excluded.personel_id, silindi = false;\n  update public.kullanicilar set personel_id = null where personel_id = p_personel and id <> u;\n  return u;\nend $$;\n\n`;
+  s += `-- İlk girişte kullanıcı kaydı: hiç yönetici yoksa ilk kullanıcı yönetici olur, diğerleri onay bekler\ncreate or replace function public.nx_giris(p_ad text) returns text\nlanguage plpgsql security definer set search_path = public as $$\ndeclare r text;\nbegin\n  if auth.uid() is null then raise exception 'oturum yok'; end if;\n  select rol into r from public.kullanicilar where id = auth.uid();\n  if r is not null then return r; end if;\n  if not exists (select 1 from public.kullanicilar where rol = 'yonetici' and not silindi) then r := 'yonetici'; else r := 'beklemede'; end if;\n  insert into public.kullanicilar(id, ad, eposta, rol) values (auth.uid(), p_ad, (select email from auth.users where id = auth.uid()), r);\n  return r;\nend $$;\n\n`;
+  s += `create or replace function public.nx_guncelleme() returns trigger language plpgsql as $$\nbegin new.guncelleme := now(); return new; end $$;\n\n`;
+  for (const [t, d] of Object.entries(SEMA)) {
+    s += `create table if not exists public.${t} (\n  id uuid primary key default gen_random_uuid(),\n  olusturan uuid default auth.uid(),\n  olusturma timestamptz not null default now(),\n  guncelleme timestamptz not null default now(),\n  silindi boolean not null default false`;
+    for (const [k, v] of Object.entries(d.alan)) s += `,\n  ${k} ${tip[v]}`;
+    s += `\n);\n`;
+    for (const [k, v] of Object.entries(d.alan)) s += `alter table public.${t} add column if not exists ${k} ${tip[v]};\n`;
+    s += `create index if not exists ${t}_guncelleme_ix on public.${t}(guncelleme);\n`;
+    if (d.alan.tarih) s += `create index if not exists ${t}_tarih_ix on public.${t}(tarih);\n`;
+    s += `drop trigger if exists ${t}_guncelleme_tg on public.${t};\ncreate trigger ${t}_guncelleme_tg before update on public.${t} for each row execute function public.nx_guncelleme();\n`;
+    s += `alter table public.${t} enable row level security;\n`;
+    ['oku', 'ekle', 'guncelle'].forEach(p => s += `drop policy if exists ${t}_${p} on public.${t};\n`);
+    if (d.yetki == 'ref') s += `create policy ${t}_oku on public.${t} for select to authenticated using (${t == 'personel' ? `public.nx_rol() in ('yonetici','ofis') or (public.nx_rol() = 'saha' and id = public.nx_personel())` : SAHA_GORUNUM[t] ? `public.nx_rol() in ('yonetici','ofis')` : `public.nx_rol() in ('yonetici','ofis','saha')`});\ncreate policy ${t}_ekle on public.${t} for insert to authenticated with check (public.nx_rol() in ('yonetici','ofis'));\ncreate policy ${t}_guncelle on public.${t} for update to authenticated using (public.nx_rol() in ('yonetici','ofis'));\n`;
+    if (d.yetki == 'saha') s += `create policy ${t}_oku on public.${t} for select to authenticated using (public.nx_rol() in ('yonetici','ofis') or (public.nx_rol() = 'saha' and (olusturan = auth.uid()${d.alan.personel_id ? ' or personel_id = public.nx_personel()' : d.alan.bildiren_id ? ' or bildiren_id = public.nx_personel()' : ''})));\ncreate policy ${t}_ekle on public.${t} for insert to authenticated with check (public.nx_rol() in ('yonetici','ofis') or (public.nx_rol() = 'saha' and olusturan = auth.uid()));\ncreate policy ${t}_guncelle on public.${t} for update to authenticated using (public.nx_rol() in ('yonetici','ofis') or (public.nx_rol() = 'saha' and olusturan = auth.uid()));\n`;
+    if (d.yetki == 'ortak') s += `create policy ${t}_oku on public.${t} for select to authenticated using (public.nx_rol() in ('yonetici','ofis','saha'));\ncreate policy ${t}_ekle on public.${t} for insert to authenticated with check (public.nx_rol() in ('yonetici','ofis','saha'));\ncreate policy ${t}_guncelle on public.${t} for update to authenticated using (public.nx_rol() in ('yonetici','ofis'));\n`;
+    if (d.yetki == 'ofis') s += `create policy ${t}_oku on public.${t} for select to authenticated using (public.nx_rol() in ('yonetici','ofis'));\ncreate policy ${t}_ekle on public.${t} for insert to authenticated with check (public.nx_rol() in ('yonetici','ofis'));\ncreate policy ${t}_guncelle on public.${t} for update to authenticated using (public.nx_rol() in ('yonetici','ofis'));\n`;
+    s += `\n`;
+  }
+  s += `-- Saha rolü fiyat görmez: araç ve iş listeleri ücret sütunları olmadan bu görünümlerden okunur\n`;
+  for (const [t, g] of Object.entries(SAHA_GORUNUM)) {
+    const kol = [...SEMA_ORTAK, ...Object.keys(SEMA[t].alan).filter(k => !(SAHA_GIZLI_ALAN[t] || []).includes(k))];
+    s += `drop view if exists public.${g};\ncreate view public.${g} as select ${kol.join(', ')} from public.${t} where public.nx_rol() in ('yonetici','ofis','saha');\nrevoke all on public.${g} from anon;\ngrant select on public.${g} to authenticated;\n\n`;
+  }
+  s += `-- kullanıcılar tablosu\ncreate index if not exists kullanicilar_guncelleme_ix on public.kullanicilar(guncelleme);\ndrop trigger if exists kullanicilar_guncelleme_tg on public.kullanicilar;\ncreate trigger kullanicilar_guncelleme_tg before update on public.kullanicilar for each row execute function public.nx_guncelleme();\nalter table public.kullanicilar enable row level security;\ndrop policy if exists kullanicilar_oku on public.kullanicilar;\ndrop policy if exists kullanicilar_guncelle on public.kullanicilar;\ncreate policy kullanicilar_oku on public.kullanicilar for select to authenticated using (id = auth.uid() or public.nx_rol() = 'yonetici');\ncreate policy kullanicilar_guncelle on public.kullanicilar for update to authenticated using (public.nx_rol() = 'yonetici');\n\n`;
+  s += `-- Silme işlemi yapılmaz; kayıtlar "silindi" işaretlenir (çevrimdışı eşitleme için).\ngrant usage on schema public to authenticated;\ngrant select, insert, update on all tables in schema public to authenticated;\ngrant execute on function public.nx_rol() to authenticated;\ngrant execute on function public.nx_personel() to authenticated;\ngrant execute on function public.nx_personel_hesap(uuid, text, text, text) to authenticated;\ngrant execute on function public.nx_giris(text) to authenticated;\nrevoke all on all tables in schema public from anon;\n`;
+  return s;
+};
+
+
+/* ===== NexDrive Saha · 10 · Veri katmanı: yerel depo (IndexedDB), çevrimdışı kuyruk, Supabase eşitleme ve oturum ===== */
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {const r = Math.random() * 16 | 0; return (c == 'x' ? r : (r & 3 | 8)).toString(16)}));
+const simdi = () => new Date().toISOString();
+const bugun = () => {const d = new Date(); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10)};
+
+const IDB = {
+  db: null,
+  ac() {return new Promise(res => {try {const r = indexedDB.open('nexdrive_saha', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => {IDB.db = r.result; res(true)}; r.onerror = r.onblocked = () => res(false)} catch (e) {res(false)}})},
+  al(k) {return new Promise(res => {if (!IDB.db) return res(IDB.yedek(k)); try {const q = IDB.db.transaction('kv').objectStore('kv').get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(undefined)} catch (e) {res(undefined)}})},
+  yaz(k, v) {return new Promise(res => {if (!IDB.db) {IDB.yedekYaz(k, v); return res()} try {const tx = IDB.db.transaction('kv', 'readwrite'); tx.objectStore('kv').put(v, k); tx.oncomplete = tx.onerror = () => res()} catch (e) {res()}})},
+  temizle() {return new Promise(res => {if (!IDB.db) {try {Object.keys(localStorage).filter(k => k.startsWith('nxsaha:')).forEach(k => localStorage.removeItem(k))} catch (e) {} return res()} const tx = IDB.db.transaction('kv', 'readwrite'); tx.objectStore('kv').clear(); tx.oncomplete = () => res()})},
+  yedek(k) {try {const v = localStorage.getItem('nxsaha:' + k); return v ? JSON.parse(v) : undefined} catch (e) {return undefined}},
+  yedekYaz(k, v) {try {localStorage.setItem('nxsaha:' + k, JSON.stringify(v))} catch (e) {}}
+};
+
+const VERI = {
+  t: {}, ix: {}, kuyruk: new Set(), hatalar: [],
+  ayar: {mod: 'yerel', url: '', anahtar: '', oturum: null, rol: 'yonetici', ad: 'Yerel kullanıcı', kullanici_id: null, imlec: {}, sonEsitleme: null, personel_id: ''},
+  dinleyici: [], _kirli: new Set(), _zaman: 0,
+  async hazirla() {
+    await IDB.ac();
+    const a = await IDB.al('ayar'); if (a) Object.assign(VERI.ayar, a);
+    for (const t of [...Object.keys(SEMA), 'kullanicilar']) {const r = await IDB.al('t:' + t); VERI.t[t] = Array.isArray(r) ? r : []; VERI.ix[t] = new Map(VERI.t[t].map(x => [x.id, x]))}
+    const k = await IDB.al('kuyruk'); VERI.kuyruk = new Set(Array.isArray(k) ? k : []);
+    VERI.hatalar = (await IDB.al('hatalar')) || [];
+  },
+  bulut() {return VERI.ayar.mod == 'bulut' && VERI.ayar.url && VERI.ayar.anahtar},
+  liste(t, silinmis = false) {return (VERI.t[t] || []).filter(r => silinmis || !r.silindi)},
+  al(t, id) {return id ? VERI.ix[t] && VERI.ix[t].get(id) : null},
+  ad(t, id, alan = 'ad') {const r = VERI.al(t, id); return r ? (r[alan] || r.kod || r.plaka || '') : ''},
+  ayarlarSatiri() {return VERI.al('ayarlar', AYAR_ID) || {id: AYAR_ID, firma_adi: '', kdv_orani: 20, hakedis_onek: 'HK'}},
+  /* tip dönüşümü: şemaya göre temiz satır */
+  temiz(t, r) {
+    const d = SEMA[t], o = {id: r.id, silindi: !!r.silindi, olusturan: r.olusturan || null, olusturma: r.olusturma || simdi()};
+    for (const [k, v] of Object.entries(d.alan)) {
+      let x = r[k];
+      if (v == 'numeric' || v == 'int') x = x === '' || x == null || !isFinite(+x) ? null : (v == 'int' ? Math.round(+x) : +x);
+      else if (v == 'uuid' || v == 'date') x = x ? String(x) : null;
+      else if (v == 'bool') x = !!x;
+      else if (v == 'jsonb') x = x == null || x === '' ? null : x;
+      else x = x == null ? null : String(x);
+      o[k] = x;
+    }
+    return o;
+  },
+  kaydet(t, r, sessiz) {
+    const yeni = !r.id || !VERI.ix[t].has(r.id);
+    const row = VERI.temiz(t, {...(yeni ? {} : VERI.ix[t].get(r.id)), ...r, id: r.id || uuid()});
+    if (yeni) {row.olusturan = row.olusturan || VERI.ayar.kullanici_id; row.olusturma = simdi()}
+    row.guncelleme = simdi(); row._yerel = 1;
+    if (VERI.ix[t].has(row.id)) {const i = VERI.t[t].findIndex(x => x.id == row.id); VERI.t[t][i] = row} else VERI.t[t].push(row);
+    VERI.ix[t].set(row.id, row);
+    if (VERI.bulut()) VERI.kuyruk.add(t + '|' + row.id);
+    VERI.kirli(t); if (!sessiz) VERI.yay(t);
+    return row;
+  },
+  sil(t, id) {const r = VERI.al(t, id); if (r) VERI.kaydet(t, {...r, silindi: true})},
+  toplu(t, satirlar) {satirlar.forEach(r => VERI.kaydet(t, r, true)); VERI.yay(t)},
+  kirli(t) {VERI._kirli.add(t); clearTimeout(VERI._zaman); VERI._zaman = setTimeout(VERI.diskeYaz, 400)},
+  async diskeYaz() {const k = [...VERI._kirli].filter(t => VERI.t[t]); VERI._kirli.clear(); for (const t of k) await IDB.yaz('t:' + t, VERI.t[t]); await IDB.yaz('kuyruk', [...VERI.kuyruk]); await IDB.yaz('ayar', VERI.ayar); await IDB.yaz('hatalar', VERI.hatalar)},
+  ayarKaydet() {return IDB.yaz('ayar', VERI.ayar)},
+  dinle(fn) {VERI.dinleyici.push(fn)},
+  yay(t) {VERI.dinleyici.forEach(f => {try {f(t)} catch (e) {console.error(e)}})},
+  async tumunuSil() {await IDB.temizle(); for (const t of Object.keys(VERI.t)) {VERI.t[t] = []; VERI.ix[t] = new Map()} VERI.kuyruk.clear(); VERI.hatalar = []; VERI.ayar.imlec = {}},
+  disaAktar() {const o = {surum: 1, tarih: simdi(), tablolar: {}}; for (const t of Object.keys(SEMA)) o.tablolar[t] = VERI.t[t]; return o},
+  birlestir(o) {for (const t of Object.keys(SEMA)) {if (t == 'ayarlar') continue; (o.tablolar[t] || []).forEach(r => VERI.kaydet(t, r, true))} VERI.yay('*')},
+  async iceAktar(o) {if (!o || !o.tablolar) throw new Error('Geçersiz yedek dosyası'); for (const t of Object.keys(SEMA)) {const L = (o.tablolar[t] || []).map(r => VERI.temiz(t, r)).map(r => ({...r, guncelleme: simdi()})); VERI.t[t] = L; VERI.ix[t] = new Map(L.map(x => [x.id, x])); if (VERI.bulut()) L.forEach(r => VERI.kuyruk.add(t + '|' + r.id)); VERI._kirli.add(t)} await VERI.diskeYaz(); VERI.yay('*')}
+};
+
+/* ---------------- Supabase (REST + Auth) ---------------- */
+const BULUT = {
+  durum: 'yerel', calisiyor: false, sonHata: '', eksik: [],
+  async istek(yol, o = {}, tekrar = true) {
+    const A = VERI.ayar; if (!navigator.onLine) throw new Error('çevrimdışı');
+    if (A.oturum && A.oturum.exp && Date.now() / 1000 > A.oturum.exp - 60 && yol.indexOf('/auth/') < 0) await BULUT.yenile();
+    const h = {apikey: A.anahtar, 'Content-Type': 'application/json', ...(o.headers || {})};
+    if (A.oturum && A.oturum.access) h.Authorization = 'Bearer ' + A.oturum.access;
+    const r = await fetch(A.url.replace(/\/+$/, '') + yol, {method: o.method || 'GET', headers: h, body: o.body ? JSON.stringify(o.body) : undefined});
+    if (r.status == 401 && tekrar && A.oturum && A.oturum.refresh && yol.indexOf('/auth/') < 0) {await BULUT.yenile(); return BULUT.istek(yol, o, false)}
+    const metin = await r.text(); let veri = null; try {veri = metin ? JSON.parse(metin) : null} catch (e) {veri = metin}
+    if (!r.ok) {const m = veri && (veri.message || veri.msg || veri.error_description || veri.error) || ('HTTP ' + r.status); const e = new Error(m); e.durum = r.status; throw e}
+    return veri;
+  },
+  async giris(eposta, sifre) {
+    const v = await BULUT.istek('/auth/v1/token?grant_type=password', {method: 'POST', body: {email: eposta, password: sifre}});
+    BULUT.oturumYaz(v); const A = VERI.ayar; A.ad = A.ad && A.ad != 'Yerel kullanıcı' ? A.ad : eposta.split('@')[0];
+    A.rol = await BULUT.istek('/rest/v1/rpc/nx_giris', {method: 'POST', body: {p_ad: A.ad}});
+    await VERI.ayarKaydet(); return A.rol;
+  },
+  oturumYaz(v) {const A = VERI.ayar; A.oturum = {access: v.access_token, refresh: v.refresh_token, exp: Math.floor(Date.now() / 1000) + (v.expires_in || 3600), eposta: v.user && v.user.email}; A.kullanici_id = v.user && v.user.id || A.kullanici_id},
+  async yenile() {
+    const A = VERI.ayar; if (!A.oturum || !A.oturum.refresh) throw new Error('oturum yok');
+    try {const v = await BULUT.istek('/auth/v1/token?grant_type=refresh_token', {method: 'POST', body: {refresh_token: A.oturum.refresh}}); BULUT.oturumYaz(v); await VERI.ayarKaydet()}
+    catch (e) {if (e.durum == 400 || e.durum == 401) {A.oturum = null; await VERI.ayarKaydet(); UI && UI.oturumDustu && UI.oturumDustu()} throw e}
+  },
+  async cikis() {const A = VERI.ayar; try {await BULUT.istek('/auth/v1/logout', {method: 'POST'})} catch (e) {} A.oturum = null; A.imlec = {}; await VERI.ayarKaydet()},
+  tablolar() {const r = VERI.ayar.rol; if (r == 'beklemede' || !r) return []; if (r == 'saha') return [...Object.keys(SEMA).filter(t => SEMA[t].yetki != 'ofis'), 'kullanicilar']; return [...Object.keys(SEMA), 'kullanicilar']},
+  async gonder() {
+    const gruplar = {}; for (const k of VERI.kuyruk) {const [t, id] = k.split('|'); (gruplar[t] = gruplar[t] || []).push(id)}
+    let n = 0;
+    for (const [t, ids] of Object.entries(gruplar)) {
+      for (let i = 0; i < ids.length; i += 400) {
+        const parca = ids.slice(i, i + 400), satir = parca.map(id => VERI.al(t, id)).filter(Boolean).map(r => {const o = VERI.temiz(t, r); if (!o.olusturan) o.olusturan = VERI.ayar.kullanici_id; return o});
+        try {if (satir.length) await BULUT.istek('/rest/v1/' + t + '?on_conflict=id', {method: 'POST', body: satir, headers: {Prefer: 'resolution=merge-duplicates,return=minimal'}}); parca.forEach(id => VERI.kuyruk.delete(t + '|' + id)); n += satir.length}
+        catch (e) {
+          if (e.message == 'çevrimdışı' || !e.durum || e.durum >= 500 || e.durum == 401) throw e;
+          /* tek tek dene, hatalıları ayır */
+          for (const r of satir) {try {await BULUT.istek('/rest/v1/' + t + '?on_conflict=id', {method: 'POST', body: [r], headers: {Prefer: 'resolution=merge-duplicates,return=minimal'}}); n++} catch (e2) {if (!e2.durum || e2.durum >= 500) throw e2; VERI.hatalar.push({t, id: r.id, mesaj: e2.message, zaman: simdi()})} VERI.kuyruk.delete(t + '|' + r.id)}
+        }
+      }
+    }
+    return n;
+  },
+  async cek() {
+    let n = 0; BULUT.eksik = [];
+    for (const t of BULUT.tablolar()) {
+      if (!VERI.t[t]) {VERI.t[t] = []; VERI.ix[t] = new Map()}
+      let imlec = VERI.ayar.imlec[t] || '1970-01-01T00:00:00Z', off = 0;
+      const bas = imlec;
+      for (;;) {
+        let L; try {L = await BULUT.istek(`/rest/v1/${t}?select=*&guncelleme=gt.${encodeURIComponent(bas)}&order=guncelleme.asc,id.asc&limit=1000&offset=${off}`)} catch (e) {if (e.durum == 404 || e.durum == 400) {BULUT.eksik.push(t); break} throw e}
+        for (const r of L) {
+          if (VERI.kuyruk.has(t + '|' + r.id)) continue; /* yerel değişiklik öncelikli */
+          if (VERI.ix[t].has(r.id)) {const i = VERI.t[t].findIndex(x => x.id == r.id); VERI.t[t][i] = r} else VERI.t[t].push(r);
+          VERI.ix[t].set(r.id, r); if (r.guncelleme > imlec) imlec = r.guncelleme; n++;
+        }
+        if (L.length) VERI._kirli.add(t);
+        if (L.length < 1000) break; off += 1000;
+      }
+      VERI.ayar.imlec[t] = imlec;
+    }
+    return n;
+  },
+  async esitle(sessiz) {
+    if (!VERI.bulut() || BULUT.calisiyor) return; if (!VERI.ayar.oturum) {BULUT.durum = 'oturum'; UI.durum(); return}
+    if (!navigator.onLine) {BULUT.durum = 'cevrimdisi'; UI.durum(); return}
+    BULUT.calisiyor = true; BULUT.durum = 'esitleniyor'; UI.durum();
+    try {
+      const eskiRol = VERI.ayar.rol;
+      try {VERI.ayar.rol = await BULUT.istek('/rest/v1/rpc/nx_giris', {method: 'POST', body: {p_ad: VERI.ayar.ad}})} catch (e) {if (e.durum == 401) throw e}
+      const g = await BULUT.gonder(), c = await BULUT.cek();
+      const ben = VERI.al('kullanicilar', VERI.ayar.kullanici_id); if (ben) {if (ben.ad) VERI.ayar.ad = ben.ad; VERI.ayar.personel_id = ben.personel_id || VERI.ayar.personel_id}
+      if (eskiRol != VERI.ayar.rol) setTimeout(() => UI.rolDegisti && UI.rolDegisti(), 0);
+      VERI.ayar.sonEsitleme = simdi(); BULUT.durum = 'tamam'; BULUT.sonHata = BULUT.eksik.length ? 'Sunucuda eksik tablo (' + BULUT.eksik.join(', ') + ') — Ayarlar → Bulut → kurulum betiğini yeniden çalıştırın' : ''; await VERI.diskeYaz();
+      if (c) VERI.yay('*'); if (!sessiz && (g || c)) UI.bildir(`Eşitlendi · ${g} gönderildi, ${c} alındı`);
+    } catch (e) {BULUT.durum = e.message == 'çevrimdışı' ? 'cevrimdisi' : 'hata'; BULUT.sonHata = e.message; await VERI.diskeYaz()}
+    BULUT.calisiyor = false; UI.durum();
+  },
+  baslat() {setInterval(() => BULUT.esitle(true), 30000); addEventListener('online', () => BULUT.esitle(true)); addEventListener('offline', () => {BULUT.durum = 'cevrimdisi'; UI.durum()})}
+};
+
+/* ===== NexDrive Saha · 20 · İş hesapları: gelir, yakıt verimi, bakım, puantaj, hakediş, alacak yaşlandırma, örnek veri ===== */
+const N = (v, d = 0) => {v = +v; return isFinite(v) ? v : d};
+const para = (x, kurus = true) => N(x).toLocaleString('tr-TR', {style: 'currency', currency: 'TRY', minimumFractionDigits: kurus ? 2 : 0, maximumFractionDigits: kurus ? 2 : 0});
+const sayi = (x, d = 0) => N(x).toLocaleString('tr-TR', {maximumFractionDigits: d, minimumFractionDigits: 0});
+const tarihTR = s => s ? new Date(s + (s.length == 10 ? 'T12:00:00' : '')).toLocaleDateString('tr-TR') : '';
+const gunEkle = (s, n) => {const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10)};
+const gunFark = (a, b) => Math.round((new Date(a + 'T12:00:00') - new Date(b + 'T12:00:00')) / 864e5);
+const ayBasi = (s = bugun()) => s.slice(0, 8) + '01';
+const ARAC_TIP = {kamyon: 'Damperli kamyon', ekskavator: 'Ekskavatör', loder: 'Loder', dozer: 'Dozer', beko: 'Bekoloder', silindir: 'Silindir', greyder: 'Greyder', diger: 'Diğer'};
+const ISMAKINESI = t => t && t != 'kamyon';
+
+const HESAP = {
+  donem(rows, bas, bit) {return rows.filter(r => (!bas || r.tarih >= bas) && (!bit || r.tarih <= bit))},
+  /* kazanç saatliktir: kayda özel ücret > işin (şantiyenin) saat ücreti > aracın saat ücreti */
+  saatUcreti(p) {const st = VERI.al('santiyeler', p.santiye_id), a = VERI.al('araclar', p.arac_id); return N(p.saat_ucreti) || (st ? N(st.saat_ucreti) : 0) || (a ? N(a.saat_ucreti) : 0)},
+  calismaSaat(p) {return N(p.saat) + N(p.mesai)},
+  calismaGelir(p) {return p.arac_id ? HESAP.calismaSaat(p) * HESAP.saatUcreti(p) : 0},
+  seferGelir(s) {return N(s.ucret)},
+  seferGider(s) {const d = VERI.al('dokum_sahalari', s.dokum_id); return d ? N(d.sefer_ucreti) : 0},
+  /* yakıt verimi: ardışık sayaç okumaları arası tüketim */
+  yakitAnaliz() {
+    const sonuc = {};
+    for (const a of VERI.liste('araclar')) {
+      const L = VERI.liste('yakit').filter(y => y.arac_id == a.id && N(y.sayac) > 0).sort((x, y) => N(x.sayac) - N(y.sayac) || (x.tarih < y.tarih ? -1 : 1));
+      const tamVar = L.some(y => y.tam_depo), aralik = [];
+      let onceki = null, birikim = 0;
+      for (const y of L) {
+        if (onceki == null) {if (!tamVar || y.tam_depo) onceki = y; continue}
+        birikim += N(y.litre);
+        if (!tamVar || y.tam_depo) {const d = N(y.sayac) - N(onceki.sayac); if (d > 0) {const oran = a.sayac_tipi == 'km' ? birikim / d * 100 : birikim / d; aralik.push({y, oran, fark: d, litre: birikim})} onceki = y; birikim = 0}
+      }
+      const s = aralik.map(x => x.oran).sort((p, q) => p - q), med = s.length ? s[Math.floor(s.length / 2)] : null;
+      aralik.forEach(x => x.anomali = med != null && s.length >= 3 && x.oran > med * 1.3);
+      const top = VERI.liste('yakit').filter(y => y.arac_id == a.id);
+      sonuc[a.id] = {arac: a, birim: a.sayac_tipi == 'km' ? 'L/100 km' : 'L/saat', med, aralik, toplamLitre: top.reduce((t, y) => t + N(y.litre), 0), toplamTutar: top.reduce((t, y) => t + N(y.tutar), 0)};
+    }
+    return sonuc;
+  },
+  sayac(a) {let m = N(a.sayac); VERI.liste('yakit').forEach(y => {if (y.arac_id == a.id) m = Math.max(m, N(y.sayac))}); VERI.liste('puantaj').forEach(p => {if (p.arac_id == a.id) m = Math.max(m, N(p.sayac_bit))}); VERI.liste('bakim').forEach(b => {if (b.arac_id == a.id) m = Math.max(m, N(b.sayac))}); return m},
+  bakimDurum(a) {
+    const s = HESAP.sayac(a), ar = N(a.bakim_araligi), son = N(a.son_bakim_sayac), sonraki = ar ? son + ar : null, kalan = sonraki != null ? sonraki - s : null;
+    const ariza = VERI.liste('bakim').filter(b => b.arac_id == a.id && b.tip == 'ariza' && b.durum != 'kapandi');
+    const d = ariza.length ? 'arizali' : kalan == null ? 'tanimsiz' : kalan < 0 ? 'gecikti' : kalan < ar * .1 ? 'yakin' : 'normal';
+    return {sayac: s, sonraki, kalan, durum: d, ariza};
+  },
+  puantajAy(ay) { /* ay: 'YYYY-MM' */
+    const [y, m] = ay.split('-').map(Number), gun = new Date(y, m, 0).getDate(), bas = ay + '-01', bit = ay + '-' + String(gun).padStart(2, '0'), P = HESAP.donem(VERI.liste('puantaj'), bas, bit);
+    const satir = VERI.liste('personel').filter(p => p.aktif !== false || P.some(x => x.personel_id == p.id)).map(p => {
+      const g = Array(gun).fill(0), mz = Array(gun).fill(0); P.filter(x => x.personel_id == p.id).forEach(x => {const i = +x.tarih.slice(8) - 1; g[i] += N(x.saat); mz[i] += N(x.mesai)});
+      const gunSay = g.filter(v => v > 0).length, saat = g.reduce((a, b) => a + b, 0), mesai = mz.reduce((a, b) => a + b, 0);
+      return {p, g, mz, gunSay, saat, mesai, tahakkuk: gunSay * N(p.gunluk_ucret) + mesai * N(p.mesai_ucreti)};
+    });
+    return {gun, satir, bas, bit};
+  },
+  TEVKIFAT: {yok: 0, '2/10': .2, '3/10': .3, '4/10': .4, '5/10': .5, '7/10': .7, '9/10': .9},
+  hakedisOlustur(santiye_id, bas, bit) {
+    const st = VERI.al('santiyeler', santiye_id); if (!st) return null;
+    const kal = [], mk = {}, sg = {};
+    HESAP.donem(VERI.liste('seferler'), bas, bit).filter(s => s.santiye_id == santiye_id).forEach(s => {const y = String(s.yuk || '').trim() || 'Malzeme', u = N(s.ucret), k = y.toLocaleLowerCase('tr') + '|' + u; sg[k] = sg[k] || {y, u, n: 0}; sg[k].n++});
+    Object.values(sg).sort((a, b) => a.y.localeCompare(b.y, 'tr') || a.u - b.u).forEach(({y, u, n}) => kal.push({aciklama: `${y} taşıma (damperli kamyon seferi)`, miktar: n, birim: 'sefer', birim_fiyat: u, tutar: +(n * u).toFixed(2)}));
+    HESAP.donem(VERI.liste('puantaj'), bas, bit).filter(p => p.santiye_id == santiye_id && p.arac_id).forEach(p => {const a = VERI.al('araclar', p.arac_id); if (!a) return; const u = HESAP.saatUcreti(p), k = a.id + '|' + u; mk[k] = mk[k] || {a, u, saat: 0}; mk[k].saat += HESAP.calismaSaat(p)});
+    Object.values(mk).filter(x => x.saat > 0).sort((x, y) => String(x.a.kod || '').localeCompare(String(y.a.kod || ''), 'tr', {numeric: true}) || x.u - y.u).forEach(({a, u, saat}) => kal.push({aciklama: `${ARAC_TIP[a.tip] || a.tip || 'Araç'} çalışması (${[a.kod, a.plaka || a.marka_model].filter(Boolean).join(' · ')})`, miktar: +saat.toFixed(1), birim: 'saat', birim_fiyat: u, tutar: +(saat * u).toFixed(2)}));
+    const ay = VERI.ayarlarSatiri(), no = (ay.hakedis_onek || 'HK') + '-' + bit.slice(0, 7).replace('-', '') + '-' + String(VERI.liste('hakedis').length + 1).padStart(3, '0');
+    const mus = VERI.al('musteriler', st.musteri_id), h = {no, santiye_id, musteri_id: st.musteri_id, donem_bas: bas, donem_bit: bit, kalemler: kal, kdv_orani: N(ay.kdv_orani, 20), tevkifat: 'yok', durum: 'taslak', vade: gunEkle(bit, N(mus && mus.vade_gun, 30))};
+    return HESAP.hakedisToplam(h);
+  },
+  hakedisToplam(h) {const ara = (h.kalemler || []).reduce((t, k) => t + N(k.tutar), 0), kdv = ara * N(h.kdv_orani) / 100, tev = kdv * (HESAP.TEVKIFAT[h.tevkifat] || 0); h.ara_toplam = +ara.toFixed(2); h.kdv = +(kdv - tev).toFixed(2); h.toplam = +(ara + kdv - tev).toFixed(2); h._tevkif = +tev.toFixed(2); return h},
+  hakedisCakisma(h) {return VERI.liste('hakedis').filter(x => x.id != h.id && x.santiye_id == h.santiye_id && x.durum != 'iptal' && !(x.donem_bit < h.donem_bas || x.donem_bas > h.donem_bit))},
+  /* müşteri bazında alacak: tahsilatlar vadesi en eski hakedişe dağıtılır (FIFO) */
+  alacak(musteri_id) {
+    const H = VERI.liste('hakedis').filter(h => h.musteri_id == musteri_id && ['onaylandi', 'faturalandi', 'kismi', 'odendi'].includes(h.durum)).sort((a, b) => (a.vade || '').localeCompare(b.vade || '')), T = VERI.liste('tahsilat').filter(t => t.musteri_id == musteri_id);
+    let havuz = T.reduce((s, t) => s + N(t.tutar), 0); const toplamT = havuz;
+    const satir = H.map(h => {const k = Math.min(N(h.toplam), havuz); havuz -= k; return {h, odenen: k, kalan: +(N(h.toplam) - k).toFixed(2), gecikme: h.vade ? gunFark(bugun(), h.vade) : 0}});
+    const kova = {gelmemis: 0, g30: 0, g60: 0, g90: 0, g90p: 0}; satir.forEach(s => {if (s.kalan <= .005) return; const g = s.gecikme; if (g <= 0) kova.gelmemis += s.kalan; else if (g <= 30) kova.g30 += s.kalan; else if (g <= 60) kova.g60 += s.kalan; else if (g <= 90) kova.g90 += s.kalan; else kova.g90p += s.kalan});
+    const borc = H.reduce((s, h) => s + N(h.toplam), 0);
+    return {satir, kova, borc, tahsil: toplamT, bakiye: +(borc - toplamT).toFixed(2), fazla: havuz > .005 ? havuz : 0};
+  },
+  ozet(bas, bit) {
+    const S = HESAP.donem(VERI.liste('seferler'), bas, bit), Y = HESAP.donem(VERI.liste('yakit'), bas, bit), P = HESAP.donem(VERI.liste('puantaj'), bas, bit);
+    const gelir = P.reduce((t, p) => t + HESAP.calismaGelir(p), 0) + S.reduce((t, s) => t + HESAP.seferGelir(s), 0), saat = P.filter(p => p.arac_id).reduce((t, p) => t + HESAP.calismaSaat(p), 0), dokum = S.reduce((t, s) => t + HESAP.seferGider(s), 0), yakit = Y.reduce((t, y) => t + N(y.tutar), 0), iscilik = P.reduce((t, p) => {const ps = VERI.al('personel', p.personel_id); return t + (ps ? (N(p.saat) > 0 ? N(ps.gunluk_ucret) : 0) + N(p.mesai) * N(ps.mesai_ucreti) : 0)}, 0);
+    return {sefer: S.length, saat, litre: Y.reduce((t, y) => t + N(y.litre), 0), gelir, dokum, yakit, iscilik, katki: gelir - dokum - yakit - iscilik};
+  }
+};
+
+
+/* ===== NexDrive Saha · 30 · Arayüz çekirdeği: iskelet, yönlendirme, tablo, form, pencere, bildirim ===== */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const LOGO = (koyuZemin = true, yuk = 26) => `<svg viewBox="4 3 482 140" style="height:${yuk}px" aria-label="NexDrive Engineering"><path fill="${koyuZemin ? '#e9f2f7' : '#0d1d2b'}" d="${NX_LOGO.a}"/><path fill="#3fc1c6" d="${NX_LOGO.x}"/></svg>`;
+const IKON = {
+  panel: 'M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z',
+  sefer: 'M2 15V7h11v8M13 10h4l3 3v2h-7M5.5 18.5a1.5 1.5 0 1 0 0-.01M16.5 18.5a1.5 1.5 0 1 0 0-.01M2 15h1.5M8 15h7',
+  yakit: 'M4 20V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v15M3 20h11M6 8h5M13 9h2l2 2v6a1.5 1.5 0 0 0 3 0V8l-3-3',
+  makine: 'M14.5 6.5a4 4 0 0 0-5.3 5L4 16.7 7.3 20l5.2-5.2a4 4 0 0 0 5-5.3l-2.4 2.4-2.6-.7-.7-2.6z',
+  puantaj: 'M4 6h16v14H4zM4 10h16M8 3v5M16 3v5M8 14h2M12 14h2M16 14h0M8 17h2M12 17h2',
+  hakedis: 'M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 15h7M9 18h4',
+  alacak: 'M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 7l12-4 1 4M16 13.5h2',
+  tanim: 'M8 6h12M8 12h12M8 18h12M4 6h0M4 12h0M4 18h0',
+  ayar: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z',
+  saha: 'M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM11 18h2'
+};
+const ikon = (k, b = 18) => `<svg width="${b}" height="${b}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${IKON[k] || ''}"/></svg>`;
+
+/* sabit etiketler */
+const GOREV = {sofor: 'Şoför', operator: 'Operatör', santiye_sefi: 'Şantiye şefi', yardimci: 'Yardımcı', ofis: 'Ofis', diger: 'Diğer'};
+const HK_DURUM = {taslak: ['Taslak', ''], onaylandi: ['Onaylandı', 'c'], faturalandi: ['Faturalandı', 'a'], kismi: ['Kısmi ödendi', 'a'], odendi: ['Ödendi', 'g'], iptal: ['İptal', 'r']};
+const BAKIM_DURUM = {arizali: ['Arızalı', 'r'], gecikti: ['Bakım gecikti', 'r'], yakin: ['Bakım yaklaştı', 'a'], normal: ['Normal', 'g'], tanimsiz: ['Bakım aralığı yok', '']};
+const YONTEM = {havale: 'Havale / EFT', nakit: 'Nakit', cek: 'Çek', senet: 'Senet', mahsup: 'Mahsup', diger: 'Diğer'};
+const etiket = (m, k) => {const e = m[k] || [k || '—', '']; return `<span class="et ${e[1]}">${esc(e[0])}</span>`};
+
+/* seçim listeleri */
+const aracAd = a => a ? (a.kod || '') + (a.plaka ? ' · ' + a.plaka : a.marka_model ? ' · ' + a.marka_model : '') : '';
+const SEC = {
+  sirala: (L, k = 'ad') => L.slice().sort((a, b) => String(a[k] || '').localeCompare(String(b[k] || ''), 'tr')),
+  musteri: () => SEC.sirala(VERI.liste('musteriler')).map(r => [r.id, r.ad]),
+  santiye: (hepsi) => SEC.sirala(VERI.liste('santiyeler').filter(s => hepsi || s.durum != 'bitti')).map(r => [r.id, r.ad]),
+  yukleme: () => SEC.sirala(VERI.liste('yukleme_sahalari')).map(r => [r.id, r.ad]),
+  dokum: () => SEC.sirala(VERI.liste('dokum_sahalari')).map(r => [r.id, r.ad]),
+  arac: (f) => SEC.sirala(VERI.liste('araclar').filter(a => (!f || f(a)) && a.durum != 'satildi'), 'kod').map(a => [a.id, aracAd(a)]),
+  personel: (f) => SEC.sirala(VERI.liste('personel').filter(p => p.aktif !== false && (!f || f(p)))).map(p => [p.id, p.ad + (p.gorev ? ' · ' + (GOREV[p.gorev] || p.gorev) : '')]),
+  nesne: o => Object.entries(o).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
+};
+
+/* yük cinsleri ve sefer başı ücret */
+const YUKLER = () => {const g = new Map(); ['Hafriyat', 'Toprak', 'Taş', 'Kaya', 'Kum', 'Çakıl', 'Mıcır', 'Stabilize', 'Moloz', 'Dolgu malzemesi', 'Asfalt kazıntısı', 'Beton atığı', ...VERI.liste('seferler').map(s => s.yuk)].filter(Boolean).forEach(x => {const k = String(x).trim().toLocaleLowerCase('tr'); if (k && !g.has(k)) g.set(k, String(x).trim())}); return [...g.values()]};
+const SON_UCRET = (yuk, santiye_id) => {yuk = String(yuk || '').trim().toLocaleLowerCase('tr'); if (!yuk) return null; const L = VERI.liste('seferler').filter(s => String(s.yuk || '').trim().toLocaleLowerCase('tr') == yuk && N(s.ucret) > 0).sort((a, b) => (b.tarih + (b.saat || '')).localeCompare(a.tarih + (a.saat || ''))); const x = L.find(s => s.santiye_id == santiye_id) || L[0]; return x ? N(x.ucret) : null};
+/* kayıt girerken yeni yükleme / döküm sahası ekleme */
+const YENI_ETIKET = {yukleme_sahalari: 'yükleme sahası', dokum_sahalari: 'döküm sahası'};
+const YENI_SAHA = (t, ad) => {ad = String(ad || '').trim(); if (!ad) return null; const v = VERI.liste(t).find(x => String(x.ad || '').toLocaleLowerCase('tr') == ad.toLocaleLowerCase('tr')); if (v) return v; const k = VERI.kaydet(t, {ad}); UI.bildir(`“${ad}” ${YENI_ETIKET[t] || 'kayıt'} olarak eklendi`); return k};
+
+const UI = {
+  sayfalar: {}, aktif: '', param: '', hal: {}, _yenileZ: 0, _bekleyen: false,
+  sayfa(ad, tanim) {UI.sayfalar[ad] = tanim},
+  /* ---------- bildirim & durum ---------- */
+  bildir(m, sure = 2600) {const b = $('#bil'); b.textContent = m; b.style.display = 'block'; clearTimeout(UI._bz); UI._bz = setTimeout(() => b.style.display = 'none', sure)},
+  durumBilgi() {
+    const k = VERI.kuyruk.size, A = VERI.ayar;
+    if (!VERI.bulut()) return {c: '', m: 'Yerel mod', u: 'Veriler yalnızca bu cihazda. Ayarlar → Bulut bağlantısı ile ofis ve saha aynı veriyi görür.'};
+    const s = {esitleniyor: ['c', 'Eşitleniyor…'], tamam: ['g', k ? `${k} kayıt bekliyor` : 'Eşitlendi'], cevrimdisi: ['a', `Çevrimdışı${k ? ' · ' + k + ' bekliyor' : ''}`], hata: ['r', 'Eşitleme hatası'], oturum: ['r', 'Oturum gerekli']}[BULUT.durum] || ['a', k ? `${k} kayıt bekliyor` : 'Bağlanıyor'];
+    const zaman = A.sonEsitleme ? new Date(A.sonEsitleme).toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'}) : '—';
+    return {c: s[0], m: s[1], u: `Son eşitleme: ${zaman}${BULUT.sonHata ? ' · ' + BULUT.sonHata : ''}${VERI.hatalar.length ? ' · ' + VERI.hatalar.length + ' kayıt reddedildi' : ''}`};
+  },
+  durum() {const d = UI.durumBilgi(); $$('.dur').forEach(el => {el.title = d.u; el.innerHTML = `<i class="led ${d.c}"></i><span>${esc(d.m)}</span>`})},
+  durumTik() {if (VERI.bulut()) {BULUT.esitle(); UI.bildir('Eşitleme başlatıldı')} else if (VERI.ayar.rol != 'saha') UI.git('ayarlar/bulut')},
+  oturumDustu() {UI.bildir('Oturum süresi doldu, lütfen tekrar giriş yapın', 4000); UI.ekran()},
+  /* ---------- pencere ---------- */
+  ac({baslik, govde, butonlar = [], genis = false}) {
+    $('#penB').textContent = baslik; $('#penI').innerHTML = govde; const A = $('#penA'); A.innerHTML = '';
+    $('#pen .kutu').style.width = genis ? 'min(980px,100%)' : '';
+    butonlar.forEach(b => {const x = document.createElement('button'); x.className = 'btn ' + (b.sinif || ''); x.textContent = b.ad; if (b.sol) x.style.marginRight = 'auto'; x.onclick = async () => {try {const r = await b.fn(); if (r !== false) UI.kapat()} catch (e) {UI.bildir(e.message, 4000)}}; A.appendChild(x)});
+    if (!butonlar.length) A.innerHTML = '<button class="btn" onclick="UI.kapat()">Kapat</button>';
+    $('#pen').style.display = 'flex'; const ilk = $('#penI input:not([type=checkbox]),#penI select,#penI textarea'); if (ilk && innerWidth > 760) setTimeout(() => ilk.focus(), 30);
+  },
+  kapat() {$('#pen').style.display = 'none'; $('#penI').innerHTML = ''; if (UI._bekleyen) UI.yenile()},
+  acik() {return $('#pen').style.display == 'flex'},
+  onay(m, fn, ad = 'Evet, sil') {UI.ac({baslik: 'Emin misiniz?', govde: `<p>${m}</p>`, butonlar: [{ad: 'Vazgeç', fn: () => {}}, {ad, sinif: 'r', fn}]})},
+  /* ---------- form ---------- */
+  formHTML(alanlar, r = {}, on = 'f') {
+    return `<div class="form">${alanlar.map(a => {
+      if (a.ara) return `<div class="tam" style="grid-column:1/-1;font:600 12px var(--fh);letter-spacing:.12em;color:var(--mu);margin-top:4px">${esc(a.ara)}</div>`;
+      const id = on + '_' + a.k, v = r[a.k] ?? (typeof a.vars == 'function' ? a.vars() : a.vars) ?? '', zr = a.z ? ' *' : '';
+      let g;
+      if (a.t == 'sec') {const s = typeof a.s == 'function' ? a.s(r) : a.s; g = `<select id="${id}"${a.ekle ? ` data-ekle="${a.ekle}"` : ''}>${a.bos !== false ? `<option value="">${esc(a.bos || '— seçin —')}</option>` : ''}${s.map(([k, l]) => `<option value="${esc(k)}"${String(k) == String(v) ? ' selected' : ''}>${esc(l)}</option>`).join('')}${a.ekle ? '<option value="__yeni__">+ Yeni ekle…</option>' : ''}</select>`}
+      else if (a.t == 'alan') g = `<textarea id="${id}" rows="${a.satir || 3}" placeholder="${esc(a.ph || '')}">${esc(v)}</textarea>`;
+      else if (a.t == 'onay') return `<label class="ck${a.tam ? ' tam' : ''}"><input type="checkbox" id="${id}"${v === true || v === 'true' || (v === '' && a.vars) ? ' checked' : ''}> ${esc(a.ad)}</label>`;
+      else g = `<input id="${id}" type="${{num: 'number', date: 'date', time: 'time', tel: 'tel', email: 'email', sifre: 'password'}[a.t] || 'text'}"${a.t == 'num' ? ` step="${a.adim || 'any'}" inputmode="decimal"` : ''} value="${esc(v)}" placeholder="${esc(a.ph || '')}"${a.t == 'sifre' ? ' autocomplete="new-password"' : ''}${a.liste ? ` list="${id}_l"` : ''}>${a.liste ? `<datalist id="${id}_l">${a.liste().map(x => `<option value="${esc(x)}">`).join('')}</datalist>` : ''}`;
+      return `<label class="${a.tam ? 'tam' : ''}">${esc(a.ad)}${zr}${g}${a.not ? `<small class="not">${esc(a.not)}</small>` : ''}</label>`;
+    }).join('')}</div>`;
+  },
+  formOku(alanlar, on = 'f') {
+    const o = {};
+    for (const a of alanlar) {
+      if (a.ara) continue; const el = document.getElementById(on + '_' + a.k); if (!el) continue;
+      let v = a.t == 'onay' ? el.checked : el.value.trim(); if (v === '__yeni__') v = '';
+      if (a.t == 'num' && v !== '') {v = +String(v).replace(',', '.'); if (!isFinite(v)) {el.focus(); throw new Error(`"${a.ad}" geçerli bir sayı olmalı`)} if (a.min != null && v < a.min) {el.focus(); throw new Error(`"${a.ad}" en az ${a.min} olmalı`)}}
+      if (a.z && (v === '' || v == null)) {el.focus(); throw new Error(`"${a.ad}" boş bırakılamaz`)}
+      o[a.k] = v;
+    }
+    return o;
+  },
+  /* genel kayıt düzenleyici */
+  duzenle(t, r, alanlar, o = {}) {
+    const yeni = !r || !r.id; r = r || {};
+    const butonlar = [];
+    if (!yeni && o.sil !== false) butonlar.push({ad: 'Sil', sinif: 'r', sol: true, fn: () => {UI.onay(`Bu kayıt silinecek${o.silNot ? ' — ' + o.silNot : ''}.`, () => {VERI.sil(t, r.id); UI.bildir('Silindi')}); return false}});
+    butonlar.push({ad: 'Vazgeç', fn: () => {}});
+    butonlar.push({ad: yeni ? 'Kaydet' : 'Güncelle', sinif: 'p', fn: () => {let v = UI.formOku(alanlar); if (o.kontrol) v = o.kontrol(v, r) || v; const k = VERI.kaydet(t, {...r, ...v}); UI.bildir(yeni ? 'Kaydedildi' : 'Güncellendi'); if (o.sonra) o.sonra(k)}});
+    UI.ac({baslik: (o.baslik || SEMA[t].ad) + (yeni ? ' · yeni' : ' · düzenle'), govde: UI.formHTML(alanlar, r) + (o.alt || ''), butonlar, genis: o.genis});
+    UI.ekleBagla($('#penI')); if (o.bagla) o.bagla(r, yeni);
+  },
+  ekleBagla(kok) {
+    $$('select[data-ekle]', kok).forEach(s => {let onceki = s.value; s.addEventListener('change', async () => {
+      if (s.value != '__yeni__') {onceki = s.value; return}
+      const t = s.dataset.ekle, k = YENI_SAHA(t, await UI.sor(`Yeni ${YENI_ETIKET[t] || 'kayıt'}`, 'Adı'));
+      if (!k) {s.value = onceki; return}
+      if (![...s.options].some(o => o.value == k.id)) s.insertBefore(new Option(k.ad, k.id), s.lastElementChild);
+      s.value = onceki = k.id;
+    })});
+  },
+  /* ---------- tablo ---------- */
+  tablo(el, o) {
+    const hk = o.anahtar || UI.aktif + ':' + (o.ad || 't'), st = UI.hal[hk] = UI.hal[hk] || {q: '', k: o.sira ? o.sira[0] : null, yon: o.sira ? o.sira[1] : -1, lim: o.limit || 200};
+    const deger = (c, r) => c.d ? c.d(r) : c.k ? r[c.k] : '';
+    const metin = (c, r) => {const v = deger(c, r); return v == null ? '' : String(v)};
+    el.innerHTML = `${o.ara === false ? '' : `<div class="ara yok-yaz"><input type="search" placeholder="Ara…" value="${esc(st.q)}" style="flex:1;min-width:160px;max-width:340px"><span class="not sayac"></span><span style="flex:1"></span>${o.ust || ''}${o.csv ? '<button class="btn k csv">CSV indir</button>' : ''}</div>`}<div class="tw"></div>`;
+    const tw = $('.tw', el), giris = $('input[type=search]', el), sayacEl = $('.sayac', el);
+    const ciz = () => {
+      const q = st.q.toLocaleLowerCase('tr');
+      let L = q ? o.veri.filter(r => o.kol.some(c => metin(c, r).toLocaleLowerCase('tr').includes(q))) : o.veri.slice();
+      const c = o.kol.find(x => (x.k || x.ad) == st.k);
+      if (c) L.sort((a, b) => {const x = deger(c, a), y = deger(c, b); return (typeof x == 'number' && typeof y == 'number' ? x - y : String(x ?? '').localeCompare(String(y ?? ''), 'tr', {numeric: true})) * st.yon});
+      if (sayacEl) sayacEl.textContent = `${L.length} kayıt`;
+      if (!L.length) {tw.innerHTML = `<div class="bos"><b>${esc(o.bos || 'Kayıt yok')}</b>${esc(o.bosAlt || '')}</div>`; return}
+      const G = L.slice(0, st.lim);
+      tw.innerHTML = `<table class="t"><thead><tr>${o.kol.map(x => `<th class="${x.n ? 'n' : ''}" data-k="${esc(x.k || x.ad)}">${esc(x.ad)}${(x.k || x.ad) == st.k ? (st.yon > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('')}</tr></thead><tbody>${G.map((r, i) => `<tr data-i="${i}"${o.tikla ? ' style="cursor:pointer"' : ''}>${o.kol.map(x => `<td class="${x.n ? 'n' : ''}">${x.f ? x.f(r) : esc(metin(x, r))}</td>`).join('')}</tr>`).join('')}</tbody>${o.kol.some(x => x.top) ? `<tfoot><tr>${o.kol.map(x => `<td class="${x.n ? 'n' : ''}">${x.top ? x.top(L) : ''}</td>`).join('')}</tr></tfoot>` : ''}</table>${L.length > st.lim ? `<div style="padding:10px;text-align:center"><button class="btn k fazla">+${Math.min(200, L.length - st.lim)} kayıt daha göster (${L.length - st.lim} gizli)</button></div>` : ''}`;
+      $$('th', tw).forEach(th => th.onclick = () => {if (st.k == th.dataset.k) st.yon *= -1; else {st.k = th.dataset.k; st.yon = 1} ciz()});
+      if (o.tikla) $$('tbody tr', tw).forEach(tr => tr.onclick = () => o.tikla(G[+tr.dataset.i]));
+      const f = $('.fazla', tw); if (f) f.onclick = () => {st.lim += 200; ciz()};
+      UI._tabloSon = L;
+    };
+    if (giris) giris.oninput = () => {st.q = giris.value; st.lim = o.limit || 200; ciz()};
+    const cb = $('.csv', el); if (cb) cb.onclick = () => {const q = st.q.toLocaleLowerCase('tr'); const L = q ? o.veri.filter(r => o.kol.some(c => metin(c, r).toLocaleLowerCase('tr').includes(q))) : o.veri; UI.csv(o.csv, o.kol.filter(c => c.csv !== false), L, deger)};
+    ciz();
+  },
+  csv(ad, kol, L, deger) {
+    const hucre = v => {if (v == null) return ''; if (typeof v == 'number') return String(+v.toFixed(4)).replace('.', ','); const s = String(v); return /[;"\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s};
+    const s = '﻿' + [kol.map(c => hucre(c.ad)).join(';'), ...L.map(r => kol.map(c => hucre(deger(c, r))).join(';'))].join('\r\n');
+    UI.indir(ad + '_' + bugun() + '.csv', s, 'text/csv;charset=utf-8');
+  },
+  indir(ad, icerik, tip = 'application/json') {const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([icerik], {type: tip})); a.download = ad; document.body.appendChild(a); a.click(); setTimeout(() => {URL.revokeObjectURL(a.href); a.remove()}, 500)},
+  /* ---------- grafik (SVG sütun) ---------- */
+  grafik(V, o = {}) {
+    const W = 720, H = o.yuk || 200, sol = 52, alt = 24, ust = 10, mx = Math.max(1, ...V.map(v => v.v)), adim = (W - sol - 8) / Math.max(1, V.length), bw = Math.max(2, adim * .68);
+    const tik = (() => {const r = mx / 4, p = Math.pow(10, Math.floor(Math.log10(r))), n = [1, 2, 2.5, 5, 10].find(x => x * p >= r) * p; return n})(), ymax = Math.ceil(mx / tik) * tik, y = v => ust + (H - ust - alt) * (1 - v / ymax);
+    let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img">`;
+    for (let v = 0; v <= ymax + 1e-9; v += tik) s += `<line x1="${sol}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}" stroke="var(--ln)"/><text x="${sol - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--mu)">${o.kisa ? o.kisa(v) : sayi(v)}</text>`;
+    const her = Math.ceil(V.length / 10);
+    V.forEach((v, i) => {const x = sol + i * adim + (adim - bw) / 2; s += `<rect x="${x.toFixed(1)}" y="${y(v.v).toFixed(1)}" width="${bw.toFixed(1)}" height="${(H - alt - y(v.v)).toFixed(1)}" rx="2" fill="${v.renk || o.renk || 'var(--ac)'}"><title>${esc(v.e)}: ${o.bicim ? o.bicim(v.v) : sayi(v.v, 1)}</title></rect>`; if (i % her == 0 || i == V.length - 1) s += `<text x="${(x + bw / 2).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--mu)">${esc(v.k ?? v.e)}</text>`});
+    return s + '</svg>';
+  },
+  kisaPara: v => v >= 1e6 ? sayi(v / 1e6, 1) + ' M' : v >= 1e3 ? sayi(v / 1e3, 0) + ' B' : sayi(v),
+  /* ---------- tema ---------- */
+  tema(t) {if (t) {VERI.ayar.tema = t; VERI.ayarKaydet()} document.documentElement.dataset.tema = VERI.ayar.tema == 'koyu' ? 'koyu' : 'acik'},
+  /* ---------- açılış ---------- */
+  async baslat() {
+    await VERI.hazirla(); UI.tema();
+    const q = new URLSearchParams(location.search); UI.qArac = q.get('arac') || ''; UI.sahaIstek = q.has('saha') || !!UI.qArac;
+    if (q.get('u') && q.get('k')) {const A = VERI.ayar; if (A.url != q.get('u') || A.mod != 'bulut') {Object.assign(A, {mod: 'bulut', url: q.get('u'), anahtar: q.get('k'), imlec: {}, oturum: A.url == q.get('u') ? A.oturum : null}); await VERI.ayarKaydet()} q.delete('u'); q.delete('k'); history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash)}
+    if (/access_token=|error_description=/.test(location.hash)) {const h = new URLSearchParams(location.hash.slice(1)); UI.girisMesaj = h.get('error_description') ? '✕ ' + h.get('error_description').replace(/\+/g, ' ') : '✓ E-posta onaylandı. Şimdi giriş yapabilirsiniz.'; history.replaceState(null, '', location.pathname + location.search)}
+    VERI.dinle(t => UI.yenile(t));
+    addEventListener('hashchange', () => UI.ekran());
+    BULUT.baslat(); UI.ekran();
+    if (VERI.bulut() && VERI.ayar.oturum) BULUT.esitle(true);
+    $('#pen').addEventListener('mousedown', e => {if (e.target.id == 'pen') UI.kapat()});
+    addEventListener('keydown', e => {if (e.key == 'Escape' && UI.acik()) UI.kapat()});
+  },
+  ekran() {
+    const A = VERI.ayar, kok = $('#kok');
+    if (A.mod == 'bulut' && (!A.url || !A.anahtar)) {A.mod = 'yerel'; VERI.ayarKaydet()}
+    if (VERI.bulut() && !A.oturum) {UI._iskelet = false; return GIRIS.ciz(kok)}
+    if (VERI.bulut() && (A.rol == 'beklemede' || !A.rol)) {UI._iskelet = false; return GIRIS.bekle(kok)}
+    if (A.rol == 'saha' || UI.sahaIstek || location.hash.startsWith('#/saha')) {UI._iskelet = false; UI.aktif = 'saha'; return SAHA.ciz(kok)}
+    if (!UI._iskelet) UI.iskelet(kok);
+    UI.yonlendir();
+  },
+  menu: [
+    ['GENEL', [['panel', 'Genel bakış', 'panel']]],
+    ['OPERASYON', [['seferler', 'Seferler', 'sefer'], ['yakit', 'Yakıt', 'yakit'], ['makineler', 'Makineler & bakım', 'makine'], ['puantaj', 'Puantaj', 'puantaj']]],
+    ['FİNANS', [['hakedis', 'Hakedişler', 'hakedis'], ['alacak', 'Alacak & tahsilat', 'alacak']]],
+    ['SİSTEM', [['tanimlar', 'Tanımlar', 'tanim'], ['ayarlar', 'Ayarlar', 'ayar'], ['saha', 'Saha modu (telefon)', 'saha']]]
+  ],
+  iskelet(kok) {
+    UI._iskelet = true; const A = VERI.ayar;
+    kok.innerHTML = `<div id="uyg"><aside id="yan"><div class="mk">${LOGO(true, 24)}<small>SAHA · HAFRİYAT YÖNETİMİ</small></div><div class="fr" id="firmaAd"></div><nav id="nav"></nav><div class="alt">${esc(A.ad || '')} · ${esc(ROLLER[A.rol] || A.rol || '')}<br>NexDrive Saha v1.0 · NexDrive Engineering</div></aside>
+      <main id="ana"><header id="ust"><button class="btn k" id="menuBtn" onclick="$('#yan').classList.toggle('ac')">☰</button><h1 id="baslik"></h1><div class="sp"></div><div id="ustAks" style="display:flex;gap:8px"></div><div class="dur" onclick="UI.durumTik()"></div><button class="btn k" title="Açık / koyu tema" onclick="UI.tema(VERI.ayar.tema=='koyu'?'acik':'koyu')">☾</button></header><div id="icerik"></div></main></div>`;
+    UI.durum();
+    document.addEventListener('click', e => {if (innerWidth <= 760 && !e.target.closest('#yan') && !e.target.closest('#menuBtn')) $('#yan').classList.remove('ac')});
+  },
+  navCiz() {
+    const ay = VERI.ayarlarSatiri(), rozet = UI.rozetler();
+    $('#firmaAd').innerHTML = `${esc(ay.firma_adi || 'Firma adı girilmedi')}<small>${VERI.bulut() ? 'Bulut · ortak veri' : 'Yerel mod · bu cihaz'}</small>`;
+    $('#nav').innerHTML = UI.menu.map(([g, L]) => `<div class="gb">${g}</div>` + L.filter(([k]) => k != 'ayarlar' || VERI.ayar.rol != 'saha').map(([k, ad, ik]) => `<a href="#/${k}" class="${UI.aktif == k ? 'on' : ''}"><i>${ikon(ik)}</i>${esc(ad)}${rozet[k] ? `<b>${rozet[k]}</b>` : ''}</a>`).join('')).join('');
+  },
+  rozetler() {
+    const r = {};
+    r.makineler = VERI.liste('araclar').filter(a => a.durum != 'satildi' && ['arizali', 'gecikti'].includes(HESAP.bakimDurum(a).durum)).length;
+    r.alacak = VERI.liste('hakedis').filter(h => ['onaylandi', 'faturalandi', 'kismi'].includes(h.durum) && h.vade && h.vade < bugun()).length;
+    if (VERI.ayar.rol == 'yonetici' && VERI.bulut()) r.ayarlar = VERI.liste('kullanicilar').filter(k => k.rol == 'beklemede').length + VERI.hatalar.length;
+    return r;
+  },
+  git(yol) {location.hash = '#/' + yol},
+  yonlendir() {
+    const [s, ...p] = (location.hash.replace(/^#\/?/, '') || 'panel').split('/'), ad = UI.sayfalar[s] ? s : 'panel';
+    UI.aktif = ad; UI.param = decodeURIComponent(p.join('/'));
+    UI.navCiz(); const S = UI.sayfalar[ad];
+    $('#baslik').textContent = typeof S.baslik == 'function' ? S.baslik(UI.param) : S.baslik; $('#ustAks').innerHTML = ''; document.title = $('#baslik').textContent + ' · NexDrive Saha';
+    const el = $('#icerik'); try {S.ciz(el, UI.param)} catch (e) {console.error(e); el.innerHTML = `<div class="uyari r"><i>⚠</i><div><b>Sayfa çizilemedi.</b><br>${esc(e.message)}</div></div>`}
+    $('#yan').classList.remove('ac');
+  },
+  /* veri değişince açık ekranı yenile (yazı yazılırken bekle) */
+  yenile() {
+    clearTimeout(UI._yenileZ);
+    UI._yenileZ = setTimeout(() => {
+      const ae = document.activeElement;
+      if (UI.acik() || (UI.aktif == 'saha' && !['ana', 'bos', 'kim', 'bagsiz', 'kayitlar', 'puantajim', 'aracim', 'profil'].includes(SAHA.ekr)) || (ae && /INPUT|TEXTAREA|SELECT/.test(ae.tagName) && ae.closest('#icerik,#saha'))) {UI._bekleyen = true; if (!UI.acik() && ae) ae.addEventListener('blur', () => UI._bekleyen && UI.yenile(), {once: true}); return}
+      UI._bekleyen = false; const y = scrollY;
+      if (UI.aktif == 'saha') SAHA.ciz($('#kok')); else if (UI._iskelet) {UI.yonlendir(); scrollTo(0, y)}
+    }, 150);
+  },
+  ustButon(html) {$('#ustAks').innerHTML = html}
+};
+
+/* ===== NexDrive Saha · 50 · Giriş ekranı ve saha (telefon) modu ===== */
+const GIRIS = {
+  mod: 'giris',
+  ciz(kok) {
+    const A = VERI.ayar, k = GIRIS.mod == 'kayit';
+    kok.innerHTML = `<div id="giris"><div class="kutu">${LOGO(false, 34)}<div class="not" style="margin-bottom:18px">NexDrive Saha · Hafriyat yönetim sistemi</div>
+      <div class="sekme"><a href="javascript:void 0" data-m="giris" class="${k ? '' : 'on'}">Giriş yap</a><a href="javascript:void 0" data-m="kayit" class="${k ? 'on' : ''}">Hesap oluştur</a></div>
+      <form id="gf" class="sf" autocomplete="on">${k ? '<label>Ad soyad<input id="gad" autocomplete="name" required></label>' : ''}<label>E-posta<input id="gep" type="email" autocomplete="username" required value="${esc(A.oturum && A.oturum.eposta || A.sonEposta || '')}"></label><label>Şifre<input id="gsi" type="password" autocomplete="${k ? 'new-password' : 'current-password'}" required minlength="6"></label>
+      <button class="btn p buyuk" type="submit">${k ? 'Hesabı oluştur' : 'Giriş yap'}</button><p class="not" id="gmsj" style="min-height:20px;margin:10px 0 0"></p></form>
+      <div class="not" style="border-top:1px solid var(--ln);padding-top:12px;margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="flex:1">Sunucu: ${esc(A.url.replace(/^https?:\/\//, ''))}</span><button class="btn k" id="gyer">Yerel moda dön</button></div>
+      ${VERI.kuyruk.size ? `<div class="uyari a" style="margin-top:10px"><i>⇅</i><span>${VERI.kuyruk.size} kayıt bu cihazda gönderilmeyi bekliyor; giriş yapınca gönderilecek.</span></div>` : ''}
+      <div class="not" style="text-align:center;margin-top:16px;font-size:11px">NexDrive Engineering</div></div></div>`;
+    if (UI.girisMesaj) {$('#gmsj').textContent = UI.girisMesaj; UI.girisMesaj = ''}
+    $$('[data-m]', kok).forEach(a => a.onclick = () => {GIRIS.mod = a.dataset.m; GIRIS.ciz(kok)});
+    $('#gyer').onclick = async () => {A.mod = 'yerel'; A.rol = 'yonetici'; await VERI.ayarKaydet(); UI.ekran()};
+    $('#gf').onsubmit = async e => {
+      e.preventDefault(); const m = $('#gmsj'), btn = $('#gf button'), ep = $('#gep').value.trim(), si = $('#gsi').value, ad = k ? $('#gad').value.trim() : '';
+      btn.disabled = true; m.textContent = 'Lütfen bekleyin…';
+      try {
+        const eski = A.kullanici_id;
+        if (k) {
+          const v = await BULUT.istek('/auth/v1/signup' + (/^https?:$/.test(location.protocol) ? '?redirect_to=' + encodeURIComponent(location.origin + location.pathname) : ''), {method: 'POST', body: {email: ep, password: si, data: {ad}}});
+          if (!v || !v.access_token) {m.innerHTML = '✓ Hesap oluşturuldu. <b>E-postanıza gelen onay bağlantısına tıklayın.</b> Açılan sayfa hata verse bile (ör. “localhost bağlanamadı”) hesap onaylanmış olur — bu ekrana dönüp “Giriş yap” sekmesinden girin.'; btn.disabled = false; GIRIS.mod = 'giris'; return}
+          A.ad = ad; BULUT.oturumYaz(v); A.rol = await BULUT.istek('/rest/v1/rpc/nx_giris', {method: 'POST', body: {p_ad: ad || ep.split('@')[0]}});
+        } else {A.ad = ''; await BULUT.giris(ep, si)}
+        A.sonEposta = ep;
+        if (eski && eski != A.kullanici_id) {const a = {...A}; await VERI.tumunuSil(); Object.assign(VERI.ayar, a, {imlec: {}})}
+        await VERI.ayarKaydet(); UI._iskelet = false; UI.ekran(); BULUT.esitle(true);
+        if (A.rol == 'yonetici' && !eski) setTimeout(() => UI.bildir('Hoş geldiniz — yönetici olarak giriş yaptınız', 4000), 300);
+      } catch (e2) {
+        btn.disabled = false;
+        const t = e2.message || ''; m.textContent = '✕ ' + (/invalid login|invalid_credentials|Invalid/i.test(t) ? 'E-posta veya şifre hatalı' : /not confirmed/i.test(t) ? 'E-posta henüz onaylanmamış. Gelen e-postadaki bağlantıya tıklayın (açılan sayfa hata verse de olur) ya da yöneticiden Supabase’de “Confirm email” ayarını kapatmasını isteyin' : /already registered|exists/i.test(t) ? 'Bu e-posta ile zaten hesap var, giriş yapın' : /nx_giris|function|schema/i.test(t) ? 'Sunucuda kurulum betiği çalıştırılmamış görünüyor (Ayarlar → Bulut → kurulum adımı 2)' : t === 'çevrimdışı' ? 'İnternet bağlantısı yok' : t);
+      }
+    };
+  },
+  bekle(kok) {
+    kok.innerHTML = `<div id="giris"><div class="kutu">${LOGO(false, 30)}<h2 style="font:600 20px var(--fh);margin:18px 0 6px">Onay bekleniyor</h2><p class="not">Hesabınız (${esc(VERI.ayar.oturum && VERI.ayar.oturum.eposta || '')}) oluşturuldu. Firma yöneticisi <b>Ayarlar → Kullanıcılar</b> ekranından rolünüzü onayladığında uygulama açılır.</p>
+      <div style="display:flex;gap:8px;margin-top:16px"><button class="btn p" id="bk">Tekrar kontrol et</button><button class="btn" id="bc">Çıkış</button></div></div></div>`;
+    $('#bk').onclick = async () => {await BULUT.esitle(true); if (VERI.ayar.rol == 'beklemede') UI.bildir('Henüz onaylanmadı'); else UI.ekran()};
+    $('#bc').onclick = async () => {await BULUT.cikis(); UI.ekran()};
+  }
+};
+
+/* ---------------- Saha (telefon) ekranı ---------------- */
+const SAHA = {
+  ekr: 'ana',
+  ben() {return VERI.al('personel', VERI.ayar.personel_id)},
+  arac() {return VERI.al('araclar', VERI.ayar.arac_id)},
+  ciz(kok) {
+    const A = VERI.ayar;
+    if (UI.qArac) {const a = VERI.liste('araclar').find(x => [x.kod, x.plaka, x.id].some(v => v && String(v).replace(/\s/g, '').toLocaleLowerCase('tr') == UI.qArac.replace(/\s/g, '').toLocaleLowerCase('tr'))); if (a) {A.arac_id = a.id; VERI.ayarKaydet(); UI.qArac = ''}}
+    const bn = SAHA.ben(); if (bn && !A.arac_id && bn.varsayilan_arac && VERI.al('araclar', bn.varsayilan_arac)) {A.arac_id = bn.varsayilan_arac; VERI.ayarKaydet()}
+    if (!bn) {if (SAHA.ekr != 'kim') SAHA.ekr = VERI.liste('personel').length ? 'kim' : 'bos'} else if (SAHA.ekr == 'bos') SAHA.ekr = SAHA.arac() ? 'ana' : 'kim';
+    const p = SAHA.ben(), a = SAHA.arac();
+    kok.innerHTML = `<div id="saha"><div class="sb">${LOGO(true, 20)}<div class="sp"></div><div class="dur" onclick="UI.durumTik()" style="color:#cfdde7;border-color:rgba(255,255,255,.2)"></div></div>
+      ${p ? `<div style="background:var(--nav2);color:#e3edf3;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:14px;white-space:nowrap"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">👷 <b>${esc(p.ad)}</b></span><span style="opacity:.6">·</span><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">${a ? (ISMAKINESI(a.tip) ? '🚜 ' : '🚚 ') + '<b>' + esc(a.kod) + '</b> ' + esc(a.plaka || '') : '<span style="color:var(--am)">Araç seçilmedi</span>'}</span><span style="flex:1"></span><button class="btn k" style="background:transparent;color:#cfdde7;border-color:rgba(255,255,255,.25)" onclick="SAHA.git('kim')">Değiştir</button></div>` : ''}
+      <div class="ic" id="sic"></div>
+      <div style="text-align:center;padding:10px 0 30px" class="not">${A.rol != 'saha' ? '<a href="javascript:void 0" onclick="SAHA.ofis()">Ofis paneline dön</a> · ' : ''}${VERI.bulut() ? '<a href="javascript:void 0" onclick="SAHA.cikis()">Çıkış</a> · ' : ''}NexDrive Saha · NexDrive Engineering</div></div>`;
+    UI.durum();
+    const ic = $('#sic');
+    (SAHA['e_' + SAHA.ekr] || SAHA.e_ana)(ic);
+    scrollTo(0, 0);
+  },
+  git(e) {SAHA.ekr = e; SAHA.ciz($('#kok'))},
+  ofis() {UI.sahaIstek = false; SAHA.ekr = 'ana'; history.replaceState(null, '', location.pathname + '#/panel'); UI.ekran()},
+  cikis() {UI.onay(VERI.kuyruk.size ? `${VERI.kuyruk.size} kayıt henüz gönderilmedi; çıkış yaparsanız bu telefonda bekler.` : 'Oturum kapatılacak.', async () => {await BULUT.cikis(); UI.ekran()}, 'Çıkış yap')},
+  bugunkuler() {
+    const b = bugun(), A = VERI.ayar, benim = r => r.personel_id == A.personel_id || r.bildiren_id == A.personel_id || (A.kullanici_id && r.olusturan == A.kullanici_id);
+    const S = VERI.liste('seferler').filter(s => s.tarih == b && benim(s)), Y = VERI.liste('yakit').filter(s => s.tarih == b && benim(s)), P = VERI.liste('puantaj').filter(s => s.tarih == b && benim(s)), B = VERI.liste('bakim').filter(s => s.tarih == b && benim(s));
+    return {S, Y, P, B};
+  },
+  sonSefer() {const A = VERI.ayar; return VERI.liste('seferler').filter(s => s.personel_id == A.personel_id && (s.yukleme_id || s.dokum_id || s.santiye_id || s.yuk)).sort((x, y) => (y.tarih + (y.saat || '')).localeCompare(x.tarih + (x.saat || '')))[0]},
+  saat() {return new Date().toTimeString().slice(0, 5)},
+  e_bos(ic) {ic.innerHTML = `<div class="kart"><div class="bos"><b>Henüz personel tanımlanmamış</b>${VERI.bulut() ? 'Ofisin personel ve araç tanımlarını girmesi gerekiyor. Eşitleme sonrası burada görünür.' : 'Önce ofis panelinden Tanımlar → Personel ve Araçlar ekleyin.'}</div><button class="btn p buyuk" style="width:100%" onclick="BULUT.esitle();SAHA.git('ana')">Yenile</button></div>`},
+  e_kim(ic) {
+    const A = VERI.ayar, sabit = A.rol == 'saha' && VERI.bulut() && VERI.liste('kullanicilar').some(k => k.id == A.kullanici_id && k.personel_id);
+    const P = SEC.sirala(VERI.liste('personel').filter(p => p.aktif !== false)), Ar = SEC.sirala(VERI.liste('araclar').filter(a => a.durum != 'satildi'), 'kod');
+    ic.innerHTML = `<div class="kart sf"><h3 style="font-size:17px">Ben kimim?</h3>${sabit ? `<p><b>${esc(VERI.ad('personel', A.personel_id))}</b> <span class="not">(yönetici tarafından eşlendi)</span></p>` : `<label>Adınızı seçin<select id="kp"><option value="">— seçin —</option>${P.map(p => `<option value="${p.id}"${p.id == A.personel_id ? ' selected' : ''}>${esc(p.ad)} · ${esc(GOREV[p.gorev] || '')}</option>`).join('')}</select></label>`}
+      <h3 style="font-size:17px;margin-top:16px">Bugün hangi araç / makine?</h3><div class="secim" id="ka">${Ar.map(a => `<button data-a="${a.id}" class="${a.id == A.arac_id ? 'on' : ''}">${esc(a.kod)}<br><small style="font-weight:400">${esc(a.plaka || ARAC_TIP[a.tip] || '')}</small></button>`).join('')}</div>
+      <button class="btn p buyuk" id="kk" style="margin-top:18px">Devam</button></div>`;
+    let secA = A.arac_id;
+    const kp = $('#kp'); if (kp) kp.onchange = () => {const p = VERI.al('personel', kp.value); if (p && p.varsayilan_arac) {secA = p.varsayilan_arac; $$('#ka button').forEach(b => b.classList.toggle('on', b.dataset.a == secA))}};
+    $$('#ka button').forEach(b => b.onclick = () => {secA = b.dataset.a; $$('#ka button').forEach(x => x.classList.toggle('on', x == b))});
+    $('#kk').onclick = () => {if (kp && !kp.value) return UI.bildir('Lütfen adınızı seçin'); if (kp) A.personel_id = kp.value; A.arac_id = secA || ''; VERI.ayarKaydet(); SAHA.git('ana')};
+  },
+  geriAl(m, fn) {
+    const b = $('#bil'); b.innerHTML = `${esc(m)} <button class="btn k" style="margin-left:10px">Geri al</button>`; b.style.display = 'block'; clearTimeout(UI._bz);
+    $('button', b).onclick = () => {fn(); b.style.display = 'none'; UI.bildir('Geri alındı')}; UI._bz = setTimeout(() => b.style.display = 'none', 6000);
+  },
+  /* form yardımcıları */
+  secim(id, L, sec, ekle) {return `<div class="secim" id="${id}">${L.map(([v, a]) => `<button type="button" data-v="${esc(v)}" class="${v == sec ? 'on' : ''}">${esc(a)}</button>`).join('')}${ekle ? `<button type="button" data-yeni="${ekle}" style="border-style:dashed;color:var(--ac)">+ Yeni</button>` : ''}</div>`},
+  secimBagla(id) {
+    const kutu = $('#' + id), sec = b => $$('button[data-v]', kutu).forEach(x => x.classList.toggle('on', x == b)), bagla = b => b.onclick = () => b.classList.contains('on') ? b.classList.remove('on') : sec(b);
+    $$('button[data-v]', kutu).forEach(bagla);
+    const y = $('button[data-yeni]', kutu); if (y) y.onclick = async () => {const t = y.dataset.yeni, k = YENI_SAHA(t, await UI.sor(`Yeni ${YENI_ETIKET[t] || 'kayıt'}`, 'Adı', 'ör. Kuzey ocak')); if (!k) return; let b = $$('button[data-v]', kutu).find(x => x.dataset.v == k.id); if (!b) {b = document.createElement('button'); b.type = 'button'; b.dataset.v = k.id; b.textContent = k.ad; bagla(b); kutu.insertBefore(b, y)} sec(b)};
+  },
+  secili(id) {const b = $('#' + id + ' button.on'); return b ? b.dataset.v : ''},
+  form(ic, baslik, govde, kaydet, sil) {
+    ic.innerHTML = `<div class="kart sf"><div style="display:flex;align-items:center;margin-bottom:12px"><button class="btn k" id="sg">← Geri</button><h3 style="flex:1;text-align:center;margin:0;font-size:17px">${baslik}</h3><span style="width:60px"></span></div>${govde}<button class="btn p buyuk" id="sk" style="margin-top:8px">Kaydet</button>${sil ? '<button class="btn r buyuk" id="ss" style="margin-top:10px;font-size:15px;padding:12px">Bu kaydı sil</button>' : ''}</div>`;
+    $('#sg').onclick = () => {SAHA.duzelt = null; SAHA.git('ana')};
+    $('#sk').onclick = () => {try {kaydet(); SAHA.duzelt = null; SAHA.git('ana'); BULUT.esitle(true)} catch (e) {UI.bildir(e.message, 3500)}};
+    if (sil) $('#ss').onclick = () => UI.onay('Bu kayıt silinecek.', () => {sil(); SAHA.duzelt = null; SAHA.git('ana'); BULUT.esitle(true)});
+  },
+  sayiOku(id, ad, zorunlu) {const v = $('#' + id).value.trim().replace(',', '.'); if (v === '') {if (zorunlu) {$('#' + id).focus(); throw new Error(ad + ' girin')} return null} if (!isFinite(+v) || +v < 0) {$('#' + id).focus(); throw new Error(ad + ' geçerli bir sayı olmalı')} return +v},
+  e_sefer(ic) {
+    const d = SAHA.duzelt || {}, a = VERI.al('araclar', d.arac_id) || SAHA.arac(), son = SAHA.sonSefer() || {};
+    if (!a) {UI.bildir('Önce araç seçin'); return SAHA.git('kim')}
+    const ST = SEC.santiye(), YK = SEC.yukleme(), DK = SEC.dokum(), vs = (k, L) => d.id ? d[k] || '' : son[k] || (L.length == 1 ? L[0][0] : '');
+    SAHA.form(ic, d.id ? 'Seferi düzelt' : 'Yeni sefer', `${SAHA.personelKutu(d)}<div class="not" style="margin-bottom:10px">${[a.kod, a.plaka, tarihTR(d.tarih || bugun())].filter(Boolean).map(esc).join(' · ')}</div>
+      <label>Yükleme sahası</label>${SAHA.secim('ss_y', YK, vs('yukleme_id', YK), 'yukleme_sahalari')}
+      <label style="margin-top:14px">Döküm sahası</label>${SAHA.secim('ss_d', DK, vs('dokum_id', DK), 'dokum_sahalari')}
+      <label style="margin-top:14px">Yük cinsi</label>${SAHA.secim('ss_k', YUKLER().map(x => [x, x]), d.id ? d.yuk || '' : son.yuk || '')}<input id="ss_ky" placeholder="✏️ Listede yoksa buraya yazın (ör. Kum)" autocomplete="off" style="width:100%;margin-top:8px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><label>Saat<input id="ss_t" type="time" value="${esc(d.saat || SAHA.saat())}"></label><label>Döküm fişi no<input id="ss_f" inputmode="numeric" value="${esc(d.fis_no || '')}" placeholder="Fiş no"></label></div>
+      <label>Not<input id="ss_n" value="${esc(d.notlar || '')}"></label>`,
+      () => {const yukleme_id = SAHA.secili('ss_y'), dokum_id = SAHA.secili('ss_d'), santiye_id = SAHA.isVars(d); if (!yukleme_id && !dokum_id) throw new Error('Yükleme ya da döküm sahası seçin (yoksa “+ Yeni” ile ekleyin)'); const kr = VERI.kaydet('seferler', {...d, tarih: d.tarih || bugun(), saat: $('#ss_t').value, arac_id: a.id, personel_id: d.personel_id || VERI.ayar.personel_id, santiye_id, yukleme_id, dokum_id, ...(() => {const yuk = (($('#ss_ky') || {}).value || '').trim().replace(/\s+/g, ' ').replace(/^./, c => c.toLocaleUpperCase('tr')) || SAHA.secili('ss_k'); return {yuk, ucret: d.id && d.yuk == yuk ? d.ucret : SON_UCRET(yuk, santiye_id)}})(), fis_no: $('#ss_f').value.trim(), notlar: $('#ss_n').value.trim()}); if (!d.id) SAHA.konumEkle('seferler', kr.id); UI.bildir(d.id ? 'Sefer güncellendi' : 'Sefer kaydedildi')},
+      d.id ? () => VERI.sil('seferler', d.id) : null);
+    SAHA.secimBagla('ss_y'); SAHA.secimBagla('ss_d'); SAHA.secimBagla('ss_k'); $('#ss_ky').oninput = () => {if ($('#ss_ky').value.trim()) $$('#ss_k button').forEach(b => b.classList.remove('on'))}; $$('#ss_k button').forEach(b => b.addEventListener('click', () => $('#ss_ky').value = ''));
+  },
+  e_yakit(ic) {
+    const d = SAHA.duzelt || {}, a = VERI.al('araclar', d.arac_id) || SAHA.arac();
+    if (!a) {UI.bildir('Önce araç seçin'); return SAHA.git('kim')}
+    SAHA._sayacOnay = false;
+    const sonS = HESAP.sayac(a), birim = a.sayac_tipi == 'saat' ? 'saat' : 'km', ist = [...new Set(VERI.liste('yakit').map(y => y.istasyon).filter(Boolean))].slice(0, 12);
+    SAHA.form(ic, d.id ? 'Yakıt kaydını düzelt' : 'Yakıt aldım', `<div class="not" style="margin-bottom:10px">${esc(a.kod)} · ${esc(a.plaka || ARAC_TIP[a.tip] || '')}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Litre *<input id="sy_l" inputmode="decimal" value="${esc(d.litre ?? '')}"></label><label>Tutar (₺)<input id="sy_t" inputmode="decimal" value="${esc(d.tutar ?? '')}"></label></div>
+      <label>${a.sayac_tipi == 'saat' ? 'Saat sayacı' : 'Kilometre'} ${sonS ? `<small>(son bilinen: ${sayi(sonS)} ${birim})</small>` : ''}<input id="sy_s" inputmode="decimal" value="${esc(d.sayac ?? '')}"></label>
+      <label>İstasyon / tanker<input id="sy_i" list="sy_il" value="${esc(d.istasyon || '')}"><datalist id="sy_il">${ist.map(x => `<option value="${esc(x)}">`).join('')}</datalist></label>
+      <label class="ck" style="display:flex;align-items:center;gap:10px;color:var(--tx);font-size:16px"><input type="checkbox" id="sy_d" style="width:22px;height:22px"${d.id ? (d.tam_depo ? ' checked' : '') : ' checked'}> Depoyu tamamen doldurdum</label>`,
+      () => {const litre = SAHA.sayiOku('sy_l', 'Litre', true), sayac = SAHA.sayiOku('sy_s', 'Sayaç'); if (sayac != null && sonS && sayac < sonS * .9 && !SAHA._sayacOnay) {UI.ac({baslik: 'Sayacı kontrol edin', govde: `<p style="margin-top:0">Girdiğiniz sayaç (<b>${sayi(sayac)}</b>) son bilinen değerden (<b>${sayi(sonS)}</b>) düşük.</p><p class="not">Yanlış yazılmış olabilir. Doğruysa yine de kaydedebilirsiniz.</p>`, butonlar: [{ad: 'Düzelt', fn: () => setTimeout(() => $('#sy_s') && $('#sy_s').focus(), 50)}, {ad: 'Yine de kaydet', sinif: 'p', fn: () => {SAHA._sayacOnay = true; setTimeout(() => $('#sk') && $('#sk').click(), 0)}}]}); const e = new Error(''); e.sessiz = true; throw e} SAHA._sayacOnay = false; VERI.kaydet('yakit', {...d, tarih: d.tarih || bugun(), arac_id: a.id, personel_id: d.personel_id || VERI.ayar.personel_id, litre, tutar: SAHA.sayiOku('sy_t', 'Tutar'), sayac, istasyon: $('#sy_i').value.trim(), tam_depo: $('#sy_d').checked}); UI.bildir('Yakıt kaydedildi')},
+      d.id ? () => VERI.sil('yakit', d.id) : null);
+  },
+  e_puantaj(ic) {
+    const A = VERI.ayar, b = bugun(), d = SAHA.duzelt || VERI.liste('puantaj').find(p => p.tarih == b && p.personel_id == A.personel_id) || {}, a = VERI.al('araclar', d.arac_id) || SAHA.arac(), mak = a && ISMAKINESI(a.tip), son = SAHA.sonSefer() || {};
+    const sonP = a ? VERI.liste('puantaj').filter(p => p.arac_id == a.id && p.sayac_bit).sort((x, y) => y.tarih.localeCompare(x.tarih))[0] : null, ST = SEC.santiye();
+    const stepper = (id, v, ad) => `<label>${ad}<div style="display:flex;gap:8px"><button type="button" class="btn" style="font-size:22px;width:56px" data-st="${id}" data-d="-0.5">−</button><input id="${id}" inputmode="decimal" value="${esc(v)}" style="text-align:center;flex:1"><button type="button" class="btn" style="font-size:22px;width:56px" data-st="${id}" data-d="0.5">+</button></div></label>`;
+    SAHA.form(ic, d.id ? 'Çalışma kaydı (' + tarihTR(d.tarih) + ')' : (d.tarih && d.tarih != b ? 'Çalışma · ' + tarihTR(d.tarih) : 'Bugünkü çalışmam'), `${a ? `<div class="not" style="margin-bottom:10px">${esc(a.kod)} · ${esc(ARAC_TIP[a.tip] || '')}</div>` : ''}
+      ${SAHA.personelKutu(d)}
+      ${stepper('sp_h', d.saat ?? 9, 'Normal çalışma (saat)')}${stepper('sp_m', d.mesai ?? 0, 'Fazla mesai (saat)')}
+      ${mak ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Saat sayacı başı<input id="sp_b" inputmode="decimal" value="${esc(d.sayac_bas ?? (sonP ? sonP.sayac_bit : '') ?? '')}"></label><label>Saat sayacı sonu<input id="sp_e" inputmode="decimal" value="${esc(d.sayac_bit ?? '')}"></label></div>` : ''}<label>Not<input id="sp_n" value="${esc(d.notlar || '')}"></label>`,
+      () => {const v = {...d, tarih: d.tarih || b, personel_id: d.personel_id || A.personel_id, arac_id: a ? a.id : d.arac_id, santiye_id: SAHA.isVars(d), saat: SAHA.sayiOku('sp_h', 'Saat', true), mesai: SAHA.sayiOku('sp_m', 'Mesai') || 0, notlar: $('#sp_n').value.trim()}; if (mak) {v.sayac_bas = SAHA.sayiOku('sp_b', 'Sayaç başı'); v.sayac_bit = SAHA.sayiOku('sp_e', 'Sayaç sonu'); if (v.sayac_bas != null && v.sayac_bit != null && v.sayac_bit < v.sayac_bas) throw new Error('Sayaç sonu başından küçük olamaz')} VERI.kaydet('puantaj', v); UI.bildir('Çalışma saati kaydedildi')},
+      d.id ? () => VERI.sil('puantaj', d.id) : null);
+    $$('[data-st]', ic).forEach(x => x.onclick = () => {const i = $('#' + x.dataset.st); i.value = Math.max(0, N(i.value.replace(',', '.')) + +x.dataset.d)});
+    if (mak) {const ub = () => {const bs = N($('#sp_b').value.replace(',', '.'), NaN), bt = N($('#sp_e').value.replace(',', '.'), NaN); if (isFinite(bs) && isFinite(bt) && bt > bs && $('#sp_e').value) {const t = +(bt - bs).toFixed(1); $('#sp_h').value = Math.min(9, t); $('#sp_m').value = Math.max(0, +(t - 9).toFixed(1))}}; $('#sp_e').addEventListener('change', ub)}
+  },
+  e_ariza(ic) {
+    const d = SAHA.duzelt || {}, a = VERI.al('araclar', d.arac_id) || SAHA.arac(), Ar = SEC.arac();
+    SAHA.form(ic, d.id ? 'Arıza kaydı' : 'Arıza bildir', `<label>Araç / makine<select id="sa_a">${Ar.map(([v, l]) => `<option value="${v}"${a && a.id == v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+      <label>Sorun nedir? *<textarea id="sa_t" rows="4" placeholder="Ör. sağ arka lastik patladı, damper yavaş kalkıyor…">${esc(d.aciklama || '')}</textarea></label>
+      <label>Sayaç (km / saat)<input id="sa_s" inputmode="decimal" value="${esc(d.sayac ?? '')}"></label>
+      <label class="ck" style="display:flex;align-items:center;gap:10px;color:var(--tx);font-size:16px"><input type="checkbox" id="sa_c" style="width:22px;height:22px"> Araç şu an çalışamıyor (acil)</label>`,
+      () => {const t = $('#sa_t').value.trim(); if (!t) throw new Error('Sorunu kısaca yazın'); const ac = ($('#sa_c').checked ? '[ACİL — araç durdu] ' : '') + t.replace(/^\[ACİL — araç durdu\] /, ''); const kr = VERI.kaydet('bakim', {...d, tarih: d.tarih || bugun(), arac_id: $('#sa_a').value, tip: d.tip || 'ariza', durum: d.durum || 'acik', sayac: SAHA.sayiOku('sa_s', 'Sayaç'), aciklama: ac, bildiren_id: d.bildiren_id || VERI.ayar.personel_id}); if (!d.id) SAHA.konumEkle('bakim', kr.id); UI.bildir('Arıza bildirildi — ofis görecek')},
+      d.id ? () => VERI.sil('bakim', d.id) : null);
+    if (d.aciklama && /^\[ACİL/.test(d.aciklama)) $('#sa_c').checked = true;
+  }
+};
+
+/* ===== NexDrive Saha · 70 · Personel paneli (şoför / operatör / saha personeli) ===== */
+const BAKIM_TIP = {periyodik: 'Periyodik bakım', ariza: 'Arıza', lastik: 'Lastik', muayene: 'Muayene / sigorta', diger: 'Diğer'};
+const PERSONEL_SURUM = 3;
+const PDON = {hafta: 'Bu hafta', ay: 'Bu ay', gecenay: 'Geçen ay', son30: 'Son 30 gün'};
+const pDonem = k => {const b = bugun(); if (k == 'hafta') {const g = (new Date(b + 'T12:00:00').getDay() + 6) % 7; return [gunEkle(b, -g), b]} if (k == 'ay') return [ayBasi(b), b]; if (k == 'gecenay') {const s = gunEkle(ayBasi(b), -1); return [ayBasi(s), s]} return [gunEkle(b, -29), b]};
+const ayKay = (ay, n) => {const d = new Date(ay + '-15T12:00:00'); d.setMonth(d.getMonth() + n); return d.toISOString().slice(0, 7)};
+const ayAdi = ay => new Date(ay + '-15T12:00:00').toLocaleDateString('tr-TR', {month: 'long', year: 'numeric'});
+const gunAdi = t => {const b = bugun(); return (t == b ? 'Bugün · ' : t == gunEkle(b, -1) ? 'Dün · ' : '') + tarihTR(t) + ' · ' + new Date(t + 'T12:00:00').toLocaleDateString('tr-TR', {weekday: 'long'})};
+
+/* ---------- ekran yönlendirme: personel panelinde ofis ekranı yok ---------- */
+UI.ekran = function () {
+  const A = VERI.ayar, kok = $('#kok');
+  if (A.pSurum != PERSONEL_SURUM) {A.pSurum = PERSONEL_SURUM; A.imlec = {}; SAHA.temizle(); VERI.ayarKaydet()} /* yeni yetkilerle geçmiş kayıtları bir kez yeniden çek; telefondaki eski ücret / fiyat bilgilerini sil */
+  if (A.mod == 'bulut' && (!A.url || !A.anahtar)) {A.mod = 'yerel'; VERI.ayarKaydet()}
+  if (!VERI.bulut() && !A.yerelPersonel) {UI.aktif = 'giris'; return PKUR.ciz(kok)}
+  if (VERI.bulut() && !A.oturum) {UI.aktif = 'giris'; return PGIRIS.ciz(kok)}
+  if (!VERI.bulut()) {const p = VERI.al('personel', A.pOturum); if (!p || p.silindi || p.aktif === false || !p.parola_hash) {A.pOturum = ''; UI.aktif = 'giris'; return PGIRIS.ciz(kok)} A.personel_id = p.id}
+  if (VERI.bulut() && (A.rol == 'beklemede' || !A.rol)) {UI.aktif = 'giris'; return GIRIS.bekle(kok)}
+  UI.aktif = 'saha'; SAHA.ciz(kok);
+};
+UI.rolDegisti = () => UI.ekran();
+UI.durumTik = () => {if (VERI.bulut()) {BULUT.esitle(); UI.bildir('Eşitleme başlatıldı')} else SAHA.git('profil')};
+
+/* ---------- ilk açılış: sunucu bağlantısı (QR okut / bağlantı yapıştır) ---------- */
+const PKUR = {
+  ciz(kok) {
+    const A = VERI.ayar;
+    kok.innerHTML = `<div id="giris"><div class="kutu">${LOGO(false, 34)}<div class="not" style="margin-bottom:16px">NexDrive Saha · <b>Personel paneli</b></div>
+      <h3 style="font:600 18px var(--fh);margin:0 0 6px">İlk kurulum</h3>
+      <p class="not" style="margin:0 0 14px;font-size:14px">Yöneticinizin gösterdiği <b>personel giriş QR kodunu</b> okutun. Bu yalnızca bir kez yapılır; sonra kullanıcı adı ve parolanızla girersiniz.</p>
+      <button class="btn p buyuk" id="pqr" style="font-size:18px;padding:18px">📷 QR kodu okut</button>
+      <div class="sf" style="margin-top:16px"><label>ya da size gönderilen bağlantıyı yapıştırın<div style="display:flex;gap:8px"><input id="pkl" placeholder="https://…" autocomplete="off" style="flex:1;min-width:0"><button class="btn" id="pkb">Bağlan</button></div></label></div>
+      <p class="not" id="pkm" style="min-height:18px;margin:0 0 8px"></p>
+      <details style="border-top:1px solid var(--ln);padding-top:10px"><summary class="not" style="cursor:pointer">Gelişmiş: sunucu bilgisini elle gir</summary>
+        <form id="pk" class="sf" style="margin-top:10px"><label>Sunucu adresi<input id="pku" placeholder="https://xxxxxxxx.supabase.co" value="${esc(A.url)}" autocomplete="off"></label><label>Bağlantı anahtarı<input id="pka" value="${esc(A.anahtar)}" autocomplete="off"></label><button class="btn buyuk" type="submit">Bağlan</button></form>
+        <div class="not" style="margin-top:10px">Ofis bilgisayarında, yönetim paneliyle aynı tarayıcıda yerel modda mı çalışıyorsunuz? <button class="btn k" id="pky" style="margin-top:6px">Bu cihazdaki verilerle devam et</button></div></details>
+      <div class="not" style="text-align:center;margin-top:16px;font-size:11px">NexDrive Engineering</div></div></div>`;
+    const m = $('#pkm');
+    $('#pqr').onclick = () => PKUR.tara();
+    $('#pkb').onclick = () => PKUR.uygula($('#pkl').value);
+    $('#pkl').onkeydown = e => {if (e.key == 'Enter') PKUR.uygula($('#pkl').value)};
+    $('#pk').onsubmit = async e => {
+      e.preventDefault();
+      try {const u = $('#pku').value.trim().replace(/\/+$/, ''), a = $('#pka').value.trim(); if (!/^https?:\/\//.test(u)) throw new Error('Adres https:// ile başlamalı'); if (a.length < 20) throw new Error('Anahtar eksik görünüyor'); await PKUR.baglan(u, a)} catch (x) {m.textContent = '✕ ' + x.message}
+    };
+    $('#pky').onclick = async () => {A.yerelPersonel = true; await VERI.ayarKaydet(); UI.ekran()};
+  },
+  async baglan(u, a, arac) {
+    const m = $('#pkm'); if (m) m.textContent = 'Bağlanılıyor…';
+    const r = await fetch(u + '/auth/v1/settings', {headers: {apikey: a}}).catch(() => null);
+    if (!r || !r.ok) throw new Error('Sunucuya ulaşılamadı' + (navigator.onLine ? ' veya bilgi hatalı' : ' — internet bağlantısı yok'));
+    Object.assign(VERI.ayar, {mod: 'bulut', url: u, anahtar: a, imlec: {}, oturum: null}); if (arac) UI.qArac = arac;
+    await VERI.ayarKaydet(); UI.bildir('✓ Bağlandı — şimdi kullanıcı adı ve parolanızla girin', 4000); UI.ekran();
+  },
+  async uygula(metin) {
+    const m = $('#pkm');
+    try {
+      let q; try {q = new URL(String(metin || '').trim()).searchParams} catch (e) {throw new Error('Geçerli bir bağlantı değil')}
+      const u = (q.get('u') || '').replace(/\/+$/, ''), k = q.get('k') || '';
+      if (!/^https?:\/\//.test(u) || k.length < 20) throw new Error('Bu bağlantıda sunucu bilgisi yok — yöneticiden “Personel giriş QR’ı” bağlantısını isteyin');
+      await PKUR.baglan(u, k, q.get('arac'));
+    } catch (x) {if (m) m.textContent = '✕ ' + x.message; else UI.bildir(x.message, 4000)}
+  },
+  talimat(ek) {
+    UI.ac({baslik: 'QR kodu okutma', govde: `${ek ? `<p class="uyari a"><i>ℹ</i><span>${esc(ek)}</span></p>` : ''}<p style="margin-top:0">Bu telefonda uygulama içinden kamera açılamıyor. Şöyle yapın:</p><ol style="padding-left:20px;line-height:1.8;margin:0"><li>Telefonun kendi <b>Kamera</b> uygulamasını açın.</li><li>Yöneticinin gösterdiği QR koda tutun.</li><li>Ekranda çıkan <b>bağlantıya dokunun</b> — panel kendiliğinden bağlanır.</li></ol><p class="not">Olmazsa yöneticiden bağlantıyı WhatsApp'tan isteyip buradaki kutuya yapıştırın.</p>`});
+  },
+  async tara() {
+    if (!('BarcodeDetector' in window) || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return PKUR.talimat();
+    let det, akis;
+    try {det = new BarcodeDetector({formats: ['qr_code']})} catch (e) {return PKUR.talimat()}
+    try {akis = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}, audio: false})} catch (e) {return PKUR.talimat('Kamera izni verilmedi. Tarayıcı ayarlarından kamera iznini açabilir ya da aşağıdaki yolu kullanabilirsiniz.')}
+    const dur = () => akis.getTracks().forEach(t => t.stop());
+    UI.ac({baslik: 'QR kodu okutun', govde: `<video id="qv" playsinline muted style="width:100%;max-height:60vh;border-radius:12px;background:#000;display:block;object-fit:cover"></video><p class="not" style="text-align:center">Kamerayı yöneticinin gösterdiği QR koda tutun.</p>`, butonlar: [{ad: 'Vazgeç', fn: () => {}}]});
+    const v = $('#qv'); v.srcObject = akis; try {await v.play()} catch (e) {}
+    const dongu = async () => {
+      if (!UI.acik() || !$('#qv')) return dur();
+      try {const r = await det.detect(v); if (r && r.length) {dur(); UI.kapat(); return PKUR.uygula(r[0].rawValue)}} catch (e) {}
+      setTimeout(dongu, 250);
+    };
+    dongu();
+  }
+};
+
+/* ---------- personel girişi: kullanıcı adı + kişisel parola ---------- */
+const PGIRIS = {
+  ciz(kok) {
+    const A = VERI.ayar;
+    kok.innerHTML = `<div id="giris"><div class="kutu">${LOGO(false, 34)}<div class="not" style="margin-bottom:18px">NexDrive Saha · <b>Personel girişi</b></div>
+      <form id="pg" class="sf" autocomplete="on"><label>Kullanıcı adı<input id="pgk" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required value="${esc(A.sonKad || '')}" placeholder="Yöneticinizin verdiği kullanıcı adı"></label><label>Parola<input id="pgs" type="password" autocomplete="current-password" required></label>
+      <button class="btn p buyuk" type="submit">Giriş yap</button><p class="not" id="pgm" style="min-height:20px;margin:10px 0 0"></p></form>
+      <p class="not" style="margin:0">Kullanıcı adınızı ve parolanızı yöneticiniz verir. Parolanızı unuttuysanız yöneticiden yenisini isteyin.</p>
+      <div class="not" style="border-top:1px solid var(--ln);padding-top:12px;margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span style="flex:1">${VERI.bulut() ? 'Sunucu: ' + esc(A.url.replace(/^https?:\/\//, '')) : 'Yerel mod · bu cihaz'}</span><button class="btn k" id="pgb">Bağlantıyı değiştir</button></div>
+      ${VERI.kuyruk.size ? `<div class="uyari a" style="margin-top:10px"><i>⇅</i><span>${VERI.kuyruk.size} kayıt bu cihazda gönderilmeyi bekliyor; giriş yapınca gönderilecek.</span></div>` : ''}
+      <div class="not" style="text-align:center;margin-top:16px;font-size:11px">NexDrive Engineering</div></div></div>`;
+    if (UI.girisMesaj) {$('#pgm').textContent = UI.girisMesaj; UI.girisMesaj = ''}
+    $('#pgb').onclick = async () => {Object.assign(A, {mod: 'yerel', yerelPersonel: false, pOturum: ''}); await VERI.ayarKaydet(); UI.ekran()};
+    $('#pg').onsubmit = async e => {
+      e.preventDefault(); const m = $('#pgm'), btn = $('#pg button'), giris = $('#pgk').value.trim(), kad = giris.includes('@') ? giris.toLowerCase() : PKAD(giris), si = $('#pgs').value;
+      if (!kad) return m.textContent = '✕ Kullanıcı adını girin';
+      btn.disabled = true; m.textContent = 'Lütfen bekleyin…';
+      try {
+        if (VERI.bulut()) {
+          const eski = A.kullanici_id; A.ad = '';
+          await BULUT.giris(PEPOSTA(kad), si);
+          if (eski && eski != A.kullanici_id) {const a = {...A}; await VERI.tumunuSil(); Object.assign(VERI.ayar, a, {imlec: {}, personel_id: '', arac_id: ''})}
+          A.sonKad = giris; await VERI.ayarKaydet(); UI.ekran(); BULUT.esitle(true);
+        } else {
+          const p = VERI.liste('personel').find(x => x.kullanici_adi == kad);
+          if (!p || p.aktif === false || !p.parola_hash || p.parola_hash != PHASH(kad, si)) throw new Error(p && !p.parola_hash ? 'Bu personel için parola tanımlanmamış — yönetici panelinden belirleyin' : p && p.aktif === false ? 'Bu personel pasif durumda' : 'Kullanıcı adı veya parola hatalı');
+          if (A.personel_id != p.id) A.arac_id = '';
+          Object.assign(A, {pOturum: p.id, personel_id: p.id, sonKad: giris}); await VERI.ayarKaydet(); SAHA.ekr = 'ana'; UI.ekran();
+        }
+      } catch (x) {
+        btn.disabled = false; const t = x.message || '';
+        m.textContent = '✕ ' + (/invalid login|invalid_credentials|Invalid/i.test(t) ? 'Kullanıcı adı veya parola hatalı' : /not confirmed/i.test(t) ? 'Hesap henüz etkin değil — yöneticiden parolanızı yeniden kaydetmesini isteyin' : t === 'çevrimdışı' ? 'İnternet bağlantısı yok' : t);
+      }
+    };
+  }
+};
+SAHA.cikis = () => UI.onay(VERI.kuyruk.size ? `${VERI.kuyruk.size} kayıt henüz gönderilmedi; çıkış yaparsanız bu telefonda bekler.` : 'Oturum kapatılacak. Tekrar girmek için kullanıcı adı ve parolanız gerekir.', async () => {
+  const A = VERI.ayar; if (VERI.bulut()) await BULUT.cikis(); else {A.pOturum = ''; await VERI.ayarKaydet()} SAHA.ekr = 'ana'; UI.ekran();
+}, 'Çıkış yap');
+
+/* hesap personel kartına bağlı değil ya da personel pasif */
+SAHA.e_bagsiz = function (ic) {
+  const p = SAHA.ben(), pasif = p && p.aktif === false;
+  ic.innerHTML = `<div class="kart"><div class="bos"><b>${pasif ? 'Hesabınız pasif durumda' : 'Hesabınız bir personel kartına bağlı değil'}</b>${pasif ? 'Yöneticiniz personel kartınızı yeniden aktif yapınca giriş açılır.' : 'Yöneticiniz Tanımlar → Personel ekranından kartınıza kullanıcı adı ve parola tanımlamalı. Bağlantı yapıldıysa “Yenile”ye dokunun.'}</div>
+    <button class="btn p buyuk" id="by">Yenile</button><button class="btn buyuk" style="margin-top:10px" onclick="SAHA.cikis()">Çıkış yap</button></div>`;
+  $('#by').onclick = async () => {await BULUT.esitle(true); SAHA.git('ana')};
+};
+
+/* kişi seçimi yok: personel girişle belirlenir; burada yalnızca araç seçilir */
+SAHA.e_kim = function (ic) {
+  const A = VERI.ayar, yetkili = VERI.bulut() && ['yonetici', 'ofis'].includes(A.rol);
+  const P = SEC.sirala(VERI.liste('personel').filter(p => p.aktif !== false)), Ar = SEC.sirala(VERI.liste('araclar').filter(a => a.durum != 'satildi'), 'kod'), bn = SAHA.ben();
+  ic.innerHTML = `<div class="kart sf">${yetkili ? `<h3 style="font-size:17px">Hangi personel adına? <small class="not">(ofis hesabı)</small></h3><label>Personel<select id="kp"><option value="">— seçin —</option>${P.map(p => `<option value="${p.id}"${p.id == A.personel_id ? ' selected' : ''}>${esc(p.ad)} · ${esc(GOREV[p.gorev] || '')}</option>`).join('')}</select></label>` : `<label>Personel</label><div class="pkutu">👷 <b>${esc(bn ? bn.ad : '')}</b><span class="not">${esc(bn ? GOREV[bn.gorev] || '' : '')}</span></div>`}
+    <h3 style="font-size:17px;margin-top:16px">Bugün hangi araç / makine?</h3><div class="secim" id="ka">${Ar.map(a => `<button data-a="${a.id}" class="${a.id == A.arac_id ? 'on' : ''}">${esc(a.kod)}<br><small style="font-weight:400">${esc(a.plaka || ARAC_TIP[a.tip] || '')}</small></button>`).join('')}</div>
+    <button class="btn p buyuk" id="kk" style="margin-top:18px">Devam</button></div>`;
+  let secA = A.arac_id;
+  const kp = $('#kp'); if (kp) kp.onchange = () => {const p = VERI.al('personel', kp.value); if (p && p.varsayilan_arac) {secA = p.varsayilan_arac; $$('#ka button').forEach(b => b.classList.toggle('on', b.dataset.a == secA))}};
+  $$('#ka button').forEach(b => b.onclick = () => {secA = b.dataset.a; $$('#ka button').forEach(x => x.classList.toggle('on', x == b))});
+  $('#kk').onclick = () => {if (kp && !kp.value) return UI.bildir('Personel seçin'); if (kp) A.personel_id = kp.value; A.arac_id = secA || ''; VERI.ayarKaydet(); SAHA.git(SAHA.don || 'ana')};
+};
+
+/* formlarda "İş / firma" seçimi yerine personel; iş, yöneticinin personel kartına atadığı işten gelir */
+SAHA.personelKutu = d => {const p = VERI.al('personel', d.personel_id) || SAHA.ben(); return `<label>Personel</label><div class="pkutu">👷 <b>${esc(p ? p.ad : '—')}</b><span class="not">${esc(p ? GOREV[p.gorev] || '' : '')}</span></div>`};
+SAHA.isVars = d => {
+  if (d.santiye_id) return d.santiye_id;
+  const p = VERI.al('personel', d.personel_id) || SAHA.ben(), ST = SEC.santiye();
+  if (p && p.varsayilan_santiye && VERI.al('santiyeler', p.varsayilan_santiye)) return p.varsayilan_santiye;
+  const s = SAHA.sonSefer(); if (s && s.santiye_id) return s.santiye_id;
+  const pu = VERI.liste('puantaj').filter(x => x.personel_id == VERI.ayar.personel_id && x.santiye_id).sort((a, b) => b.tarih.localeCompare(a.tarih))[0]; if (pu) return pu.santiye_id;
+  return ST.length == 1 ? ST[0][0] : '';
+};
+
+/* ---------- personel ekranı iskeleti + alt menü ---------- */
+SAHA.DUZELT_GUN = 3;
+SAHA.SEKME = [['ana', '🏠', 'Bugün'], ['kayitlar', '📋', 'Kayıtlarım'], ['puantajim', '📅', 'Puantajım'], ['aracim', '🚚', 'Aracım'], ['profil', '👤', 'Profil']];
+SAHA.don = 'ana';
+SAHA.git = e => {if (SAHA.SEKME.some(s => s[0] == e)) SAHA.don = e; SAHA.ekr = e; SAHA.ciz($('#kok'))};
+SAHA.ciz = function (kok) {
+  const A = VERI.ayar;
+  if (UI.qArac) {const a = VERI.liste('araclar').find(x => [x.kod, x.plaka, x.id].some(v => v && String(v).replace(/\s/g, '').toLocaleLowerCase('tr') == UI.qArac.replace(/\s/g, '').toLocaleLowerCase('tr'))); if (a) {A.arac_id = a.id; VERI.ayarKaydet(); UI.qArac = ''}}
+  const bn = SAHA.ben(); if (bn && !A.arac_id && bn.varsayilan_arac && VERI.al('araclar', bn.varsayilan_arac)) {A.arac_id = bn.varsayilan_arac; VERI.ayarKaydet()}
+  const yetkili = VERI.bulut() && ['yonetici', 'ofis'].includes(A.rol);
+  if (!bn || bn.aktif === false) {if (!yetkili) SAHA.ekr = 'bagsiz'; else if (SAHA.ekr != 'kim') SAHA.ekr = VERI.liste('personel').length ? 'kim' : 'bos'} else if (['bos', 'bagsiz'].includes(SAHA.ekr)) SAHA.ekr = SAHA.arac() ? 'ana' : 'kim';
+  const p = SAHA.ekr == 'bagsiz' ? null : SAHA.ben(), a = SAHA.arac(), nav = p && SAHA.SEKME.some(s => s[0] == SAHA.ekr);
+  kok.innerHTML = `<div id="saha" class="${nav ? 'navli' : ''}"><div class="sb">${LOGO(true, 20)}<small style="color:#7fa3b8;font:600 10px var(--fh);letter-spacing:.18em;align-self:center">PERSONEL</small><div class="sp"></div><div class="dur" onclick="UI.durumTik()" style="color:#cfdde7;border-color:rgba(255,255,255,.2)"></div></div>
+    ${p ? `<div style="background:var(--nav2);color:#e3edf3;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:14px;white-space:nowrap"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">👷 <b>${esc(p.ad)}</b></span><span style="opacity:.6">·</span><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">${a ? (ISMAKINESI(a.tip) ? '🚜 ' : '🚚 ') + '<b>' + esc(a.kod) + '</b> ' + esc(a.plaka || '') : '<span style="color:var(--am)">Araç seçilmedi</span>'}</span><span style="flex:1"></span><button class="btn k" style="background:transparent;color:#cfdde7;border-color:rgba(255,255,255,.25)" onclick="SAHA.git('kim')">Değiştir</button></div>` : ''}
+    <div class="ic" id="sic"></div>
+    <div style="text-align:center;padding:6px 0 26px" class="not">NexDrive Saha · Personel paneli · NexDrive Engineering</div>
+    ${nav ? `<nav id="alt">${SAHA.SEKME.map(([k, i, ad]) => `<button class="${SAHA.ekr == k ? 'on' : ''}" onclick="SAHA.git('${k}')"><i>${i}</i>${ad}</button>`).join('')}</nav>` : ''}</div>`;
+  UI.durum();
+  (SAHA['e_' + SAHA.ekr] || SAHA.e_ana)($('#sic'));
+  scrollTo(0, 0);
+};
+
+/* form: kaydet / geri sonrası geldiği sekmeye döner */
+SAHA.form = function (ic, baslik, govde, kaydet, sil) {
+  const don = () => {SAHA.duzelt = null; SAHA.git(SAHA.don || 'ana')};
+  ic.innerHTML = `<div class="kart sf"><div style="display:flex;align-items:center;margin-bottom:12px"><button class="btn k" id="sg">← Geri</button><h3 style="flex:1;text-align:center;margin:0;font-size:17px">${baslik}</h3><span style="width:60px"></span></div>${govde}<button class="btn p buyuk" id="sk" style="margin-top:8px">Kaydet</button>${sil ? '<button class="btn r buyuk" id="ss" style="margin-top:10px;font-size:15px;padding:12px">Bu kaydı sil</button>' : ''}</div>`;
+  $('#sg').onclick = don;
+  $('#sk').onclick = () => {try {kaydet(); don(); BULUT.esitle(true)} catch (e) {if (!e.sessiz) UI.bildir(e.message, 3500)}};
+  if (sil) $('#ss').onclick = () => UI.onay('Bu kayıt silinecek.', () => {sil(); don(); BULUT.esitle(true)});
+};
+
+/* ---------- kayıt sahipliği ve düzeltme kilidi ---------- */
+SAHA.benim = r => {const A = VERI.ayar; return (A.personel_id && (r.personel_id == A.personel_id || r.bildiren_id == A.personel_id)) || (A.kullanici_id && r.olusturan == A.kullanici_id)};
+SAHA.duzeltilir = r => {const A = VERI.ayar; if (r.tarih < gunEkle(bugun(), -(SAHA.DUZELT_GUN - 1))) return false; if (VERI.bulut() && A.rol == 'saha' && r.olusturan && r.olusturan != A.kullanici_id) return false; return true};
+SAHA.kilitSebep = r => r.tarih < gunEkle(bugun(), -(SAHA.DUZELT_GUN - 1)) ? `${SAHA.DUZELT_GUN} günden eski kayıtları yalnızca ofis düzeltebilir.` : 'Bu kaydı ofis girdi; yalnızca ofis düzeltebilir.';
+SAHA.rota = s => [VERI.ad('yukleme_sahalari', s.yukleme_id), VERI.ad('dokum_sahalari', s.dokum_id)].filter(Boolean).join(' → ') || VERI.ad('santiyeler', s.santiye_id);
+SAHA.oge = (t, x) => ({
+  seferler: () => ({t, ekr: 'sefer', r: x, s: x.saat || '', i: '🚚', m: 'Sefer', a: [x.yuk, SAHA.rota(x), x.fis_no ? 'fiş ' + x.fis_no : ''].filter(Boolean).join(' · ')}),
+  yakit: () => ({t, ekr: 'yakit', r: x, s: x.olusturma ? new Date(x.olusturma).toTimeString().slice(0, 5) : '', i: '⛽', m: 'Yakıt', a: [sayi(x.litre, 1) + ' L', x.tutar ? para(x.tutar, false) : '', x.sayac ? 'sayaç ' + sayi(x.sayac) : '', VERI.ad('araclar', x.arac_id, 'kod')].filter(Boolean).join(' · ')}),
+  puantaj: () => ({t, ekr: 'puantaj', r: x, s: x.giris || '', i: '⏱', m: x.giris && !x.cikis ? 'Mesaide' : 'Çalışma', a: [x.giris ? x.giris + ' – ' + (x.cikis || '…') : '', x.giris && !x.cikis ? '' : sayi(x.saat, 1) + ' saat' + (N(x.mesai) ? ' + ' + sayi(x.mesai, 1) + ' mesai' : ''), VERI.ad('araclar', x.arac_id, 'kod'), VERI.ad('santiyeler', x.santiye_id)].filter(Boolean).join(' · ')}),
+  bakim: () => ({t, ekr: 'ariza', r: x, s: '', i: '⚠', m: BAKIM_TIP[x.tip] || 'Arıza', a: [VERI.ad('araclar', x.arac_id, 'kod'), x.aciklama].filter(Boolean).join(' · ')})
+}[t])();
+SAHA.kayitlar = (bas, bit) => {
+  const ic = r => r.tarih >= bas && r.tarih <= bit && SAHA.benim(r);
+  return ['seferler', 'yakit', 'puantaj', 'bakim'].flatMap(t => VERI.liste(t).filter(ic).map(x => SAHA.oge(t, x))).sort((x, y) => (y.r.tarih + (y.s || '')).localeCompare(x.r.tarih + (x.s || '')));
+};
+SAHA.satirHTML = (k, i) => `<div class="kart" style="padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><span style="font-size:20px">${k.i}</span><div style="flex:1;min-width:0"><b>${esc(k.m)}</b>${k.s ? ` <span class="not">${esc(k.s)}</span>` : ''}${k.r.konum || k.r.konum_giris ? ' <span title="Konum kayıtlı">📍</span>' : ''}${k.t == 'bakim' ? ' ' + (k.r.durum == 'acik' ? '<span class="et r">Açık</span>' : '<span class="et g">Kapandı</span>') : ''}<div class="not" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(k.a)}</div></div>${VERI.kuyruk.has(k.t + '|' + k.r.id) ? '<span class="et a" title="Henüz gönderilmedi">bekliyor</span>' : ''}<button class="btn k" data-k="${i}">${SAHA.duzeltilir(k.r) ? 'Düzelt' : '🔒'}</button></div>`;
+SAHA.ac = k => {if (!SAHA.duzeltilir(k.r)) return SAHA.kilitliGoster(k.t, k.r); SAHA.duzelt = k.r; SAHA.git(k.ekr)};
+SAHA.kilitliGoster = (t, r) => {const k = SAHA.oge(t, r); UI.ac({baslik: 'Kayıt kilitli 🔒', govde: `<p style="margin-top:0">${esc(SAHA.kilitSebep(r))}</p><div class="kart" style="padding:12px"><b>${k.i} ${esc(k.m)}</b> · ${esc(tarihTR(r.tarih))}${k.s ? ' ' + esc(k.s) : ''}<div class="not">${esc(k.a)}</div></div><p class="not">Bir yanlışlık varsa ofise / şantiye şefine bildirin.</p>`})};
+
+/* çalışma saati: ofisin girdiği güne üstüne yazmasın */
+const _ePuantaj = SAHA.e_puantaj;
+SAHA.e_puantaj = function (ic) {
+  const A = VERI.ayar, d = SAHA.duzelt || {}, t = d.tarih || bugun();
+  const v = d.id ? d : VERI.liste('puantaj').find(p => p.tarih == t && p.personel_id == A.personel_id);
+  if (v && !SAHA.duzeltilir(v)) {SAHA.duzelt = null; setTimeout(() => {SAHA.git(SAHA.don || 'ana'); SAHA.kilitliGoster('puantaj', v)}, 0); return}
+  if (v) SAHA.duzelt = v;
+  return _ePuantaj(ic);
+};
+
+/* ---------- Kayıtlarım ---------- */
+SAHA.e_kayitlar = function (ic) {
+  const f = SAHA.kF = SAHA.kF || 'hafta', tip = SAHA.kT || '', [bas, bit] = pDonem(f);
+  const T = SAHA.kayitlar(bas, bit), L = T.filter(k => !tip || k.t == tip);
+  const say = t => T.filter(k => k.t == t), saat = say('puantaj').reduce((s, k) => s + HESAP.calismaSaat(k.r), 0), litre = say('yakit').reduce((s, k) => s + N(k.r.litre), 0);
+  const gunler = []; L.forEach(k => {const g = gunler[gunler.length - 1]; if (g && g[0] == k.r.tarih) g[1].push(k); else gunler.push([k.r.tarih, [k]])});
+  ic.innerHTML = `<div class="kart" style="margin-bottom:12px"><div class="secim" id="kf">${Object.entries(PDON).map(([k, a]) => `<button data-f="${k}" class="${k == f ? 'on' : ''}">${a}</button>`).join('')}</div>
+    <div class="not" style="margin:10px 2px 0">${tarihTR(bas)} – ${tarihTR(bit)}</div>
+    <div class="ozet" style="margin-top:8px"><div><b>${say('seferler').length}</b><small>sefer</small></div><div><b>${sayi(saat, 1)}</b><small>saat çalışma</small></div><div><b>${sayi(litre)}</b><small>L yakıt</small></div></div></div>
+    <div class="secim" id="kt" style="margin-bottom:6px">${[['', 'Tümü'], ['seferler', '🚚 Sefer'], ['yakit', '⛽ Yakıt'], ['puantaj', '⏱ Çalışma'], ['bakim', '⚠ Arıza']].map(([k, a]) => `<button data-t="${k}" class="${k == tip ? 'on' : ''}">${a}</button>`).join('')}</div>
+    ${gunler.length ? gunler.map(([t, K]) => `<div style="margin:16px 2px 7px;font:600 13px var(--fh);color:var(--mu)">${esc(gunAdi(t))}</div>` + K.map(k => SAHA.satirHTML(k, L.indexOf(k))).join('')).join('') : '<div class="kart" style="margin-top:10px"><div class="bos" style="padding:16px"><b>Bu dönemde kaydınız yok</b>Sefer, yakıt ve çalışma kayıtlarınız burada listelenir.</div></div>'}
+    <p class="not" style="text-align:center;margin-top:14px">Son ${SAHA.DUZELT_GUN} günün kendi kayıtlarınızı düzeltebilirsiniz; daha eskileri ofis düzeltir.</p>`;
+  $$('#kf button', ic).forEach(b => b.onclick = () => {SAHA.kF = b.dataset.f; SAHA.git('kayitlar')});
+  $$('#kt button', ic).forEach(b => b.onclick = () => {SAHA.kT = b.dataset.t; SAHA.git('kayitlar')});
+  $$('[data-k]', ic).forEach(b => b.onclick = () => SAHA.ac(L[+b.dataset.k]));
+};
+
+/* ---------- Puantajım ---------- */
+SAHA.e_puantajim = function (ic) {
+  const A = VERI.ayar, p = SAHA.ben(), bu = bugun().slice(0, 7), ay = SAHA.pAy = SAHA.pAy && SAHA.pAy <= bu ? SAHA.pAy : bu;
+  const [y, m] = ay.split('-').map(Number), gun = new Date(y, m, 0).getDate(), bas = ay + '-01', bit = ay + '-' + String(gun).padStart(2, '0'), b = bugun(), sinir = gunEkle(b, -(SAHA.DUZELT_GUN - 1));
+  const P = VERI.liste('puantaj').filter(x => x.personel_id == A.personel_id && x.tarih >= bas && x.tarih <= bit), G = {};
+  P.forEach(x => {const g = G[x.tarih] = G[x.tarih] || {s: 0, m: 0, r: []}; g.s += N(x.saat); g.m += N(x.mesai); g.r.push(x)});
+  const gunSay = Object.values(G).filter(v => v.s > 0).length, saat = Object.values(G).reduce((t, v) => t + v.s, 0), mesai = Object.values(G).reduce((t, v) => t + v.m, 0);
+  const sefer = VERI.liste('seferler').filter(s => s.personel_id == A.personel_id && s.tarih >= bas && s.tarih <= bit).length;
+  const gu = N(p && p.gunluk_ucret), mu = N(p && p.mesai_ucreti), tah = gunSay * gu + mesai * mu;
+  const ilk = (new Date(bas + 'T12:00:00').getDay() + 6) % 7;
+  let hucre = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'].map(x => `<div class="gb">${x}</div>`).join('') + '<div class="bosg"></div>'.repeat(ilk);
+  for (let i = 1; i <= gun; i++) {
+    const t = ay + '-' + String(i).padStart(2, '0'), v = G[t], gel = t > b;
+    hucre += `<div data-t="${t}" class="${v && v.s ? 'd' : ''}${t == b ? ' bg' : ''}${gel ? ' gel' : ''}"><b>${i}</b>${v ? `<span>${sayi(v.s, 1)}${v.m ? `<sup style="color:var(--am)">+${sayi(v.m, 1)}</sup>` : ''}</span>` : ''}</div>`;
+  }
+  ic.innerHTML = `<div class="kart" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><button class="btn" id="pa">‹</button><h3 style="flex:1;text-align:center;margin:0;font-size:17px;text-transform:capitalize">${esc(ayAdi(ay))}</h3><button class="btn" id="ps"${ay >= bu ? ' disabled' : ''}>›</button></div>
+    <div class="takvim">${hucre}</div>
+    <div class="not" style="margin-top:10px">Rakam o gün çalışılan saati, <b style="color:var(--am)">+</b> fazla mesaiyi gösterir. Bir güne dokunarak kaydı görün; son ${SAHA.DUZELT_GUN} gün için ekleyip düzeltebilirsiniz.</div></div>
+    <div class="ozet" style="margin-bottom:12px"><div><b>${gunSay}</b><small>çalışılan gün</small></div><div><b>${sayi(saat, 1)}${mesai ? `<small style="color:var(--am)"> +${sayi(mesai, 1)}</small>` : ''}</b><small>saat (+ mesai)</small></div><div><b>${sefer}</b><small>sefer</small></div></div>
+    ${gu || mu ? `<div class="kart" style="margin-bottom:12px;border-left:4px solid var(--gr)"><div class="not">Bu ayki tahmini hak ediş</div><div style="font:600 26px var(--fh);margin:2px 0">${para(tah, false)}</div><div class="not">${gunSay} gün × ${para(gu, false)}${mesai ? ` + ${sayi(mesai, 1)} saat mesai × ${para(mu, false)}` : ''}</div><div class="not" style="font-size:11.5px;margin-top:6px">Brüt tahmindir; avans, kesinti ve yasal ödemeler bordroda ayrıca hesaplanır.</div></div>` : ''}
+    <button class="btn p buyuk" id="pb">⏱ Bugünkü çalışmamı gir</button>`;
+  $('#pa').onclick = () => {SAHA.pAy = ayKay(ay, -1); SAHA.git('puantajim')};
+  $('#ps').onclick = () => {if (ay < bu) {SAHA.pAy = ayKay(ay, 1); SAHA.git('puantajim')}};
+  $('#pb').onclick = () => {SAHA.duzelt = null; SAHA.git('puantaj')};
+  $$('.takvim [data-t]', ic).forEach(c => c.onclick = () => {
+    const t = c.dataset.t, v = G[t]; if (t > b) return;
+    if (v && v.r.length) return SAHA.ac(SAHA.oge('puantaj', v.r[0]));
+    if (t < sinir) return UI.bildir(`${tarihTR(t)} için kayıt yok. Eski günler için ofise bildirin.`, 3500);
+    SAHA.duzelt = {tarih: t}; SAHA.git('puantaj');
+  });
+};
+
+/* ---------- Aracım ---------- */
+SAHA.e_aracim = function (ic) {
+  const a = SAHA.arac();
+  if (!a) {ic.innerHTML = `<div class="kart"><div class="bos"><b>Araç seçilmedi</b>Bugün kullandığınız araç ya da makineyi seçin.</div><button class="btn p buyuk" onclick="SAHA.git('kim')">Araç seç</button></div>`; return}
+  const b = HESAP.bakimDurum(a), birim = a.sayac_tipi == 'saat' ? 'saat' : 'km', ar = N(a.bakim_araligi), oran = ar ? Math.min(100, Math.max(0, (b.sayac - N(a.son_bakim_sayac)) / ar * 100)) : 0, y = HESAP.yakitAnaliz()[a.id];
+  const acik = b.ariza.map(x => SAHA.oge('bakim', x)), Y = VERI.liste('yakit').filter(x => x.arac_id == a.id).sort((p, q) => (q.tarih + (q.olusturma || '')).localeCompare(p.tarih + (p.olusturma || ''))).slice(0, 5).map(x => SAHA.oge('yakit', x)), L = [...acik, ...Y];
+  ic.innerHTML = `<div class="kart" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:12px"><span style="font-size:36px">${ISMAKINESI(a.tip) ? '🚜' : '🚚'}</span><div style="flex:1;min-width:0"><div style="font:600 24px var(--fh)">${esc(a.kod)}</div><div class="not">${esc([a.plaka, ARAC_TIP[a.tip] || a.tip, a.marka_model, a.yil].filter(Boolean).join(' · '))}</div></div>${etiket(BAKIM_DURUM, b.durum)}</div>
+    <div class="ozet" style="margin-top:14px"><div><b>${sayi(b.sayac)}</b><small>${birim} sayaç</small></div><div><b>${b.kalan != null ? sayi(Math.abs(b.kalan)) : '—'}</b><small>${b.kalan == null ? 'bakım aralığı yok' : b.kalan < 0 ? birim + ' bakım gecikti' : birim + ' bakıma kaldı'}</small></div><div><b>${y && y.med != null ? sayi(y.med, 1) : '—'}</b><small>${y ? y.birim : 'L'} normal tüketim</small></div></div>
+    ${ar ? `<div class="cubuk" style="margin-top:12px"><span style="width:${oran}%;background:${oran >= 100 ? 'var(--rd)' : oran >= 90 ? 'var(--am)' : 'var(--ac)'}"></span></div><div class="not" style="margin-top:4px">Son bakım ${sayi(a.son_bakim_sayac)} → sonraki ${sayi(b.sonraki)} ${birim}</div>` : ''}</div>
+    <div class="karo" style="margin-bottom:12px"><button style="background:#c8394a;min-height:92px" onclick="SAHA.duzelt=null;SAHA.git('ariza')"><i>⚠</i><span>Arıza bildir</span></button><button style="background:#d98a14;min-height:92px" onclick="SAHA.duzelt=null;SAHA.git('yakit')"><i>⛽</i><span>Yakıt aldım</span></button></div>
+    <h3 style="font:600 15px var(--fh);margin:18px 2px 8px">Açık arızalar ${acik.length ? `<span class="et r">${acik.length}</span>` : ''}</h3>
+    ${acik.length ? acik.map(k => SAHA.satirHTML(k, L.indexOf(k))).join('') : '<div class="kart"><div class="bos" style="padding:12px">Açık arıza kaydı yok.</div></div>'}
+    <h3 style="font:600 15px var(--fh);margin:18px 2px 8px">Son yakıt alımları</h3>
+    ${Y.length ? Y.map(k => SAHA.satirHTML({...k, s: tarihTR(k.r.tarih)}, L.indexOf(k))).join('') : '<div class="kart"><div class="bos" style="padding:12px">Bu araç için yakıt kaydı yok.</div></div>'}
+    <button class="btn buyuk" style="margin-top:12px" onclick="SAHA.git('kim')">Başka araç / makine seç</button>`;
+  $$('[data-k]', ic).forEach(x => x.onclick = () => SAHA.ac(L[+x.dataset.k]));
+};
+
+/* ---------- Profil ---------- */
+SAHA.e_profil = function (ic) {
+  const A = VERI.ayar, p = SAHA.ben(), d = UI.durumBilgi(), harf = p ? String(p.ad || '').split(/\s+/).filter(Boolean).slice(0, 2).map(x => x[0].toLocaleUpperCase('tr')).join('') : '?';
+  ic.innerHTML = `${p ? `<div class="kart" style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><div style="width:56px;height:56px;border-radius:50%;background:var(--acbg);color:var(--ac);display:grid;place-items:center;font:600 22px var(--fh);flex:none">${esc(harf)}</div><div style="flex:1;min-width:0"><b style="font-size:17px">${esc(p.ad)}</b><div class="not">${esc([GOREV[p.gorev] || p.gorev, p.telefon].filter(Boolean).join(' · '))}</div><div class="not">Zimmetli araç: ${esc(VERI.ad('araclar', p.varsayilan_arac, 'kod') || '—')}</div></div></div>` : ''}
+    <div class="kart" style="margin-bottom:12px"><h3>Bağlantı</h3><table class="t"><tbody>
+      <tr><td class="not">Çalışma şekli</td><td style="white-space:normal">${VERI.bulut() ? 'Bulut · ofisle ortak veri' : 'Yerel · yalnızca bu cihaz'}</td></tr>
+      ${A.sonKad ? `<tr><td class="not">Kullanıcı adı</td><td style="white-space:normal">${esc(A.sonKad)}</td></tr>` : ''}
+      ${VERI.bulut() ? `<tr><td class="not">Hesap</td><td style="white-space:normal">${esc(A.oturum && A.oturum.eposta || '')}</td></tr><tr><td class="not">Rol</td><td>${esc(ROLLER[A.rol] || A.rol || '')}</td></tr>` : ''}
+      <tr><td class="not">Durum</td><td style="white-space:normal"><i class="led ${d.c}" style="display:inline-block"></i> ${esc(d.m)}<div class="not">${esc(d.u)}</div></td></tr></tbody></table>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">${VERI.bulut() ? '<button class="btn p" id="pe">Şimdi eşitle</button><button class="btn" id="py" title="Ofisin girdiği eski kayıtlar görünmüyorsa">Tüm kayıtları yeniden al</button>' : '<button class="btn p" id="pb">Sunucuya bağlan</button>'}</div></div>
+    <div class="kart" style="margin-bottom:12px"><h3>Görünüm</h3><div class="secim" id="ptm"><button data-v="acik" class="${A.tema != 'koyu' ? 'on' : ''}">☀ Açık</button><button data-v="koyu" class="${A.tema == 'koyu' ? 'on' : ''}">☾ Koyu (gece)</button></div></div>
+    <div class="kart" style="margin-bottom:12px"><h3>Telefonda uygulama gibi kullanın</h3><p class="not" style="margin:0 0 10px">Ana ekrana ekleyince tek dokunuşla açılır. Telefon çekmese de kayıt alınır; bağlantı gelince otomatik gönderilir.</p><button class="btn p" onclick="SAHA.anaEkranNasil()">📲 Ana ekrana nasıl eklenir?</button></div>
+    <div class="kart" style="margin-bottom:12px"><h3>📍 Konum paylaşımı</h3><p class="not" style="margin:0 0 10px">Açıksa konum yalnızca mesaiye başlarken / bitirirken, sefer, arıza ve durum bildirirken bir kez alınır. Sürekli takip yapılmaz.</p>
+      ${KONUM.destek() ? `<div class="secim" id="pkn"><button data-v="acik" class="${A.konum == 'acik' ? 'on' : ''}">📍 Paylaş</button><button data-v="kapali" class="${A.konum != 'acik' ? 'on' : ''}">Kapalı</button></div>${A.konum == 'reddedildi' ? '<div class="uyari a" style="margin:10px 0 0"><i>⚠</i><span>Tarayıcı konum iznini engelledi. Telefon ayarlarından bu site / tarayıcı için konum iznini açıp tekrar “Paylaş”a dokunun.</span></div>' : ''}` : '<div class="not">Bu tarayıcıda konum kullanılamıyor (güvenli https bağlantısı gerekir).</div>'}</div>
+    <div class="kart" style="margin-bottom:12px"><h3>🔑 Güvenlik</h3><p class="not" style="margin:0 0 10px">Yöneticinin verdiği parolayı kendinize özel bir parolayla değiştirebilirsiniz.</p><button class="btn p" id="ppd">Parolamı değiştir</button></div>
+    <button class="btn buyuk" style="margin-bottom:10px" onclick="SAHA.git('kim')">Araç / makine değiştir</button>
+    <button class="btn r buyuk" onclick="SAHA.cikis()">Çıkış yap</button>`;
+  $('#ppd').onclick = SAHA.parolaDegistir;
+  $$('#pkn button', ic).forEach(x => x.onclick = async () => {A.konum = x.dataset.v; await VERI.ayarKaydet(); if (A.konum == 'acik') {const k = await KONUM.al(); UI.bildir(k ? '✓ Konum paylaşımı açıldı' : A.konum == 'reddedildi' ? 'Konum izni verilmedi' : 'Konum şu an alınamadı; kayıtlar yine de çalışır', 3500)} SAHA.git('profil')});
+  const pe = $('#pe'); if (pe) pe.onclick = () => BULUT.esitle();
+  const py = $('#py'); if (py) py.onclick = () => {A.imlec = {}; VERI.ayarKaydet(); BULUT.esitle(); UI.bildir('Tüm kayıtlar yeniden alınıyor…')};
+  const pb = $('#pb'); if (pb) pb.onclick = async () => {Object.assign(A, {yerelPersonel: false, mod: 'yerel', pOturum: ''}); await VERI.ayarKaydet(); UI.ekran()};
+  $$('#ptm button', ic).forEach(x => x.onclick = () => {UI.tema(x.dataset.v); SAHA.git('profil')});
+};
+
+/* ---------- ana ekrana ekleme yardımı ---------- */
+SAHA.uygulamaMi = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+SAHA.anaEkranNasil = () => {
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform == 'MacIntel' && navigator.maxTouchPoints > 1);
+  const and = `<h3 style="font:600 15px var(--fh);margin:4px 0 6px">🤖 Android (Chrome)</h3><ol style="padding-left:20px;line-height:1.75;margin:0 0 12px"><li>Sağ üstteki <b>⋮</b> (üç nokta) menüsüne dokunun.</li><li><b>Ana ekrana ekle</b> ya da <b>Uygulamayı yükle</b>'yi seçin.</li><li><b>Ekle</b>'ye dokunun. Ana ekranda NexDrive simgesi çıkar.</li></ol><p class="not" style="margin:-4px 0 12px">Samsung İnternet'te: alttaki <b>☰</b> → <b>Sayfayı ekle</b> → <b>Ana ekran</b>.</p>`;
+  const ip = `<h3 style="font:600 15px var(--fh);margin:4px 0 6px">🍎 iPhone (Safari)</h3><ol style="padding-left:20px;line-height:1.75;margin:0 0 12px"><li>Alttaki <b>Paylaş</b> düğmesine dokunun (yukarı oklu kare).</li><li>Listeyi aşağı kaydırıp <b>Ana Ekrana Ekle</b>'yi seçin.</li><li>Sağ üstte <b>Ekle</b>'ye dokunun.</li></ol><p class="not" style="margin:-4px 0 12px">iPhone'da Chrome kullanıyorsanız adres çubuğundaki paylaş simgesinden aynı adımlar.</p>`;
+  UI.ac({baslik: '📲 Ana ekrana ekleme', govde: (ios ? ip + and : and + ip) + `<p class="not" style="margin:0">Bundan sonra paneli ana ekrandaki simgeden açın; kullanıcı adı ve parolanız telefonda hatırlanır.</p>`});
+};
+/* ===== NexDrive Saha · 75 · Durum bildirimi (ofisteki Canlı filo ekranına düşer) ===== */
+const DURUM_K = {yuk: ['Yükleniyor', 'g'], yol: ['Dolu, yolda', 'c'], bos: ['Boşaltıyor', ''], don: ['Boş, dönüyor', ''], bekle: ['Bekliyor', ''], dur: ['Durdu', 'r'], ariza: ['Arıza', 'r']};
+const DURUM_M = {cal: ['Çalışıyor', 'g'], rol: ['Rölanti', 'a'], bekle: ['Bekliyor', ''], ariza: ['Arıza', 'r']};
+const DURUMB = {
+  dk(a) {return ISMAKINESI(a.tip) ? DURUM_M : DURUM_K},
+  son(a) {const b = bugun(); let s = null; for (const r of VERI.liste('arac_durum')) if (r.arac_id == a.id && r.tarih == b && (!s || (r.olusturma || '') > (s.olusturma || ''))) s = r; return s},
+  durum(a) {const s = DURUMB.son(a), M = DURUMB.dk(a); if (s && M[s.durum]) return {k: s.durum, t: Date.parse(s.olusturma) || null}; if (HESAP.bakimDurum(a).ariza.length) return {k: 'ariza', t: null}; return {k: 'bekle', t: null}},
+  yaz(a, k) {return VERI.kaydet('arac_durum', {tarih: bugun(), saat: SAHA.saat(), arac_id: a.id, personel_id: VERI.ayar.personel_id || null, durum: k, notlar: ''})}
+};
+SAHA.durumHTML = function (a) {
+  const d = DURUMB.durum(a), mk = ISMAKINESI(a.tip), dk = d.t ? Math.max(0, Math.round((Date.now() - d.t) / 6e4)) : null;
+  const L = mk ? [['cal', '▶ Çalışıyorum'], ['rol', '⏸ Rölantide'], ['bekle', '◼ Bekliyorum']] : [['yuk', 'Yükleniyorum'], ['yol', 'Yoldayım (dolu)'], ['bos', 'Döktüm · +1 sefer'], ['don', 'Dönüyorum'], ['bekle', 'Bekliyorum'], ['dur', 'Durdum']];
+  return `<div class="kart" id="sdk" style="margin-bottom:12px;padding:12px"><div class="not" style="margin-bottom:8px">Şu anki durumum · <b style="color:var(--tx)">${esc(DURUMB.dk(a)[d.k][0])}</b>${dk != null ? ' · ' + dk + ' dk' : ''} <span style="float:right">ofis canlı görür</span></div><div class="secim">${L.map(([k, ad]) => `<button type="button" data-sd="${k}" class="${k == d.k ? 'on' : ''}" style="${k == 'bos' ? 'flex-basis:100%;' : ''}">${ad}</button>`).join('')}</div></div>`;
+};
+/* "Döktüm · +1 sefer" tek sefer ekleme yolu; 1 dakika içinde ikinci dokunuşta onay ister (çift sayımı önler) */
+SAHA.SEFER_ARALIK_SN = 60;
+SAHA.seferEkle = function (a) {
+  const s = SAHA.sonSefer(); if (!s) {UI.bildir('İlk seferi formdan girin; sonra bu düğme güzergâhı hatırlar', 3500); SAHA.duzelt = null; return SAHA.git('sefer')}
+  const ekle = () => {
+    const r = VERI.kaydet('seferler', {tarih: bugun(), saat: SAHA.saat(), arac_id: a.id, personel_id: VERI.ayar.personel_id, santiye_id: s.santiye_id || SAHA.isVars({}), yukleme_id: s.yukleme_id, dokum_id: s.dokum_id, yuk: s.yuk, ucret: s.ucret}, true);
+    const d = DURUMB.yaz(a, 'bos'), n = SAHA.bugunkuler().S.length;
+    SAHA.geriAl(`Döküm kaydedildi · bugün ${n}. sefer`, () => {VERI.sil('seferler', r.id); VERI.sil('arac_durum', d.id)});
+    SAHA.konumEkle('seferler', r.id); SAHA.konumEkle('arac_durum', d.id); BULUT.esitle(true);
+  };
+  const enYeni = SAHA.bugunkuler().S.slice().sort((x, y) => (y.olusturma || '').localeCompare(x.olusturma || ''))[0], sn = enYeni && enYeni.olusturma ? (Date.now() - Date.parse(enYeni.olusturma)) / 1000 : Infinity;
+  if (sn < SAHA.SEFER_ARALIK_SN) return UI.ac({baslik: 'Az önce sefer kaydedildi', govde: `<p style="margin-top:0">${Math.max(1, Math.round(sn))} saniye önce bir sefer kaydedildi. Yanlışlıkla iki kez dokunmuş olabilirsiniz.</p><p class="not">Gerçekten yeni bir döküm yaptıysanız ekleyin.</p>`, butonlar: [{ad: 'Vazgeç', fn: () => {}}, {ad: 'Evet, yeni sefer ekle', sinif: 'p', fn: ekle}]});
+  ekle();
+};
+SAHA.durumBagla = function (ic, a) {
+  $$('[data-sd]', ic).forEach(b => b.onclick = () => {
+    const k = b.dataset.sd;
+    if (k == 'bos') return SAHA.seferEkle(a);
+    const d = DURUMB.yaz(a, k); UI.bildir('Durum: ' + DURUMB.dk(a)[k][0]); SAHA.konumEkle('arac_durum', d.id); BULUT.esitle(true);
+  });
+};
+/* ===== NexDrive Saha · 80 · Uygulama içi soru penceresi (prompt yerine) ===== */
+UI.sor = (baslik, etiket, ph = '') => new Promise(res => {
+  let bitti = false; const son = v => {if (!bitti) {bitti = true; UI._sorKapat = null; res(v)}};
+  UI.ac({baslik, govde: `<div class="sf"><label>${esc(etiket)}<input id="sorI" placeholder="${esc(ph)}" autocomplete="off"></label></div>`, butonlar: [{ad: 'Vazgeç', fn: () => son(null)}, {ad: 'Ekle', sinif: 'p', fn: () => {const v = $('#sorI').value.trim(); if (!v) {UI.bildir('Bir ad yazın'); return false} son(v)}}]});
+  UI._sorKapat = () => son(null);
+  const i = $('#sorI'); setTimeout(() => i && i.focus(), 60);
+  i.onkeydown = e => {if (e.key == 'Enter') {e.preventDefault(); const b = $('#penA .btn.p'); if (b) b.click()}};
+});
+{const _kapat = UI.kapat; UI.kapat = function () {_kapat(); if (UI._sorKapat) UI._sorKapat()}}
+
+/* ===== NexDrive Saha · 82 · Güvenlik: saha telefonunda başkasının ücreti ve müşteri fiyatları tutulmaz ===== */
+SAHA.gizle = (t, r) => {
+  if (!r) return r; let o = r; const sil = k => {if (o[k] != null) {if (o === r) o = {...r}; o[k] = null}};
+  (SAHA_GIZLI_ALAN[t] || []).forEach(sil);
+  if (t == 'personel') {sil('parola_hash'); if (r.id != VERI.ayar.personel_id) {sil('gunluk_ucret'); sil('mesai_ucreti'); sil('kullanici_adi')}}
+  return o;
+};
+SAHA.temizle = () => {
+  if (!VERI.bulut() || VERI.ayar.rol != 'saha') return; /* yerel modda bu veriler ofisindir, dokunulmaz */
+  for (const t of ['personel', ...Object.keys(SAHA_GORUNUM)]) {if (!VERI.t[t]) continue; VERI.t[t] = VERI.t[t].map(r => SAHA.gizle(t, r)); VERI.ix[t] = new Map(VERI.t[t].map(x => [x.id, x])); VERI.kirli(t)}
+};
+/* çekme: saha rolü araç / iş listesini ücretsiz görünümden alır (görünüm yoksa eski tabloya döner) */
+BULUT.cek = async function () {
+  let n = 0; BULUT.eksik = []; const saha = VERI.ayar.rol == 'saha';
+  if (saha) {try {const pid = await BULUT.istek('/rest/v1/rpc/nx_personel', {method: 'POST', body: {}}); if (pid) VERI.ayar.personel_id = pid} catch (e) {if (e.message == 'çevrimdışı' || e.durum == 401) throw e}}
+  for (const t of BULUT.tablolar()) {
+    if (!VERI.t[t]) {VERI.t[t] = []; VERI.ix[t] = new Map()}
+    let imlec = VERI.ayar.imlec[t] || '1970-01-01T00:00:00Z', off = 0, kaynak = saha && SAHA_GORUNUM[t] && !BULUT._gorunumYok ? SAHA_GORUNUM[t] : t;
+    const bas = imlec;
+    for (;;) {
+      let L;
+      try {L = await BULUT.istek(`/rest/v1/${kaynak}?select=*&guncelleme=gt.${encodeURIComponent(bas)}&order=guncelleme.asc,id.asc&limit=1000&offset=${off}`)}
+      catch (e) {if ((e.durum == 404 || e.durum == 400) && kaynak != t) {BULUT._gorunumYok = true; kaynak = t; off = 0; continue} if (e.durum == 404 || e.durum == 400) {BULUT.eksik.push(t); break} throw e}
+      for (const r0 of L) {
+        if (VERI.kuyruk.has(t + '|' + r0.id)) continue; /* yerel değişiklik öncelikli */
+        const r = saha ? SAHA.gizle(t, r0) : r0;
+        if (VERI.ix[t].has(r.id)) {const i = VERI.t[t].findIndex(x => x.id == r.id); VERI.t[t][i] = r} else VERI.t[t].push(r);
+        VERI.ix[t].set(r.id, r); if (r.guncelleme > imlec) imlec = r.guncelleme; n++;
+      }
+      if (L.length) VERI._kirli.add(t);
+      if (L.length < 1000) break; off += 1000;
+    }
+    VERI.ayar.imlec[t] = imlec;
+  }
+  return n;
+};
+/* gönderme: sunucuda henüz olmayan yeni sütunlar (konum, mesai saatleri) kaydın kaybolmasına yol açmasın */
+BULUT.yokSutun = {};
+BULUT.yolla = async function (t, satir) {
+  for (let deneme = 0; deneme < 10; deneme++) {
+    const ys = BULUT.yokSutun[t] || [], govde = satir.map(r => {const o = {...r}; ys.forEach(k => delete o[k]); return o});
+    try {return await BULUT.istek('/rest/v1/' + t + '?on_conflict=id', {method: 'POST', body: govde, headers: {Prefer: 'resolution=merge-duplicates,return=minimal'}})}
+    catch (e) {const m = /could not find the '([^']+)' column/i.exec(e.message || ''); if (m && e.durum == 400 && !ys.includes(m[1])) {(BULUT.yokSutun[t] = BULUT.yokSutun[t] || []).push(m[1]); continue} throw e}
+  }
+  throw new Error('Kayıt gönderilemedi');
+};
+BULUT.gonder = async function () {
+  const gruplar = {}; for (const k of VERI.kuyruk) {const [t, id] = k.split('|'); (gruplar[t] = gruplar[t] || []).push(id)}
+  let n = 0;
+  for (const [t, ids] of Object.entries(gruplar)) {
+    for (let i = 0; i < ids.length; i += 400) {
+      const parca = ids.slice(i, i + 400), satir = parca.map(id => VERI.al(t, id)).filter(Boolean).map(r => {const o = VERI.temiz(t, r); if (!o.olusturan) o.olusturan = VERI.ayar.kullanici_id; return o});
+      try {if (satir.length) await BULUT.yolla(t, satir); parca.forEach(id => VERI.kuyruk.delete(t + '|' + id)); n += satir.length}
+      catch (e) {
+        if (e.message == 'çevrimdışı' || !e.durum || e.durum >= 500 || e.durum == 401) throw e;
+        for (const r of satir) {try {await BULUT.yolla(t, [r]); n++} catch (e2) {if (!e2.durum || e2.durum >= 500) throw e2; VERI.hatalar.push({t, id: r.id, mesaj: e2.message, zaman: simdi()})} VERI.kuyruk.delete(t + '|' + r.id)}
+      }
+    }
+  }
+  return n;
+};
+{const _esitle = BULUT.esitle; BULUT.esitle = async function (sessiz) {
+  await _esitle(sessiz);
+  const ys = Object.values(BULUT.yokSutun).flat();
+  if (ys.length && BULUT.durum == 'tamam') {BULUT.sonHata = (BULUT.sonHata ? BULUT.sonHata + ' · ' : '') + 'Sunucuda yeni alanlar yok (' + [...new Set(ys)].join(', ') + ') — yöneticiden güncelleme SQL’ini çalıştırmasını isteyin'; UI.durum()}
+}}
+
+/* ===== NexDrive Saha · 84 · Konum (yalnızca kayıt anında, sürekli takip yok) ===== */
+const KONUM = {
+  destek: () => 'geolocation' in navigator && window.isSecureContext !== false,
+  acik: () => VERI.ayar.konum == 'acik' && KONUM.destek(),
+  /* "enlem,boylam,doğruluk_m" — ör. "40.98765,29.12345,18" */
+  al(sure = 10000) {
+    return new Promise(res => {
+      if (!KONUM.destek() || VERI.ayar.konum != 'acik') return res(null);
+      let bitti = false; const z = setTimeout(() => {bitti = true; res(null)}, sure + 1500);
+      navigator.geolocation.getCurrentPosition(
+        p => {if (bitti) return; bitti = true; clearTimeout(z); res(p.coords.latitude.toFixed(5) + ',' + p.coords.longitude.toFixed(5) + ',' + Math.round(p.coords.accuracy))},
+        e => {if (bitti) return; bitti = true; clearTimeout(z); if (e.code == 1) {VERI.ayar.konum = 'reddedildi'; VERI.ayarKaydet()} res(null)},
+        {enableHighAccuracy: true, timeout: sure, maximumAge: 60000});
+    });
+  }
+};
+/* kayıt önce yazılır, konum gelince sessizce eklenir — konum alınamazsa kayıt yine geçerlidir */
+SAHA.konumEkle = async (t, id, alan = 'konum') => {
+  if (!KONUM.acik()) return; const k = await KONUM.al(); if (!k) return;
+  const r = VERI.al(t, id); if (!r || r.silindi) return;
+  VERI.kaydet(t, {...r, [alan]: k}, true); BULUT.esitle(true);
+};
+SAHA.konumSorHTML = () => KONUM.destek() && !VERI.ayar.konum ? `<div class="uyari" id="ksk" style="align-items:center;margin-bottom:12px"><i style="font-size:22px">📍</i><div style="flex:1"><b>Konum paylaşılsın mı?</b><br><span class="not">Yalnızca mesai başı/sonu, sefer, arıza ve durum bildiriminde bir kez alınır; sürekli takip yapılmaz. Ofis canlı filo ekranında görür.</span></div><div style="display:flex;flex-direction:column;gap:6px"><button class="btn k p" id="ksa">Paylaş</button><button class="btn k" id="ksh">Hayır</button></div></div>` : '';
+SAHA.konumSorBagla = ic => {
+  const e = $('#ksa', ic), h = $('#ksh', ic); if (!e) return;
+  e.onclick = async () => {VERI.ayar.konum = 'acik'; await VERI.ayarKaydet(); const k = await KONUM.al(); UI.bildir(k ? '✓ Konum paylaşımı açıldı' : 'Konum izni verilmedi — Profil’den tekrar açabilirsiniz', 3500); SAHA.git('ana')};
+  h.onclick = async () => {VERI.ayar.konum = 'kapali'; await VERI.ayarKaydet(); UI.bildir('Konum paylaşılmayacak — Profil’den açabilirsiniz', 3000); SAHA.git('ana')};
+};
+
+/* ===== NexDrive Saha · 86 · Mesaiye başla / bitir ===== */
+SAHA.NORMAL_SAAT = 9; /* bunun üstü fazla mesai */
+SAHA.dk = s => {const m = /^(\d{1,2}):(\d{2})/.exec(String(s || '')); return m ? +m[1] * 60 + +m[2] : null};
+SAHA.sureYaz = dk => `${Math.floor(dk / 60)} sa ${String(dk % 60).padStart(2, '0')} dk`;
+SAHA.acikMesai = () => {const A = VERI.ayar, sinir = gunEkle(bugun(), -(SAHA.DUZELT_GUN - 1)); return VERI.liste('puantaj').filter(p => p.personel_id == A.personel_id && p.giris && !p.cikis && p.tarih >= sinir).sort((x, y) => y.tarih.localeCompare(x.tarih))[0]};
+SAHA.mesaiHTML = () => {
+  const A = VERI.ayar; if (!A.personel_id) return '';
+  const ac = SAHA.acikMesai(), b = bugun();
+  if (ac) {
+    const bugunMu = ac.tarih == b, gecen = bugunMu ? Math.max(0, SAHA.dk(SAHA.saat()) - SAHA.dk(ac.giris)) : 0;
+    return `<div class="kart" style="margin-bottom:12px;border-left:4px solid ${bugunMu ? 'var(--gr)' : 'var(--rd)'}"><div style="display:flex;align-items:center;gap:12px"><div style="flex:1;min-width:0"><div class="not">${bugunMu ? '<i class="led c" style="display:inline-block"></i> Mesaidesiniz' : `<b style="color:var(--rd)">${esc(gunAdi(ac.tarih))} mesaisi kapatılmadı</b>`}</div><div style="font:600 24px var(--fh)">${esc(ac.giris)}’den beri</div>${bugunMu ? `<div class="not" id="msg">${SAHA.sureYaz(gecen)}</div>` : '<div class="not">Çıkış saatinizi girip kapatın</div>'}</div><button class="btn r" id="msb" style="padding:14px 16px;font:600 16px var(--fh);white-space:normal">■ Mesaiyi bitir</button></div></div>`;
+  }
+  const bp = VERI.liste('puantaj').find(p => p.tarih == b && p.personel_id == A.personel_id);
+  if (bp && bp.cikis) return `<div class="kart" style="margin-bottom:12px;display:flex;align-items:center;gap:10px"><span style="font-size:22px">✓</span><div style="flex:1"><b>Bugünkü mesai tamam</b><div class="not">${esc(bp.giris || '')} – ${esc(bp.cikis)} · ${sayi(bp.saat, 1)} saat${N(bp.mesai) ? ' + ' + sayi(bp.mesai, 1) + ' mesai' : ''}</div></div></div>`;
+  if (bp && N(bp.saat) > 0) return ''; /* bugün saat elle girilmiş */
+  return `<button class="btn buyuk" id="msb" style="margin-bottom:12px;background:var(--gr);border-color:var(--gr);color:#fff;font-size:18px;padding:18px">▶ Mesaiye başla</button>`;
+};
+SAHA.mesaiBagla = ic => {
+  clearInterval(SAHA._saatZ);
+  const b = $('#msb', ic); if (!b) return;
+  const ac = SAHA.acikMesai();
+  b.onclick = () => ac ? SAHA.mesaiBitir(ac) : SAHA.mesaiBasla();
+  if (ac && ac.tarih == bugun()) SAHA._saatZ = setInterval(() => {const g = $('#msg'); if (!g) return clearInterval(SAHA._saatZ); g.textContent = SAHA.sureYaz(Math.max(0, SAHA.dk(SAHA.saat()) - SAHA.dk(ac.giris)))}, 20000);
+};
+SAHA.mesaiBasla = () => {
+  const A = VERI.ayar, b = bugun(), a = SAHA.arac(), v = VERI.liste('puantaj').find(p => p.tarih == b && p.personel_id == A.personel_id);
+  if (v && !SAHA.duzeltilir(v)) return SAHA.kilitliGoster('puantaj', v);
+  const sonP = a && ISMAKINESI(a.tip) ? VERI.liste('puantaj').filter(p => p.arac_id == a.id && p.sayac_bit != null).sort((x, y) => y.tarih.localeCompare(x.tarih))[0] : null;
+  const r = VERI.kaydet('puantaj', {...(v || {}), tarih: b, personel_id: A.personel_id, arac_id: (v && v.arac_id) || (a ? a.id : null), santiye_id: SAHA.isVars(v || {}), giris: SAHA.saat(), cikis: null, saat: v ? N(v.saat) : 0, mesai: v ? N(v.mesai) : 0, sayac_bas: v && v.sayac_bas != null ? v.sayac_bas : sonP ? sonP.sayac_bit : null});
+  UI.bildir('▶ Mesai başladı · ' + r.giris, 3000); SAHA.konumEkle('puantaj', r.id, 'konum_giris'); BULUT.esitle(true);
+};
+SAHA.mesaiBitir = ac => {
+  if (!SAHA.duzeltilir(ac)) return SAHA.kilitliGoster('puantaj', ac);
+  const bugunMu = ac.tarih == bugun(), a = VERI.al('araclar', ac.arac_id), mak = a && ISMAKINESI(a.tip), mola0 = ac.mola_dk != null ? ac.mola_dk : 60;
+  UI.ac({baslik: 'Mesaiyi bitir', govde: `<div class="sf">
+      <div class="not" style="margin-bottom:10px">${esc(gunAdi(ac.tarih))} · giriş <b>${esc(ac.giris)}</b></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Çıkış saati<input id="mb_c" type="time" value="${bugunMu ? SAHA.saat() : ''}"></label><label>Mola<select id="mb_m">${[0, 30, 45, 60, 90].map(m => `<option value="${m}"${m == mola0 ? ' selected' : ''}>${m ? m + ' dk' : 'Mola yok'}</option>`).join('')}</select></label></div>
+      <div class="ozet" style="margin:0 0 12px"><div><b id="mb_n">—</b><small>net çalışma</small></div><div><b id="mb_h">—</b><small>normal saat</small></div><div><b id="mb_x">—</b><small>fazla mesai</small></div></div>
+      ${mak ? `<label>Saat sayacı sonu <small>(isteğe bağlı${ac.sayac_bas != null ? ', başta ' + sayi(ac.sayac_bas, 1) : ''})</small><input id="mb_s" inputmode="decimal" value="${esc(ac.sayac_bit ?? '')}"></label>` : ''}
+      <div class="not">Normal çalışma en fazla ${SAHA.NORMAL_SAAT} saat sayılır, fazlası fazla mesaiye yazılır. Süre yarım saate yuvarlanır. Gece yarısını geçen vardiyada çıkış ertesi güne sayılır.</div></div>`,
+    butonlar: [{ad: 'Vazgeç', fn: () => {}}, {ad: '■ Mesaiyi bitir', sinif: 'p', fn: () => {
+      const h = hesap(); if (!h) throw new Error('Çıkış saatini girin'); if (h.hata) throw new Error(h.hata);
+      const v = {...ac, cikis: $('#mb_c').value, mola_dk: +$('#mb_m').value, saat: h.saat, mesai: h.mesai};
+      if (mak) {const s = $('#mb_s').value.trim().replace(',', '.'); if (s) {if (!isFinite(+s) || +s < 0) throw new Error('Sayaç geçerli bir sayı olmalı'); if (ac.sayac_bas != null && +s < N(ac.sayac_bas)) throw new Error('Sayaç sonu başından küçük olamaz'); v.sayac_bit = +s}}
+      const r = VERI.kaydet('puantaj', v);
+      UI.bildir(`■ Mesai bitti · ${sayi(h.saat, 1)} saat${h.mesai ? ' + ' + sayi(h.mesai, 1) + ' mesai' : ''}`, 3500); SAHA.konumEkle('puantaj', r.id, 'konum_cikis'); BULUT.esitle(true);
+    }}]});
+  const hesap = () => {
+    const c = SAHA.dk($('#mb_c').value), g = SAHA.dk(ac.giris); if (c == null || g == null) return null;
+    let dk = c - g; if (dk < 0) {if (ac.tarih < bugun()) dk += 1440; else return {hata: 'Çıkış saati girişten önce olamaz'}}
+    dk = Math.max(0, dk - +$('#mb_m').value); const net = Math.round(dk / 30) / 2;
+    return {net, saat: Math.min(SAHA.NORMAL_SAAT, net), mesai: Math.max(0, +(net - SAHA.NORMAL_SAAT).toFixed(1))};
+  };
+  const goster = () => {const h = hesap(), y = (id, v) => $(id).textContent = v; if (!h || h.hata) {['#mb_n', '#mb_h', '#mb_x'].forEach(id => y(id, '—')); return} y('#mb_n', sayi(h.net, 1) + ' sa'); y('#mb_h', sayi(h.saat, 1)); y('#mb_x', sayi(h.mesai, 1))};
+  $('#mb_c').oninput = goster; $('#mb_m').onchange = goster; goster();
+};
+
+/* ===== NexDrive Saha · 88 · Bugün ekranı (tek fonksiyon) ===== */
+SAHA.e_ana = function (ic) {
+  const A = VERI.ayar, {S, Y, P, B} = SAHA.bugunkuler(), a = SAHA.arac(), mak = a && ISMAKINESI(a.tip), q = VERI.kuyruk.size;
+  const topSaat = P.reduce((t, x) => t + HESAP.calismaSaat(x), 0);
+  const kayit = [...S.map(x => SAHA.oge('seferler', x)), ...Y.map(x => SAHA.oge('yakit', x)), ...P.map(x => SAHA.oge('puantaj', x)), ...B.map(x => SAHA.oge('bakim', x))].sort((x, y) => (y.s || '').localeCompare(x.s || ''));
+  const anaEkran = !(SAHA.uygulamaMi() || A.anaEkranTamam);
+  ic.innerHTML = `${anaEkran ? `<div class="uyari" id="aeb" style="align-items:center;margin-bottom:12px;background:var(--acbg);border-color:transparent"><i style="font-size:22px">📲</i><div style="flex:1"><b>Ana ekrana ekleyin</b><br><span class="not">Uygulama gibi tek dokunuşla açılsın</span></div><button class="btn k p" id="aen">Nasıl?</button><button class="btn k" id="aek" title="Gizle">✕</button></div>` : ''}
+    ${q && !navigator.onLine ? `<div class="uyari a"><i>📶</i><span><b>Çevrimdışı</b> — ${q} kayıt telefonda güvende, bağlantı gelince otomatik gönderilecek.</span></div>` : q && VERI.bulut() ? `<div class="uyari"><i>⇅</i><span>${q} kayıt gönderiliyor…</span></div>` : ''}
+    ${SAHA.konumSorHTML()}
+    ${SAHA.mesaiHTML()}
+    <div class="kart" style="margin-bottom:12px"><div class="not">Bugün · ${tarihTR(bugun())}</div><div style="font:600 30px var(--fh)">${mak ? sayi(topSaat, 1) + ' <small style="font-size:15px">saat</small>' : S.length + ' <small style="font-size:15px">sefer</small>'}</div><div class="not">${mak ? '' : sayi(topSaat, 1) + ' saat · '}${sayi(Y.reduce((t, x) => t + N(x.litre), 0))} L yakıt</div></div>
+    ${a ? SAHA.durumHTML(a) : ''}
+    <div class="karo">
+      <button style="background:#119ea4" onclick="SAHA.duzelt=null;SAHA.git('sefer')"><i>🚚</i><span>Sefer / döküm fişi<br><small>yükleme, döküm sahası, fiş no</small></span></button>
+      <button style="background:#d98a14" onclick="SAHA.duzelt=null;SAHA.git('yakit')"><i>⛽</i><span>Yakıt aldım<br><small>litre, tutar, sayaç</small></span></button>
+      <button style="background:#2f6fb0" onclick="SAHA.duzelt=null;SAHA.git('puantaj')"><i>⏱</i><span>Çalışma saatim<br><small>${P.some(x => N(x.saat) > 0) ? 'bugün girildi ✓' : 'elle giriş / düzeltme'}</small></span></button>
+      <button style="background:#c8394a" onclick="SAHA.duzelt=null;SAHA.git('ariza')"><i>⚠</i><span>Arıza bildir<br><small>ofise anında düşer</small></span></button>
+    </div>
+    <h3 style="font:600 15px var(--fh);margin:20px 2px 8px">Bugünkü kayıtlarım</h3>
+    ${kayit.length ? kayit.map((k, i) => SAHA.satirHTML(k, i)).join('') : '<div class="kart"><div class="bos" style="padding:14px">Bugün henüz kayıt yok.</div></div>'}`;
+  const aen = $('#aen', ic); if (aen) {aen.onclick = SAHA.anaEkranNasil; $('#aek', ic).onclick = () => {A.anaEkranTamam = true; VERI.ayarKaydet(); $('#aeb').remove()}}
+  SAHA.konumSorBagla(ic); SAHA.mesaiBagla(ic); if (a) SAHA.durumBagla(ic, a);
+  $$('[data-k]', ic).forEach(b => b.onclick = () => SAHA.ac(kayit[+b.dataset.k]));
+};
+
+/* ===== NexDrive Saha · 90 · Parolamı değiştir ===== */
+SAHA.parolaDegistir = () => {
+  const A = VERI.ayar;
+  UI.ac({baslik: '🔑 Parolamı değiştir', govde: `<form class="sf" onsubmit="return false"><input type="text" autocomplete="username" value="${esc(A.sonKad || '')}" hidden><label>Mevcut parola<input id="pd_e" type="password" autocomplete="current-password"></label><label>Yeni parola<input id="pd_y" type="password" autocomplete="new-password"></label><label>Yeni parola (tekrar)<input id="pd_t" type="password" autocomplete="new-password"></label><p class="not" style="margin:0">En az 6 karakter. ${VERI.bulut() ? 'İnternet bağlantısı gerekir. ' : ''}Unutursanız yöneticiniz yenisini verebilir.</p></form>`,
+    butonlar: [{ad: 'Vazgeç', fn: () => {}}, {ad: 'Parolayı değiştir', sinif: 'p', fn: async () => {
+      const e = $('#pd_e').value, y = $('#pd_y').value, t = $('#pd_t').value;
+      if (!e) throw new Error('Mevcut parolanızı girin');
+      if (y.length < 6) throw new Error('Yeni parola en az 6 karakter olmalı');
+      if (y != t) throw new Error('Yeni parolalar birbirinin aynısı değil');
+      if (y == e) throw new Error('Yeni parola eskisiyle aynı olamaz');
+      const btn = $('#penA .btn.p'); if (btn) {btn.disabled = true; btn.textContent = 'Değiştiriliyor…'}
+      const geri = () => {if (btn) {btn.disabled = false; btn.textContent = 'Parolayı değiştir'}};
+      const tr = x => /invalid/i.test(x.message) ? 'Mevcut parola hatalı' : /different|same/i.test(x.message) ? 'Yeni parola eskisiyle aynı olamaz' : /weak|short|characters|length/i.test(x.message) ? 'Parola çok zayıf, daha uzun bir parola seçin' : x.message === 'çevrimdışı' ? 'Parola değiştirmek için internet bağlantısı gerekli' : x.message;
+      try {
+        if (VERI.bulut()) {
+          const ep = A.oturum && A.oturum.eposta; if (!ep) throw new Error('Oturum bilgisi yok; çıkış yapıp tekrar girin');
+          /* önce mevcut parolayı doğrula (oturum da tazelenir), sonra değiştir */
+          const v = await BULUT.istek('/auth/v1/token?grant_type=password', {method: 'POST', body: {email: ep, password: e}});
+          BULUT.oturumYaz(v); await VERI.ayarKaydet();
+          await BULUT.istek('/auth/v1/user', {method: 'PUT', body: {password: y}});
+        } else {
+          const p = SAHA.ben(); if (!p || !p.kullanici_adi) throw new Error('Personel kartı bulunamadı');
+          if (p.parola_hash != PHASH(p.kullanici_adi, e)) throw new Error('invalid');
+          VERI.kaydet('personel', {...p, parola_hash: PHASH(p.kullanici_adi, y)}, true);
+        }
+      } catch (x) {geri(); throw new Error(tr(x))}
+      UI.bildir('✓ Parolanız değiştirildi. Bir sonraki girişte yeni parolayı kullanın.', 4000);
+    }}]});
+};
+
+/* ===== NexDrive Saha · 95 · Çevrimdışı açılış (service worker) ===== */
+const SW_ONBELLEK = 'nx-personel-v1';
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load', () => {
+  navigator.serviceWorker.register('sw.js').then(() => window.caches && caches.open(SW_ONBELLEK).then(c => c.add(location.pathname))).catch(e => console.warn('Service worker kaydedilemedi:', e));
+});
+
+/* ===== NexDrive Saha · 99 · Açılış ===== */
+UI.baslat().catch(e => {console.error(e); document.getElementById('kok').innerHTML = '<div style="padding:30px;font-family:sans-serif"><h2>NexDrive Personel başlatılamadı</h2><p>' + String(e && e.message || e) + '</p></div>'});
+</script>
+</body>
+</html>
