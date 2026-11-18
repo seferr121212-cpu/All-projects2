@@ -45,6 +45,8 @@ var _using_pad := false
 var _look := 0.0
 var _shake := 0.0
 var _shake_t := 0.0
+var _shake_dur := 0.0
+var _shake_clock := 0.0
 var _was_floor := true
 var _step_t := 0.0
 var _blob: Sprite2D
@@ -73,6 +75,15 @@ func _ready() -> void:
 	add_child(_visual)
 	_spr = Art.animated("chars/kerem.png", KW, KH, {"idle": [0, 4, 3, true]}, "idle")
 	_visual.add_child(_spr)
+	# Lamba ışığı oyuncuyu patlatmasın: oyuncu kendi ışık katmanında
+	_spr.light_mask = Art.LIGHT_MASK_PLAYER
+	# zifiri karanlıkta da siluet okunsun: yalnız oyuncuyu etkileyen soğuk, zayıf bir dolgu ışığı
+	# (oyun kuralı değil; LightSystem'e kayıtlı değil, Yankıları etkilemez)
+	var rim := Art.light(60.0, Color(0.55, 0.65, 0.95), 0.45)
+	rim.range_item_cull_mask = Art.LIGHT_MASK_PLAYER
+	rim.position = Vector2(-18, -70)
+	rim.height = 40.0
+	add_child(rim)
 	_fix_frames()
 	_blob = Art.sprite_c("fx/blob.png")
 	_blob.position = Vector2(0, 0)
@@ -472,8 +483,13 @@ func _update_camera(delta: float) -> void:
 	_look = lerpf(_look, want, 2.0 * delta)
 	var off := Vector2(_look, -90.0)
 	if _shake_t > 0.0:
+		# rastgele zıplama yerine yumuşak, sönümlenen titreşim (göz yormaz)
 		_shake_t -= delta
-		off += Vector2(randf_range(-1, 1), randf_range(-1, 1)) * _shake
+		_shake_clock += delta
+		var k := clampf(_shake_t / maxf(_shake_dur, 0.001), 0.0, 1.0)
+		k *= k
+		var tt := _shake_clock * 38.0
+		off += Vector2(sin(tt) + 0.5 * sin(tt * 2.3 + 1.1), cos(tt * 1.3 + 0.4) + 0.5 * sin(tt * 2.9)) * 0.67 * _shake * k
 	cam.offset = off
 
 
@@ -482,6 +498,7 @@ func shake(amount: float, time: float) -> void:
 		return
 	_shake = maxf(_shake if _shake_t > 0.0 else 0.0, amount)
 	_shake_t = maxf(_shake_t, time)
+	_shake_dur = _shake_t
 
 
 ## Pröloğ (14 yaşında Kerem) ve ara bölüm (genç Hüsnü) için görünüm.

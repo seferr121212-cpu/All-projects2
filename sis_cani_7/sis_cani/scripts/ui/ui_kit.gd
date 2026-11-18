@@ -13,6 +13,16 @@ static func button(text: String, cb: Callable) -> Button:
 	b.add_theme_color_override("font_focus_color", Color(1.0, 0.75, 0.45))
 	b.add_theme_color_override("font_disabled_color", Color(0.4, 0.4, 0.45))
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	# odak: ince kutu yerine soldan sağa sönen sıcak bir ışık şeridi
+	b.flat = false
+	var empty := StyleBoxEmpty.new()
+	empty.content_margin_left = 18
+	empty.content_margin_right = 18
+	empty.content_margin_top = 2
+	empty.content_margin_bottom = 2
+	for st in ["normal", "hover", "pressed", "disabled", "hover_pressed"]:
+		b.add_theme_stylebox_override(st, empty)
+	b.add_theme_stylebox_override("focus", _focus_box())
 	b.pressed.connect(cb)
 	b.pressed.connect(func(): AudioManager.ui_sfx("click", -12.0, 0.9))
 	b.focus_entered.connect(func(): AudioManager.ui_sfx("click", -24.0, 1.7))
@@ -96,3 +106,25 @@ static func frame(parent: Control, title: String, size: Vector2, scroll := false
 	else:
 		outer.add_child(box)
 	return box
+
+
+static var _focus_sb: StyleBoxTexture = null
+
+
+static func _focus_box() -> StyleBoxTexture:
+	if _focus_sb == null:
+		var g := Gradient.new()
+		g.set_color(0, Color(1.0, 0.72, 0.4, 0.85))
+		g.add_point(0.007, Color(1.0, 0.72, 0.4, 0.85))
+		g.add_point(0.008, Color(1.0, 0.72, 0.4, 0.16))
+		g.set_color(g.get_point_count() - 1, Color(1.0, 0.72, 0.4, 0.0))
+		var t := GradientTexture2D.new()
+		t.gradient = g
+		t.width = 512
+		t.height = 4
+		var sb := StyleBoxTexture.new()
+		sb.texture = t
+		sb.content_margin_left = 18
+		sb.content_margin_right = 18
+		_focus_sb = sb
+	return _focus_sb

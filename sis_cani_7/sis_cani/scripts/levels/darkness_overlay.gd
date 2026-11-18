@@ -87,28 +87,32 @@ func _process(delta: float) -> void:
 func _update_glows(_ct: Transform2D) -> void:
 	if _level == null or _level.glow_layer == null:
 		return
-	var circles := LightSystem.gather_circles()
+	var lamp = LightSystem.lamp
+	var red: bool = lamp != null and is_instance_valid(lamp) and bool(lamp.red)
+	var col := Color(1.0, 0.25, 0.18) if red else Color(1.0, 0.62, 0.3)
 	var n := 0
-	for c in circles:
-		var v: Vector4 = c
-		if v.w < 0.2:
+	for src in LightSystem.sources:
+		if not is_instance_valid(src) or not src.is_inside_tree() or not src.is_light_on():
 			continue
-		if n >= _glows.size():
-			var s := Sprite2D.new()
-			s.texture = Art.tex("fx/glow.png")
-			s.material = Art.glow_material()
-			s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-			_level.glow_layer.add_child(s)
-			_glows.append(s)
-		var g: Sprite2D = _glows[n]
-		g.visible = true
-		g.global_position = Vector2(v.x, v.y)
-		var sc := v.z / 64.0 * 0.9
-		g.scale = Vector2(sc, sc)
-		var lamp = LightSystem.lamp
-		var red: bool = lamp != null and is_instance_valid(lamp) and bool(lamp.red)
-		var col := Color(1.0, 0.25, 0.18) if red else Color(1.0, 0.62, 0.3)
-		g.modulate = Color(col.r, col.g, col.b, 0.22 * v.w)
-		n += 1
+		# taşınan lambanın parıltısı oyuncunun üstüne düşer; kısık tut ki karakter okunsun
+		var k := 0.4 if src == lamp else 1.0
+		for c in src.get_light_circles():
+			var v: Vector4 = c
+			if v.w < 0.2:
+				continue
+			if n >= _glows.size():
+				var s := Sprite2D.new()
+				s.texture = Art.tex("fx/glow.png")
+				s.material = Art.glow_material()
+				s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+				_level.glow_layer.add_child(s)
+				_glows.append(s)
+			var g: Sprite2D = _glows[n]
+			g.visible = true
+			g.global_position = Vector2(v.x, v.y)
+			var sc := v.z / 64.0 * 0.9
+			g.scale = Vector2(sc, sc)
+			g.modulate = Color(col.r, col.g, col.b, 0.22 * v.w * k)
+			n += 1
 	for i in range(n, _glows.size()):
 		(_glows[i] as Sprite2D).visible = false

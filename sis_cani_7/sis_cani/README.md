@@ -115,9 +115,32 @@ Aşağıdaki dosyaları eklersen kodla üretilen yer tutucuların yerine bunlar 
 - Sol üstte her zaman güncel **HEDEF** yazıyor. Hedef ekran dışındaysa kenarda bir ok ve kalan mesafe görünüyor.
 - Yeni oyun 6 resimli panelle açılıyor: babanın kaybolduğu gece, çalınmayan çan, kardeşlerin küslüğü ve mektuplar. Esc ile atlanabilir.
 
+## Otomatik test
+
+Bütün bölümleri sırayla yükleyip her birinde sağa yürüyen, lambayı kaldıran ve ekran görüntüsü alan bir test modu var:
+
+```
+godot --path . -- --autotest
+```
+
+Sonuç `user://smoke_test.txt` dosyasına ve konsola yazılır, görüntüler `user://autotest/` klasörüne kaydedilir (`menu.png`, `level_N_a.png`, `level_N_b.png`). Oyun bitince kendiliğinden kapanır. Hata ayıklama derlemesinde oyun içinden F9 aynı testi görüntüsüz çalıştırır.
+
+## v7.1 değişiklikleri
+
+- **Işıkta karakter okunurluğu:** Lamba ışığı artık Kerem'i turuncu bir lekeye çevirmiyor. Oyuncu ayrı bir ışık katmanında (`Art.LIGHT_MASK_PLAYER`); lamba dünyayı aydınlatıyor, Kerem'i yandan yumuşak bir "key" ışığı aydınlatıyor. Kandil ve ay ışığı ikisini de aydınlatıyor.
+- **Karanlıkta siluet:** Kerem'e yalnız kendisini etkileyen zayıf, soğuk bir dolgu ışığı eklendi. Pröloğ gibi zifiri sahnelerde karakter kaybolmuyor. Oyun kuralını etkilemiyor, Yankılar bunu ışık saymıyor.
+- **Lamba huzmesi:** Sert çizgi yerine lambada parlak, uca doğru sönen bir ışık sütunu, etrafında geniş bir hale ve içinde uçuşan toz zerreleri.
+- **Alev canlılığı:** Lamba ışığı hiçbir zaman tam sabit durmuyor, hafifçe titriyor. Bu sadece görsel; oyundaki ışık yarıçapı değişmiyor.
+- **Kamera sarsıntısı:** Kare başına rastgele zıplama yerine yumuşak ve sönümlenen bir titreşim.
+- **Menü odağı:** İnce dikdörtgen kutu yerine soldan amber bir şerit ve sağa doğru sönen sıcak bir vurgu.
+- **Ses altyazıları:** Diyalog kutusunun üstüne taşındı, artık portreyle çakışmıyor. Aynı altyazı art arda yığılmıyor.
+- **Hata düzeltmesi:** Yeni bölüme geçince önceki bölümün hedefi ekranda kalıyordu (ör. Bölüm 1 başında "Pencereden dışarı bak").
+- **Performans:** `LightSystem` geçerli ışık kaynakları listesini kare başına bir kez kuruyor. Önceden her Yankı her karede yeni bir dizi oluşturuyordu.
+- **Otomatik test modu:** `-- --autotest` (yukarıda anlatıldı).
+
 ## Bilinen notlar
 
-- Kod Godot editöründe hiç çalıştırılmadı, yazıldığı ortamda Godot yoktu. İlk açılışta hata konsolunda bir satır hata çıkarsa o satırı bana gönder, düzeltirim.
+- Proje Godot 4.7 (stable) ile açıldı. Bütün betikler hatasız derleniyor, bütün bölümler (pröloğ, 1, 2, ara bölüm, 5, 3 ve Son B kaçışı) otomatik testte yükleniyor.
 - Level geometrisi koddan kuruluyor. İstenirse sonra her bölüm `.tscn` sahnesine dönüştürülebilir.
 - Kayıt dosyası `user://save.json`, ayarlar ve başarımlar `user://settings.json` içinde tutuluyor.
 

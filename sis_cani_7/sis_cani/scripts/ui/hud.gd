@@ -69,7 +69,14 @@ func _ready() -> void:
 	_save_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_save_icon)
 	_cap_box = VBoxContainer.new()
-	_cap_box.position = Vector2(40, 860)
+	# diyalog kutusunun (alt 250 px) üstünde, yukarı doğru büyür; portreyle çakışmaz
+	_cap_box.anchor_top = 1.0
+	_cap_box.anchor_bottom = 1.0
+	_cap_box.offset_left = 40
+	_cap_box.offset_right = 600
+	_cap_box.offset_top = -262
+	_cap_box.offset_bottom = -262
+	_cap_box.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	_cap_box.alignment = BoxContainer.ALIGNMENT_END
 	_cap_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_cap_box)
@@ -249,6 +256,10 @@ func saved_icon() -> void:
 
 ## Ses altyazısı (erişilebilirlik): sol altta kısa süreli.
 func caption(text: String) -> void:
+	# aynı ses altyazısı zaten ekrandaysa yığma (ör. art arda cızırdama)
+	for c in _cap_box.get_children():
+		if c is Label and (c as Label).text == text and c.modulate.a > 0.5:
+			return
 	var l := _label(text, 22, Color(0.85, 0.88, 0.95, 0.85))
 	_cap_box.add_child(l)
 	var tw := create_tween()

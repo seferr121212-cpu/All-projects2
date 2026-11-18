@@ -102,6 +102,7 @@ func start(from_checkpoint: bool) -> void:
 		moon.energy = 0.35
 		moon.height = 0.6
 		moon.rotation = deg_to_rad(20.0)
+		moon.range_item_cull_mask = Art.LIGHT_MASK_WORLD | Art.LIGHT_MASK_PLAYER
 		moon.shadow_enabled = true
 		moon.shadow_color = Color(0, 0, 0, 0.6)
 		_world.add_child(moon)

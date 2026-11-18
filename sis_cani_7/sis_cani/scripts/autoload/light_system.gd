@@ -9,28 +9,41 @@ extends Node
 
 var sources: Array = []
 var lamp = null   # oyuncunun lambası (koni + huzme verisi için)
+var _valid: Array = []
+var _valid_frame := -1
+var _valid_count := -1
 
 
 func register(n: Node) -> void:
 	if not n in sources:
 		sources.append(n)
+	_valid_frame = -1
 
 
 func unregister(n: Node) -> void:
 	sources.erase(n)
+	_valid_frame = -1
 
 
 func clear() -> void:
 	sources.clear()
 	lamp = null
+	_valid_frame = -1
 
 
 func _valid_sources() -> Array:
+	# Her Yankı her karede is_lit() çağırır; geçerli kaynak listesini kare başına bir kez kur.
+	var frame := Engine.get_process_frames()
+	if frame == _valid_frame and _valid_count == sources.size():
+		return _valid
 	var out: Array = []
 	for s in sources:
 		if is_instance_valid(s) and s.is_inside_tree():
 			out.append(s)
 	sources = out
+	_valid = out
+	_valid_frame = frame
+	_valid_count = out.size()
 	return out
 
 

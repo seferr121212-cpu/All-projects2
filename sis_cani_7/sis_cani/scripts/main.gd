@@ -46,6 +46,10 @@ func _ready() -> void:
 	var ach: Array = GameState.settings.get("achievements", [])
 	if "BELL" in ach or "SILENCE" in ach:
 		GameState.settings["unlocked"] = maxi(int(GameState.settings.get("unlocked", 1)), 5)
+	# Komut satırı: godot --path . -- --autotest  → tüm seviyeleri yükler, görüntü alır, çıkar.
+	if "--autotest" in OS.get_cmdline_user_args():
+		smoke_test(true)
+		return
 	_boot()
 
 
@@ -236,6 +240,10 @@ func start_chapter(n: int, from_checkpoint: bool, prologue := false) -> void:
 				# bölüm kartında rastgele bir oynanış ipucu
 				var tip := Loc.t("TIP_%d" % randi_range(1, 8))
 				await show_panel("story/ch%d.png" % n, Loc.t("CH%d_TITLE" % n) + "\n\n" + tip, 3.4)
+	# önceki bölümün hedefi yeni bölüme taşınmasın
+	hud.clear_objective()
+	if not from_checkpoint:
+		GameState.flags.erase("objective")
 	level = _make_level(n)
 	add_child(level)
 	level.start(from_checkpoint)
@@ -476,6 +484,16 @@ func play_intro() -> void:
 	_in_intro = false
 
 
+func _autoshot(name: String) -> void:
+	await RenderingServer.frame_post_draw
+	var tex := get_viewport().get_texture()
+	if tex == null:
+		return
+	var img := tex.get_image()
+	if img:
+		img.save_png("user://autotest/%s.png" % name)
+
+
 func _screenshot() -> void:
 	DirAccess.make_dir_recursive_absolute("user://screenshots")
 	var img := get_viewport().get_texture().get_image()
@@ -495,8 +513,13 @@ func open_radio(on_done: Callable) -> void:
 ## F9 (yalnızca hata ayıklama derlemesi): tüm seviyeleri sırayla yükler ve
 ## user://smoke_test.txt dosyasına sonuç yazar. Bir seviyede betik hatası olursa
 ## dosya o satırda kalır; hangi seviyenin bozuk olduğu böylece görülür.
-func smoke_test() -> void:
+func smoke_test(autotest := false) -> void:
 	_busy = true
+	if autotest:
+		DirAccess.make_dir_recursive_absolute("user://autotest")
+		show_main_menu()
+		await get_tree().create_timer(2.5).timeout
+		await _autoshot("menu")
 	var out := FileAccess.open("user://smoke_test.txt", FileAccess.WRITE)
 	out.store_line("SİS ÇANI smoke test  %s" % Time.get_datetime_string_from_system())
 	_set_menu(null)
@@ -522,8 +545,26 @@ func smoke_test() -> void:
 		var alive: bool = p != null and is_instance_valid(p)
 		out.store_line("level %d: OK  echoes=%d interactables=%d player=%s fps=%d" % [n, echo_n, inter_n, str(alive), Engine.get_frames_per_second()])
 		out.flush()
+		if autotest:
+			# diyalogları geç, sağa yürü, görüntü al
+			Dialogue.stop_all()
+			GameState.input_locked = 0
+			await _autoshot("level_%d_a" % n)
+			Input.action_press("move_right")
+			await get_tree().create_timer(2.5).timeout
+			Input.action_release("move_right")
+			Input.action_press("lamp_raise")
+			await get_tree().create_timer(0.6).timeout
+			await _autoshot("level_%d_b" % n)
+			Input.action_release("lamp_raise")
+			out.store_line("level %d: walked  player_x=%.0f fps=%d" % [n, p.global_position.x if alive and is_instance_valid(p) else -1.0, Engine.get_frames_per_second()])
+			out.flush()
 	out.store_line("DONE")
 	out.close()
+	if autotest:
+		print(FileAccess.get_file_as_string("user://smoke_test.txt"))
+		get_tree().quit(0)
+		return
 	GameState.settings = saved_settings
 	GameState.log_event("smoke test finished")
 	_busy = false

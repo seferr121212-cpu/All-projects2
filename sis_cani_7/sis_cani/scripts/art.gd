@@ -4,6 +4,8 @@ extends RefCounted
 ## Oyun dünyasında 1 sanat pikseli = 2 dünya pikseli (SCALE).
 
 const SCALE := 2.0
+const LIGHT_MASK_WORLD := 1
+const LIGHT_MASK_PLAYER := 2
 
 static var _cache: Dictionary = {}
 static var _ccache: Dictionary = {}
@@ -89,6 +91,9 @@ static func light(radius: float, color: Color, energy := 1.0, shadows := false) 
 	l.color = color
 	l.energy = energy
 	l.height = 60.0
+	# 1: dünya, 2: oyuncu. Sabit ışıklar ikisini de aydınlatır; oyuncunun kendi lambası
+	# yalnız dünyayı aydınlatır (oyuncuyu ayrı, yumuşak bir "key" ışığı aydınlatır).
+	l.range_item_cull_mask = LIGHT_MASK_WORLD | LIGHT_MASK_PLAYER
 	l.shadow_enabled = shadows and use_normals
 	if l.shadow_enabled:
 		l.shadow_filter = Light2D.SHADOW_FILTER_PCF5

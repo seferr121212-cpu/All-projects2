@@ -34,6 +34,9 @@ var _swing_v := 0.0
 var _last_x := 0.0
 var _cone: PointLight2D
 var _beam_line: Line2D
+var _beam_halo: Line2D
+var _beam_dust: CPUParticles2D
+var _key: PointLight2D       # oyuncuyu yandan, yumuşak aydınlatan ışık
 
 
 func _ready() -> void:
@@ -46,7 +49,12 @@ func _ready() -> void:
 	add_child(_flame)
 	_light = Art.light(220.0, Color(1.0, 0.78, 0.5), 1.15, true)
 	_light.height = 80.0
+	_light.range_item_cull_mask = Art.LIGHT_MASK_WORLD
 	add_child(_light)
+	_key = Art.light(70.0, Color(1.0, 0.78, 0.5), 0.8)
+	_key.range_item_cull_mask = Art.LIGHT_MASK_PLAYER
+	_key.height = 26.0
+	add_child(_key)
 	_cone = PointLight2D.new()
 	_cone.texture = Art.cone_texture()
 	_cone.texture_scale = CONE_LEN * 1.1 / 128.0
@@ -99,7 +107,41 @@ func _ready() -> void:
 	_beam_line.default_color = Color(1.0, 0.8, 0.5, 0.35)
 	_beam_line.material = Art.glow_material()
 	_beam_line.z_index = 5
+	_beam_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	_beam_line.joint_mode = Line2D.LINE_JOINT_ROUND
+	_beam_line.gradient = Gradient.new()
 	add_child(_beam_line)
+	# huzmenin etrafında geniş, yumuşak hale + toz zerreleri: sert çizgi yerine ışık sütunu
+	_beam_halo = Line2D.new()
+	_beam_halo.top_level = true
+	_beam_halo.width = 30.0
+	_beam_halo.material = Art.glow_material()
+	_beam_halo.z_index = 4
+	_beam_halo.joint_mode = Line2D.LINE_JOINT_ROUND
+	_beam_halo.gradient = Gradient.new()
+	add_child(_beam_halo)
+	_beam_dust = CPUParticles2D.new()
+	_beam_dust.texture = Art.tex("fx/mote.png")
+	_beam_dust.amount = 26
+	_beam_dust.lifetime = 1.6
+	_beam_dust.local_coords = false
+	_beam_dust.emitting = false
+	_beam_dust.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	_beam_dust.gravity = Vector2(0, 6)
+	_beam_dust.spread = 180.0
+	_beam_dust.initial_velocity_min = 3.0
+	_beam_dust.initial_velocity_max = 10.0
+	_beam_dust.scale_amount_min = 0.4
+	_beam_dust.scale_amount_max = 0.9
+	_beam_dust.material = Art.glow_material()
+	_beam_dust.top_level = true
+	_beam_dust.z_index = 5
+	var ramp := Gradient.new()
+	ramp.set_color(0, Color(1, 1, 1, 0))
+	ramp.add_point(0.25, Color(1, 1, 1, 1))
+	ramp.set_color(ramp.get_point_count() - 1, Color(1, 1, 1, 0))
+	_beam_dust.color_ramp = ramp
+	add_child(_beam_dust)
 
 
 func _exit_tree() -> void:
@@ -160,7 +202,10 @@ func update_lamp(delta: float, want_raise: bool) -> void:
 		mode = Mode.OFF
 		beam_points = PackedVector2Array()
 		_beam_line.points = beam_points
+		_beam_halo.points = beam_points
+		_beam_dust.emitting = false
 		_light.visible = false
+		_key.visible = false
 		_cone.visible = false
 		return
 	mode = base_mode
@@ -175,6 +220,8 @@ func update_lamp(delta: float, want_raise: bool) -> void:
 			GameState.ran_dry_this_chapter = true
 	# titreme + az yakıtta cızırdama
 	_flicker = 1.0
+	# alev hiçbir zaman tam sabit değil: yalnız görsel, oyun yarıçapını etkilemez
+	var life := 0.95 + 0.05 * sin(_t * 9.1) * sin(_t * 3.7 + 1.3)
 	if GameState.fuel < 20.0 and mode != Mode.OFF:
 		_flicker = 0.85 + 0.15 * sin(_t * 23.0) * sin(_t * 7.3)
 		_sputter_t -= delta
@@ -213,16 +260,44 @@ func update_lamp(delta: float, want_raise: bool) -> void:
 	var on := mode != Mode.OFF
 	_light.visible = on
 	_light.texture_scale = maxf(radius(), 1.0) * 1.35 / 128.0
-	_light.energy = (0.95 if mode == Mode.DIM else 1.25) * _flicker
+	_light.energy = (0.95 if mode == Mode.DIM else 1.25) * _flicker * life
 	var warm := Color(1.0, 0.78, 0.5)
 	if GameState.fuel < 25.0:
 		warm = Color(1.0, 0.5, 0.26).lerp(warm, GameState.fuel / 25.0)
 	_light.color = Color(1.0, 0.35, 0.28) if red else warm
+	_key.visible = on
+	_key.color = _light.color
+	_key.energy = (0.55 if mode == Mode.DIM else 0.85) * _flicker * life
 	_cone.visible = mode == Mode.RAISED
 	_cone.texture_scale = CONE_LEN * 1.1 * GameState.lamp_mult() / 128.0
 	_cone.rotation = aim.angle()
 	_cone.color = _light.color
-	_beam_line.default_color = Color(1.0, 0.3, 0.25, 0.35) if red else Color(1.0, 0.8, 0.5, 0.35)
+	_style_beam()
+
+
+## Huzme: başta parlak, sonda sönen renk; etrafında geniş hale; ilk parçada uçuşan tozlar.
+func _style_beam() -> void:
+	var base := Color(1.0, 0.3, 0.25) if red else Color(1.0, 0.8, 0.5)
+	var f := _flicker
+	_set_fade(_beam_line.gradient, base, 0.5 * f, 0.08)
+	_set_fade(_beam_halo.gradient, base, 0.11 * f, 0.0)
+	_beam_halo.points = beam_points
+	var has_beam := beam_points.size() >= 2
+	_beam_dust.emitting = has_beam
+	if has_beam:
+		var a := beam_points[0]
+		var b := beam_points[1]
+		var seg := minf(a.distance_to(b), 420.0)
+		var dir := (b - a).normalized()
+		_beam_dust.global_position = a + dir * seg * 0.5
+		_beam_dust.rotation = dir.angle()
+		_beam_dust.emission_rect_extents = Vector2(seg * 0.5, 9.0)
+		_beam_dust.color = Color(base.r, base.g, base.b, 0.55)
+
+
+static func _set_fade(g: Gradient, c: Color, a0: float, a1: float) -> void:
+	g.set_color(0, Color(c.r, c.g, c.b, a0))
+	g.set_color(g.get_point_count() - 1, Color(c.r, c.g, c.b, a1))
 
 
 # ------------------------------------------------------------------ beam
