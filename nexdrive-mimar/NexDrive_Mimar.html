@@ -1352,6 +1352,17 @@ const M4 = {
   carp(a, b) {const o = new Float32Array(16); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + j] * b[i * 4 + k]; o[i * 4 + j] = s} return o},
   perspektif(f, a, n, u) {const t = 1 / Math.tan(f / 2), o = new Float32Array(16); o[0] = t / a; o[5] = t; o[10] = (u + n) / (n - u); o[11] = -1; o[14] = 2 * u * n / (n - u); return o},
   orto(l, r, b, t, n, u) {const o = new Float32Array(16); o[0] = 2 / (r - l); o[5] = 2 / (t - b); o[10] = -2 / (u - n); o[12] = -(r + l) / (r - l); o[13] = -(t + b) / (t - b); o[14] = -(u + n) / (u - n); o[15] = 1; return o},
+  ters(m) {
+    const a = m, o = new Float32Array(16);
+    const b00 = a[0] * a[5] - a[1] * a[4], b01 = a[0] * a[6] - a[2] * a[4], b02 = a[0] * a[7] - a[3] * a[4], b03 = a[1] * a[6] - a[2] * a[5], b04 = a[1] * a[7] - a[3] * a[5], b05 = a[2] * a[7] - a[3] * a[6];
+    const b06 = a[8] * a[13] - a[9] * a[12], b07 = a[8] * a[14] - a[10] * a[12], b08 = a[8] * a[15] - a[11] * a[12], b09 = a[9] * a[14] - a[10] * a[13], b10 = a[9] * a[15] - a[11] * a[13], b11 = a[10] * a[15] - a[11] * a[14];
+    let d = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06; if (!d) return o; d = 1 / d;
+    o[0] = (a[5] * b11 - a[6] * b10 + a[7] * b09) * d; o[1] = (a[2] * b10 - a[1] * b11 - a[3] * b09) * d; o[2] = (a[13] * b05 - a[14] * b04 + a[15] * b03) * d; o[3] = (a[10] * b04 - a[9] * b05 - a[11] * b03) * d;
+    o[4] = (a[6] * b08 - a[4] * b11 - a[7] * b07) * d; o[5] = (a[0] * b11 - a[2] * b08 + a[3] * b07) * d; o[6] = (a[14] * b02 - a[12] * b05 - a[15] * b01) * d; o[7] = (a[8] * b05 - a[10] * b02 + a[11] * b01) * d;
+    o[8] = (a[4] * b10 - a[5] * b08 + a[7] * b06) * d; o[9] = (a[1] * b08 - a[0] * b10 - a[3] * b06) * d; o[10] = (a[12] * b04 - a[13] * b02 + a[15] * b00) * d; o[11] = (a[9] * b02 - a[8] * b04 - a[11] * b00) * d;
+    o[12] = (a[5] * b07 - a[4] * b09 - a[6] * b06) * d; o[13] = (a[0] * b09 - a[1] * b07 + a[2] * b06) * d; o[14] = (a[13] * b01 - a[12] * b03 - a[14] * b00) * d; o[15] = (a[8] * b03 - a[9] * b01 + a[10] * b00) * d;
+    return o;
+  },
   bak(e, c, up) {
     let z = [e[0] - c[0], e[1] - c[1], e[2] - c[2]]; let l = Math.hypot(...z); z = z.map(v => v / l);
     let x = [up[1] * z[2] - up[2] * z[1], up[2] * z[0] - up[0] * z[2], up[0] * z[1] - up[1] * z[0]]; l = Math.hypot(...x) || 1; x = x.map(v => v / l);
@@ -1361,7 +1372,7 @@ const M4 = {
 };
 const hexRenk = (h, a = 1) => {h = h.replace('#', ''); if (h.length == 3) h = h.split('').map(c => c + c).join(''); return [parseInt(h.slice(0, 2), 16) / 255, parseInt(h.slice(2, 4), 16) / 255, parseInt(h.slice(4, 6), 16) / 255, a]};
 /* malzeme kodları (shader desenleri) */
-const MT = {duz: 0, siva: 1, tugla: 2, tas: 3, parke: 4, seramik: 5, mermer: 6, kiremit: 7, cim: 8, su: 9, asfalt: 10, ahsap: 11, kaldirim: 12};
+const MT = {duz: 0, siva: 1, tugla: 2, tas: 3, parke: 4, seramik: 5, mermer: 6, kiremit: 7, cim: 8, su: 9, asfalt: 10, ahsap: 11, kaldirim: 12, cam: 13, metal: 14, boya: 15, yaprak: 16, kabuk: 17, arazi: 18, parlak: 19, kumas: 20, mahsap: 21};
 const ZEMIN_MT = {parke: MT.parke, laminat: MT.parke, seramik: MT.seramik, mermer: MT.mermer, hali: MT.siva, beton: MT.siva, deck: MT.ahsap};
 const KAPLAMA = {siva: {ad: 'Sıva + boya', mt: MT.siva}, tugla: {ad: 'Tuğla kaplama', mt: MT.tugla, renk: '#b4563c'}, tas: {ad: 'Doğal taş', mt: MT.tas, renk: '#b9ad97'}, ahsap: {ad: 'Ahşap kaplama', mt: MT.ahsap, renk: '#a77a4f'}};
 
@@ -1406,6 +1417,144 @@ class Mesh {
     const alt = pts.map(p => [p[0], p[1] - kal, p[2]]), m = [0, 1, 2].map(i => pts.reduce((s, p) => s + p[i], 0) / pts.length);
     for (let i = 1; i + 1 < pts.length; i++) {this.tri(pts[0], pts[i], pts[i + 1], col, [0, 1, 0]); this.tri(alt[0], alt[i + 1], alt[i], kenar, [0, -1, 0])}
     for (let i = 0; i < pts.length; i++) {const j = (i + 1) % pts.length; this.quad(pts[i], pts[j], alt[j], alt[i], kenar, [(pts[i][0] + pts[j][0]) / 2 - m[0], 0, (pts[i][2] + pts[j][2]) / 2 - m[2]])}
+  }
+  triN(a, b, c, na, nb, nc, ca, cb, cc) {
+    const h = ca[3] < 1 ? this.s : this.o;
+    for (const [p, n, k] of [[a, na, ca], [b, nb, cb || ca], [c, nc, cc || ca]]) h.push(p[0], p[1], p[2], n[0], n[1], n[2], k[0], k[1], k[2], k[3], this.mt);
+  }
+  /* pürüzlü, yumuşak gölgeli elipsoid (ağaç tacı, çalı): üstü açık, altı koyu */
+  blob(cx, cy, cz, rx, ry, rz, col, n = 10, tohum = 0, puruz = .18) {
+    const nJ = n * 2, P = [], D = [], s = tohum;
+    for (let i = 0; i <= n; i++) {
+      P.push([]); D.push([]);
+      for (let j = 0; j <= nJ; j++) {
+        const t = i / n * Math.PI, f = j / nJ * Math.PI * 2, d = [Math.sin(t) * Math.cos(f), Math.cos(t), Math.sin(t) * Math.sin(f)];
+        const g = 1 + puruz * (1.6 * Math.sin(d[0] * 3.1 + s) * Math.sin(d[1] * 2.7 + s * 1.3) * Math.sin(d[2] * 3.7 + s * .7) + .45 * Math.sin(d[0] * 7.3 + d[2] * 5.1 + s * 2.1) * Math.sin(d[1] * 6.1 + s));
+        P[i].push([cx + d[0] * rx * g, cy + d[1] * ry * g, cz + d[2] * rz * g]); D[i].push(d);
+      }
+    }
+    const nor = (i, j) => {
+      const d = D[i][j]; if (i == 0 || i == n) return d;
+      const a = P[i][j == nJ ? 1 : j + 1], b = P[i][j == 0 ? nJ - 1 : j - 1], c = P[i + 1][j], e = P[i - 1][j];
+      const u = [a[0] - b[0], a[1] - b[1], a[2] - b[2]], v = [c[0] - e[0], c[1] - e[1], c[2] - e[2]];
+      let k = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]; const l = Math.hypot(...k) || 1; k = k.map(x => x / l);
+      if (k[0] * d[0] + k[1] * d[1] + k[2] * d[2] < 0) k = k.map(x => -x);
+      const q = [k[0] * 2 + d[0], k[1] * 2 + d[1], k[2] * 2 + d[2]], lq = Math.hypot(...q) || 1; return q.map(x => x / lq);
+    };
+    const renk = (i, j) => {const d = D[i][j], k = .6 + .48 * (d[1] * .5 + .5) + .1 * Math.sin(d[0] * 9 + d[2] * 7 + s); return [col[0] * k, col[1] * k, col[2] * k, col[3]]};
+    const V = []; for (let i = 0; i <= n; i++) {V.push([]); for (let j = 0; j <= nJ; j++) V[i].push([P[i][j], nor(i, j), renk(i, j)])}
+    for (let i = 0; i < n; i++) for (let j = 0; j < nJ; j++) {
+      const A = V[i][j], B = V[i + 1][j], C = V[i + 1][j + 1], E = V[i][j + 1];
+      this.triN(A[0], B[0], C[0], A[1], B[1], C[1], A[2], B[2], C[2]); this.triN(A[0], C[0], E[0], A[1], C[1], E[1], A[2], C[2], E[2]);
+    }
+  }
+  /* iki 3B nokta arası (konik) silindir — gövde, dal, oluk, boru, tekerlek */
+  silindir(a, b, r0, r1, col, n = 10, kapak = true) {
+    const ax = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], L = Math.hypot(...ax); if (L < 1e-6) return; const z = ax.map(v => v / L);
+    const t = Math.abs(z[1]) < .9 ? [0, 1, 0] : [1, 0, 0];
+    let x = [t[1] * z[2] - t[2] * z[1], t[2] * z[0] - t[0] * z[2], t[0] * z[1] - t[1] * z[0]]; const lx = Math.hypot(...x); x = x.map(v => v / lx);
+    const y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]], eg = (r0 - r1) / L;
+    const R = k => {const f = k / n * Math.PI * 2, c = Math.cos(f), s = Math.sin(f); return [x[0] * c + y[0] * s, x[1] * c + y[1] * s, x[2] * c + y[2] * s]};
+    const p = (o, d, r) => [o[0] + d[0] * r, o[1] + d[1] * r, o[2] + d[2] * r];
+    const nn = d => {const v = [d[0] + z[0] * eg, d[1] + z[1] * eg, d[2] + z[2] * eg], l = Math.hypot(...v); return v.map(q => q / l)};
+    for (let k = 0; k < n; k++) {
+      const d0 = R(k), d1 = R(k + 1), n0 = nn(d0), n1 = nn(d1);
+      this.triN(p(a, d0, r0), p(b, d0, r1), p(b, d1, r1), n0, n0, n1, col);
+      this.triN(p(a, d0, r0), p(b, d1, r1), p(a, d1, r0), n0, n1, n1, col);
+      if (kapak) {if (r1 > 0) this.tri(b, p(b, d0, r1), p(b, d1, r1), col, z); if (r0 > 0) this.tri(a, p(a, d1, r0), p(a, d0, r0), col, z.map(v => -v))}
+    }
+  }
+  /* köşeleri yuvarlatılmış kutu (mobilya, minder, yastık): yumuşak normalli, y0 taban */
+  yuvarlak(cx, cz, ang, y0, hx, hy, hz, r, col, K = 2) {
+    r = Math.min(r, hx, hy, hz) * .999; if (r < .002) return this.kutu(cx, cz, hx, hz, ang, y0, y0 + 2 * hy, col);
+    const ek = h => {const v = [-h]; for (let k = 1; k <= K; k++) v.push(-h + r * (1 - Math.cos(k / K * Math.PI / 2))); const t = v.slice().reverse().map(x => -x); return [...v, ...t].filter((x, i, a) => !i || x - a[i - 1] > 1e-5)};
+    const A = [ek(hx), ek(hy), ek(hz)], H = [hx, hy, hz], c = Math.cos(ang), s = Math.sin(ang), cy = y0 + hy;
+    const nokta = p => {
+      const ic = p.map((v, i) => sinir(v, -(H[i] - r), H[i] - r)), d = p.map((v, i) => v - ic[i]), l = Math.hypot(...d) || 1, n = d.map(v => v / l);
+      const q = ic.map((v, i) => v + n[i] * r);
+      return [[cx + q[0] * c - q[2] * s, cy + q[1], cz + q[0] * s + q[2] * c], [n[0] * c - n[2] * s, n[1], n[0] * s + n[2] * c]];
+    };
+    for (let ax = 0; ax < 3; ax++) for (const sg of [-1, 1]) {
+      const u = (ax + 1) % 3, v = (ax + 2) % 3, U = A[u], V = A[v];
+      const G_ = []; for (let i = 0; i < U.length; i++) {G_.push([]); for (let j = 0; j < V.length; j++) {const p = [0, 0, 0]; p[ax] = sg * H[ax]; p[u] = U[i]; p[v] = V[j]; G_[i].push(nokta(p))}}
+      for (let i = 0; i + 1 < U.length; i++) for (let j = 0; j + 1 < V.length; j++) {
+        const a = G_[i][j], b = G_[i + 1][j], e = G_[i + 1][j + 1], f = G_[i][j + 1];
+        this.triN(a[0], b[0], e[0], a[1], b[1], e[1], col); this.triN(a[0], e[0], f[0], a[1], e[1], f[1], col);
+      }
+    }
+  }
+  /* yan profil (u: boy, v: yükseklik) yerel x boyunca x0..x1 kalınlığında; at(lx, lz) → dünya xz */
+  profil(pr, x0, x1, at, y0, col, rd) {
+    const tr = G.ucgenle(pr), Pt = (x, q) => {const t = at(x, q[0]); return [t[0], y0 + q[1], t[1]]};
+    const ex = G.donder(1, 0, rd), ez = G.donder(0, 1, rd), sg = G.alan(pr) > 0 ? 1 : -1;
+    for (const [a, b, c] of tr) {
+      this.tri(Pt(x1, pr[a]), Pt(x1, pr[b]), Pt(x1, pr[c]), col, [ex[0], 0, ex[1]]);
+      this.tri(Pt(x0, pr[a]), Pt(x0, pr[c]), Pt(x0, pr[b]), col, [-ex[0], 0, -ex[1]]);
+    }
+    for (let i = 0; i < pr.length; i++) {
+      const q = pr[i], r = pr[(i + 1) % pr.length], du = r[0] - q[0], dv = r[1] - q[1], nu = dv * sg, nv = -du * sg;
+      this.quad(Pt(x0, q), Pt(x0, r), Pt(x1, r), Pt(x1, q), col, [ez[0] * nu, nv, ez[1] * nu]);
+    }
+  }
+}
+
+/* ---------- peyzaj ve araç modelleri ---------- */
+const tohumH = (x, z) => Math.abs(Math.sin(x * 12.9898 + z * 78.233) * 43758.5453) % 1;
+function agacKur(m, x, y0, z, c) {
+  const h = tohumH(x, z), h2 = (h * 7.31) % 1;
+  if (h < .22) { // selvi
+    m.mt = MT.kabuk; m.silindir([x, y0, z], [x, y0 + c * .3, z], .09, .07, hexRenk('#5a3d26'), 7, false);
+    m.mt = MT.yaprak; m.blob(x, y0 + c * .95, z, c * .2, c * .82, c * .2, hexRenk('#284d25'), 12, h * 40, .1);
+    m.blob(x, y0 + c * 1.62, z, c * .1, c * .22, c * .1, hexRenk('#2e5629'), 7, h * 17, .1);
+    m.mt = 0; return;
+  }
+  const kh = c * .5, tr = Math.max(.08, c * .035), kab = hexRenk('#5e412a');
+  m.mt = MT.kabuk; m.silindir([x, y0 - .05, z], [x + c * .03, y0 + kh, z], tr, tr * .65, kab, 9, false);
+  for (let k = 0; k < 3; k++) {const a = h * 6.28 + k * 2.1; m.silindir([x + c * .02, y0 + kh * .72, z], [x + Math.cos(a) * c * .22, y0 + kh + c * .17, z + Math.sin(a) * c * .22], tr * .5, tr * .22, kab, 6, false)}
+  m.mt = MT.yaprak;
+  const ton = hexRenk(['#3f7533', '#4a7f37', '#386b2f', '#557f36'][Math.floor(h2 * 4)]), cy = y0 + kh + c * .32;
+  m.blob(x, cy, z, c * .4, c * .34, c * .4, ton, 11, h * 50, .16);
+  for (let k = 0; k < 5; k++) {
+    const a = h * 6.28 + k * 1.257, rr = c * (.24 + .05 * Math.sin(k * 3 + h * 9)), oy = (k % 2 ? .1 : -.06) * c;
+    m.blob(x + Math.cos(a) * c * .27, cy + oy, z + Math.sin(a) * c * .27, rr, rr * .85, rr, ton, 8, h * 50 + k * 13, .2);
+  }
+  m.blob(x, cy + c * .28, z, c * .25, c * .2, c * .25, ton, 8, h * 31, .18);
+  m.mt = 0;
+}
+function caliKur(m, x, y0, z, c) {
+  const h = tohumH(x, z), col = hexRenk(h < .5 ? '#4a7c3a' : '#3f7034');
+  m.mt = MT.yaprak;
+  m.blob(x, y0 + c * .36, z, c * .45, c * .38, c * .45, col, 8, h * 40, .2);
+  m.blob(x + c * .26, y0 + c * .27, z + c * .1, c * .3, c * .26, c * .3, col, 7, h * 20, .2);
+  m.blob(x - c * .2, y0 + c * .26, z - c * .16, c * .28, c * .25, c * .28, col, 7, h * 70, .2);
+  m.mt = 0;
+}
+function arabaKur(m, d, y0) {
+  const w = d.w / 2, L = d.d / 2, r = d.r || 0, at = (lx, lz) => {const t = G.donder(lx, lz, r); return [d.x + t[0], d.y + t[1]]};
+  const P3 = (lx, ly, lz) => {const t = at(lx, lz); return [t[0], y0 + ly, t[1]]}, a = r * RAD;
+  const h = tohumH(d.x, d.y), boya = hexRenk(['#b8312f', '#2f5d9e', '#e9e9e6', '#25292f', '#8d939a', '#3d6b4f'][Math.floor(h * 6)]);
+  const cam = [.07, .1, .13, 1], koyu = hexRenk('#1d2024'), lastik = hexRenk('#17181a'), jant = hexRenk('#c9ccd0');
+  m.mt = MT.boya;
+  m.profil([[-L, .34], [L, .34], [L, .6], [L * .97, .72], [L * .55, .84], [L * .34, .89], [-L * .62, .91], [-L * .94, .86], [-L, .74]], -w * .98, w * .98, at, y0, boya, r);
+  m.profil([[L * .06, 1.35], [L * .04, 1.41], [-L * .42, 1.42], [-L * .44, 1.36]], -w * .84, w * .84, at, y0, boya, r);
+  for (const sx of [1, -1]) { // A ve C dikmeleri
+    const x0 = sx > 0 ? w * .76 : -w * .83, x1 = sx > 0 ? w * .83 : -w * .76;
+    m.profil([[L * .36, .89], [L * .31, .89], [L * .03, 1.37], [L * .07, 1.37]], x0, x1, at, y0, boya, r);
+    m.profil([[-L * .6, .91], [-L * .66, .91], [-L * .46, 1.37], [-L * .41, 1.37]], x0, x1, at, y0, boya, r);
+  }
+  const b = at(0, -L * .13); m.kutu(b[0], b[1], w * .81, .04, a, y0 + .89, y0 + 1.37, boya);
+  m.mt = MT.cam; m.profil([[L * .34, .89], [L * .05, 1.37], [-L * .43, 1.38], [-L * .64, .91]], -w * .8, w * .8, at, y0, cam, r);
+  m.mt = MT.metal;
+  for (const sx of [1, -1]) {
+    const f = at(sx * w * .62, L * .985); m.kutu(f[0], f[1], .17, .03, a, y0 + .58, y0 + .67, [1, .97, .86, 1]);
+    const k = at(sx * w * .66, -L * .99); m.kutu(k[0], k[1], .15, .03, a, y0 + .66, y0 + .76, hexRenk('#c21d1d'));
+  }
+  m.mt = 0;
+  for (const s of [1, -1]) {const t = at(0, s * L * .99); m.kutu(t[0], t[1], w * .99, .04, a, y0 + .3, y0 + .44, koyu)}
+  const iz = at(0, L * .995); m.kutu(iz[0], iz[1], w * .38, .02, a, y0 + .46, y0 + .58, koyu);
+  for (const lz of [L * .63, -L * .62]) for (const sx of [1, -1]) {
+    m.silindir(P3(sx * w * 1.0, .33, lz), P3(sx * w * .7, .33, lz), .33, .33, lastik, 16);
+    m.mt = MT.metal; m.silindir(P3(sx * w * 1.006, .33, lz), P3(sx * w * .99, .33, lz), .2, .2, jant, 12); m.mt = 0;
   }
 }
 
@@ -1460,41 +1609,91 @@ const D3 = {
     this.gl = gl;
     const PREC = `#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n`;
     const vs = `attribute vec3 p;attribute vec3 n;attribute vec4 c;attribute float mt;uniform mat4 m;varying vec3 vn;varying vec4 vc;varying vec3 vp;varying float vm;void main(){vn=n;vc=c;vp=p;vm=mt;gl_Position=m*vec4(p,1.);}`;
-    const fs = PREC + `uniform vec3 isik;uniform vec3 kam;uniform vec3 bakis;uniform float orto;uniform float gunduz;uniform mat4 isikM;uniform sampler2D golge;uniform float golgeA;uniform float texel;uniform vec4 kes;uniform float kesA;uniform vec3 gok;
-varying vec3 vn;varying vec4 vc;varying vec3 vp;varying float vm;
+    const GOKF = `
 float h21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+vec3 gokF(vec3 d,vec3 gunes,float gunduz){
+ float s=clamp(1.-gunes.y*5.,0.,1.)*clamp(gunes.y*8.+1.2,0.,1.);
+ vec3 zen=mix(vec3(.015,.025,.07),vec3(.16,.38,.74),gunduz);
+ vec3 ufk=mix(vec3(.06,.07,.13),vec3(.70,.80,.90),gunduz);
+ float gd=max(dot(d,gunes),0.);
+ ufk=mix(ufk,vec3(1.,.55,.30),s*(.35+.55*pow(gd,3.)));
+ zen=mix(zen,vec3(.25,.30,.55),s*.35);
+ vec3 c;
+ if(d.y>=0.){c=mix(ufk,zen,pow(d.y,.5));
+  c+=vec3(1.,.9,.7)*pow(gd,900.)*6.*step(-.05,gunes.y)+vec3(1.,.8,.55)*pow(gd,12.)*(.18+.4*s)*step(-.1,gunes.y);
+  c+=vec3(step(.9975,h21(floor(d.xz/(d.y+.25)*260.))))*(1.-gunduz)*.8;}
+ else c=mix(ufk*.92,vec3(.33,.36,.30)*mix(.15,1.,gunduz),clamp(-d.y*4.,0.,1.));
+ return c;}`;
+    const fs = PREC + `uniform vec3 isik;uniform vec3 kam;uniform vec3 bakis;uniform float orto;uniform float gunduz;uniform mat4 isikM;uniform sampler2D golge;uniform float golgeA;uniform float texel;uniform vec4 kes;uniform float kesA;uniform vec3 gok;uniform vec3 gunes;uniform float sisU;
+varying vec3 vn;varying vec4 vc;varying vec3 vp;varying float vm;` + GOKF + `
 float gur(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h21(i),h21(i+vec2(1.,0.)),f.x),mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),f.x),f.y);}
+float fbm(vec2 p){return .5*gur(p)+.25*gur(p*2.03+7.)+.125*gur(p*4.01+3.)+.0625*gur(p*8.07+11.);}
 float acil(vec4 c){return dot(c,vec4(1.,1./255.,1./65025.,1./16581375.));}
 vec3 desen(float m,vec3 col,vec3 N,vec3 P){
  vec2 uv=abs(N.y)>.5?P.xz:(abs(N.x)>abs(N.z)?P.zy:P.xy);
  if(m<.5)return col;
- if(m<1.5)return col*(.95+.07*gur(uv*3.));
+ if(m<1.5)return col*(.95+.07*gur(uv*3.)+.03*gur(uv*23.));
  if(m<2.5){float r=floor(uv.y/.075);vec2 q=vec2(uv.x/.25+.5*mod(r,2.),uv.y/.075);vec2 f=fract(q);float h=step(f.x,.04)+step(f.y,.13);return h>0.?vec3(.8,.78,.74):col*(.8+.35*h21(floor(q)));}
  if(m<3.5){float r=floor(uv.y/.22);vec2 q=vec2(uv.x/.42+.37*mod(r,3.),uv.y/.22);vec2 f=fract(q);float h=step(f.x,.035)+step(f.y,.07);return h>0.?col*.55:col*(.75+.4*h21(floor(q)))*(.9+.15*gur(uv*9.));}
  if(m<4.5){float r=floor(uv.y/.15);vec2 q=vec2(uv.x/1.2+.37*r,uv.y/.15);vec2 f=fract(q);float v=h21(floor(q));float c=step(f.y,.05)+step(f.x,.006);return col*(.82+.28*v+.05*sin(uv.x*80.+v*20.))*(c>0.?.72:1.);}
  if(m<5.5){vec2 f=fract(uv/.6);float d=step(f.x,.015)+step(f.y,.015);return d>0.?col*.78:col*(.97+.05*h21(floor(uv/.6)));}
  if(m<6.5){vec2 f=fract(uv/.8);float d=step(f.x,.008)+step(f.y,.008);float v=smoothstep(.9,.97,abs(sin((uv.x+uv.y)*3.+gur(uv*2.)*5.)));return d>0.?col*.85:col*(1.-.12*v);}
- if(m<7.5){float r=floor(uv.y/.3);vec2 q=vec2(uv.x/.22+.5*mod(r,2.),uv.y/.3);vec2 f=fract(q);return col*(.72+.25*f.y+.15*h21(floor(q)))*(1.-.25*step(f.x,.05));}
- if(m<8.5)return col*(.82+.22*gur(uv*1.3)+.1*gur(uv*7.));
- if(m<9.5)return col*(.92+.12*gur(uv*2.5));
- if(m<10.5)return col*(.9+.12*h21(floor(uv*40.)));
+ if(m<7.5){float r=floor(uv.y/.3);vec2 q=vec2(uv.x/.22+.5*mod(r,2.),uv.y/.3);vec2 f=fract(q);return col*(.72+.25*f.y+.15*h21(floor(q)))*(1.-.25*step(f.x,.05))*(.92+.12*gur(uv*.7));}
+ if(m<8.5){float b=fbm(uv*.35),k=fbm(uv*3.1),serit=step(.5,fract(uv.x*.42));vec3 c=col*(.78+.34*b+.12*k)*(.95+.07*serit);return mix(c,c*vec3(1.12,1.06,.78),smoothstep(.62,.8,fbm(uv*.12+5.))*.6);}
+ if(m<9.5)return col;
+ if(m<10.5)return col*(.9+.12*h21(floor(uv*40.)))*(.94+.08*gur(uv*.8));
  if(m<11.5){float v=h21(vec2(floor(uv.x/.16),0.));return col*(.85+.2*v+.04*sin(uv.y*60.+v*9.))*(1.-.3*step(fract(uv.x/.16),.05));}
  if(m<12.5){vec2 f=fract(uv/.3);float d=step(f.x,.03)+step(f.y,.03);return d>0.?col*.8:col*(.9+.15*h21(floor(uv/.3)));}
+ if(m<15.5)return col;
+ if(m<16.5)return col*(.86+.22*gur(P.xz*4.+P.y*3.)+.12*gur(P.xy*11.+P.z*7.));
+ if(m<17.5)return col*(.8+.3*gur(vec2(atan(N.z,N.x)*4.,P.y*9.)));
+ if(m<18.5){float b=fbm(uv*.06),k=fbm(uv*.9);vec3 c=col*(.72+.4*b)*(.9+.18*k);return mix(c,c*vec3(1.1,1.03,.72),smoothstep(.55,.75,fbm(uv*.03+3.))*.18);}
+ if(m<19.5)return col;
+ if(m<20.5)return col*(.92+.1*gur(uv*60.)+.05*gur(uv*7.));
+ if(m<21.5){vec2 g=abs(N.y)>.5?P.xz:vec2(abs(N.x)>abs(N.z)?P.z:P.x,P.y);float v=gur(vec2(g.x*38.,g.y*1.6))*.6+gur(vec2(g.x*7.,g.y*.5))*.4;return col*(.84+.2*v+.035*sin(g.x*140.+v*9.));}
  return col;}
+vec3 lin(vec3 c){return pow(c,vec3(2.2));}
 void main(){
  if(kesA>.5&&dot(vp,kes.xyz)>kes.w)discard;
  vec3 N=normalize(vn);vec3 V=orto>.5?-bakis:normalize(kam-vp);
- if(dot(N,V)<0.){if(kesA>.5&&vc.a>.99){gl_FragColor=vec4(.16,.19,.25,1.);return;}N=-N;}
- vec3 base=desen(vm,vc.rgb,N,vp);
- float ndl=max(dot(N,isik),0.);float sh=1.;
- if(golgeA>.5&&ndl>0.){vec4 l=isikM*vec4(vp,1.);vec3 q=l.xyz*.5+.5;
-  if(q.x>0.&&q.x<1.&&q.y>0.&&q.y<1.&&q.z<1.){float b=.0007+.002*(1.-ndl);sh=0.;
-   for(int i=-1;i<=1;i++)for(int j=-1;j<=1;j++){float d=acil(texture2D(golge,q.xy+vec2(float(i),float(j))*texel));sh+=q.z-b>d?0.:1.;}
-   sh/=9.;}}
- float gk=.5+.5*N.y;
- vec3 col=base*(.27+.24*gk)*mix(.55,1.,gunduz)+base*.66*ndl*sh*gunduz;
- float d=length(kam-vp);float f=clamp((d-110.)/300.,0.,.55)*(1.-orto);col=mix(col,gok,f);
- gl_FragColor=vec4(col,vc.a);}`;
+ if(dot(N,V)<0.&&!(vm>15.5&&vm<17.5)){if(kesA>.5&&vc.a>.99){gl_FragColor=vec4(.16,.19,.25,1.);return;}N=-N;}
+ float m=vm;
+ if(m>8.5&&m<9.5){vec2 w=vp.xz*3.;N=normalize(N+vec3(gur(w)-.5,0.,gur(w+9.)-.5)*.16);}
+ vec3 base=desen(m,vc.rgb,N,vp);
+ float yap=step(15.5,m)*step(m,16.5);
+ float ndl=yap>.5?max((dot(N,isik)+.45)/1.45,0.):max(dot(N,isik),0.);float sh=1.;
+ if(golgeA>.5&&ndl>0.){vec4 l=isikM*vec4(vp+N*.05,1.);vec3 q=l.xyz*.5+.5;
+  if(q.x>0.&&q.x<1.&&q.y>0.&&q.y<1.&&q.z<1.){float b=.0009+.0025*(1.-max(dot(N,isik),0.));sh=0.;
+   for(int i=0;i<4;i++)for(int j=0;j<4;j++){vec2 o=(vec2(float(i),float(j))-1.5)*1.25*texel;float d=acil(texture2D(golge,q.xy+o));sh+=q.z-b>d?0.:1.;}
+   sh/=16.;}}
+ float ao=1.;if(abs(N.y)<.6&&orto<.5)ao=mix(.58,1.,smoothstep(-.3,1.1,vp.y));
+ vec3 alb=lin(base);if(m>7.5&&m<8.5)alb*=vec3(.8,.78,.85);if(yap>.5)alb*=.8;
+ vec3 amb=mix(vec3(.30,.29,.24),vec3(.48,.58,.80),.5+.5*N.y)*mix(.05,.5,gunduz);
+ vec3 gun=mix(vec3(1.,.58,.34),vec3(1.,.95,.88),clamp(isik.y*3.,0.,1.))*2.15*gunduz;
+ vec3 col=alb*(amb*ao+gun*ndl*sh);
+ if(yap>.5)col+=alb*vec3(.5,.7,.25)*pow(max(dot(-V,isik),0.),4.)*sh*gunduz*.6;
+ float ks=.03,sp=16.,Fmin=0.;
+ if(m>4.5&&m<6.5){ks=.25;sp=70.;Fmin=.03;}
+ if(m>12.5&&m<13.5){ks=1.2;sp=260.;Fmin=.22;}
+ if(m>8.5&&m<9.5){ks=1.4;sp=320.;Fmin=.06;}
+ if(m>13.5&&m<14.5){ks=.7;sp=50.;Fmin=.25;}
+ if(m>14.5&&m<15.5){ks=.8;sp=120.;Fmin=.06;}
+ if(m>18.5&&m<19.5){ks=.55;sp=90.;Fmin=.05;}
+ if(m>20.5&&m<21.5){ks=.12;sp=40.;}
+ vec3 H=normalize(isik+V);col+=gun*ks*pow(max(dot(N,H),0.),sp)*sh*step(0.,dot(N,isik));
+ float a=vc.a;
+ if(Fmin>0.){
+  float F=Fmin+(1.-Fmin)*pow(1.-max(dot(N,V),0.),5.);
+  vec3 R=reflect(-V,N);vec3 refl=lin(gokF(R,gunes,gunduz))*mix(.25,1.,gunduz);
+  if(m>12.5&&m<13.5){col=mix(alb*.25*(amb+gun*ndl*sh*.3),refl,F);a=vc.a<.99?mix(.55,.95,F):1.;
+   if(vc.a<.99)col+=vec3(1.,.6,.26)*smoothstep(.65,.05,gunduz)*(.32+.12*gur(vp.xz*2.+vp.y));}
+  else if(m>8.5&&m<9.5){vec3 su=alb*vec3(.35,.7,.95);col=mix(su*(amb+gun*ndl*sh*.3)*.6,refl,F)+gun*.004*gur(vp.xz*9.);a=mix(.85,.97,F);}
+  else col=mix(col,refl*(.5+.5*ao),F);
+ }
+ col*=.72;col=(col*(2.51*col+.03))/(col*(2.43*col+.59)+.14);
+ col=pow(clamp(col,0.,1.),vec3(1./2.2));col=clamp(mix(vec3(dot(col,vec3(.299,.587,.114))),col,.96),0.,1.);
+ if(orto<.5){float d=length(kam-vp);float f=pow(clamp((d-25.)/sisU,0.,1.),1.4)*.7;vec3 dv=normalize(vp-kam);col=mix(col,gokF(normalize(vec3(dv.x,abs(dv.y)*.12,dv.z)),gunes,gunduz),f);}
+ gl_FragColor=vec4(col,a);}`;
     const gvs = `attribute vec3 p;uniform mat4 m;varying float z;void main(){gl_Position=m*vec4(p,1.);z=gl_Position.z*.5+.5;}`;
     const gfs = PREC + `varying float z;void main(){vec4 e=fract(z*vec4(1.,255.,65025.,16581375.));e-=e.yzww*vec4(1./255.,1./255.,1./255.,0.);gl_FragColor=e;}`;
     const sh = (t, k) => {const s = gl.createShader(t); gl.shaderSource(s, k); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s};
@@ -1502,9 +1701,13 @@ void main(){
     this.pr = prog(vs, fs); this.pg = prog(gvs, gfs);
     this.a = {}; for (const k of ['p', 'n', 'c', 'mt']) this.a[k] = gl.getAttribLocation(this.pr, k);
     this.ag = gl.getAttribLocation(this.pg, 'p');
-    this.u = {}; for (const k of ['m', 'isik', 'kam', 'bakis', 'orto', 'gunduz', 'isikM', 'golge', 'golgeA', 'texel', 'kes', 'kesA', 'gok']) this.u[k] = gl.getUniformLocation(this.pr, k);
+    this.u = {}; for (const k of ['m', 'isik', 'kam', 'bakis', 'orto', 'gunduz', 'isikM', 'golge', 'golgeA', 'texel', 'kes', 'kesA', 'gok', 'gunes', 'sisU']) this.u[k] = gl.getUniformLocation(this.pr, k);
     this.ug = gl.getUniformLocation(this.pg, 'm');
     this.bo = gl.createBuffer(); this.bs = gl.createBuffer();
+    // gökyüzü (tam ekran üçgen)
+    this.pk = prog(`attribute vec2 p;varying vec2 q;void main(){q=p;gl_Position=vec4(p,.99999,1.);}`, PREC + `uniform mat4 inv;uniform vec3 gunes;uniform float gunduz;varying vec2 q;` + GOKF + `void main(){vec4 a=inv*vec4(q,-1.,1.),b=inv*vec4(q,1.,1.);vec3 d=normalize(b.xyz/b.w-a.xyz/a.w);gl_FragColor=vec4(gokF(d,gunes,gunduz),1.);}`);
+    this.ak = gl.getAttribLocation(this.pk, 'p'); this.uk = {}; for (const k of ['inv', 'gunes', 'gunduz']) this.uk[k] = gl.getUniformLocation(this.pk, k);
+    this.bk = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, this.bk); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     // gölge haritası
     this.GB = 2048; this.gt = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.gt);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.GB, this.GB, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
@@ -1575,7 +1778,7 @@ void main(){
     const ahsap = hexRenk('#8b5a33'), disKapi = hexRenk('#3b3f45'), tavan = hexRenk('#f7f6f2'), beton = hexRenk('#d9d5cc');
     this.otur = {}; this.delik = {};
     p.katlar.forEach((K, i) => {this.otur[K.id] = katOturum(K.id); this.delik[K.id] = i > 0 ? merdivenler(p.katlar[i - 1].id).map(md => md.pts) : []});
-    const cepheGiz = !!(this.orto && this.orto != 'ust'), b = this.sinirlar(), R = Math.max(b.w, b.h, 30) * 4;
+    const cepheGiz = !!(this.orto && this.orto != 'ust'), b = this.sinirlar(), R = Math.max(b.w, b.h, 30) * 4; this._R = R * .95;
     // arazi
     const arz = ARAZI.var(), iz = arz ? ARAZI.ayakIzi() : null;
     const yer = (x, z) => arz ? (iz && ARAZI.padIcinde(x, z, iz, 1) ? 0 : ARAZI.dunyaY(x, z)) : 0;
@@ -1590,9 +1793,9 @@ void main(){
         const col = hexRenk(ic ? '#86b36a' : '#a7b796');
         m.quad([xa, H[i][j], za], [xa + st, H[i + 1][j], za], [xa + st, H[i + 1][j + 1], za + st], [xa, H[i][j + 1], za + st], col, [0, 1, 0]);
       }
-      m.mt = 0; m.quad([b.cx - R, enAz - .3, b.cz - R], [b.cx + R, enAz - .3, b.cz - R], [b.cx + R, enAz - .3, b.cz + R], [b.cx - R, enAz - .3, b.cz + R], hexRenk('#a7b796'), [0, 1, 0]);
+      m.mt = MT.arazi; m.quad([b.cx - R, enAz - .3, b.cz - R], [b.cx + R, enAz - .3, b.cz - R], [b.cx + R, enAz - .3, b.cz + R], [b.cx - R, enAz - .3, b.cz + R], hexRenk('#a7b796'), [0, 1, 0]);
     } else {
-      m.quad([b.cx - R, -.03, b.cz - R], [b.cx + R, -.03, b.cz - R], [b.cx + R, -.03, b.cz + R], [b.cx - R, -.03, b.cz + R], hexRenk('#a7b796'), [0, 1, 0]);
+      m.mt = MT.arazi; m.quad([b.cx - R, -.03, b.cz - R], [b.cx + R, -.03, b.cz - R], [b.cx + R, -.03, b.cz + R], [b.cx - R, -.03, b.cz + R], hexRenk('#97a878'), [0, 1, 0]);
       m.mt = MT.cim; if (p.arsa && p.arsa.pts.length >= 3 && !cepheGiz) m.prizma(p.arsa.pts, -.03, -.01, hexRenk('#86b36a'));
       m.mt = 0;
     }
@@ -1609,15 +1812,9 @@ void main(){
         const L = Math.hypot(d.x2 - d.x1, d.y2 - d.y1); if (L < .01) continue; const a = Math.atan2(d.y2 - d.y1, d.x2 - d.x1);
         m.mt = MT.tas; m.kutu((d.x1 + d.x2) / 2, (d.y1 + d.y2) / 2, L / 2 + .1, .1, a, y0 - .5, y0 + (d.h || 1.6), hexRenk('#cfc5b0')); m.mt = 0;
         m.kutu((d.x1 + d.x2) / 2, (d.y1 + d.y2) / 2, L / 2 + .12, .13, a, y0 + (d.h || 1.6), y0 + (d.h || 1.6) + .06, hexRenk('#b9ae96'));
-      } else if (d.tip == 'agac') {
-        const c = d.cap || 3.5; m.kutu(d.x, d.y, .13, .13, .4, y0, y0 + c * .55, hexRenk('#6b4a2b'));
-        m.kure(d.x, y0 + c * .55 + c * .42, d.y, c / 2, c * .5, hexRenk('#4f8a3f')); m.kure(d.x + c * .12, y0 + c * .55 + c * .75, d.y - c * .08, c * .32, c * .32, hexRenk('#5c9a48'), 5);
-      } else if (d.tip == 'cali') {const c = d.cap || 1; m.kure(d.x, y0 + c * .4, d.y, c / 2, c * .42, hexRenk('#5b9147'), 5)}
-      else if (d.tip == 'araba') {
-        const a = (d.r || 0) * RAD, w = d.w / 2, L = d.d / 2, rr = (lx, lz) => {const t = G.donder(lx, lz, d.r || 0); return [d.x + t[0], d.y + t[1]]};
-        m.kutu(d.x, d.y, w, L, a, y0 + .3, y0 + .85, hexRenk('#c23b3b')); const k = rr(0, .15); m.kutu(k[0], k[1], w * .86, L * .5, a, y0 + .85, y0 + 1.38, hexRenk('#2b3440', .85));
-        for (const [lx, lz] of [[-w, -L * .62], [w, -L * .62], [-w, L * .62], [w, L * .62]]) {const t = rr(lx * .92, lz); m.kutu(t[0], t[1], .12, .33, a, y0, y0 + .62, hexRenk('#1b1d20'))}
-      }
+      } else if (d.tip == 'agac') agacKur(m, d.x, y0, d.y, d.cap || 3.5);
+      else if (d.tip == 'cali') caliKur(m, d.x, y0, d.y, d.cap || 1);
+      else if (d.tip == 'araba') arabaKur(m, d, y0);
     }
     // katlar
     const catiVar = this.kesit < 0;
@@ -1660,7 +1857,7 @@ void main(){
             m.kutu(cx, cz, g / 2, ft / 2 + .01, ang, y2, y2 + ft, cerceve); m.kutu(cx, cz, g / 2, ft / 2 + .01, ang, tepe - ft, tepe, cerceve);
             for (const q of [s + ft / 2, e - ft / 2]) m.kutu(w.x1 + ux * q, w.y1 + uy * q, ft / 2, ft / 2 + .01, ang, y2, tepe, cerceve);
             if (g > 1.1) m.kutu(cx, cz, ft / 2, ft / 2 + .01, ang, y2, tepe, cerceve);
-            m.kutu(cx, cz, g / 2 - ft, .01, ang, y2 + ft, tepe - ft, cam);
+            m.mt = MT.cam; m.kutu(cx, cz, g / 2 - ft, .01, ang, y2 + ft, tepe - ft, cam); m.mt = 0;
             if (a.tur == 'pencere' && dis) m.kutu(cx + nx * (w.k / 2) * (a.yon || 1), cz + nz * (w.k / 2) * (a.yon || 1), g / 2 + .04, .05, ang, y2 - .04, y2, hexRenk('#d9d4c9'));
           } else {
             const yon = a.yon || 1, menS = (a.mentese || 'sol') == 'sol', H = menS ? s : e, hx = w.x1 + ux * H, hz = w.y1 + uy * H;
@@ -1695,22 +1892,105 @@ void main(){
   mobilya(m, mo, y, K, ustD) {
     const T = MOB[mo.tip]; if (!T) return; const {w, d} = mobOlcu(mo), r = mo.r || 0, a = r * RAD;
     const at = (lx, lz) => {const t = G.donder(lx, lz, r); return [mo.x + t[0], mo.y + t[1]]};
+    const P3 = (lx, ly, lz) => {const t = at(lx, lz); return [t[0], y + ly, t[1]]};
     if (T.ozel == 'kolon') {m.kutu(mo.x, mo.y, w / 2, d / 2, a, y, y + K.h, hexRenk('#e6e2d8')); return}
     if (T.ozel == 'merdiven') {
       const H = K.h + ustD, n = Math.max(2, Math.round(H / 0.175)), adim = d / n, rh = H / n;
       m.mt = MT.mermer;
       for (let i = 0; i < n; i++) {const c = at(0, d / 2 - adim * (i + .5)); m.kutu(c[0], c[1], w / 2, adim / 2, a, y + rh * i - (i ? .12 : 0), y + rh * (i + 1), hexRenk(i % 2 ? '#e3dccd' : '#ddd5c4'))}
+      m.mt = MT.metal; const kp = hexRenk('#59616b');
+      for (const sx of [-w / 2 + .04, w / 2 - .04]) {
+        m.silindir(P3(sx, .98, d / 2 + .05), P3(sx, H + .98, -d / 2 - .05), .025, .025, kp, 8);
+        for (let k = 0; k <= 4; k++) {const t = k / 4; m.silindir(P3(sx, H * t, d / 2 - d * t), P3(sx, H * t + .97, d / 2 - d * t), .014, .014, kp, 6, false)}
+      }
+      m.mt = 0; return;
+    }
+    if (mo.tip == 'bitki') {
+      const s = Math.min(w, d) / .45, ks = hexRenk('#a8664a');
+      m.mt = 0; m.silindir(P3(0, 0, 0), P3(0, .4 * s, 0), .15 * s, .2 * s, ks, 14); m.silindir(P3(0, .37 * s, 0), P3(0, .38 * s, 0), .19 * s, .19 * s, hexRenk('#4a3626'), 14);
+      m.mt = MT.kabuk; m.silindir(P3(0, .36 * s, 0), P3(.02, .75 * s, 0), .025 * s, .015 * s, hexRenk('#5e412a'), 6, false);
+      const t = at(0, 0); m.mt = MT.yaprak; m.blob(t[0], y + .82 * s, t[1], .26 * s, .3 * s, .26 * s, hexRenk('#3f7a3a'), 9, mo.x * 7 + mo.y, .25);
+      m.blob(t[0] + .08 * s, y + 1.0 * s, t[1] - .05 * s, .16 * s, .18 * s, .16 * s, hexRenk('#4a8640'), 7, mo.x * 3, .25); m.mt = 0; return;
+    }
+    const sx = w / T.w, sz = d / T.d, parca = mo.tip == 'kitaplik' ? [] : T.p(T);
+    parca.forEach((q, i) => {
+      const c = at((q[0] + q[2]) / 2 * sx, (q[1] + q[3]) / 2 * sz), cam = q[6] == 'cam';
+      let col = cam ? [.7, .85, .95, .3] : hexRenk(q[6]), mt = cam ? MT.cam : q[6] == AH || q[6] == AC ? MT.mahsap : q[6] == KUMAS ? MT.kumas : q[6] == BEY && T.k == 'Banyo' ? MT.parlak : q[6] == KUM ? MT.kumas : 0;
+      if (mo.tip == 'tv' && i == 1) {mt = MT.cam; col = [.04, .05, .07, 1]}
+      if (mo.tip == 'lavabo' && i == 2) {mt = MT.cam; col = [.62, .7, .74, 1]}
+      if (mo.tip == 'buzdolabi' || mo.tip == 'ocak' || mo.tip == 'camasir' || (mo.tip == 'evye' && i == 1)) mt = MT.parlak;
+      const hx = Math.abs(q[2] - q[0]) / 2 * sx, hz = Math.max(.005, Math.abs(q[3] - q[1]) / 2 * sz), hy = (q[5] - q[4]) / 2, kmin = Math.min(hx, hy, hz);
+      const yum = q[6] == KUMAS || (q[6] == BEY && /yatak/.test(mo.tip)) || (q[6] == KUM && /yatak/.test(mo.tip));
+      const rr = cam ? 0 : yum ? Math.min(.09, kmin * .95) : mt == MT.parlak ? Math.min(.05, kmin * .6) : Math.min(.02, kmin * .45);
+      m.mt = mt;
+      if (rr > .004) m.yuvarlak(c[0], c[1], a, y + q[4], hx, hy, hz, rr, col, rr > .04 ? 3 : 1);
+      else m.kutu(c[0], c[1], hx, hz, a, y + q[4], y + q[5], col);
+    });
+    m.mt = 0; this.mobilyaDetay(m, mo, at, P3, y, a, w, d);
+  },
+  /* tipe özel ayrıntılar: kapak çizgileri, kulplar, raflar, ocak gözleri, yastıklar … (ön yüz yerel +z) */
+  mobilyaDetay(m, mo, at, P3, y, a, w, d) {
+    const kulp = hexRenk('#b9bec4'), derz = hexRenk('#4a4036'), kut = (lx, lz, hx, hz, y0, y1, col) => {const c = at(lx, lz); m.kutu(c[0], c[1], hx, hz, a, y + y0, y + y1, col)};
+    const kulpDik = (lx, lz, y0, y1) => {m.mt = MT.metal; m.silindir(P3(lx, y0, lz), P3(lx, y1, lz), .009, .009, kulp, 6); m.mt = 0};
+    const t = mo.tip;
+    if (t == 'gardirop') {
+      const n = Math.max(2, Math.round(w / .5)), g = w / n;
+      for (let i = 1; i < n; i++) kut(-w / 2 + g * i, d / 2 + .001, .003, .004, .04, 2.16, derz);
+      for (let i = 0; i < n; i++) {const x = -w / 2 + g * (i + (i % 2 ? .12 : .88)); kulpDik(x, d / 2 + .02, 1.0, 1.3)}
+      kut(0, d / 2 + .001, w / 2 - .01, .004, .3, .305, derz);
+    } else if (t == 'komodin') {
+      for (const yy of [.2, .36]) {kut(0, d / 2 + .001, w / 2 - .02, .003, yy, yy + .004, derz); m.mt = MT.metal; m.silindir(P3(-.06, yy + .07, d / 2 + .02), P3(.06, yy + .07, d / 2 + .02), .008, .008, kulp, 6); m.mt = 0}
+    } else if (t == 'kitaplik') {
+      const raf = 5, H = 2, kal = .025, gov = hexRenk(AH), ic = hexRenk('#8a6644'), renk = ['#7b2f2f', '#2f4f7b', '#d8c9a0', '#3f6a4a', '#6b4d7a', '#c48a3a', '#2b2b2b'];
+      m.mt = MT.mahsap;
+      for (const s of [-1, 1]) {const c = at(s * (w / 2 - kal / 2), 0); m.yuvarlak(c[0], c[1], a, y, kal / 2, H / 2, d / 2, .008, gov)}
+      kut(0, -d / 2 + .006, w / 2 - kal, .006, 0, H, ic);
+      for (let k = 0; k <= raf; k++) {const yy = Math.min(H - kal, k * (H - kal) / raf), c = at(0, 0); m.yuvarlak(c[0], c[1], a, y + yy, w / 2 - kal, kal / 2, d / 2, .006, gov)}
       m.mt = 0;
-      for (const sx of [-w / 2 + .03, w / 2 - .03]) {const c0 = at(sx, d / 2), c1 = at(sx, -d / 2); for (const [ya, yb] of [[.95, 1.0]]) m.quad([c0[0], y + ya, c0[1]], [c1[0], y + H + ya, c1[1]], [c1[0], y + H + yb, c1[1]], [c0[0], y + yb, c0[1]], hexRenk('#505862')); for (let k = 0; k <= 4; k++) {const t = k / 4, cc = at(sx, d / 2 - d * t); m.kutu(cc[0], cc[1], .015, .015, a, y + H * t, y + H * t + .97, hexRenk('#505862'))}}
-      return;
+      for (let k = 0; k < raf; k++) {
+        const y0 = k * (H - kal) / raf + kal, ust = (H - kal) / raf - kal - .03; let x = -w / 2 + kal + .02, j = Math.floor(tohumH(mo.x + k, mo.y) * 50);
+        while (x < w / 2 - kal - .05) {
+          const bw = .022 + .022 * tohumH(x * 9, k + j), bh = Math.min(ust, ust * (.62 + .36 * tohumH(k, x * 7 + j))), c = renk[(j++) % renk.length];
+          if (tohumH(x * 3, k * 5 + 1) < .1) {x += .1; continue}
+          if (x + bw > w / 2 - kal - .01) break;
+          kut(x + bw / 2, .02, bw / 2, d / 2 - .05, y0, y0 + bh, hexRenk(c)); x += bw + .003;
+        }
+      }
+    } else if (t == 'buzdolabi') {
+      kut(0, d / 2 + .001, w / 2 - .01, .004, 1.18, 1.19, hexRenk('#9aa1a8'));
+      kulpDik(-w / 2 + .06, d / 2 + .03, .7, 1.1); kulpDik(-w / 2 + .06, d / 2 + .03, 1.3, 1.6);
+    } else if (t == 'ocak') {
+      m.mt = MT.parlak; for (const [lx, lz] of [[-.13, -.12], [.13, -.12], [-.13, .1], [.13, .1]]) m.silindir(P3(lx, .9, lz), P3(lx, .91, lz), .07, .07, hexRenk('#3a3d42'), 12);
+      m.mt = MT.cam; kut(0, d / 2 + .002, w / 2 - .05, .004, .18, .62, [.05, .06, .07, 1]); m.mt = 0;
+      m.mt = MT.metal; m.silindir(P3(-w / 2 + .06, .7, d / 2 + .03), P3(w / 2 - .06, .7, d / 2 + .03), .01, .01, kulp, 6); m.mt = 0;
+    } else if (t == 'tezgah') {
+      const n = Math.max(1, Math.round(w / .6)), g = w / n;
+      for (let i = 0; i < n; i++) {
+        const x0 = -w / 2 + g * i; if (i) {kut(x0, d / 2 + .001, .003, .004, .1, .84, derz); kut(x0, -d / 2 + .3 - .001, .003, .004, 1.47, 2.13, derz)}
+        kulpDik(x0 + g - .06, d / 2 + .02, .62, .8); kulpDik(x0 + g - .06, -d / 2 + .3 + .02, 1.5, 1.68);
+      }
+      kut(0, d / 2 - .02, w / 2, .03, 0, .1, hexRenk('#2e3238'));
+    } else if (t == 'evye') {
+      m.mt = MT.metal; kut(0, .02, w / 2 - .1, d / 2 - .12, .86, .905, hexRenk('#8f979f'));
+      m.silindir(P3(0, .9, -d / 2 + .08), P3(0, 1.18, -d / 2 + .08), .015, .015, kulp, 8); m.silindir(P3(0, 1.18, -d / 2 + .08), P3(0, 1.16, -d / 2 + .25), .013, .013, kulp, 8); m.mt = 0;
+      kulpDik(-.04, d / 2 + .02, .62, .8); kulpDik(.04, d / 2 + .02, .62, .8);
+    } else if (t == 'camasir') {
+      m.mt = MT.cam; m.silindir(P3(0, .5, d / 2), P3(0, .5, d / 2 + .02), .2, .2, [.12, .15, .18, 1], 18); m.mt = MT.metal; m.silindir(P3(0, .5, d / 2 - .001), P3(0, .5, d / 2 + .012), .235, .235, kulp, 18); m.mt = 0;
+    } else if (t == 'kanepe' || t == 'kose') {
+      const yc = [hexRenk('#c9a86a'), hexRenk('#e3dccd')];
+      m.mt = MT.kumas; for (const [i, s] of [[0, -1], [1, 1]]) {const c = at(s * (w / 2 - .45), -d / 2 + .3); m.yuvarlak(c[0], c[1], a + s * .25, y + .44, .2, .2, .07, .06, yc[i], 3)} m.mt = 0;
+    } else if (t == 'yatak2' || t == 'yatak1') {
+      kut(0, -d / 2 + .02, w / 2 + .02, .03, .0, 1.05, hexRenk('#8a6a48'));
+    } else if (t == 'tv') {
+      m.mt = MT.metal; m.silindir(P3(-w * .1, .5, -.02), P3(-w * .1, .56, -.02), .012, .012, kulp, 6); m.silindir(P3(w * .1, .5, -.02), P3(w * .1, .56, -.02), .012, .012, kulp, 6); m.mt = 0;
+      for (const s of [-1, 1]) kut(s * w / 4, d / 2 + .001, w / 4 - .02, .004, .08, .42, hexRenk(AH));
+    } else if (t == 'wc') {
+      m.mt = MT.parlak; m.silindir(P3(0, .42, .07), P3(0, .44, .07), .19, .19, hexRenk('#f7f7f4'), 18); m.mt = 0;
+    } else if (t == 'lavabo') {
+      m.mt = MT.metal; m.silindir(P3(0, .85, -d / 2 + .06), P3(0, .98, -d / 2 + .06), .012, .012, kulp, 8); m.silindir(P3(0, .98, -d / 2 + .06), P3(0, .97, -d / 2 + .16), .011, .011, kulp, 8); m.mt = 0;
+    } else if (t == 'kuvet') {
+      m.mt = MT.metal; m.silindir(P3(w / 2 - .12, .55, -d / 2 + .06), P3(w / 2 - .12, .72, -d / 2 + .06), .015, .015, kulp, 8); m.mt = 0;
     }
-    const sx = w / T.w, sz = d / T.d;
-    for (const q of T.p(T)) {
-      const c = at((q[0] + q[2]) / 2 * sx, (q[1] + q[3]) / 2 * sz), col = q[6] == 'cam' ? [.7, .85, .95, .3] : hexRenk(q[6]);
-      m.mt = q[6] == AH || q[6] == AC ? MT.ahsap : 0;
-      m.kutu(c[0], c[1], Math.abs(q[2] - q[0]) / 2 * sx, Math.max(.005, Math.abs(q[3] - q[1]) / 2 * sz), a, y + q[4], y + q[5], col);
-    }
-    m.mt = 0;
   },
   /* çatı: ortogonal planlarda dikdörtgenlere ayrılır, her parçaya çatı kurulur (vadiler derinlik testinde oluşur) */
   cati(m, son) {
@@ -1721,8 +2001,9 @@ void main(){
     let rects = otur ? dikdortgenlere(otur) : null;
     if (!rects || !rects.length) {const pts = []; W.forEach(w => pts.push([w.x1, w.y1], [w.x2, w.y2])); const b = G.bbox(pts); rects = [{x1: b.x1 + k / 2, y1: b.y1 + k / 2, x2: b.x2 - k / 2, y2: b.y2 - k / 2}]}
     const tn = Math.tan((c.egim || 30) * RAD), col = hexRenk(c.renk || '#b5533c'), kenar = hexRenk('#7a5a44'), cephe = hexRenk(p.cephe.renk), kal = .14;
-    m.mt = MT.kiremit;
+    m.mt = MT.kiremit; const mh = [col[0] * .68, col[1] * .68, col[2] * .68, 1], ol = hexRenk('#9aa1a8');
     for (const r of rects) {
+      const E = {mahya: [], olukV: [], olukU: []};
       const sc = c.sacak, X0 = r.x1 - k - sc, X1 = r.x2 + k + sc, Z0 = r.y1 - k - sc, Z1 = r.y2 + k + sc, yb = yT - sc * tn;
       const xE = (X1 - X0) >= (Z1 - Z0), T = (u, v, yy) => xE ? [u, yy, v] : [v, yy, u];
       const U0 = xE ? X0 : Z0, U1 = xE ? X1 : Z1, V0 = xE ? Z0 : X0, V1 = xE ? Z1 : X1, vm = (V0 + V1) / 2, hw = (V1 - V0) / 2;
@@ -1731,10 +2012,11 @@ void main(){
         const yr = yb + hw * tn;
         m.yuzey([T(U0, V0, yb), T(U1, V0, yb), T(U1, vm, yr), T(U0, vm, yr)], kal, col, kenar);
         m.yuzey([T(U0, vm, yr), T(U1, vm, yr), T(U1, V1, yb), T(U0, V1, yb)], kal, col, kenar);
+        E.mahya.push([T(U0, vm, yr + .02), T(U1, vm, yr + .02)]); E.olukV.push(V0, V1);
         m.mt = 0; for (const u of [wu0, wu1]) m.tri(T(u, wv0, yT - kal), T(u, wv1, yT - kal), T(u, vm, yr - kal), cephe, xE ? [u == wu0 ? -1 : 1, 0, 0] : [0, 0, u == wu0 ? -1 : 1]); m.mt = MT.kiremit;
       } else if (c.tip == 'tek') {
         const yr = yb + (V1 - V0) * tn, yw = yb + (V1 - wv0) * tn;
-        m.yuzey([T(U0, V1, yb), T(U1, V1, yb), T(U1, V0, yr), T(U0, V0, yr)], kal, col, kenar);
+        m.yuzey([T(U0, V1, yb), T(U1, V1, yb), T(U1, V0, yr), T(U0, V0, yr)], kal, col, kenar); E.olukV.push(V1);
         m.mt = 0;
         for (const u of [wu0, wu1]) m.tri(T(u, wv1, yT - kal), T(u, wv0, yT - kal), T(u, wv0, yw - kal), cephe, xE ? [u == wu0 ? -1 : 1, 0, 0] : [0, 0, u == wu0 ? -1 : 1]);
         m.quad(T(wu0, wv0, yT - kal), T(wu1, wv0, yT - kal), T(wu1, wv0, yw - kal), T(wu0, wv0, yw - kal), cephe, xE ? [0, 0, -1] : [-1, 0, 0]);
@@ -1745,7 +2027,20 @@ void main(){
         m.yuzey([T(r0, vm, yr), T(r1, vm, yr), T(U1, V1, yb), T(U0, V1, yb)], kal, col, kenar);
         m.yuzey([T(U0, V1, yb), T(U0, V0, yb), T(r0, vm, yr)], kal, col, kenar);
         m.yuzey([T(U1, V0, yb), T(U1, V1, yb), T(r1, vm, yr)], kal, col, kenar);
+        if (r1 - r0 > .05) E.mahya.push([T(r0, vm, yr + .02), T(r1, vm, yr + .02)]);
+        for (const [u, v, rr] of [[U0, V0, r0], [U0, V1, r0], [U1, V0, r1], [U1, V1, r1]]) E.mahya.push([T(u, v, yb + .02), T(rr, vm, yr + .02)]);
+        E.olukV.push(V0, V1); E.olukU.push(U0, U1);
       }
+      m.mt = MT.kiremit; for (const [a, b] of E.mahya) m.silindir(a, b, .075, .075, mh, 8);
+      m.mt = MT.metal; const yo = yb - kal * .6, ck = .07, boru = [];
+      for (const v of E.olukV) {const vv = v == V0 ? V0 - ck : V1 + ck; m.silindir(T(U0, vv, yo), T(U1, vv, yo), .055, .055, ol, 8); const vd = v == V0 ? wv0 - .07 : wv1 + .07; boru.push([wu0 + .15, vv, vd], [wu1 - .15, vv, vd])}
+      for (const u of E.olukU) {const uu = u == U0 ? U0 - ck : U1 + ck; m.silindir(T(uu, V0, yo), T(uu, V1, yo), .055, .055, ol, 8)}
+      for (const [u, vv, vd] of boru) {
+        const ust = T(u, vv, yo), dirsek = T(u, vd, yo - .4), alt = T(u, vd, .05);
+        if (otur && G.icinde(dirsek[0], dirsek[2], otur)) continue;
+        m.silindir(ust, dirsek, .045, .045, ol, 7); m.silindir(dirsek, alt, .045, .045, ol, 7);
+      }
+      m.mt = MT.kiremit;
     }
     m.mt = 0;
   },
@@ -1818,7 +2113,12 @@ void main(){
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     }
     gl.useProgram(this.pr); gl.viewport(0, 0, c.width, c.height); gl.clearColor(gok[0], gok[1], gok[2], 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    const U = this.u; gl.uniformMatrix4fv(U.m, false, M.m);
+    if (!M.orto) {
+      gl.useProgram(this.pk); gl.disable(gl.DEPTH_TEST); gl.depthMask(false); gl.bindBuffer(gl.ARRAY_BUFFER, this.bk); gl.enableVertexAttribArray(this.ak); gl.vertexAttribPointer(this.ak, 2, gl.FLOAT, false, 0, 0);
+      gl.uniformMatrix4fv(this.uk.inv, false, M4.ters(M.m)); gl.uniform3fv(this.uk.gunes, gn.yon); gl.uniform1f(this.uk.gunduz, gunduz); gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.enable(gl.DEPTH_TEST); gl.depthMask(true); gl.useProgram(this.pr);
+    }
+    const U = this.u; gl.uniformMatrix4fv(U.m, false, M.m); gl.uniform3fv(U.gunes, gn.yon); gl.uniform1f(U.sisU, this._R || 200);
     const li = M.orto ? [-M.bakis[0] + .35, -M.bakis[1] + .9, -M.bakis[2] + .25] : isik, l = Math.hypot(...li);
     gl.uniform3fv(U.isik, li.map(v => v / l)); gl.uniform3fv(U.kam, M.kam); gl.uniform3fv(U.bakis, M.bakis); gl.uniform1f(U.orto, M.orto);
     gl.uniform1f(U.gunduz, M.orto ? 1 : gunduz); gl.uniform3fv(U.gok, gok);
