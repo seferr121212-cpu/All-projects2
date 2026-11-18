@@ -1,0 +1,274 @@
+keys,tr,en
+UI_NEW_GAME,Yeni Oyun,New Game
+UI_CONTINUE,Devam Et,Continue
+UI_CHAPTERS,Bölümler,Chapters
+UI_SETTINGS,Ayarlar,Settings
+UI_QUIT,Çıkış,Quit
+UI_LANGUAGE,Dil,Language
+UI_SUBTITLES,Altyazılar,Subtitles
+UI_VOICE_LANG,Seslendirme dili,Voice language
+UI_VOLUME_MUSIC,Müzik sesi,Music volume
+UI_VOLUME_SFX,Efekt sesi,Effects volume
+UI_FULLSCREEN,Tam ekran,Fullscreen
+UI_SHAKE,Ekran sarsıntısı,Screen shake
+UI_VOLUME_MASTER,Ana ses,Master volume
+UI_SUB_SIZE,Altyazı boyutu,Subtitle size
+UI_SIZE_S,Küçük,Small
+UI_SIZE_M,Orta,Medium
+UI_SIZE_L,Büyük,Large
+UI_POSTFX,"Yüksek grafik (gölgeler, ışık, parlama)","High graphics (shadows, lighting, bloom)"
+UI_VOLUME_VOICE,Diyalog sesi,Voice volume
+UI_JOURNAL,Günlük,Journal
+UI_TAPES,Bantlar,Tapes
+UI_PAUSED,Duraklatıldı,Paused
+UI_RESUME,Devam,Resume
+UI_LAST_BRAZIER,Son kandile dön,Return to last brazier
+UI_MAIN_MENU,Ana menü,Main menu
+UI_BACK,Geri,Back
+UI_ON,Açık,On
+UI_OFF,Kapalı,Off
+UI_LANG_NAME,Türkçe,English
+UI_JOURNAL_EMPTY,Henüz sayfa bulunmadı.,No pages found yet.
+UI_PAGE,Sayfa,Page
+UI_TAPE,Bant,Tape
+UI_LOCKED,Kilitli,Locked
+UI_SUBTITLE,"Kırlangıç Adası, 1977","Swallow Island, 1977"
+UI_SKIP,[E] geç,[E] skip
+UI_CLOSE,[Tab] kapat,[Tab] close
+UI_ACHIEVEMENTS,Başarımlar,Achievements
+HINT_LAMP,Lambayı yükseltmek için sol tık basılı tut,Hold left click to raise the lamp
+HINT_DIM,Koşmak için [Shift] — ama koşarken Yankılar seni uzaktan duyar,Hold [Shift] to run — but Echoes hear you from farther away
+HINT_MOVE,[A] [D] yürü  ·  [Space] zıpla  ·  [S] eğil,[A] [D] walk  ·  [Space] jump  ·  [S] crouch
+HINT_CYCLE,Sağ tık: lambayı kıs / kapat (yakıt tasarrufu),Right click: dim / turn off the lamp (saves oil)
+HINT_SKIP_INTRO,[E] geç,[E] skip
+HINT_BRAZIER,Kandili yakmak için [E],Press [E] to light the brazier
+HINT_MIRROR,Aynayı çevirmek için [E],Press [E] to turn the mirror
+HINT_BELL,Çanı çalmak için [Q],Press [Q] to ring the bell
+HINT_RED,Kırmızı camı takmak için [F],Press [F] to fit the red glass
+HINT_OIL_LOW,Gazyağı azalıyor,Oil running low
+HINT_LAMP_OUT,Lamba söndü! Işık bul,The lamp is out! Find light
+HINT_CROUCH,Eğilmek için [S],Press [S] to crouch
+HINT_JOURNAL,Günlüğü açmak için [Tab],Press [Tab] to open the journal
+HINT_NEED_GEARS,Üç dişli gerekiyor,Three gears are needed
+HINT_NEED_LAMP,Önce bir ışık lazım,I need a light first
+HINT_DOOR_STUCK,Kapı sıkışmış,The door is stuck
+PICKUP_OIL,Gazyağı +40,Lamp oil +40
+PICKUP_OIL_SMALL,Gazyağı +15,Lamp oil +15
+PICKUP_PAGE,Günlük sayfası bulundu,Journal page found
+PICKUP_TAPE,Bant bulundu,Tape found
+PICKUP_GEAR,Mekanizma dişlisi,Mechanism gear
+PICKUP_BELL,El çanı,Hand bell
+PICKUP_RED,Kırmızı cam,Red glass
+PICKUP_LAMP,Gaz lambası,Oil lamp
+PICKUP_RADIO,Telsiz,Radio
+SAVED,Kaydedildi,Saved
+INT_BRAZIER,Kandili yak,Light the brazier
+INT_MIRROR,Aynayı çevir,Turn the mirror
+INT_RADIO,Telsizi tamir et,Repair the radio
+INT_WINCH,Makarayı çevir (basılı tut),Turn the winch (hold)
+INT_TAKE,Al,Take
+INT_LOOK,İncele,Examine
+INT_BELL_ROPE,Çanı çal (basılı tut),Ring the bell (hold)
+INT_YUSUF,Yusuf'u sırtına al,Carry Yusuf
+INT_MECH,Dişlileri tak,Fit the gears
+INT_LISTEN,Bantı dinle,Play the tape
+RADIO_TITLE,FREKANS,FREQUENCY
+RADIO_HINT,A / D ile kadranı çevir. Sinyal en güçlüyken bekle.,Turn the dial with A / D. Hold it where the signal is strongest.
+CH1_TITLE,Bölüm I: İskele ve Köy,Chapter I: The Pier and the Village
+CH2_TITLE,Bölüm II: Mağaralar ve Sarnıç,Chapter II: The Caves and the Cistern
+CH3_TITLE,Bölüm IV: Fener Kulesi,Chapter IV: The Tower
+CH_PROLOGUE,"İstanbul, Ekim 1977","Istanbul, October 1977"
+ENDING_A,Son: Çan,Ending: The Bell
+ENDING_B,Son: Sessizlik,Ending: Silence
+CREDITS_THANKS,Oynadığın için teşekkürler,Thank you for playing
+CREDITS_1,"Tasarım, kod ve hikaye: NexDrive Engineering & Claude","Design, code and story: NexDrive Engineering & Claude"
+CREDITS_2,Godot Engine 4.7 ile yapıldı,Made with Godot Engine 4.7
+ACH_NO_DARK,Hiç Sönmeden,Never Out
+ACH_NO_DARK_D,Bir bölümü yakıt bitirmeden geç,Finish a chapter without running out of oil
+ACH_POSTMAN,Postacı,The Postman
+ACH_POSTMAN_D,12 günlük sayfasının hepsini bul,Find all 12 journal pages
+ACH_BELL,Çan,The Bell
+ACH_BELL_D,Çan sonunu gör,See the Bell ending
+ACH_SILENCE,Sessizlik,Silence
+ACH_SILENCE_D,Sessizlik sonunu gör,See the Silence ending
+ACH_DARK,Karanlıkta,In the Dark
+ACH_DARK_D,Lambayı 30 saniye kapalı tutup hayatta kal,Keep the lamp off for 30 seconds and survive
+ACH_UNLOCKED,Başarım açıldı,Achievement unlocked
+OBJ,HEDEF,GOAL
+OBJ_PIER,"Rıza Reis'le konuş, sonra iskeleden adaya çık","Talk to Rıza, then head onto the island"
+OBJ_LAMP,Depoda bir ışık bul,Find a light in the depot
+OBJ_VILLAGE,Köyden geçip fenere giden yolu bul,Cross the village toward the lighthouse
+OBJ_RADIO,Kahvehanedeki telsizi tamir et,Repair the radio in the coffeehouse
+OBJ_SCHOOL,Okulun arkasındaki yoldan devam et,Take the path behind the school
+OBJ_BRIDGE,Makarayı çevirip köprüyü indir,Turn the winch to lower the bridge
+OBJ_RUN,Köprüden geç ve kandili yak!,Cross the bridge and light the brazier!
+OBJ_CAVE,Yusuf'un sesini takip et,Follow Yusuf's voice
+OBJ_C2_START,Yusuf'un tebeşir oklarını takip et,Follow Yusuf's chalk arrows
+OBJ_C2_MIRROR,"Lambayı yükselt, aynayı çevir: ışığı yukarıdaki kandile ulaştır",Raise the lamp and turn the mirror: send the light to the high brazier
+OBJ_C2_ROOM,Tünelden ilerle,Go deeper into the tunnel
+OBJ_C2_CISTERN,"Makarayla sarnıcı doldur, salla karşıya geç",Use the winch to flood the cistern and ride the raft across
+OBJ_C2_SEAL,"Kırmızı camla yazıları oku, merceği kullanıp mührü erit","Read the walls with the red glass, then melt the seal through the lens"
+OBJ_C2_RUN,"Üç kandili yak, kaç!",Light all three braziers. Run!
+OBJ_C2_BELL,Büyük Yankı'ya el çanını çal [Q],Ring the hand bell at the Great Echo [Q]
+OBJ_C3_DOOR,Kule kapısını aynalarla aç,Open the tower door with the mirrors
+OBJ_C3_CLIMB,Kuleye tırman,Climb the tower
+OBJ_C3_GEARS,Mekanizma için 3 dişli bul,Find 3 gears for the mechanism
+OBJ_C3_MECH,Dişlileri mekanizmaya tak,Fit the gears into the mechanism
+OBJ_C3_LENS,Mercek odasına çık,Go up to the lens room
+OBJ_C3_CHOICE,Karar ver: çanı çal ya da Yusuf'u taşı,"Decide: ring the bell, or carry Yusuf"
+OBJ_ESCAPE,Tekneye koş!,Run to the boat!
+UI_LETTERS,Mektuplar,Letters
+UI_LETTER,Mektup,Letter
+UI_BESTIARY,Yankılar,Echoes
+UI_UNKNOWN,???  (henüz görülmedi),???  (not yet seen)
+UI_PAGES,Sayfalar,Pages
+UI_DIFFICULTY,Zorluk,Difficulty
+UI_DIFF_0,Kolay,Easy
+UI_DIFF_1,Normal,Normal
+UI_DIFF_2,Bekçi (zor),Keeper (hard)
+UI_TIMER,Süre sayacı,Play timer
+UI_CAPTIONS,Ses altyazıları,Sound captions
+UI_VSYNC,Dikey senkron (VSync),VSync
+UI_MAXFPS,FPS sınırı,FPS limit
+UI_UNLIMITED,Sınırsız,Unlimited
+UI_KEYS,Tuşlar,Controls
+UI_PRESS_KEY,Bir tuşa bas...,Press a key...
+UI_RESET_KEYS,Varsayılana dön,Reset to default
+UI_RECAP,Kaldığın yer,Where you left off
+UI_STATS,Bölüm özeti,Chapter summary
+UI_STAT_TIME,Süre,Time
+UI_STAT_PAGES,Günlük sayfası,Journal pages
+UI_STAT_LETTERS,Mektup,Letters
+UI_STAT_CAUGHT,Yakalanma,Times caught
+UI_STAT_BRAZIERS,Yakılan kandil,Braziers lit
+UI_SCREENSHOT,Ekran görüntüsü kaydedildi,Screenshot saved
+UI_FOUND,bulundu,found
+PICKUP_LETTER,Köylü mektubu bulundu,Villager's letter found
+PICKUP_WICK,Yeni fitil: lamba ışığı genişledi,New wick: lamp light widened
+INT_ANTENNA,Telsizle konuş,Talk on the radio
+INT_WRECK,Tekneye bak,Look at the boat
+INT_RING,Çanı çal,Ring the bell
+INT_DOOR_HOME,Kapıyı aç,Open the door
+INT_WINDOW,Pencereden bak,Look out the window
+INT_LENS_LIGHT,Feneri yak,Light the lamp
+CH0_TITLE,Pröloğ: Çalınmayan Çan,Prologue: The Bell That Never Rang
+CHI_TITLE,"Ara Bölüm: Hüsnü Usta, 1953","Interlude: Hüsnü Usta, 1953"
+OBJ_PR_1,Uyan. Bir şey eksik.,Wake up. Something is missing.
+OBJ_PR_2,Pencereden dışarı bak,Look out the window
+OBJ_PR_3,Kapıya git,Go to the door
+OBJ_HU_1,"Kuleye koş, feneri yak!",Run to the tower and light the lamp!
+OBJ_BELLS,İsteğe bağlı: üç çanı doğru sırayla çal,Optional: ring the three bells in the right order
+BEST_CRAWLER,Sürünen,Crawler
+BEST_CRAWLER_D,"Yerde sürünür, sese ve ışıksızlığa gelir. Lambanın ışığında donar. Koşarsan seni daha uzaktan duyar.","Crawls along the ground, drawn to sound and darkness. Freezes in lamplight. Running lets it hear you from farther away."
+BEST_MIMIC,Taklitçi,Mimic
+BEST_MIMIC_D,"Bildiğin bir sesle seslenir. Kural: sesin olduğu yerde ışık yoksa, o ses değildir. Yaklaşınca atılır.","Calls out in a voice you know. The rule: if there's no light where the voice is, it isn't a voice. Lunges when close."
+BEST_WATCHER,Bekleyen,Watcher
+BEST_WATCHER_D,Havada asılı durur. Asıl tehlike ışığı ÜZERİNDEN ÇEKTİĞİN an başlar.,Hangs in the air. The real danger begins the moment you take the light OFF it.
+BEST_WHISPER,Fısıltı,Whisperer
+BEST_WHISPER_D,Lambanın ışığı onu durdurmaz. Yaklaştıkça gazyağını emer. Sadece kandil ışığı ya da çan sesi onu dağıtır.,Lamplight doesn't stop it. It drinks your oil as it nears. Only brazier light or the sound of a bell drives it off.
+BEST_GREAT,Büyük Yankı,Great Echo
+BEST_GREAT_D,"Kırk yıl bekçilik eden Hüsnü Usta'dan geriye kalan. Işık onu yavaşlatır, ama onu durduran tek şey kendi çanının sesi.","What remains of Hüsnü Usta after forty years as keeper. Light slows him, but the only thing that stops him is the sound of his own bell."
+CAP_thunder,[Gök gürlüyor],[Thunder]
+CAP_whisper,[Fısıltılar],[Whispers]
+CAP_heart,[Kalp atışı],[Heartbeat]
+CAP_bell_hand,[Çan sesi],[Bell rings]
+CAP_bell_big,[Büyük çan çalıyor],[The great bell tolls]
+CAP_crumble,[Taşlar dökülüyor],[Stones crumbling]
+CAP_door,[Ağır bir kapı açılıyor],[A heavy door opens]
+CAP_sputter,[Lamba cızırdıyor],[Lamp sputters]
+CAP_drip,[Damla],[Drip]
+SPK_husnu_y,Hüsnü,Hüsnü
+ACH_LETTERS,Köyün Hafızası,The Village's Memory
+ACH_LETTERS_D,6 köylü mektubunun hepsini bul,Find all 6 villagers' letters
+ACH_BELLS,Kulak,An Ear for Bells
+ACH_BELLS_D,Hüsnü Usta'nın çan bulmacasını çöz,Solve Hüsnü Usta's bell puzzle
+ACH_WICKS,Fitilci,Wickmaker
+ACH_WICKS_D,3 fitilin hepsini bul,Find all 3 wicks
+ACH_GHOST,Görünmez,Unseen
+ACH_GHOST_D,Bir bölümü hiç yakalanmadan bitir,Finish a chapter without being caught
+ACH_KEEPER,Gerçek Bekçi,True Keeper
+ACH_KEEPER_D,Oyunu Bekçi zorluğunda bitir,Finish the game on Keeper difficulty
+ACH_PROLOGUE,Kalkmadım,I Didn't Get Up
+ACH_PROLOGUE_D,Pröloğu bitir,Finish the prologue
+ACH_TAPES,Kasetçi,Tape Collector
+ACH_TAPES_D,Yusuf'un 3 kasetinin hepsini bul,Find all 3 of Yusuf's tapes
+HINT_THROW,Taş atmak için [T]: Yankılar sesin geldiği yere gider,Press [T] to throw a pebble: Echoes go where the sound lands
+HINT_HOLD_BREATH,Eğilip kıpırdamadan durursan Yankılar izini kaybeder,Crouch and stay still and Echoes lose your trail
+UI_WINDOW,Pencere boyutu,Window size
+UI_FIRST_LANG,Dil seç / Choose language,Dil seç / Choose language
+UI_LOG,Test günlüğü yazıldı,Test log written
+TIP_1,İpucu: Koşmak hızlıdır ama Yankılar seni iki kat uzaktan duyar.,"Tip: Running is fast, but Echoes hear you from twice as far."
+TIP_2,İpucu: Kandiller hem kayıt noktası hem yakıt deposudur.,Tip: Braziers are both save points and fuel stations.
+TIP_3,İpucu: Bekleyen'den ışığı çekme. Çekersen saldırır.,"Tip: Don't take the light off a Watcher. If you do, it strikes."
+TIP_4,"İpucu: Sesin olduğu yerde ışık yoksa, o ses değildir.","Tip: If there's no light where the voice is, it isn't a voice."
+TIP_5,İpucu: Lambayı yükseltince huzme aynalardan seker.,Tip: Raise the lamp and the beam bounces off mirrors.
+TIP_6,"İpucu: El çanı yakındaki Yankıları dağıtır, uzaktakileri çeker.",Tip: The hand bell scatters nearby Echoes and draws distant ones.
+TIP_7,İpucu: Fısıltıyı lamba durduramaz. Kandile koş.,Tip: Your lamp can't stop a Whisperer. Run for a brazier.
+TIP_8,İpucu: Taş atarak Yankıları yolundan çekebilirsin.,Tip: Throw a pebble to lure Echoes out of your way.
+HX_OBJ_C2_MIRROR,"İpucu: Aynanın yanında dur, [E] ile çevir. Lambayı yükseltip tam sağa nişan al.",Hint: Stand by the mirror and turn it with [E]. Raise the lamp and aim straight right.
+HX_OBJ_RADIO,"İpucu: Telsizin önünde [E]. Kadranı A/D ile çevir, çubuk dolunca bekle.",Hint: Press [E] at the radio. Turn the dial with A/D and hold when the bar fills.
+HX_OBJ_BRIDGE,İpucu: Makaranın önünde [E] tuşunu basılı tut.,Hint: Hold [E] at the winch.
+HX_OBJ_C2_CISTERN,"İpucu: Sol kıyıdaki makarayı çevir, sonra sala atla. Bekleyen'leri ışıkta tut.","Hint: Turn the winch on the left bank, then jump on the raft. Keep the Watchers lit."
+HX_OBJ_C2_SEAL,"İpucu: Kırmızı camı [F] ile tak, sonra merceğin arkasından mühre nişan al.","Hint: Fit the red glass with [F], then aim through the lens at the seal."
+HX_OBJ_C3_DOOR,"İpucu: Alttaki aynayı çevir, ışık yukarıdaki aynadan kandile gider.",Hint: Turn the lower mirror; the beam bounces off the upper one to the brazier.
+HX_OBJ_C3_GEARS,"İpucu: Dişliler: merdivenin tepesine yakın, bekçi odasında ve balkonun sonunda.","Hint: Gears: near the top of the stairs, in the keeper's room, and at the end of the balcony."
+HX_OBJ_C2_RUN,İpucu: Kandilleri yaktıkça kapı açılır. Tünelde eğil [S].,Hint: Lighting the braziers opens the gate. Crouch [S] in the tunnel.
+INT_GRAVE,Mezar taşını oku,Read the gravestone
+INT_DOLL,Bebeği al,Pick up the doll
+PICKUP_TAPE_Y,Yusuf'un kaseti,Yusuf's tape
+SPK_kerem,Kerem,Kerem
+SPK_yusuf,Yusuf,Yusuf
+SPK_riza,Rıza Reis,Rıza
+SPK_husnu,Hüsnü Usta,Hüsnü Usta
+SPK_echo,???,???
+SPK_father,Baba?,Father?
+SPK_great,Büyük Yankı,Great Echo
+SPK_text,,
+CH5_TITLE,Bölüm III: Fabrika ve Dalgakıran,Chapter III: The Cannery and the Breakwater
+OBJ_C5_FACTORY,Kıyı boyunca eski fabrikaya git,Follow the shore to the old cannery
+OBJ_C5_SLUICE,Savak çarkını çevirip avludaki suyu boşalt,Turn the sluice wheel to drain the yard
+OBJ_C5_CRATE,"Sandığı sağ duvara it, üstüne çıkıp tırman",Push the crate to the right wall and climb out
+OBJ_C5_SHUTTER,"Işığı aynalarla yukarıdaki kandile ulaştır, kepenk açılsın",Bounce the light off the mirrors to the high brazier to open the shutter
+OBJ_C5_BOILER,"Kazanı yak, basınç dolunca düdük vanasını aç","Light the boiler, then open the whistle valve when the pressure is up"
+OBJ_C5_BREAKWATER,"Dalgakırandan fenere koş, su yükseliyor!",Run across the breakwater to the lighthouse. The water is rising!
+INT_SLUICE,Savak çarkını çevir (basılı tut),Turn the sluice wheel (hold)
+INT_BOILER,"Kazanı yak (basılı tut, gazyağı harcar)","Light the boiler (hold, uses oil)"
+INT_VALVE,Düdük vanasını aç (basılı tut),Open the whistle valve (hold)
+INT_CARDS,Mesai kartlarına bak,Look at the time cards
+HINT_BOILER_FUEL,Kazanı yakmak için en az 15 gazyağı lazım. Kandilden doldur.,You need at least 15 oil to light the boiler. Refill at a brazier.
+HINT_BOILER_WAIT,Basınç dolmadı. Biraz bekle.,The pressure isn't up yet. Wait a moment.
+CAP_whistle,[fabrika düdüğü],[factory whistle]
+STEP_OBJ_PIER,"Rıza Reis'in yanına git ve {interact} ile konuş. Sonra sağa, iskeleye yürü.",Walk up to Rıza and press {interact} to talk. Then head right along the pier.
+STEP_OBJ_LAMP,Sağdaki depoya gir. Yerde parlayan lambayı {interact} ile al.,Go into the depot on the right. Pick up the glowing lamp with {interact}.
+STEP_OBJ_VILLAGE,Köy boyunca sağa ilerle. Kandilleri {interact} ile yak: hem kayıt noktası hem yakıt.,Keep heading right through the village. Light braziers with {interact}: they save and refill oil.
+STEP_OBJ_RADIO,"Kahvehanede telsizin önünde {interact}. A/D ile kadranı çevir, çubuk dolunca bırakma.",At the coffeehouse radio press {interact}. Turn the dial with A/D and hold it when the bar fills.
+STEP_OBJ_SCHOOL,"Okulu geç, arkasındaki patikadan sağa devam et.",Pass the school and keep right along the path behind it.
+STEP_OBJ_BRIDGE,Uçurumun kenarındaki makaranın önünde {interact} tuşunu basılı tut.,Stand at the winch by the cliff edge and hold {interact}.
+STEP_OBJ_RUN,Köprüden koşarak geç ({run}) ve karşıdaki kandili {interact} ile yak.,Run across the bridge ({run}) and light the brazier on the far side with {interact}.
+STEP_OBJ_CAVE,"Sesin geldiği yöne, mağaraya in.","Head down into the cave, toward the voice."
+STEP_OBJ_C2_START,Duvardaki tebeşir oklarını izle. Yankı görürsen lambayı ona tut.,"Follow the chalk arrows. If you see an Echo, keep your light on it."
+STEP_OBJ_C2_MIRROR,1) Alttaki aynanın yanında {interact} ile aynayı çevir. 2) {raise} basılı tutup ışığı aynaya nişan al. Işık yukarıdaki aynadan kandile gitmeli.,1) Turn the lower mirror with {interact}. 2) Hold {raise} and aim the beam at it. The light should bounce off the upper mirror into the brazier.
+STEP_OBJ_C2_ROOM,"Açılan kapıdan geç, tünelde sağa ilerle.",Go through the open door and on down the tunnel.
+STEP_OBJ_C2_CISTERN,"1) Sol kıyıdaki makarada {interact} basılı tut, su yükselsin. 2) Sala atla. 3) Yolda Bekleyen'leri ışıkta tut, ışığı üzerlerinden çekme.",1) Hold {interact} at the winch on the left bank to raise the water. 2) Jump onto the raft. 3) Keep the Watchers lit on the way; don't take the light off them.
+STEP_OBJ_C2_SEAL,"1) {red} ile kırmızı camı tak, duvar yazılarını oku. 2) Merceğin arkasına geç, {raise} ile ışığı merceğe tut: mühür erir.",1) Fit the red glass with {red} and read the walls. 2) Stand behind the lens and hold {raise} to aim through it: the seal melts.
+STEP_OBJ_C2_RUN,Durma! Üç kandili sırayla {interact} ile yak. Alçak tünelde {crouch} ile eğil.,Don't stop! Light the three braziers in turn with {interact}. Crouch with {crouch} in the low tunnel.
+STEP_OBJ_C2_BELL,Büyük Yankı yaklaşınca {bell} ile el çanını çal.,"When the Great Echo comes close, ring the hand bell with {bell}."
+STEP_OBJ_BELLS,"Kırmızı camla ({red}) duvardaki sırayı oku, sonra çanları o sırayla {interact} ile çal.","Read the order on the wall with the red glass ({red}), then ring the bells in that order with {interact}."
+STEP_OBJ_C3_DOOR,"Alttaki aynayı {interact} ile çevir, {raise} ile ışığı ona tut. Işık yukarıdaki kandili yakınca kapı açılır.","Turn the lower mirror with {interact} and aim the beam at it with {raise}. When the light reaches the high brazier, the door opens."
+STEP_OBJ_C3_CLIMB,"Basamaklardan yukarı zıpla ({jump}). Çatlak basamaklarda durma, hemen geç.",Jump up the steps ({jump}). Don't stand on cracked steps; keep moving.
+STEP_OBJ_C3_GEARS,"Üç dişli: merdivenin tepesine yakın, bekçi odasında ve dış balkonun sonunda.","Three gears: near the top of the stairs, in the keeper's room and at the end of the outer balcony."
+STEP_OBJ_C3_MECH,Mekanizmanın önünde {interact} ile dişlileri tak.,Fit the gears at the mechanism with {interact}.
+STEP_OBJ_C3_LENS,"Mekanizmanın yanındaki kapaktan yukarı, mercek odasına çık.",Go up through the hatch beside the mechanism to the lens room.
+STEP_OBJ_C3_CHOICE,Çan ipinde {interact} basılı tut ya da Yusuf'un yanında {interact}. Seçim senin.,"Hold {interact} on the bell rope, or press {interact} beside Yusuf. The choice is yours."
+STEP_OBJ_ESCAPE,"Sağa koş ({run}), tekneye ulaş. Yankılar yaklaşırsa lambayı tut.",Run right ({run}) to the boat. Keep your light up if Echoes come close.
+STEP_OBJ_PR_1,"Yataktan kalk, odada dolaş. Parlayan şeylere {interact} ile bak.",Get up and walk around the room. Look at glowing things with {interact}.
+STEP_OBJ_PR_2,Pencerenin önüne git ve {interact}.,Go to the window and press {interact}.
+STEP_OBJ_PR_3,Kapıya yürü ve {interact}.,Walk to the door and press {interact}.
+STEP_OBJ_HU_1,"Sağa, kuleye koş ({run}). Kandilleri yakarak ilerle.",Run right to the tower ({run}). Light the braziers as you go.
+STEP_OBJ_C5_FACTORY,"Sağa, kıyı boyunca ilerle. Yolda kandili yakmayı unutma.",Head right along the shore. Don't forget to light the brazier on the way.
+STEP_OBJ_C5_SLUICE,Su dolu çukurun solundaki duvar çarkında {interact} basılı tut. Suya girme!,Hold {interact} at the wheel on the wall left of the flooded pit. Don't go in the water!
+STEP_OBJ_C5_CRATE,"Çukura in. Sandığa yürüyerek it, sağ duvara dayayınca üstüne zıpla ({jump}) ve tırman.","Drop into the pit. Walk into the crate to push it against the right wall, then jump on it ({jump}) and climb out."
+STEP_OBJ_C5_SHUTTER,1) Alttaki aynayı {interact} ile çevir. 2) {raise} ile ışığı aynaya tut. Işık yukarıdaki aynadan kandile gider. Bekleyen'i ışıkta tutarak çalış.,1) Turn the lower mirror with {interact}. 2) Aim the beam at it with {raise}. It bounces off the upper mirror into the brazier. Mind the Watcher.
+STEP_OBJ_C5_BOILER,1) Kazanın önünde {interact} basılı tut (15 gazyağı harcar). 2) Basınç dolunca vananın önünde {interact} basılı tut. Beklerken Yankıları ışıkla durdur.,"1) Hold {interact} at the boiler (uses 15 oil). 2) When the pressure is up, hold {interact} at the valve. Keep Echoes back with your light while you wait."
+STEP_OBJ_C5_BREAKWATER,"Sağa koş ({run}), taşların arasındaki boşluklardan zıpla ({jump}). Kandiller kayıt noktası.",Run right ({run}) and jump ({jump}) over the gaps between the stones. Braziers are checkpoints.
+UI_STEP,Nasıl,How

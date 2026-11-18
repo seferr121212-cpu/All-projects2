@@ -1,0 +1,220 @@
+keys,speaker,filter,tr,en
+Y01,yusuf,radio,"Kayıt bir. Usta'nın makinesini buldum. Kerem, bunu dinlersen... mektuplarımı açmadığın için kızgın değilim. Ben de açmazdım.","Recording one. I found Usta's machine. Kerem, if you ever hear this... I'm not angry you didn't open my letters. I wouldn't have either."
+Y02,yusuf,radio,Kayıt iki. Bugün çanı tek başıma çaldım. Kollarım titredi. Babam bu sesi duysaydı limana girerdi diye düşündüm.,"Recording two. I rang the bell alone today. My arms shook. I kept thinking, if Father had heard this sound he'd have made it home."
+Y03,yusuf,radio,"Kayıt üç. Sesi artık her gece duyuyorum. Bu kaydı bulan biri varsa: ben gittiysem, beni arama. Çanı çal.","Recording three. I hear the voice every night now. If anyone finds this: if I'm gone, don't look for me. Ring the bell."
+FG_01,kerem,inner,Fatma... Hüsnü Usta'nın karısı. Mezarı boş. Taşın altına sadece bir ilaç şişesi gömülmüş.,Fatma... Hüsnü Usta's wife. The grave is empty. Only a medicine bottle was buried under the stone.
+D_01,kerem,inner,Bir bez bebek. Kolunda 'AYŞE' yazıyor. Mektuptaki küçük kız.,A rag doll. 'AYŞE' is stitched on its arm. The little girl from the letter.
+M3_01,echo,echo,Kerem... ben de kalkmadım... ben de...,Kerem... I didn't get up either... me too...
+M3_02,kerem,inner,Kendi sesim. Bu sefer kendi sesimi taklit ediyor.,My own voice. This time it's using my own voice.
+CE_0,kerem,caption,O gece kalkmadım. On iki yıl boyunca bunu kimseye söylemedim.,I didn't get up that night. For twelve years I told no one.
+CE_1,kerem,caption,Yusuf'un sesini duydum. Gerçek sesini. Mağaraya inmekten başka yol yok.,I heard Yusuf's voice. His real voice. There's no way but down into the caves.
+CE_2,kerem,caption,Işık gemiler için değilmiş. Ve Yusuf bunu bile bile kalmış.,"The light was never for ships. And Yusuf stayed, knowing it."
+CE_4,kerem,caption,Hüsnü Usta kırk yıl o geceyi taşımış. Yusuf'un taşıdığı da aynı yük.,Hüsnü carried that night for forty years. Yusuf has been carrying the same weight.
+EP_005,yusuf,none,"Mektuplar dedin de... Köydekilerin mektuplarını da buldun, değil mi? Onları Usta'nın mezarının yanına koyalım.","Speaking of letters... you found the villagers' letters too, didn't you? Let's lay them next to Usta's grave."
+CR_MEM,text,caption,"1953 kışında Kırlangıç Adası'nda kaybolan kırk kişinin anısına. Muhtar Şevket, öğretmen Nazmiye, balıkçı Cemal, küçük Ayşe, Fatma, kahveci Rıfat ve diğerleri.","In memory of the forty people lost on Swallow Island in the winter of 1953. Headman Şevket, teacher Nazmiye, fisherman Cemal, little Ayşe, Fatma, Rıfat of the coffeehouse, and all the others."
+PR_000,text,caption,"Sinop, 1965. Gece yarısı.","Sinop, 1965. Midnight."
+PR_001,kerem,inner,Uyandım. Bir şey eksikti.,I woke up. Something was missing.
+PR_002,kerem,inner,Çan. Sisli gecelerde çan hep çalardı.,The bell. On foggy nights the bell always rang.
+PR_003,kerem,inner,Yusuf'un yatağı boş. Çanı çalmaya gitmiş olmalı.,Yusuf's bed is empty. He must have gone to ring it.
+PR_004,kerem,inner,Sis her yeri yutmuş. İskeleyi bile göremiyorum.,The fog's swallowed everything. I can't even see the pier.
+PR_005,kerem,inner,Orada bir ışık var. Babamın teknesi mi?,There's a light out there. Is that Father's boat?
+PR_006,kerem,inner,Kalkıp gitmeliyim. Ama... Yusuf çalar. Hep çalar.,I should go. But... Yusuf will ring it. He always does.
+PR_007,kerem,inner,Yatağa döndüm. Yorganı başıma çektim. Çanın sesini bekledim.,I went back to bed. Pulled the blanket over my head. Waited for the bell.
+PR_008,text,caption,Çan o gece hiç çalmadı.,The bell never rang that night.
+PR_009,kerem,inner,Babamın ağları. Sabah onları birlikte onaracaktık.,Father's nets. We were going to mend them together in the morning.
+HU_000,text,caption,"Kırlangıç Adası, 1953. Hüsnü Usta'nın hatırası.","Swallow Island, 1953. Hüsnü Usta's memory."
+HU_001,husnu,none,"Bir geceliğine Sinop'a gittim. Karım hastaydı, ilaç lazımdı. Bir gece... sadece bir gece.","I went to Sinop for one night. My wife was ill, she needed medicine. One night... just one night."
+HU_002,husnu,none,Döndüğümde fener sönmüştü.,"When I came back, the light was out."
+HU_003,echo,echo,"Hüsnü! Hüsnü, neredesin? Sis geliyor!","Hüsnü! Hüsnü, where are you? The fog is coming!"
+HU_004,husnu,none,"Geliyorum! Kuleye gidin, kuleye!","I'm coming! Get to the tower, the tower!"
+HU_005,husnu,inner,Sesler... birer birer sustu.,The voices... went quiet one by one.
+HU_006,echo,echo,Hüsnü... üşüyorum...,Hüsnü... I'm cold...
+HU_007,husnu,none,"Sana cevap vermeyeceğim, Fatma. Affet beni. Fener yanmalı.","I won't answer you, Fatma. Forgive me. The light must burn."
+HU_008,text,caption,Hüsnü Usta feneri bir saat geç yaktı. O gece köyden kırk kişi kayboldu.,Hüsnü lit the lamp an hour late. Forty people vanished from the village that night.
+HU_009,husnu,inner,İlaç cebimde. Fatma'ya yetiştiremedim.,The medicine's in my pocket. I didn't get it to Fatma in time.
+L01,text,letter,"Muhtar Şevket'in notu, 1953: Bekçi Hüsnü yarın Sinop'a gidecekmiş. Karısı ateşler içinde. Bir gece ne olur ki? Fener kendi kendine yanar herhalde.","Headman Şevket's note, 1953: Keeper Hüsnü is going to Sinop tomorrow. His wife is burning with fever. What can one night hurt? The light will burn on its own, surely."
+L02,text,letter,"Öğretmen Nazmiye Hanım: Çocuklara bu akşam erken dağılmalarını söyledim. Sis denizden duvar gibi geliyor. Tahtaya tarihi yazdım, silmeyi unuttum.",Teacher Nazmiye: I told the children to go home early tonight. The fog is coming off the sea like a wall. I wrote the date on the board and forgot to wipe it.
+L03,text,letter,Balıkçı Cemal: Ağlar boş geldi. Martılar bile susmuş. Rahmetli babam derdi ki martı susarsa denize çıkma.,"Fisherman Cemal: The nets came up empty. Even the gulls went quiet. My late father used to say: when the gulls are silent, stay ashore."
+L04,text,letter,Küçük Ayşe'nin defterinden: Annem sisin içinde biri şarkı söylüyor dedi. Ben duymadım. Sonra annem de şarkı söylemeye başladı.,From little Ayşe's notebook: Mother said someone was singing inside the fog. I didn't hear it. Then Mother started singing too.
+L05,text,letter,Fatma'dan Hüsnü'ye: İlacı alır almaz dön. Fener sensiz durmaz. Ben de durmam.,Fatma to Hüsnü: Come back the moment you have the medicine. The light can't last without you. Neither can I.
+L06,text,letter,"Kahveci Rıfat: Bu gece kahve kapanmayacak. Sis geçene kadar herkes burada bekleyecek. Lambaları yaktım, kapıyı kilitledim.",Coffeehouse keeper Rıfat: The coffeehouse stays open tonight. Everyone waits here until the fog passes. I've lit the lamps and locked the door.
+RT_01,kerem,radio,"Reis, bu adayı ne zamandan beri bilirsin?","Rıza, how long have you known this island?"
+RT_02,riza,radio,Çocukluğumdan beri. Dedem burada balık tutardı. Elli üçten sonra kimse yerleşmedi.,"Since I was a boy. My grandfather fished here. After fifty-three, nobody settled again."
+RT_03,kerem,radio,Okulun tahtasında 1953 yazıyor.,The school blackboard says 1953.
+RT_04,riza,radio,O kış kırk kişi kayboldu. Bekçi bir gece adadan ayrıldı diye derler. Ben inanmam... inanmak istemem.,Forty people vanished that winter. They say the keeper left the island for one night. I don't believe it... I don't want to.
+RT_05,kerem,radio,"Reis, babamı tanır mıydın?","Rıza, did you know my father?"
+RT_06,riza,radio,Osman'ı mı? Karadeniz'in en inatçı reisiydi. Sisli gecede çanı duymadan limana girmezdi. Hep çanı beklerdi.,Osman? The most stubborn captain on the Black Sea. On foggy nights he'd never enter the harbor without hearing the bell. He always waited for the bell.
+RT_07,kerem,radio,Reis... ya Yusuf'u bulamazsam?,Rıza... what if I can't find Yusuf?
+RT_08,riza,radio,"Bulursun. Siz Aydınlar inatçısınız. Ama bulduğunda ona kızma, uşağım. O kadar yıl yeter.","You will. You Aydıns are stubborn. But when you find him, don't be angry, boy. All those years are enough."
+W_01,kerem,none,Bu... 'Yıldız'. Babamın teknesi. On iki yıl önce batan tekne.,This is... the 'Yıldız'. Father's boat. The one that sank twelve years ago.
+W_02,kerem,inner,Sis onu buraya getirmiş. Ya da babam buraya kadar gelmiş. Çanı arayarak.,The fog brought it here. Or Father made it this far. Searching for the bell.
+EB_010,yusuf,none,Kerem... sırtın hâlâ çocukken olduğu gibi kemikli.,Kerem... your back's as bony as when you were a kid.
+EB_011,kerem,none,Sus da sıkı tutun.,Shut up and hold on.
+EB_012,yusuf,none,Babam da beni böyle taşırdı. Hatırlıyor musun?,Father used to carry me like this. Remember?
+EB_013,kerem,none,Hatırlıyorum. Bu sefer ben taşıyorum.,I remember. This time I'm carrying you.
+IN_01,kerem,inner,"Sokak lambası. Adada elektrik bile yok, kim dikmiş bunu?",A street lamp. There isn't even electricity on this island. Who put this here?
+IN_02,kerem,inner,Mezar taşları. Üstünde hep aynı yıl yazıyor: 1953.,Gravestones. They all have the same year on them: 1953.
+IN_03,kerem,inner,Burada yüzyıllardır kimse yok. Ya da herkes burada.,No one's been down here for centuries. Or everyone is.
+IN_04,kerem,inner,Buradan denizi görebiliyorum. Yusuf her gece bu manzarayla mı yaşadı?,I can see the sea from here. Did Yusuf live with this view every night?
+IN_05,kerem,inner,"Gazyağı varilleri. Yusuf hazırlıklıymış. Gitmeyi değil, kalmayı planlamış.",Barrels of oil. Yusuf was prepared. He wasn't planning to leave. He was planning to stay.
+BP_01,text,caption,"ÜÇÜNCÜ, BİRİNCİ, İKİNCİ. ÇANLAR SIRAYI BİLİR.","THIRD, FIRST, SECOND. THE BELLS KNOW THE ORDER."
+BP_02,kerem,inner,Bir şey açıldı. Hüsnü Usta buraya bir şey saklamış.,Something opened. Hüsnü Usta hid something here.
+BP_03,kerem,inner,Yanlış sıra. Baştan.,Wrong order. Again.
+INTRO_01,kerem,caption,"Sinop, 1965. Babam Osman Aydın balıkçıydı. Ağabeyim Yusuf yirmi bir, ben on dört yaşındaydım.","Sinop, 1965. My father, Osman Aydın, was a fisherman. My brother Yusuf was twenty-one. I was fourteen."
+INTRO_02,kerem,caption,Sisli gecelerde iskeledeki çan çalınırdı ki denizdekiler limanı bulsun. O gece çanı çalmak Yusuf'un göreviydi.,"On foggy nights someone rang the bell on the pier so the boats could find the harbor. That night, the bell was Yusuf's job."
+INTRO_03,kerem,caption,Yusuf kahvehanede kaldı. Çan hiç çalmadı.,Yusuf stayed at the coffeehouse. The bell never rang.
+INTRO_04,kerem,caption,Babam limanı bulamadı. Sabah deniz bomboştu. Yusuf'u hiç affetmedim.,Father never found the harbor. By morning the sea was empty. I never forgave Yusuf.
+INTRO_05,kerem,caption,"İstanbul'a gittim, radyo tamircisi oldum. Yusuf bir adada fener bekçisi olmuş. Bana her ay mektup yazdı. Hiçbirini açmadım.",I moved to Istanbul and became a radio repairman. Yusuf became a lighthouse keeper on an island. He wrote to me every month. I never opened a single letter.
+INTRO_06,kerem,caption,Bu sonbahar mektuplar birden kesildi. Üç hafta bekledim. Sonra sonuncusunu açtım.,This autumn the letters suddenly stopped. I waited three weeks. Then I opened the last one.
+C1_005,kerem,none,Yusuf bu adada mı yaşıyor?,Yusuf lives on this island?
+C1_006,riza,none,"İki yıldır. Kırlangıç Feneri'nin bekçisi o. Ama üç haftadır telsize çıkmıyor, kimse sesini duymadı.",For two years now. He keeps the Swallow Island light. But he hasn't answered the radio in three weeks. Nobody's heard from him.
+C1_090,kerem,inner,"Fener tepede, adanın öbür ucunda. Yusuf oradaysa, oraya gitmem lazım.","The lighthouse is up there, on the far end of the island. If Yusuf's anywhere, he's there."
+C1_091,kerem,inner,Bir şey koştu... evlerin arkasından.,Something ran... behind the houses.
+C1_092,kerem,inner,"Lamba! Hadi, sönme şimdi...","The lamp! Come on, don't go out now..."
+C3_090,kerem,inner,Fırtına çıkıyor. Yukarısı daha da kötü olacak.,A storm's coming. It'll be worse up top.
+C1_000,yusuf,letter,"Kerem, bu kaçıncı mektup bilmiyorum. Belki bunu da açmazsın. Ama yazmak zorundayım: Babamın sesini duyuyorum. Sisin içinden.","Kerem, I've lost count of these letters. Maybe you won't open this one either. But I have to write it: I hear Father's voice. From inside the fog."
+C1_001,yusuf,letter,Gelme demiyorum. Gel de demiyorum. Sadece biri bilsin istedim.,I'm not asking you to come. I'm not telling you not to. I just wanted someone to know.
+C1_002,kerem,inner,On iki yıl. Bir mektup açmak on iki yıl sürdü.,Twelve years. It took me twelve years to open a letter.
+C1_010,riza,none,"Bak uşağım, ben seni iskeleye kadar getirdim. Öte tarafına adımımı atmam.","Listen, boy. I brought you to the pier. I'm not setting foot past it."
+C1_011,kerem,none,Fener sönmüş. Ne zamandan beri?,The light's out. Since when?
+C1_012,riza,none,Yirmi gün var. Elli yıldır ilk defa. Balıkçılar bu sulara girmiyor artık.,Twenty days. First time in fifty years. Fishermen won't come near these waters now.
+C1_013,riza,none,"Al şu telsizi. Bir sorun olursa çağır. Sabaha kadar bekliyorum, sonra giderim.","Take this radio. Call if there's trouble. I'll wait till dawn, then I'm gone."
+C1_014,kerem,none,Sabaha kadar yeter.,Dawn's enough.
+C1_015,riza,none,"Bir şey daha. Sisin içinden biri seni çağırırsa, gitme. Kim olursa olsun.","One more thing. If someone calls you from the fog, don't go. No matter who it is."
+C1_020,kerem,inner,Sis çanı. Halatı çürümüş. Kimse yıllardır çalmamış.,The fog bell. The rope's rotted through. Nobody's rung it in years.
+C1_021,kerem,inner,Babamın gecesinde de kimse çalmamıştı.,"Nobody rang it on Father's night, either."
+C1_030,kerem,inner,Gaz lambası. Yusuf'un. Kulpunu hep böyle telle sarardı.,An oil lamp. Yusuf's. He always wrapped the handle with wire like this.
+C1_031,kerem,inner,O neydi? Bir gölge... ışıkta durdu.,What was that? A shadow... it stopped in the light.
+C1_032,kerem,inner,Işığı sevmiyorlar. Güzel. Ben de onları sevmedim.,They don't like the light. Good. I don't like them either.
+C1_040,kerem,inner,Kandil. Yakarsam yanmaya devam eder mi?,"A brazier. If I light it, will it keep burning?"
+C1_041,kerem,inner,Yanıyor. En azından burası benim.,It's burning. At least this spot is mine.
+C1_050,kerem,none,"Kahvehane. Yusuf'la babam burada tavla oynardı... yok, o Sinop'taydı. Hepsi birbirine benziyor.","The coffeehouse. Yusuf and Father used to play backgammon in one... no, that was Sinop. They all look the same."
+C1_051,kerem,inner,"Telsiz bozulmuş. Lambası sağlam, frekans dişlisi kaymış. Bunu uykumda yaparım.","The radio's broken. The tube's fine, the dial gear slipped. I could do this in my sleep."
+C1_052,kerem,radio,"Rıza Reis, beni duyuyor musun?","Rıza, do you copy?"
+C1_053,riza,radio,"Duyuyorum uşağım. Ses geliyor ya, Allah'a şükür. Ne buldun?","I hear you, boy. Thank God you're talking. What did you find?"
+C1_054,kerem,radio,Kimse yok. Sadece... gölgeler. Işıkta duruyorlar.,Nobody. Just... shadows. They freeze in the light.
+C1_055,riza,radio,Rahmetli dedem anlatırdı. Yankı derdi onlara. Sisin yuttuğu insanlar. Duydukları son sesi tekrar ederlermiş.,"My late grandfather told stories. Echoes, he called them. People the fog swallowed. They repeat the last voice they heard."
+C1_056,kerem,radio,"Masal bunlar, Reis.","Those are fairy tales, Rıza."
+C1_057,riza,radio,Masalsa ne diye fener elli yıl sönmedi? Kuleye git. Okulun arkasından yol var.,"If they're tales, why did that light burn for fifty years? Go to the tower. There's a path behind the school."
+C1_060,echo,echo,"Kerem! Kerem, buradayım!","Kerem! Kerem, I'm here!"
+C1_061,kerem,none,Yusuf? Yusuf! Neredesin?,Yusuf? Yusuf! Where are you?
+C1_062,echo,echo,Buradayım... buradayım... buradayım...,I'm here... I'm here... I'm here...
+C1_063,kerem,inner,"Ses karanlıktan geliyor. Gerçek olsa, lambası yanardı. Yusuf lambasız adım atmaz.","The voice is coming from the dark. If it were real, there'd be a light. Yusuf never takes a step without a lamp."
+C1_064,kerem,inner,"Kural bir: sesin olduğu yerde ışık yoksa, o ses değil.","Rule one: if there's no light where the voice is, it isn't a voice."
+C1_070,riza,radio,"Köprüye mi geldin? Halatı çek, iner. Ama çabuk ol, sis yoğunlaşıyor.","Are you at the bridge? Pull the rope, it'll come down. Be quick, the fog's getting thicker."
+C1_071,kerem,radio,"Bir sürü geliyor, Reis. Çok fazla.","There's a whole pack coming, Rıza. Too many."
+C1_072,riza,radio,"Koş o zaman! Lambayı kıs, koş!",Then run! Dim the lamp and run!
+C1_080,yusuf,none,...Kerem? Sen misin? Gelme... aşağıya gelme...,...Kerem? Is that you? Don't... don't come down here...
+C1_081,kerem,none,Bu oydu. Bu gerçekten oydu.,That was him. That was really him.
+C1_082,riza,radio,"Kerem? Kerem, cevap ver! Mağaralara girme, oraları çıkanı görmedim...","Kerem? Kerem, answer me! Don't go into the caves, I've never seen anyone come back..."
+C1_083,kerem,radio,"Çanı kimse çalmadı diye on iki yıl kızdım ona, Reis. Şimdi ben de gitmezsem ne farkım kalır?","I stayed angry at him for twelve years because no one rang the bell, Rıza. If I don't go now, what makes me any different?"
+C2_000,kerem,inner,"Lamba hala yanıyor. Zar zor. Kaç dakikam var, bilmiyorum.",The lamp's still burning. Barely. I don't know how many minutes I have.
+C2_001,kerem,radio,"Reis? Reis, duyuyor musun?",Rıza? Do you copy?
+C2_002,kerem,inner,Sadece cızırtı. Yer çok derin.,Just static. We're too deep.
+C2_010,kerem,inner,"Tebeşir ok. Yusuf okulda da hep böyle çizerdi, ucunu çift.","A chalk arrow. Yusuf drew them like this in school too, a double tip."
+C2_011,kerem,inner,"Yanına bir şey yazmış: ""Geri dönmek için."" Demek dönmeyi düşünüyordu.","He wrote something next to it: ""To find my way back."" So he meant to come back."
+C2_020,kerem,inner,Ayna. Burada kim ayna koyar? Bir yere ışık taşımak isteyen biri.,A mirror. Who puts a mirror down here? Someone who needed to carry light somewhere.
+C2_021,kerem,inner,Işığı çevirebiliyorum. Hüsnü Usta ne yapmaya çalışıyordu burada?,I can turn the beam. What was Hüsnü Usta trying to do down here?
+C2_030,kerem,inner,"Bir oda. Yatak, soba, yüzlerce bant. Biri burada ömür geçirmiş.","A room. A bed, a stove, hundreds of tapes. Someone spent a lifetime here."
+C2_031,husnu,radio,"Kayıt, on dokuz Mart, bin dokuz yüz kırk. Bekçi Hüsnü. Yirmi yıldır adadan çıkmadım. Çıktığım gece fener titredi. Bir daha çıkmayacağım.","Recording, nineteenth of March, nineteen forty. Keeper Hüsnü. Twenty years I haven't left the island. The night I tried, the light flickered. I won't try again."
+C2_032,husnu,radio,Işık gemiler için değil. Kimse bilmiyor. Işık sis için. Onu burada tutmak için.,The light isn't for ships. Nobody knows. The light is for the fog. To keep it here.
+C2_033,kerem,inner,"El çanı. Üstüne kazınmış: ""Ses de ışık gibidir.""","A hand bell. Something carved on it: ""Sound is a kind of light."""
+C2_034,kerem,inner,Kırmızı cam. Lambanın önüne tam oturuyor.,Red glass. It fits right over the lamp.
+C2_040,husnu,radio,"Kayıt, bin dokuz yüz elli üç. Köylüler gitti. Sis bir gecede çoğunu aldı. Fener bir saat söndü diye. Bir saat.","Recording, nineteen fifty-three. The villagers are gone. The fog took most of them in one night. Because the light went out for an hour. One hour."
+C2_041,husnu,radio,Şimdi sesleriyle konuşuyorlar benimle. Karımın sesiyle. En kötüsü bu. Cevap vermek istiyorsun.,Now they speak to me with their voices. With my wife's voice. That's the worst of it. You want to answer.
+C2_042,kerem,inner,Hareket etmiyorlar. Ama gözlerini üzerimden ayırmıyorlar. Işığı çekme. Sakın çekme.,They aren't moving. But they're watching me. Don't take the light off them. Don't you dare.
+C2_050,husnu,radio,"Son kayıt. Bin dokuz yüz yetmiş beş. Elim artık tam görünmüyor. Bekçi adaya bağlanır, sonra adaya karışır.","Last recording. Nineteen seventy-five. I can't fully see my hand anymore. The keeper binds himself to the island, then becomes part of it."
+C2_051,husnu,radio,Genç bir adam geldi. Yusuf. İyi çocuk. Ona her şeyi anlattım. Fener artık onun. Allah ona benden fazla sabır versin.,A young man came. Yusuf. A good lad. I told him everything. The light is his now. May God give him more patience than He gave me.
+C2_052,kerem,inner,"Yani biliyordun, Yusuf. Bu işi bile bile aldın. Ve sonra... söndürdün.","So you knew, Yusuf. You took this job knowing. And then... you put it out."
+C2_060,text,caption,IŞIĞI YAKAN KALIR. ÇANI ÇALAN KURTARIR.,THE ONE WHO LIGHTS IT STAYS. THE ONE WHO RINGS THE BELL SAVES.
+C2_061,text,caption,Babamın sesi bu kuyudan geliyor. Bir kere cevap vereceğim. Sadece bir kere. Affet beni Hüsnü Usta.,"Father's voice comes from this well. I'll answer him once. Just once. Forgive me, Hüsnü Usta."
+C2_062,kerem,none,"Yusuf, ne yaptın sen...","Yusuf, what have you done..."
+C2_070,great,echo,KİM... KİM VAR ORADA... IŞIĞI KAPAT... GECE... GECE OLSUN...,WHO... WHO'S THERE... PUT OUT THE LIGHT... LET IT BE NIGHT...
+C2_071,kerem,none,"Usta? Hüsnü Usta, sen misin?","Usta? Hüsnü Usta, is that you?"
+C2_072,great,echo,KARİM... KARİM BENİ ÇAĞIRIYOR...,MY WIFE... MY WIFE IS CALLING ME...
+C2_073,kerem,inner,Kandiller! Üçünü de yakmam lazım!,The braziers! I need to light all three!
+C2_080,kerem,none,Usta! Bu senin çanın! Hatırla!,Usta! This is your bell! Remember!
+C2_081,great,echo,Çan... çanın sesi... kırk yıl... çaldım... her gece...,The bell... the sound of the bell... forty years... I rang it... every night...
+C2_082,husnu,none,Yukarı... kardeşin yukarıda evlat. Mercek odasında. Merdiven benim arkamda. Git. Ben burada... biraz daha nefes alayım.,"Upstairs... your brother is upstairs, son. In the lens room. The stairs are behind me. Go. I'll stay here... and breathe a little longer."
+C2_083,kerem,none,"Sağ ol, Usta.","Thank you, Usta."
+C2_084,husnu,none,Ona söyle... ışık ağırdır. Tek kişi taşımamalı.,Tell him... the light is heavy. No one should carry it alone.
+C3_000,riza,radio,Kerem! Yaşıyor musun uşağım? Saatlerdir çağırıyorum!,"Kerem! Are you alive, boy? I've been calling for hours!"
+C3_001,kerem,radio,"Yaşıyorum, Reis. Kulenin dibindeyim. Yusuf yukarıda.","I'm alive, Rıza. I'm at the foot of the tower. Yusuf's up there."
+C3_002,riza,radio,"Şafak sökmeden inşallah. Sis tekneye kadar geldi, ben de korkmaya başladım.","Before dawn, God willing. The fog's reached the boat. Even I'm starting to get scared."
+C3_010,kerem,inner,"Yüz on iki basamak. Babam derdi ki, fenerciler basamak sayısını unutmaz.",A hundred and twelve steps. Father used to say keepers never forget how many steps there are.
+C3_020,kerem,inner,Yusuf'un odası. Masada babamın fotoğrafı... ve benim. On dört yaşımda.,Yusuf's room. Father's photo on the desk... and mine. When I was fourteen.
+C3_021,kerem,inner,Mektupların kopyalarını saklamış. Hepsini. Ben hiçbirini açmadım.,He kept copies of the letters. Every one. I never opened a single one.
+C3_030,father,echo,Kerem... oğlum... aşağıdayım. Tekne ters döndü. Üşüyorum.,Kerem... my son... I'm down here. The boat capsized. I'm cold.
+C3_031,kerem,none,Baba?,Father?
+C3_032,father,echo,"Neden çanı çalmadınız? Sizi bekledim. Gel, elimi tut.","Why didn't you ring the bell? I waited for you. Come, take my hand."
+C3_033,kerem,inner,Aşağıda ışık yok. Sadece sis.,There's no light down there. Only fog.
+C3_034,kerem,none,Sen o değilsin. Babam bizi hiç suçlamadı. Suçlayan bendim.,You're not him. Father never blamed us. I was the one who did.
+C3_040,kerem,inner,"Üç dişli, bir zincir. Saat mekanizmasından farksız. Hadi bakalım, ihtiyar. Dön.","Three gears, one chain. No different from a clock. Come on, old girl. Turn."
+C3_050,yusuf,none,Kerem? Gerçekten sen misin? Yoksa sen de mi...,Kerem? Is it really you? Or are you one of them too...
+C3_051,kerem,none,"Benim. Lamba elimde, bak. Senin lamban.","It's me. Look, I've got the lamp. Your lamp."
+C3_052,yusuf,none,Mektubu açmışsın demek.,So you opened the letter.
+C3_053,kerem,none,Sonuncusunu. On iki yılı bir gecede okudum.,The last one. I read twelve years in one night.
+C3_054,yusuf,none,"Kolum... sis gibi dağılıyor, Kerem. Babamın sesine cevap verdim. Sadece bir kere. Bu kadarı yetti.","My arm... it's coming apart like fog, Kerem. I answered Father's voice. Just once. That was enough."
+C3_055,kerem,none,"O baban değil, abi. Yankı.","That's not Father, brother. It's an Echo."
+C3_056,yusuf,none,Biliyorum. Ama o gece çanı çalmadım. Belki şimdi gidersem... bir şeyi düzeltirim diye düşündüm.,I know. But I didn't ring the bell that night. I thought if I went to him now... I could fix something.
+C3_057,kerem,none,On iki yıl seni suçladım. Ama o gece ben de evdeydim. Ben de çanın sesini duymadığımı fark ettim. Ve kalkmadım.,I blamed you for twelve years. But I was home that night too. I noticed the bell wasn't ringing. And I didn't get up.
+C3_058,yusuf,none,...Hiç söylemedin.,...You never said.
+C3_059,kerem,none,Öfke daha kolaydı.,Anger was easier.
+C3_060,yusuf,none,"Fener bir bekçi ister, Kerem. Ben artık yapamam. Yakıp kalırsam sis beni tamamen alır.","The light needs a keeper, Kerem. I can't do it anymore. If I light it and stay, the fog will take all of me."
+C3_061,yusuf,none,Git. Tekne bekliyor. Benim için bir kez olsun doğru şeyi yap: git.,"Go. The boat is waiting. Do the right thing for me, just once: go."
+C3_062,kerem,none,"Hüsnü Usta sana bir şey söylememi istedi. ""Işık ağırdır. Tek kişi taşımamalı.""","Hüsnü Usta asked me to tell you something. ""The light is heavy. No one should carry it alone."""
+C3_063,yusuf,none,"O zaman... sen karar ver, kardeşim. Ben artık veremiyorum.","Then... you decide, little brother. I can't anymore."
+EA_000,kerem,none,"Bu sefer biri çalıyor, baba.","This time someone's ringing it, Father."
+EA_001,yusuf,none,"Kerem, hayır! Bekçi kalır, biliyorsun!","Kerem, no! The keeper stays, you know that!"
+EA_002,kerem,none,Biliyorum. On iki yıl sen taşıdın. Biraz da ben taşıyayım.,I know. You carried it for twelve years. Let me carry it for a while.
+EA_003,yusuf,none,Sana mektup yazacağım. Her ay.,I'll write to you. Every month.
+EA_004,kerem,none,Bu sefer açacağım. Söz.,This time I'll open them. I promise.
+EA_005,riza,radio,"Fener yanıyor! Ya Rabbi, fener yanıyor! Kerem, ağabeyini aldım. Sen gelmiyor musun?","The light's on! Good Lord, it's on! Kerem, I've got your brother. Aren't you coming?"
+EA_006,kerem,radio,"Ben buradayım, Reis. Bir sonraki sisli gecede çanı duyarsın.","I'm staying, Rıza. Next foggy night, you'll hear the bell."
+EA_007,text,caption,Kırlangıç Feneri o geceden beri hiç sönmedi.,The Swallow Island light has never gone out since that night.
+EB_000,kerem,none,Seni burada bırakmayacağım. Bir kere daha olmaz.,I'm not leaving you here. Not again.
+EB_001,yusuf,none,"Fener sönerse sis adımızı bilir, Kerem. Bizi takip eder.","If the light dies, the fog knows our names, Kerem. It'll follow us."
+EB_002,kerem,none,Bırak takip etsin.,Let it.
+EB_003,riza,none,"Çabuk binin! Sis arkanızda, çabuk!","Get in, quick! The fog's right behind you!"
+EB_004,text,caption,Bir yıl sonra. İstanbul.,One year later. Istanbul.
+EB_005,kerem,none,"Abi, Boğaz yine sisli. Bu ay üçüncü kez.","Brother, the Bosphorus is foggy again. Third time this month."
+EB_006,yusuf,none,Pencereyi kapat. Lambayı yak.,Close the window. Light the lamp.
+EB_007,echo,echo,Kerem...,Kerem...
+EP_000,text,caption,Bir yıl sonra. Kırlangıç Adası.,One year later. Swallow Island.
+EP_001,yusuf,none,Postacı geldi! On iki mektup. Bu sefer hepsi açılacak.,The postman's here! Twelve letters. This time every one gets opened.
+EP_002,kerem,none,Hepsini okudum bile. Cevapları masada.,I've already read them. The replies are on the table.
+EP_003,yusuf,none,Sis geliyor.,Fog's coming in.
+EP_004,kerem,none,O zaman beraber çalalım. Tek kişi taşımamalı.,Then we ring it together. No one should carry it alone.
+P01,yusuf,letter,"3 Nisan 1975. Adaya bugün çıktım. Hüsnü Usta beni iskelede bekliyordu, ama sanki yıllardır orada bekliyormuş gibi. ""Hoş geldin bekçi"" dedi. Henüz bekçi değilim dedim. Güldü.","April 3, 1975. I came to the island today. Hüsnü Usta was waiting at the pier, as if he'd been waiting there for years. ""Welcome, keeper,"" he said. I'm not a keeper yet, I told him. He laughed."
+P02,yusuf,letter,Kahvehanede eski bir tavla buldum. Babamınkine benziyor. Kerem'e yazdım bunu. Yine cevap gelmeyecek biliyorum. Yazmak bana iyi geliyor.,I found an old backgammon set in the coffeehouse. It looks like Father's. I wrote to Kerem about it. I know he won't answer again. Writing helps me anyway.
+P03,yusuf,letter,Okulun tahtasında hala 1953 yazıyor. Kimse silmemiş. Sıralarda küçük isimler kazınmış. Akşam sis gelince o isimleri birinin fısıldadığını duydum.,"The school blackboard still says 1953. Nobody wiped it. Small names are carved into the desks. When the fog came in tonight, I heard someone whispering those names."
+P04,yusuf,letter,"Usta bana kuralı öğretti: Sesin olduğu yerde ışık yoksa, o ses değildir. Kerem olsa bununla dalga geçerdi. Ama Kerem burada değil.","Usta taught me the rule: if there's no light where the voice is, it isn't a voice. Kerem would make fun of that. But Kerem isn't here."
+P05,yusuf,letter,"Usta artık aşağıda, mağaralarda yaşıyor. Elleri tam görünmüyor. ""Fener artık senin"" dedi. O gece ilk kez merceği tek başıma yaktım. Yüz on iki basamak.","Usta lives down in the caves now. His hands don't fully show anymore. ""The light is yours now,"" he said. That night I lit the lens alone for the first time. A hundred and twelve steps."
+P06,yusuf,letter,Aynaları Usta yerleştirmiş. Işığı kuyuya kadar taşıyorlar. Kuyuya ışık gitmezse sis oradan yukarı çıkıyormuş. Her şey bir saat mekanizması gibi. Kerem bunu severdi.,"Usta set up the mirrors. They carry the light all the way down to the well. If no light reaches the well, the fog climbs up through it. It's all like clockwork. Kerem would love it."
+P07,yusuf,letter,"1 Şubat 1977. Bugün ilk kez babamın sesini duydum. Sarnıçtan. ""Yusuf, çanı çal"" dedi. On iki yıldır rüyamda duyduğum cümle.","February 1, 1977. Today I heard Father's voice for the first time. From the cistern. ""Yusuf, ring the bell,"" he said. The same words I've heard in my dreams for twelve years."
+P08,yusuf,letter,Bunun bir Yankı olduğunu biliyorum. Kuralı biliyorum. Ama her gece biraz daha uzun dinliyorum. Usta'ya söylemedim.,I know it's an Echo. I know the rule. But every night I listen a little longer. I haven't told Usta.
+P09,yusuf,letter,Kerem'e bir mektup daha yazdım. Bu sefer gerçeği yazdım: Babamın sesini duyuyorum. Açarsa belki gelir. Açmazsa... belki daha iyi.,"I wrote Kerem another letter. This time I wrote the truth: I hear Father's voice. If he opens it, maybe he'll come. If he doesn't... maybe that's better."
+P10,yusuf,letter,Babamın fotoğrafını masama koydum. Yanına Kerem'in on dört yaşındaki halini. İkisini de aynı gece kaybettim aslında.,"I put Father's photo on my desk. Next to it, Kerem at fourteen. I really lost them both on the same night."
+P11,yusuf,letter,Usta'nın bantını dinledim. Karısının sesine cevap vermediği için kırk yıl bekçi kalmış. Ben kırk yıl dayanamam. Bir yıla bile dayanamadım.,I listened to Usta's tape. He stayed keeper for forty years because he never answered his wife's voice. I can't last forty years. I couldn't even last one.
+P12,yusuf,letter,"18 Ekim 1977. Bu gece merceği söndüreceğim. Bir kere cevap vereceğim, sadece bir kere. Bu sayfayı kim bulursa: çanı çalın. Ben çalamadım.","October 18, 1977. Tonight I'll put out the lens. I'll answer him once, just once. Whoever finds this page: ring the bell. I couldn't."
+RT_09,kerem,radio,"Reis, bu fabrikayı bilir misin? Kapının üstünde 1931 yazıyor.","Rıza, do you know this cannery? It says 1931 over the door."
+RT_10,riza,radio,Babam orada çalıştı. Düdüğü öttü mü bütün ada uyanırdı. Elli üçten beri bir kez bile ötmedi.,"My father worked there. When that whistle blew, the whole island woke. It hasn't blown once since fifty-three."
+C5_000,riza,radio,Kerem! Mağaradan çıktın mı? Sesin geliyor ama cızırtılı.,"Kerem! Are you out of the caves? I can hear you, but it's all static."
+C5_001,kerem,radio,"Kuzey kıyısındayım, Reis. Önümde eski bir konserve fabrikası var.","I'm on the north shore, Rıza. There's an old cannery in front of me."
+C5_002,riza,radio,"Fabrika... Elli üçte köylüler o gece orada toplanmıştı. Arkasındaki dalgakıran seni fenere götürür. Ama gelgit yükseliyor, oyalanma.",The cannery... In fifty-three the villagers gathered there that night. The breakwater behind it leads to the lighthouse. But the tide is rising. Don't linger.
+C5_010,kerem,inner,Avlu su basmış. Duvardaki savak çarkını çevirirsem su çekilir.,"The yard is flooded. If I turn the sluice wheel on the wall, the water should drain."
+C5_011,kerem,inner,Su çekildi. Dipte bir sandık var. Onu duvara itersem karşıya tırmanabilirim.,The water's gone. There's a crate down there. If I push it to the wall I can climb out the other side.
+C5_020,kerem,none,"Mesai kartları. Hepsi aynı gece basılmış: 14 Şubat 1953, saat 23:40.","Time cards. All punched the same night: 14 February 1953, 23:40."
+C5_021,kerem,inner,Hiçbirinde çıkış saati yok.,None of them have a clock-out time.
+C5_030,yusuf,none,"Kerem, buraya kadar geldiysen kazanı yak ve düdüğü çal. Hüsnü Usta elli üçte çalamadı. Kazan soğuktu.","Kerem, if you've made it this far, light the boiler and blow the whistle. Hüsnü couldn't in fifty-three. The boiler was cold."
+C5_031,kerem,inner,Kazan soğuktu... O gece düdük çalsaydı herkes kaçabilirdi.,"The boiler was cold... If the whistle had blown that night, everyone could have run."
+C5_040,kerem,inner,Kazan ısınıyor. Basınç göstergesi kıpırdadı. Biraz daha...,The boiler's heating up. The pressure needle moved. Just a little more...
+C5_041,kerem,inner,Basınç tamam. Şimdi vana.,Pressure's up. Now the valve.
+C5_042,riza,radio,"Bu ses! Kerem, sen mi yaptın? Sis... sis geri çekiliyor!","That sound! Kerem, was that you? The fog... the fog is pulling back!"
+C5_043,kerem,radio,"Yirmi dört yıl gecikmeyle, Reis.","Twenty-four years late, Rıza."
+C5_050,kerem,inner,"Dalgakıran. Fener tam karşıda. Su yükseliyor, durmak yok.",The breakwater. The lighthouse is right there. The water's rising. No stopping.
+C5_051,riza,radio,"Koş uşağım, koş! Dalgalar taşların üstüne vuruyor!","Run, boy, run! The waves are breaking over the stones!"
+C5_060,kerem,inner,Bu kanca... buradan bir şey sarkıtmışlar. Ağır bir şey.,This hook... they lowered something heavy from here.
+M5_01,echo,echo,Kerem... oğlum... tekneye gel...,Kerem... son... come to the boat...
+M5_02,kerem,inner,Babamın sesi. Hayır. Babam beni hiçbir zaman tekneye çağırmazdı. 'Eve git' derdi.,Father's voice. No. Father never called me to the boat. He always said 'go home'.
+CE_5,kerem,caption,Yirmi dört yıl sonra düdük çaldı. Geç kaldı ama çaldı. Şimdi sıra çanda.,"Twenty-four years later, the whistle blew. Late, but it blew. Now the bell."

@@ -1,0 +1,52 @@
+; Engine configuration file.
+; SİS ÇANI / FOG BELL - Godot 4.7
+
+config_version=5
+
+[application]
+
+config/name="SİS ÇANI / FOG BELL"
+config/version="1.0.0"
+config/description="2D atmosferik bulmaca-platform oyunu. Kırlangıç Adası, 1977."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Loc="*res://scripts/autoload/loc.gd"
+GameState="*res://scripts/autoload/game_state.gd"
+AudioManager="*res://scripts/autoload/audio_manager.gd"
+LightSystem="*res://scripts/autoload/light_system.gd"
+Dialogue="*res://scripts/autoload/dialogue_manager.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom_font="res://fonts/Lora.ttf"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="echo"
+
+[physics]
+
+common/physics_ticks_per_second=60
+2d/default_gravity=1400.0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.02, 0.025, 0.035, 1)
+textures/canvas_textures/default_texture_filter=0
