@@ -1,0 +1,81 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/region.gd" id="1_region"]
+[ext_resource type="Resource" path="res://data/regions/blacksea_highland.tres" id="2_def"]
+[ext_resource type="Script" path="res://scripts/world/atmosphere_controller.gd" id="3_atmo"]
+[ext_resource type="Resource" path="res://data/palettes/blacksea_summer.tres" id="4_pal"]
+[ext_resource type="Script" path="res://scripts/world/highland_terrain.gd" id="5_terrain"]
+[ext_resource type="Script" path="res://scripts/world/vegetation_scatter.gd" id="6_veg"]
+[ext_resource type="Script" path="res://scripts/world/village_builder.gd" id="7_village"]
+[ext_resource type="Script" path="res://scripts/world/mist_banks.gd" id="8_mist"]
+[ext_resource type="Script" path="res://scripts/world/precipitation.gd" id="9_precip"]
+[ext_resource type="PackedScene" path="res://scenes/vehicle/camper.tscn" id="10_camper"]
+[ext_resource type="PackedScene" path="res://scenes/player/walker.tscn" id="11_walker"]
+[ext_resource type="PackedScene" path="res://scenes/camera/follow_camera.tscn" id="12_cam"]
+[ext_resource type="Script" path="res://scripts/player/travel_controller.gd" id="13_travel"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="14_hud"]
+[ext_resource type="Script" path="res://ui/debug/debug_panel.gd" id="15_debug"]
+
+[node name="BlackseaHighland" type="Node3D"]
+script = ExtResource("1_region")
+definition = ExtResource("2_def")
+terrain_path = NodePath("Terrain")
+camper_path = NodePath("Camper")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+
+[node name="Atmosphere" type="Node" parent="."]
+script = ExtResource("3_atmo")
+world_environment_path = NodePath("../WorldEnvironment")
+sun_path = NodePath("../Sun")
+moon_path = NodePath("../Moon")
+palette = ExtResource("4_pal")
+
+[node name="Terrain" type="Node3D" parent="."]
+script = ExtResource("5_terrain")
+
+[node name="VillageClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115, 0, -92)
+metadata/radius = 34.0
+
+[node name="ViewpointClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178, 0, -190)
+metadata/radius = 14.0
+
+[node name="Vegetation" type="Node3D" parent="."]
+script = ExtResource("6_veg")
+terrain_path = NodePath("../Terrain")
+
+[node name="Village" type="Node3D" parent="."]
+script = ExtResource("7_village")
+terrain_path = NodePath("../Terrain")
+
+[node name="MistBanks" type="Node3D" parent="."]
+script = ExtResource("8_mist")
+terrain_path = NodePath("../Terrain")
+
+[node name="Precipitation" type="Node3D" parent="."]
+script = ExtResource("9_precip")
+
+[node name="Camper" parent="." instance=ExtResource("10_camper")]
+
+[node name="Walker" parent="." instance=ExtResource("11_walker")]
+
+[node name="FollowCamera" parent="." instance=ExtResource("12_cam")]
+
+[node name="TravelController" type="Node" parent="."]
+script = ExtResource("13_travel")
+camper_path = NodePath("../Camper")
+walker_path = NodePath("../Walker")
+camera_path = NodePath("../FollowCamera")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("14_hud")
+travel_path = NodePath("../TravelController")
+
+[node name="DebugPanel" type="CanvasLayer" parent="."]
+script = ExtResource("15_debug")

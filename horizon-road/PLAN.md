@@ -12,11 +12,11 @@ Genel doğrulama araçları:
 
 ---
 
-## Aşama 0 — Kurulum ve belgeler ✅ (bu oturum)
+## Aşama 0 — Kurulum ve belgeler ✅
 - Proje iskeleti, `project.godot`, klasör yapısı, GDD.md, PLAN.md.
 - **Bitti:** belgeler onaylandı, Godot 4.7 sürümü doğrulandı.
 
-## Aşama 1 — İskelet + karavan + Karadeniz yaylası (boş ama güzel)
+## Aşama 1 — İskelet + karavan + Karadeniz yaylası (boş ama güzel) ✅
 - Autoload'lar: GameState, TimeManager, WeatherManager, SaveManager (stub),
   Localization, AudioManager.
 - InputMap (KB+M + gamepad): sür, fren, dön, kamera, in/bin, fotoğraf, günlük.
@@ -64,9 +64,22 @@ Genel doğrulama araçları:
 
 ---
 
-## Açık kararlar
-1. Araç fiziği: `CharacterBody3D` arcade kontrolcü (öneri) vs `VehicleBody3D`.
-2. Godot çalıştırılabilir dosyasının bu ortamda nasıl sağlanacağı (bkz. rapor).
+## Alınan kararlar
+1. Araç fiziği: `CharacterBody3D` arcade kontrolcü (onaylandı).
+2. Godot 4.7: bulut ortamında resmî Linux sürümü kullanılıyor (onaylandı).
+3. CC0 siteleri ağdan engelli → Aşama 1 varlıkları kodla üretildi (bkz. ASSETS.md).
+
+## Aşama 1 notları
+- Test: `godot --headless --path . res://tests/test_runner.tscn` (23 kontrol).
+- Görsel kontrol: `godot --path . -- --hour=18.9 --weather=fog --shot=out.png`
+  (tüm seçenekler `scripts/dev/dev_cli.gd` başında). Ekran görüntüleri `docs/screenshots/`.
+- Bilinen sorunlar:
+  - Gerçek GPU'da FPS ölçülmedi (ortamda yalnızca yazılımsal Vulkan var).
+    Ağır kalemler: hacimli sis, 60k çimen öbeği, 4 bölmeli gölge. Ayarlar ekranında
+    kalite seçenekleri Aşama 7'de; şimdilik `VegetationScatter.density_scale` ile düşürülebilir.
+  - Kokpit kamerasında iç mekân yok (Aşama 4: karavan içi).
+  - Yağmur karavan çatısından içeri yağabilir (parçacık çarpışması yok).
+  - Çıkışta dummy ses sürücüsüne bağlı zararsız "ObjectDB leaked" uyarısı.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

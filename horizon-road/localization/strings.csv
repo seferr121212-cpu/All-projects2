@@ -1,0 +1,31 @@
+keys,en,tr
+GAME_TITLE,Horizon Road,Ufuk Yolu
+REGION_BLACKSEA_HIGHLAND,Black Sea Highland,Karadeniz Yaylası
+UI_DAY,Day %d,Gün %d
+UI_EXIT_VEHICLE,[E] Get out,[E] Araçtan in
+UI_ENTER_VEHICLE,[E] Get in,[E] Araca bin
+UI_SLOW_DOWN_TO_EXIT,Stop to get out,İnmek için dur
+UI_CAPTURE_MOUSE,Click to look around,Etrafa bakmak için tıkla
+UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F3 hata ayıklama"
+WEATHER_CLEAR,Clear,Açık
+WEATHER_PARTLY_CLOUDY,Partly cloudy,Parçalı bulutlu
+WEATHER_FOG,Fog,Sis
+WEATHER_RAIN,Rain,Yağmur
+WEATHER_STORM,Thunderstorm,Gök gürültülü fırtına
+WEATHER_SNOW,Snow,Kar
+PHASE_NIGHT,Night,Gece
+PHASE_DAWN,Dawn,Şafak
+PHASE_MORNING,Morning,Sabah
+PHASE_NOON,Midday,Öğle
+PHASE_GOLDEN_HOUR,Golden hour,Altın saat
+PHASE_DUSK,Dusk,Alacakaranlık
+SEASON_SPRING,Spring,İlkbahar
+SEASON_SUMMER,Summer,Yaz
+SEASON_AUTUMN,Autumn,Sonbahar
+SEASON_WINTER,Winter,Kış
+DEBUG_TITLE,Debug,Hata ayıklama
+DEBUG_TIME,Time,Saat
+DEBUG_TIME_SPEED,Time speed,Zaman hızı
+DEBUG_WEATHER,Weather,Hava
+DEBUG_AUTO_WEATHER,Automatic weather,Otomatik hava
+DEBUG_LANGUAGE,Language,Dil

@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicle/camper_controller.gd" id="1_cc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.95
+height = 4.9
+
+[node name="Camper" type="CharacterBody3D"]
+script = ExtResource("1_cc")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="HeadlightL" type="SpotLight3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.995, -0.0998, 0, 0.0998, 0.995, -0.68, 1.05, -2.5)
+light_color = Color(1, 0.92, 0.78, 1)
+light_energy = 14.0
+spot_range = 42.0
+spot_angle = 34.0
+spot_attenuation = 0.8
+
+[node name="HeadlightR" type="SpotLight3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.995, -0.0998, 0, 0.0998, 0.995, 0.68, 1.05, -2.5)
+light_color = Color(1, 0.92, 0.78, 1)
+light_energy = 14.0
+spot_range = 42.0
+spot_angle = 34.0
+spot_attenuation = 0.8
+
+[node name="EngineAudio" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.8)
+unit_size = 6.0
+bus = &"SFX"

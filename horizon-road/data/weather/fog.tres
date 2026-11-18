@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeatherProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/weather/weather_profile.gd" id="1_wp"]
+
+[resource]
+script = ExtResource("1_wp")
+id = &"fog"
+name_key = "WEATHER_FOG"
+cloud_coverage = 0.85
+cloud_darkness = 0.15
+sun_strength = 0.35
+saturation = 0.82
+fog_density = 0.012
+volumetric_fog_density = 0.03
+mist = 1.0
+rain = 0.0
+snow = 0.0
+wind = 0.08
+wetness = 0.35
+lightning = 0.0
+birds = 0.35
