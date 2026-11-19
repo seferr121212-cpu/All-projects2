@@ -177,8 +177,8 @@ static func build(world: Node3D, data: Dictionary) -> Dictionary:
 
 	for id: String in data.get("spawns", {}):
 		var s: Dictionary = data["spawns"][id]
-		var tr := Transform3D(Basis(Vector3.UP, deg_to_rad(float(s.get("rot", 0.0)))), vec3(s.get("pos")))
-		result["spawns"][id] = tr
+		var xf := Transform3D(Basis(Vector3.UP, deg_to_rad(float(s.get("rot", 0.0)))), vec3(s.get("pos")))
+		result["spawns"][id] = xf
 	for a: Dictionary in data.get("actors", []):
 		if a.has("if") and not DecisionManager.evaluate(a["if"]):
 			continue

@@ -1,0 +1,282 @@
+{
+	"_doc": "Grey-box: factory locker room (chapter 1). Units in metres, y up. Points are interaction spots.",
+	"id": "factory_locker",
+	"size": [
+		10,
+		3.2,
+		7
+	],
+	"floor_color": "#2b2f33",
+	"wall_color": "#4a5058",
+	"background": "#0b0d0f",
+	"ambient": "#6b7480",
+	"ambient_energy": 0.55,
+	"sun": {
+		"rot": [
+			-75,
+			20,
+			0
+		],
+		"energy": 0.35,
+		"color": "#dfe8ff",
+		"shadow": true,
+		"shadow_distance": 14
+	},
+	"lights": [
+		{
+			"pos": [
+				-2,
+				2.8,
+				-1
+			],
+			"range": 6,
+			"energy": 0.9,
+			"color": "#e8f0ff"
+		},
+		{
+			"pos": [
+				3,
+				2.8,
+				1.5
+			],
+			"range": 6,
+			"energy": 0.8,
+			"color": "#ffe9c4"
+		}
+	],
+	"boxes": [
+		{
+			"pos": [
+				-3.6,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				-3.0,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				-2.4,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#6f8394"
+		},
+		{
+			"pos": [
+				-1.8,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				-1.2,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#7a7458"
+		},
+		{
+			"pos": [
+				-0.6,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				0.0,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				0.6,
+				1.0,
+				-3.2
+			],
+			"size": [
+				0.55,
+				2.0,
+				0.5
+			],
+			"color": "#5d6b78"
+		},
+		{
+			"pos": [
+				-1.2,
+				0.22,
+				-1.2
+			],
+			"size": [
+				4.2,
+				0.44,
+				0.45
+			],
+			"color": "#6b5a44"
+		},
+		{
+			"pos": [
+				1.8,
+				0.22,
+				0.8
+			],
+			"size": [
+				0.45,
+				0.44,
+				2.6
+			],
+			"color": "#6b5a44"
+		},
+		{
+			"pos": [
+				4.85,
+				1.5,
+				0.5
+			],
+			"size": [
+				0.08,
+				1.0,
+				1.4
+			],
+			"color": "#8a7a52"
+		},
+		{
+			"pos": [
+				4.8,
+				1.55,
+				0.3
+			],
+			"size": [
+				0.04,
+				0.3,
+				0.22
+			],
+			"color": "#c23b2f",
+			"collide": false
+		},
+		{
+			"pos": [
+				3.8,
+				1.05,
+				3.45
+			],
+			"size": [
+				1.2,
+				2.1,
+				0.06
+			],
+			"color": "#f0a838",
+			"collide": false,
+			"emissive": true
+		},
+		{
+			"pos": [
+				-4.2,
+				0.45,
+				2.6
+			],
+			"size": [
+				1.0,
+				0.9,
+				1.2
+			],
+			"color": "#3f4a40"
+		}
+	],
+	"spawns": {
+		"default": {
+			"pos": [
+				-3.2,
+				0,
+				1.6
+			],
+			"rot": 160
+		}
+	},
+	"actors": [],
+	"points": {
+		"ch01_own_locker": {
+			"pos": [
+				-2.4,
+				0,
+				-2.6
+			],
+			"radius": 0.9
+		},
+		"ch01_selim_locker": {
+			"pos": [
+				-1.2,
+				0,
+				-2.6
+			],
+			"radius": 0.9
+		},
+		"ch01_notice_board": {
+			"pos": [
+				4.4,
+				0,
+				0.5
+			],
+			"radius": 1.5
+		},
+		"ch01_locker_door": {
+			"pos": [
+				3.8,
+				0,
+				3.0
+			],
+			"radius": 1.4
+		}
+	},
+	"camera": {
+		"distance": 2.8
+	}
+}

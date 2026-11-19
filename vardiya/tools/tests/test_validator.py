@@ -1,6 +1,6 @@
 """Unit tests for tools/validate_data.py.  Run: python3 -m unittest discover tools/tests"""
-import copy
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 import validate_data as vd  # noqa: E402
+import story_sim  # noqa: E402
 
 
 def _write(base: Path, rel: str, data) -> None:
@@ -18,10 +19,8 @@ def _write(base: Path, rel: str, data) -> None:
 
 
 def _copy_project(dst: Path) -> None:
-    for rel in ["data/locale/tr.json", "data/locale/en.json", "data/story_flags.json",
-                "data/endings.json", "data/chapters/index.json", "data/chapters/ch00_test.json",
-                "tools/validator_config.json"]:
-        _write(dst, rel, json.loads((ROOT / rel).read_text(encoding="utf-8")))
+    shutil.copytree(ROOT / "data", dst / "data")
+    _write(dst, "tools/validator_config.json", json.loads((ROOT / "tools/validator_config.json").read_text()))
 
 
 def _choice(did, options, major=True):
@@ -169,6 +168,75 @@ class ValidatorTests(unittest.TestCase):
         # avg trust only over living pairs: kemal->defne=4, defne->kemal=0
         self.assertAlmostEqual(s.avg_trust(), 2.0)
         self.assertTrue(vd.evaluate({"decision": "x", "in": ["", "a"]}, s))
+
+
+    def test_copied_project_is_clean(self):
+        rep, _ = vd.validate(self.root)
+        self.assertEqual(rep.errors, [])
+
+    def test_explore_item_without_point_or_actor(self):
+        ch = self.load("data/chapters/ch01_last_check.json")
+        ch["nodes"]["x02"]["items"][0]["id"] = "ch01_nowhere"
+        ch["nodes"]["x02"]["items"][3]["actor"] = "ghost"
+        self.save("data/chapters/ch01_last_check.json", ch)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("no point 'ch01_nowhere'" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("actor 'ghost'" in e for e in rep.errors), rep.errors)
+
+    def test_unknown_scene_and_spawn(self):
+        ch = self.load("data/chapters/ch01_last_check.json")
+        ch["nodes"]["loc_floor"]["spawn"] = "nope"
+        ch["nodes"]["loc_cell"]["scene"] = "moon_base"
+        self.save("data/chapters/ch01_last_check.json", ch)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("no spawn 'nope'" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("unknown location scene 'moon_base'" in e for e in rep.errors), rep.errors)
+
+    def test_qte_needs_both_branches(self):
+        ch = self.load("data/chapters/ch01_last_check.json")
+        del ch["nodes"]["q01"]["fail"]
+        self.save("data/chapters/ch01_last_check.json", ch)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("QTE needs 'fail'" in e for e in rep.errors), rep.errors)
+
+    def test_simulator_flags_option_that_can_never_appear(self):
+        ch = self.load("data/chapters/ch01_last_check.json")
+        ch["nodes"]["c01"]["options"][0]["if"] = {"found": "ch01_item_that_does_not_exist"}
+        self.save("data/chapters/ch01_last_check.json", ch)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("c01.warn' can never be offered" in w for w in rep.warnings), rep.warnings)
+
+    def test_simulator_covers_every_chapter1_branch(self):
+        flags = {k: (v["default"] if isinstance(v, dict) else v)
+                 for k, v in json.loads((ROOT / "data/story_flags.json").read_text()).items() if not k.startswith("_")}
+        ch = json.loads((ROOT / "data/chapters/ch01_last_check.json").read_text())
+        r = story_sim.simulate(ch, flags)
+        self.assertEqual(r["unreachable"], [])
+        self.assertIn("end", r["ends"])
+
+    def test_simulator_conditional_option_needs_exploration(self):
+        """'warn' Selim is only offered if the layoff list was examined."""
+        flags = {"selim_warned": False}
+        ch = json.loads((ROOT / "data/chapters/ch01_last_check.json").read_text())
+        for it in ch["nodes"]["x02"]["items"]:
+            if it["id"] == "ch01_layoff_list":
+                it["if"] = {"flag": "selim_warned"}  # make the list impossible to find
+        r = story_sim.simulate(ch, flags)
+        self.assertTrue(any("c01.warn" in m for m in r["unreachable"]))
+        self.assertTrue(any("c01.hint" in m for m in r["unreachable"]))
+
+
+    def test_walkability_catches_blocked_spawn_and_point(self):
+        loc = self.load("data/locations/factory_locker.json")
+        loc["boxes"].append({"pos": [0, 1.0, 2.2], "size": [10, 2.0, 0.4], "color": "#000000"})
+        loc["spawns"]["default"]["pos"] = [-3.6, 0, -3.2]
+        self.save("data/locations/factory_locker.json", loc)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("spawn 'default' is inside geometry" in e for e in rep.errors), rep.errors)
+        loc["spawns"]["default"]["pos"] = [-3.2, 0, 1.0]
+        self.save("data/locations/factory_locker.json", loc)
+        rep, _ = vd.validate(self.root)
+        self.assertTrue(any("ch01_locker_door' cannot be reached" in e for e in rep.errors), rep.errors)
 
 
 if __name__ == "__main__":

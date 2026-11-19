@@ -6,8 +6,8 @@
 	"card_label": "VARDİYA · HİKÂYE",
 	"genre": {"tr": "Hikâye", "en": "Story"},
 	"developer": "NexDrive Game Studio",
-	"version": "0.2.0",
-	"build": "stage2-prototype",
+	"version": "0.3.0",
+	"build": "stage3-chapter1",
 	"languages": {"text": ["tr", "en"], "voice": [], "subtitles": ["tr", "en"], "default": "tr"},
 	"launch": {
 		"command": "./vardiya.x86_64",

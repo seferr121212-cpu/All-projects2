@@ -11,12 +11,8 @@ const BUTTON_BG := Color(0.15, 0.16, 0.18, 0.95)
 const BUTTON_HOVER := Color(0.22, 0.23, 0.26, 0.95)
 const BG := Color(0.06, 0.07, 0.08)
 
-const SPEAKER_COLORS := {
-	"kemal": Color(0.55, 0.75, 0.95),
-	"defne": Color(0.98, 0.62, 0.45),
-	"riza": Color(0.60, 0.85, 0.55),
-	"narrator": Color(0.70, 0.70, 0.68),
-}
+const NARRATOR_COLOR := Color(0.70, 0.70, 0.68)
+const LocationBuilder = preload("res://scenes/world/location_builder.gd")
 
 const FONT_BODY := 30
 const FONT_SMALL := 22
@@ -64,6 +60,12 @@ static func build() -> Theme:
 	t.set_constant("separation", "VBoxContainer", 14)
 	t.set_constant("separation", "HBoxContainer", 14)
 	return t
+
+
+## Speaker name colour from data/characters.json.
+static func speaker_color(speaker: String) -> Color:
+	var info: Dictionary = LocationBuilder.characters().get(speaker, {})
+	return LocationBuilder.color(info["color"]) if info.has("color") else NARRATOR_COLOR
 
 
 static func make_button(text_key: String, min_width: float = 520.0) -> Button:

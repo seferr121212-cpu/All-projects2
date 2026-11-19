@@ -1,7 +1,7 @@
 # VARDİYA — NexDrive Game Studio
 
 Seçimlere dayalı, üçüncü şahıs sinematik hikâye oyunu (Godot 4.7, Compatibility renderer).
-Şu anki durum: **Aşama 1 + 2** (iskelet + hikâye motoru + deneme bölümü). Ayrıntılı rapor: `docs/RAPOR_ASAMA_1_2.md`.
+Şu anki durum: **Aşama 3** — Bölüm 1 "Son Kontrol" gri kutu 3D mekânlarla oynanabilir. Raporlar: `docs/RAPOR_ASAMA_1_2.md`, `docs/RAPOR_ASAMA_3.md`.
 
 ## Çalıştırma
 
@@ -27,6 +27,14 @@ python3 vardiya/tools/validate_data.py
 python3 -m unittest discover -s vardiya/tools/tests
 ```
 
+```bash
+python3 vardiya/tools/story_sim.py ch01_last_check
+```
+
+```bash
+python3 vardiya/tools/render_map.py
+```
+
 ## Kare süresi ölçümü (hedef cihazda)
 
 ```bash
@@ -44,6 +52,9 @@ Rapor `~/.local/share/vardiya/perf_report.json` içine yazılır; F3 oyun içind
 | `data/endings.json` | Son kuralları (öncelik sırası, eşikler) |
 | `data/locale/` | `tr.json`, `en.json` — oyuncuya görünen tüm metin |
 | `data/story_flags.json` | Bildirilmiş hikâye bayrakları ve varsayılanları |
+| `data/locations/` | Gri kutu mekânlar (kutular, ışıklar, başlangıç ve etkileşim noktaları) |
+| `data/characters.json` | Konuşmacılar (oynanabilir + NPC), renkler |
+| `scenes/world/` | Mekân kurucu, oyuncu, kamera, dünya görünümü |
 | `ui/`, `scenes/` | Menüler, diyalog arayüzü, bölüm oynatıcı |
 | `tools/` | Veri doğrulayıcı ve testleri |
 | `tests/` | Motor içi (headless) testler |

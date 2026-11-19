@@ -43,7 +43,10 @@ func _ready() -> void:
 	_toast = UiTheme.make_label("", UiTheme.FONT_BODY, UiTheme.TEXT_DIM)
 	_toast.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	_toast.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	_toast.offset_left = -700
+	_toast.offset_right = 700
 	_toast.offset_top = 80
+	_toast.offset_bottom = 130
 	_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_toast.modulate.a = 0.0
 	add_child(_toast)
@@ -172,7 +175,7 @@ func _retranslate() -> void:
 		var is_narrator := _line_speaker == "narrator"
 		_speaker.visible = not is_narrator
 		_speaker.text = Localization.t("char." + _line_speaker)
-		_speaker.add_theme_color_override("font_color", UiTheme.SPEAKER_COLORS.get(_line_speaker, UiTheme.TEXT))
+		_speaker.add_theme_color_override("font_color", UiTheme.speaker_color(_line_speaker))
 		_text.text = Localization.t(_line_key)
 		_text.add_theme_color_override("font_color", UiTheme.TEXT_DIM if is_narrator else UiTheme.TEXT)
 	_advance_hint.text = Localization.t("dialogue.advance", {"button": InputRouter.prompt("advance")})

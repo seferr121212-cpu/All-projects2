@@ -1,0 +1,558 @@
+{
+	"id": "ch01_last_check",
+	"version": 1,
+	"title": "ch01.title",
+	"characters": [
+		"kemal"
+	],
+	"start": "loc_locker",
+	"nodes": {
+		"loc_locker": {
+			"type": "location",
+			"location": "loc.ch01.locker",
+			"scene": "factory_locker",
+			"spawn": "default",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.l02",
+			"next": "x01"
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "factory_locker",
+			"objective": "ch01.obj.locker",
+			"items": [
+				{
+					"id": "ch01_own_locker",
+					"label": "ch01.it.own_locker",
+					"journal": "journal.ch01.photo",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.own_locker.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_selim_locker",
+					"label": "ch01.it.selim_locker",
+					"journal": "journal.ch01.selim_baby",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.selim_locker.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_notice_board",
+					"label": "ch01.it.notice_board",
+					"journal": "journal.ch01.flyer",
+					"effects": [
+						{
+							"add_counter": "strike_awareness",
+							"delta": 1
+						}
+					],
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.notice_board.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_locker_door",
+					"label": "ch01.it.locker_door",
+					"requires": {
+						"found": "ch01_own_locker"
+					},
+					"locked_text": "ch01.it.locker_door.locked",
+					"next": "loc_floor"
+				}
+			]
+		},
+		"loc_floor": {
+			"type": "location",
+			"location": "loc.ch01.floor",
+			"scene": "factory_floor",
+			"spawn": "from_locker",
+			"player": "kemal",
+			"next": "l03"
+		},
+		"l03": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.l03",
+			"next": "c00"
+		},
+		"c00": {
+			"type": "choice",
+			"decision_id": "b1_nevin_selam",
+			"major": false,
+			"timer": 8,
+			"prompt": "ch01.c00.prompt",
+			"options": [
+				{
+					"id": "ok",
+					"text": "ch01.c00.ok",
+					"next": "r00_ok"
+				},
+				{
+					"id": "push",
+					"text": "ch01.c00.push",
+					"next": "r00_push",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "angry"
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r00_silence"
+			}
+		},
+		"r00_ok": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.r00_ok",
+			"next": "x02"
+		},
+		"r00_push": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.r00_push",
+			"next": "x02"
+		},
+		"r00_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r00_silence",
+			"next": "x02"
+		},
+		"x02": {
+			"type": "explore",
+			"scene": "factory_floor",
+			"objective": "ch01.obj.floor",
+			"items": [
+				{
+					"id": "ch01_work_order",
+					"label": "ch01.it.work_order",
+					"journal": "journal.ch01.work_order",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.work_order.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_layoff_list",
+					"label": "ch01.it.layoff_list",
+					"journal": "journal.ch01.layoff_list",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "anxious"
+						}
+					],
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.layoff_list.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.layoff_list.l2"
+						}
+					]
+				},
+				{
+					"id": "ch01_robot_panel",
+					"label": "ch01.it.robot_panel",
+					"journal": "journal.ch01.fault_log",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.robot_panel.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_selim",
+					"actor": "selim",
+					"label": "ch01.it.selim",
+					"requires": {
+						"found": "ch01_work_order"
+					},
+					"locked_text": "ch01.it.selim.locked",
+					"next": "l04"
+				}
+			]
+		},
+		"l04": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.l04",
+			"next": "l05"
+		},
+		"l05": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.l05",
+			"next": "c01"
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "b1_selim_uyar",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch01.c01.prompt",
+			"options": [
+				{
+					"id": "warn",
+					"if": {
+						"found": "ch01_layoff_list"
+					},
+					"text": "ch01.c01.warn",
+					"next": "r01_warn",
+					"effects": [
+						{
+							"set_flag": "selim_warned",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "hint",
+					"if": {
+						"found": "ch01_layoff_list"
+					},
+					"text": "ch01.c01.hint",
+					"next": "r01_hint"
+				},
+				{
+					"id": "joke",
+					"text": "ch01.c01.joke",
+					"next": "r01_joke",
+					"effects": [
+						{
+							"if": {
+								"found": "ch01_layoff_list"
+							},
+							"mood": "kemal",
+							"value": "guilty"
+						}
+					]
+				},
+				{
+					"id": "ask",
+					"text": "ch01.c01.ask",
+					"next": "r01_ask",
+					"effects": [
+						{
+							"journal": "journal.ch01.night_crew"
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r01_silence",
+				"effects": [
+					{
+						"if": {
+							"found": "ch01_layoff_list"
+						},
+						"mood": "kemal",
+						"value": "guilty"
+					}
+				]
+			}
+		},
+		"r01_warn": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.r01_warn",
+			"next": "r01_warn_b"
+		},
+		"r01_warn_b": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.r01_warn_b",
+			"next": "loc_cell"
+		},
+		"r01_hint": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.r01_hint",
+			"next": "loc_cell"
+		},
+		"r01_joke": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.r01_joke",
+			"next": "loc_cell"
+		},
+		"r01_ask": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.r01_ask",
+			"next": "loc_cell"
+		},
+		"r01_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r01_silence",
+			"next": "loc_cell"
+		},
+		"loc_cell": {
+			"type": "location",
+			"location": "loc.ch01.cell",
+			"scene": "factory_floor",
+			"spawn": "robot_cell",
+			"player": "kemal",
+			"next": "l07"
+		},
+		"l07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.l07",
+			"next": "l08"
+		},
+		"l08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.l08",
+			"next": "q01"
+		},
+		"q01": {
+			"type": "qte",
+			"decision_id": "b1_kol_qte",
+			"mode": "press",
+			"time": 1.4,
+			"prompt": "ch01.qte.dodge",
+			"success": {
+				"next": "r_q_ok"
+			},
+			"fail": {
+				"next": "r_q_fail",
+				"effects": [
+					{
+						"set_flag": "kemal_injured",
+						"value": true
+					},
+					{
+						"mood": "kemal",
+						"value": "angry"
+					}
+				]
+			}
+		},
+		"r_q_ok": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r_q_ok",
+			"next": "l09"
+		},
+		"r_q_fail": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r_q_fail",
+			"next": "l09"
+		},
+		"l09": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.l09",
+			"next": "l10",
+			"variants": [
+				{
+					"if": {
+						"flag": "kemal_injured"
+					},
+					"text": "ch01.l09_injured"
+				}
+			]
+		},
+		"l10": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.l10",
+			"next": "chk2",
+			"variants": [
+				{
+					"if": {
+						"flag": "kemal_injured"
+					},
+					"text": "ch01.l10_injured"
+				}
+			]
+		},
+		"chk2": {
+			"type": "checkpoint",
+			"next": "c02"
+		},
+		"c02": {
+			"type": "choice",
+			"decision_id": "b1_ariza_rapor",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch01.c02.prompt",
+			"options": [
+				{
+					"id": "report",
+					"text": "ch01.c02.report",
+					"next": "r02_report",
+					"effects": [
+						{
+							"set_flag": "fault_reported",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "evidence",
+					"if": {
+						"found": "ch01_robot_panel"
+					},
+					"text": "ch01.c02.evidence",
+					"next": "r02_evidence",
+					"effects": [
+						{
+							"set_flag": "fault_reported",
+							"value": true
+						},
+						{
+							"set_flag": "fault_evidence",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "fix",
+					"text": "ch01.c02.fix",
+					"next": "r02_fix",
+					"effects": [
+						{
+							"set_flag": "fault_fixed_secretly",
+							"value": true
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": -1
+						}
+					]
+				},
+				{
+					"id": "sign",
+					"text": "ch01.c02.sign",
+					"next": "r02_sign",
+					"effects": [
+						{
+							"set_flag": "fault_hidden",
+							"value": true
+						},
+						{
+							"mood": "kemal",
+							"value": "guilty"
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r02_silence",
+				"effects": [
+					{
+						"set_flag": "fault_hidden",
+						"value": true
+					}
+				]
+			}
+		},
+		"r02_report": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.r02_report",
+			"next": "r02_report_b"
+		},
+		"r02_report_b": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.r02_report_b",
+			"next": "outro"
+		},
+		"r02_evidence": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.r02_evidence",
+			"next": "outro"
+		},
+		"r02_fix": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r02_fix",
+			"next": "outro"
+		},
+		"r02_sign": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch01.r02_sign",
+			"next": "outro"
+		},
+		"r02_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.r02_silence",
+			"next": "outro"
+		},
+		"outro": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "selim_warned"
+					},
+					"next": "l_end_warned"
+				}
+			],
+			"else": "l_end"
+		},
+		"l_end_warned": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.l_end_warned",
+			"next": "end"
+		},
+		"l_end": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.l_end",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": null
+		}
+	}
+}

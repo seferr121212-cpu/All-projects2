@@ -34,16 +34,16 @@ func load_location(scene_id: String, spawn: String, player_id: String) -> bool:
 	actors = built["actors"]
 	points = built["points"]
 	var spawns: Dictionary = built["spawns"]
-	var tr: Transform3D = spawns.get(spawn, spawns.get("default", Transform3D.IDENTITY))
+	var xf: Transform3D = spawns.get(spawn, spawns.get("default", Transform3D.IDENTITY))
 	player = PlayerController.new()
 	player.setup(player_id, LocationBuilder.make_body(player_id))
 	_content.add_child(player)
-	player.global_position = tr.origin
-	player.visual.rotation.y = tr.basis.get_euler().y
+	player.global_position = xf.origin
+	player.visual.rotation.y = xf.basis.get_euler().y
 	var cam: Dictionary = built["camera"]
 	rig = CameraRig.new()
 	_content.add_child(rig)
-	rig.setup(player, float(cam.get("distance", 3.4)), tr.basis.get_euler().y + PI)
+	rig.setup(player, float(cam.get("distance", 3.4)), xf.basis.get_euler().y + PI)
 	player.camera_pivot = rig
 	return true
 

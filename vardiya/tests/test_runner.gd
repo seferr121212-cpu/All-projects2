@@ -16,6 +16,9 @@ func _ready() -> void:
 		"test_conditional_option_hidden", "test_line_variant", "test_save_load_same_state",
 		"test_restart_chapter_restores_snapshot", "test_save_migration", "test_endings_resolution",
 		"test_chapter_summary", "test_input_actions",
+		"test_explore_locked_and_exit", "test_explore_found_unlocks_option", "test_qte_press_and_fail",
+		"test_qte_easy_and_hold_alternative", "test_flowchart_graph", "test_resume_inside_exploration",
+		"test_chapter1_full_playthrough", "test_location_data_builds",
 	]:
 		GameState.reset()
 		SaveSystem.active_slot = -1
@@ -182,6 +185,7 @@ func test_line_variant() -> void:
 
 func test_save_load_same_state() -> void:
 	SaveSystem.new_game(1)
+	SaveSystem.begin_chapter("ch00_test")
 	DialogueRunner.start(GameState.current_chapter)
 	_run_to_choice()
 	DialogueRunner.choose("truth")  # major -> autosave
@@ -197,6 +201,7 @@ func test_save_load_same_state() -> void:
 
 func test_restart_chapter_restores_snapshot() -> void:
 	SaveSystem.new_game(2)
+	SaveSystem.begin_chapter("ch00_test")
 	DialogueRunner.start(GameState.current_chapter)
 	_run_to_choice()
 	DialogueRunner.choose("deflect")
@@ -265,3 +270,188 @@ func test_input_actions() -> void:
 			if ev is InputEventJoypadButton or ev is InputEventJoypadMotion:
 				has_pad = true
 		check(has_pad, "gamepad binding for " + a)
+
+
+# --- Stage 3: exploration, QTE, flowchart, chapter 1 ----------------------------
+
+func _settings_reset() -> void:
+	SaveSystem.settings["qte_easy"] = false
+	SaveSystem.settings["qte_hold_alternative"] = false
+	SaveSystem.settings["choice_timer_scale"] = 1.0
+
+
+func _run_until_blocking() -> void:
+	var guard := 0
+	while DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE and guard < 200:
+		DialogueRunner.advance()
+		guard += 1
+
+
+func test_explore_locked_and_exit() -> void:
+	DialogueRunner.start("ch01_last_check")
+	_run_until_blocking()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.EXPLORE, "ch01 starts in exploration")
+	check(GameState.location.get("scene") == "factory_locker", "location stored")
+	check(DialogueRunner.explore_items().size() == 4, "four locker-room items")
+	check(DialogueRunner.interact("ch01_locker_door"), "locked door interacts")
+	check(DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE, "locked door plays a line")
+	DialogueRunner.advance()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.EXPLORE, "back to exploring after locked line")
+	check(not GameState.has_found("ch01_locker_door"), "locked item not marked found")
+	DialogueRunner.interact("ch01_own_locker")
+	_run_until_blocking()
+	check(GameState.has_found("ch01_own_locker"), "locker found")
+	check("journal.ch01.photo" in GameState.journal, "journal note collected")
+	check(not DialogueRunner.interact("no_such_item"), "unknown item refused")
+	DialogueRunner.interact("ch01_locker_door")
+	_run_until_blocking()
+	check(GameState.location.get("scene") == "factory_floor", "moved to factory floor")
+	check(DialogueRunner.current_node_id == "c00", "Nevin's greeting choice")
+
+
+func _to_floor_explore() -> void:
+	DialogueRunner.start("ch01_last_check")
+	_run_until_blocking()
+	DialogueRunner.interact("ch01_own_locker")
+	_run_until_blocking()
+	DialogueRunner.interact("ch01_locker_door")
+	_run_until_blocking()
+	DialogueRunner.choose("ok")
+	_run_until_blocking()
+
+
+func test_explore_found_unlocks_option() -> void:
+	_to_floor_explore()
+	check(DialogueRunner.current_node_id == "x02", "floor exploration")
+	DialogueRunner.interact("ch01_work_order")
+	_run_until_blocking()
+	DialogueRunner.interact("ch01_selim")
+	_run_until_blocking()
+	check(DialogueRunner.current_options().size() == 2, "without the list only 2 options")
+	GameState.reset()
+	_to_floor_explore()
+	for id in ["ch01_layoff_list", "ch01_work_order", "ch01_selim"]:
+		DialogueRunner.interact(id)
+		_run_until_blocking()
+	check(DialogueRunner.current_options().size() == 4, "seeing the list unlocks warn + hint")
+	check(DecisionManager.evaluate({"found": "ch01_layoff_list"}), "found condition")
+
+
+func _to_qte() -> void:
+	_to_floor_explore()
+	for id in ["ch01_work_order", "ch01_selim"]:
+		DialogueRunner.interact(id)
+		_run_until_blocking()
+	DialogueRunner.choose("joke")
+	_run_until_blocking()
+
+
+func test_qte_press_and_fail() -> void:
+	_settings_reset()
+	_to_qte()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.QTE, "reached QTE")
+	DialogueRunner.qte_press()
+	check(GameState.get_decision("b1_kol_qte") == "success", "press succeeds")
+	check(not GameState.get_flag("kemal_injured"), "no injury on success")
+	GameState.reset()
+	_to_qte()
+	DialogueRunner._process(5.0)
+	check(GameState.get_decision("b1_kol_qte") == "fail", "timeout fails")
+	check(GameState.get_flag("kemal_injured") == true, "fail branch effect")
+	check(DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE, "story continues after failed QTE")
+	var shown := []
+	var cb := func(_s: String, key: String) -> void: shown.append(key)
+	DialogueRunner.line_shown.connect(cb)
+	_run_until_blocking()
+	DialogueRunner.line_shown.disconnect(cb)
+	check("ch01.l09_injured" in shown, "injury changes later dialogue")
+
+
+func test_qte_easy_and_hold_alternative() -> void:
+	SaveSystem.settings["qte_easy"] = true
+	SaveSystem.settings["qte_hold_alternative"] = true
+	DialogueRunner.chapter = {"id": "t", "nodes": {
+		"q": {"type": "qte", "mode": "mash", "count": 8, "time": 2.0, "hold_time": 1.0,
+			"success": {"next": "e"}, "fail": {"next": "e"}},
+		"e": {"type": "end"}}}
+	DialogueRunner._goto("q")
+	check(DialogueRunner.qte["mode"] == "hold", "mash becomes hold with accessibility option")
+	check(is_equal_approx(float(DialogueRunner.qte["time_total"]), 3.5), "easy mode extends time")
+	check(int(DialogueRunner.qte["count"]) == 4, "easy mode halves presses")
+	DialogueRunner.qte_set_holding(true)
+	DialogueRunner._process(0.6)
+	check(DialogueRunner.waiting == DialogueRunner.Wait.QTE, "still holding")
+	DialogueRunner._process(0.6)
+	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "hold completes QTE")
+	_settings_reset()
+	DialogueRunner._goto("q")
+	for i in 8:
+		DialogueRunner.qte_press()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "mash completes after count")
+
+
+func test_flowchart_graph() -> void:
+	DialogueRunner.start("ch00_test")
+	_run_to_choice()
+	DialogueRunner.choose("truth")
+	_run_to_choice()
+	var g := DecisionManager.build_flowchart(DialogueRunner.chapter)
+	var by_id := {}
+	for p: Dictionary in g["points"]:
+		by_id[p["id"]] = p
+	check(by_id.has("__start") and by_id.has("c01") and by_id.has("c02") and by_id.has("end"), "flowchart points")
+	check(int(by_id["c01"]["layer"]) == 1 and int(by_id["c02"]["layer"]) == 2, "flowchart layers")
+	check(by_id["c01"]["visited"] and by_id["c02"]["visited"] and not by_id["end"]["visited"], "visited flags")
+	var truth: Dictionary = by_id["c01"]["options"][0]
+	check(truth["chosen"] and "c02" in truth["targets"], "chosen edge leads to c02")
+	check((by_id["c01"]["options"] as Array).size() == 4, "options include silence")
+
+
+func test_resume_inside_exploration() -> void:
+	SaveSystem.new_game(0)
+	DialogueRunner.start(GameState.current_chapter)
+	_run_until_blocking()
+	DialogueRunner.interact("ch01_notice_board")
+	_run_until_blocking()
+	check(SaveSystem.has_save(0), "autosaved in exploration")
+	GameState.reset()
+	SaveSystem.load_slot(0)
+	check(GameState.current_node == "x01", "resume node is the exploration")
+	check(GameState.has_found("ch01_notice_board"), "found item survives save")
+	check(GameState.location.get("scene") == "factory_locker", "location survives save")
+	DialogueRunner.start(GameState.current_chapter, GameState.current_node)
+	check(DialogueRunner.waiting == DialogueRunner.Wait.EXPLORE, "resumed into exploration")
+
+
+func test_chapter1_full_playthrough() -> void:
+	_settings_reset()
+	_to_floor_explore()
+	for id in ["ch01_robot_panel", "ch01_layoff_list", "ch01_work_order", "ch01_selim"]:
+		DialogueRunner.interact(id)
+		_run_until_blocking()
+	DialogueRunner.choose("warn")
+	_run_until_blocking()
+	DialogueRunner.qte_press()
+	_run_until_blocking()
+	check(DialogueRunner.current_options().size() == 4, "evidence option unlocked by the panel")
+	DialogueRunner.choose("evidence")
+	_run_until_blocking()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "chapter 1 finished")
+	check(GameState.get_flag("selim_warned") and GameState.get_flag("fault_evidence"), "major decision flags")
+	var majors := 0
+	for n: Dictionary in DialogueRunner.chapter["nodes"].values():
+		if n.get("major", false):
+			majors += 1
+	check(majors >= 2, "chapter 1 has 2+ major decisions")
+
+
+func test_location_data_builds() -> void:
+	const LocationBuilder = preload("res://scenes/world/location_builder.gd")
+	for id in ["factory_locker", "factory_floor"]:
+		var root := Node3D.new()
+		add_child(root)
+		GameState.location = {"player": "kemal"}
+		var built := LocationBuilder.build(root, LocationBuilder.load_data(id))
+		check(not (built["spawns"] as Dictionary).is_empty(), id + " has spawns")
+		check(root.get_child_count() > 6, id + " built geometry")
+		root.queue_free()

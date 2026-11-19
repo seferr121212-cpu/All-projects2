@@ -1,6 +1,9 @@
 {
-	"_doc": "Chapter play order. Stage 2 ships only the test chapter; ch01-ch08 are added in stages 3-4.",
+	"_doc": "Chapter play order. test_chapters are validated and used by tests but are not part of a new game. ch02-ch08 arrive in stage 4.",
 	"chapters": [
+		{"id": "ch01_last_check", "title": "ch01.title", "characters": ["kemal"]}
+	],
+	"test_chapters": [
 		{"id": "ch00_test", "title": "ch00.title", "characters": ["kemal", "defne", "riza"]}
 	]
 }

@@ -93,7 +93,7 @@ func camera() -> Camera3D:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_RIGHT:
-		_rotating = event.pressed
+		_rotating = (event as InputEventMouseButton).pressed
 	elif event is InputEventMouseMotion and _rotating and not _focus:
 		var m := event as InputEventMouseMotion
 		yaw -= m.relative.x * MOUSE_SPEED
