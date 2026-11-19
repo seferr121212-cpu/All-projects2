@@ -49,6 +49,7 @@ func _ready() -> void:
 	_camera.name = "PhotoCamera"
 	_camera.far = 4500.0
 	_camera.attributes = _attributes
+	_camera.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	add_child(_camera)
 
 	_filter_layer.layer = 5

@@ -28,6 +28,7 @@ var _smoothed_pos := Vector3.ZERO
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # moved in _process
 	camera.fov = base_fov
 	camera.far = 4500.0
 	camera.near = 0.1
@@ -56,7 +57,7 @@ func toggle_mode() -> void:
 		return
 	mode = Mode.COCKPIT if mode == Mode.THIRD_PERSON else Mode.THIRD_PERSON
 	pitch = -0.05 if mode == Mode.COCKPIT else -0.18
-	yaw = target.global_rotation.y
+	yaw = _target_yaw()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -71,6 +72,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle_mode()
 
 
+## Smoothed (interpolated) pose of the followed body, so a 144 Hz camera does
+## not judder against the 60 Hz physics steps.
+func _target_pos() -> Vector3:
+	return target.get_global_transform_interpolated().origin
+
+
+func _target_yaw() -> float:
+	return target.get_global_transform_interpolated().basis.get_euler().y
+
+
 func _process(delta: float) -> void:
 	if target == null:
 		return
@@ -82,7 +93,7 @@ func _process(delta: float) -> void:
 	if mode == Mode.COCKPIT:
 		_process_cockpit(delta)
 	elif mode == Mode.FIRST_PERSON:
-		global_position = target.global_position + Vector3(0, 1.58, 0)
+		global_position = _target_pos() + Vector3(0, 1.58, 0)
 		rotation = Vector3(pitch, yaw, 0.0)
 		_spring.spring_length = 0.0
 		camera.fov = lerpf(camera.fov, 70.0, 1.0 - exp(-4.0 * delta))
@@ -95,12 +106,12 @@ func _process_third_person(delta: float) -> void:
 	if follow_vehicle and target is CamperController:
 		speed = (target as CamperController).speed
 		if _idle_time > recenter_delay and absf(speed) > 2.0:
-			var behind: float = target.global_rotation.y + (PI if speed < -0.5 else 0.0)
+			var behind: float = _target_yaw() + (PI if speed < -0.5 else 0.0)
 			yaw = lerp_angle(yaw, behind, 1.0 - exp(-1.6 * delta))
 			pitch = lerpf(pitch, -0.2, 1.0 - exp(-1.0 * delta))
 	var height: float = vehicle_height if follow_vehicle else walker_height
 	var distance: float = vehicle_distance if follow_vehicle else walker_distance
-	var goal: Vector3 = target.global_position + Vector3(0, height, 0)
+	var goal: Vector3 = _target_pos() + Vector3(0, height, 0)
 	_smoothed_pos = _smoothed_pos.lerp(goal, 1.0 - exp(-10.0 * delta))
 	global_position = _smoothed_pos
 	rotation = Vector3(pitch, yaw, 0.0)
@@ -111,10 +122,11 @@ func _process_third_person(delta: float) -> void:
 func _process_cockpit(_delta: float) -> void:
 	var visual: Node3D = target.get_node_or_null(^"Visual")
 	var basis_src: Node3D = visual if visual else target
-	global_position = basis_src.global_transform * cockpit_offset
-	var rel_yaw: float = clampf(wrapf(yaw - target.global_rotation.y, -PI, PI), -1.9, 1.9)
-	yaw = target.global_rotation.y + rel_yaw
-	global_basis = basis_src.global_basis * Basis.from_euler(Vector3(pitch, rel_yaw, 0.0))
+	var src_xf: Transform3D = basis_src.get_global_transform_interpolated()
+	global_position = src_xf * cockpit_offset
+	var rel_yaw: float = clampf(wrapf(yaw - _target_yaw(), -PI, PI), -1.9, 1.9)
+	yaw = _target_yaw() + rel_yaw
+	global_basis = src_xf.basis * Basis.from_euler(Vector3(pitch, rel_yaw, 0.0))
 	_spring.spring_length = 0.0
 	camera.fov = base_fov + 6.0
 

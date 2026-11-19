@@ -4,7 +4,7 @@ import sys, os, math, random
 import bpy
 from mathutils import Vector, Matrix, noise
 sys.path.insert(0, os.path.dirname(__file__))
-from blender_models import paint, ico, cone, branch, OUT
+from blender_models import paint, ico, cone, branch, OUT, bake_ao
 from blender_structures import paint_fn, lathe
 from blender_characters import Body, weigh, pose
 
@@ -75,7 +75,9 @@ def export_rig(name, b, spec, scale=1.0):
         ob.select_set(True)
     bpy.context.view_layer.objects.active = b.obs[0]
     bpy.ops.object.join()
-    body = b.obs[0]; body.name = name; body.parent = arm
+    body = b.obs[0]; body.name = name
+    bake_ao(body, strength=0.75)
+    body.parent = arm
     body.modifiers.new("Armature", 'ARMATURE').object = arm
     arm.animation_data_create()
     for an, fn, frames, step in (("idle", idle, 90, 5), ("walk", walk, 30, 2), ("work", graze, 120, 4)):

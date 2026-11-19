@@ -16,6 +16,7 @@ var _moo_streams: Array[AudioStreamWAV] = []
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # animated in _process
 	_rng.seed = herd_seed
 	var coats: Array[Color] = [Color(0.45, 0.3, 0.2), Color(0.55, 0.4, 0.28), Color(0.35, 0.24, 0.17), Color(0.62, 0.5, 0.38)]
 	if animal == "cat":

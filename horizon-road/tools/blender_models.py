@@ -102,12 +102,57 @@ def smooth_all(obs, smooth):
             p.use_smooth = smooth
 
 
+def bake_ao(ob, rays=22, strength=0.9, ground=True, seed=1):
+    """Bakes ambient occlusion into the vertex colours (multiplied per corner).
+    Hemisphere rays are cast against the mesh itself and a virtual ground plane
+    at z = 0, so crevices, under-eaves and contact areas read darker."""
+    from mathutils.bvhtree import BVHTree
+    me = ob.data
+    attr = me.color_attributes.active_color
+    if attr is None or len(me.vertices) == 0:
+        return
+    dg = bpy.context.evaluated_depsgraph_get()
+    tree = BVHTree.FromObject(ob, dg)
+    size = max(ob.dimensions) or 1.0
+    dist = min(max(size * 0.16, 0.22), 1.6)
+    rnd = random.Random(seed)
+    dirs = []
+    for _ in range(rays):  # cosine-ish hemisphere samples in tangent space (z up)
+        u, v = rnd.random(), rnd.random()
+        r = math.sqrt(u); a = math.tau * v
+        dirs.append(Vector((r * math.cos(a), r * math.sin(a), math.sqrt(max(0.0, 1 - u)))))
+    occ = []
+    for v in me.vertices:
+        n = v.normal.normalized()
+        t = n.cross(Vector((0, 0, 1)) if abs(n.z) < 0.9 else Vector((1, 0, 0))).normalized()
+        b = n.cross(t)
+        o = v.co + n * 0.01
+        hit = 0.0
+        for d in dirs:
+            w = t * d.x + b * d.y + n * d.z
+            h = tree.ray_cast(o, w, dist)
+            if h[0] is not None:
+                hit += 1.0 - 0.5 * (h[3] / dist)
+            elif ground and w.z < -0.02:
+                tg = -o.z / w.z
+                if 0 <= tg < dist:
+                    hit += 1.0 - 0.5 * (tg / dist)
+        occ.append(hit / rays)
+    for poly in me.polygons:
+        for li in poly.loop_indices:
+            k = 1.0 - strength * occ[me.loops[li].vertex_index]
+            c = attr.data[li].color
+            attr.data[li].color = (c[0] * k, c[1] * k, c[2] * k, c[3])
+
+
 def export(name, obs):
     bpy.ops.object.select_all(action='DESELECT')
     for ob in obs:
         ob.select_set(True)
     bpy.context.view_layer.objects.active = obs[0]
     bpy.ops.object.join()
+    if not name.endswith("_win"):
+        bake_ao(bpy.context.view_layer.objects.active)
     path = os.path.join(OUT, name + ".glb")
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True,
                               export_vertex_color='ACTIVE', export_all_vertex_colors=False,

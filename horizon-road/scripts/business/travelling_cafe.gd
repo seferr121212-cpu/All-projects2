@@ -31,6 +31,7 @@ static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # animated in _process
 	add_to_group(&"cafe")
 	_rng.randomize()
 	_travel = get_tree().get_first_node_in_group(&"travel") as TravelController

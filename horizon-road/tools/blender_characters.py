@@ -7,7 +7,7 @@ import sys, os, math, random
 import bpy, bmesh
 from mathutils import Vector, Matrix
 sys.path.insert(0, os.path.dirname(__file__))
-from blender_models import reset, paint, ico, cone, cube, branch, smooth_all, head, OUT, SKIN
+from blender_models import reset, paint, ico, cone, cube, branch, smooth_all, head, OUT, SKIN, bake_ao
 from blender_structures import lathe, paint_fn, box
 
 S = lambda c, k: tuple(min(1.0, x * k) for x in c)
@@ -435,6 +435,7 @@ def rig_export(name, b):
     bpy.ops.object.join()
     body = b.obs[0]
     body.name = name
+    bake_ao(body, strength=0.75)
     body.parent = arm
     m = body.modifiers.new("Armature", 'ARMATURE')
     m.object = arm

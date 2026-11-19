@@ -13,6 +13,7 @@ var _rest_y: Array[float] = []
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # animated in _process
 	var pier := MeshInstance3D.new()
 	pier.mesh = LowPolyMeshes.pier(pier_length, pier_width)
 	pier.rotation.y = PI

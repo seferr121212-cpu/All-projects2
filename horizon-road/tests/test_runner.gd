@@ -125,6 +125,7 @@ func _test_photo_scoring() -> void:
 	_check(size.x > 0 and size.y > 0, "viewport has a size for projection")
 	var cam := Camera3D.new()
 	cam.fov = 60.0
+	cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	add_child(cam)
 	cam.global_transform = Transform3D(Basis(), Vector3(5000, 50, 5000))
 	var subject := PhotoSubject.new()

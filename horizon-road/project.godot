@@ -10,7 +10,7 @@ config/description="Ufuk Yolu: a calm, low-poly exploration game about travellin
 run/main_scene="res://regions/blacksea_highland/blacksea_highland.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.png"
-config/version="0.10.0"
+config/version="0.10.1"
 
 [autoload]
 
@@ -38,6 +38,7 @@ locale/fallback="en"
 
 3d/physics_engine="Jolt Physics"
 common/physics_ticks_per_second=60
+common/physics_interpolation=true
 
 [rendering]
 

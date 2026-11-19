@@ -23,6 +23,7 @@ var _flames: Array[OmniLight3D] = []
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # animated in _process
 	_terrain = get_node(terrain_path) as HighlandTerrain
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 1923

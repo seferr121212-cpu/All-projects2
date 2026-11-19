@@ -105,6 +105,7 @@ func from_save(data: Dictionary) -> void:
 		return
 	var p: Array = data.pos
 	global_transform = Transform3D(Basis(Vector3.UP, float(data.get("yaw", 0.0))), Vector3(p[0], p[1] + 0.3, p[2]))
+	reset_physics_interpolation()
 	velocity = Vector3.ZERO
 	speed = 0.0
 

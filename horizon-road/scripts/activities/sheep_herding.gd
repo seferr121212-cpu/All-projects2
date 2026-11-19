@@ -25,6 +25,7 @@ var _bleat: AudioStreamPlayer3D
 
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF  # animated in _process
 	super._ready()
 	add_to_group(&"save_participant")
 	activity_id = &"herding"

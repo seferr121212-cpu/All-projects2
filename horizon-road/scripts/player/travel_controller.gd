@@ -93,6 +93,7 @@ func enter_interior() -> void:
 	camper.get_node(^"Collision").disabled = true
 	_side_door.enabled = false
 	walker.global_position = interior.get_spawn_global()
+	walker.reset_physics_interpolation()
 	walker.velocity = Vector3.ZERO
 	walker.get_node(^"Visual").visible = false
 	follow_camera.set_target(walker, false)
@@ -112,6 +113,7 @@ func exit_interior() -> void:
 	if region:
 		pos.y = region.get_ground_height(pos.x, pos.z) + 0.1
 	walker.global_position = pos
+	walker.reset_physics_interpolation()
 	walker.velocity = Vector3.ZERO
 	walker.get_node(^"Visual").visible = true
 	follow_camera.set_first_person(false)
@@ -166,6 +168,7 @@ func _exit_vehicle() -> void:
 	if region:
 		pos.y = region.get_ground_height(pos.x, pos.z) + 0.1
 	walker.global_position = pos
+	walker.reset_physics_interpolation()
 	walker.velocity = Vector3.ZERO
 	_set_walker_present(true)
 	camper.active = false
