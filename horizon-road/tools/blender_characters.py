@@ -235,12 +235,19 @@ def villager_woman():
         b.limb((0.09 * side, 0.0, 0.5), jp("shin", side, 1), 0.065, 0.05, (0.3, 0.2, 0.35), bone_name("shin", side))
         b.limb(jp("thigh", side), jp("thigh", side, 1), 0.075, 0.065, (0.3, 0.2, 0.35), bone_name("thigh", side), cap=False)
     # Long floral skirt, widening to mid-calf.
+    fl = random.Random(5)
+    flowers = [(fl.uniform(0, math.tau), fl.uniform(0.33, 0.95), fl.choice([(0.95, 0.75, 0.3), (0.9, 0.4, 0.45), (0.95, 0.93, 0.88)])) for _ in range(70)]
+
     def floral(c, n):
-        r = random.Random(int(c.z * 40) * 31 + int(math.atan2(c.y, c.x) * 8))
-        return (0.95, 0.75, 0.3) if r.random() < 0.12 else ((0.86, 0.35, 0.4) if r.random() < 0.1 else skirt)
+        a = math.atan2(c.y, c.x)
+        for fa, fz, col in flowers:
+            da = abs((a - fa + math.pi) % math.tau - math.pi) * 0.28
+            if da * da + (c.z - fz) ** 2 < 0.03 ** 2:
+                return col
+        return skirt
     sp = [(0.17, 1.0), (0.2, 0.92), (0.26, 0.7), (0.3, 0.45), (0.31, 0.3)]
-    sp = [(sp[i][0] + (sp[i + 1][0] - sp[i][0]) * k / 8, sp[i][1] + (sp[i + 1][1] - sp[i][1]) * k / 8) for i in range(len(sp) - 1) for k in range(8)] + [sp[-1]]
-    sk = lathe(sp, 32, "skirt")
+    sp = [(sp[i][0] + (sp[i + 1][0] - sp[i][0]) * k / 16, sp[i][1] + (sp[i + 1][1] - sp[i][1]) * k / 16) for i in range(len(sp) - 1) for k in range(16)] + [sp[-1]]
+    sk = lathe(sp, 64, "skirt")
     for v in sk.data.vertices:
         v.co.y *= 0.82
     paint_fn(sk, floral); b.add(sk, drape_w(0.6))

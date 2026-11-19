@@ -33,6 +33,13 @@ func _ready() -> void:
 		var node := Node3D.new()
 		var mi := MeshInstance3D.new()
 		mi.mesh = AnatoliaMeshes.balloon(600 + i, cols)
+		# Keep the envelopes vivid against the hazy dawn sky.
+		var mat := mi.mesh.surface_get_material(0) as StandardMaterial3D
+		if mat:
+			mat.disable_fog = true
+			mat.emission_enabled = true
+			mat.emission = Color(0.12, 0.08, 0.05)
+		mi.scale = Vector3.ONE * 1.3
 		node.add_child(mi)
 		var flame := OmniLight3D.new()
 		flame.light_color = Color(1.0, 0.6, 0.25)

@@ -26,7 +26,17 @@ func _ready() -> void:
 			var p := Vector2(c.x, c.y) + Vector2(rng.randf_range(-1, 1), rng.randf_range(-1, 1)) * c.z
 			if Vector2(c.x, c.y).distance_to(p) > c.z or terrain.distance_to_road(p.x, p.y) < terrain.road_half_width + 7.0:
 				continue
-			if terrain.normal_at(p.x, p.y).y < 0.8:
+			if terrain.normal_at(p.x, p.y).y < 0.85:
+				continue
+			# The whole base must sit on level ground, not straddle a mesa edge.
+			var h0: float = terrain.height_at(p.x, p.y)
+			var level: bool = true
+			for k: int in 8:
+				var q: Vector2 = p + Vector2.from_angle(k * TAU / 8.0) * 4.0
+				if absf(terrain.height_at(q.x, q.y) - h0) > 0.9:
+					level = false
+					break
+			if not level:
 				continue
 			var ok: bool = true
 			for q: Vector2 in placed:
@@ -37,6 +47,7 @@ func _ready() -> void:
 				continue
 			placed.append(p)
 			_place(terrain, p, variants[rng.randi() % variants.size()], rng)
+		print_verbose("[ChimneyField] cluster %d placed %d" % [ci, placed.size()])
 		var subject := PhotoSubject.new()
 		subject.subject_id = &"SUBJ_FAIRY_CHIMNEYS"
 		subject.name_key = "SUBJ_FAIRY_CHIMNEYS"
