@@ -20,23 +20,19 @@ func _ready() -> void:
 	if OS.get_cmdline_user_args().size() > 1:
 		await _structures(root, OS.get_cmdline_user_args()[1])
 		return
-	var keys: Array = ["villager_woman", "villager_man", "fisherman", "shepherd"]
-	var x: float = -1.5
-	for k: String in keys:
-		var mi := MeshInstance3D.new()
-		mi.mesh = AssetLibrary.meshes(k, [BoxMesh.new()])[0]
-		mi.position = Vector3(x, 0, 0)
-		root.add_child(mi)
-		x += 1.0
-	var parts: Dictionary = {}
-	for k: String in ["body", "leg", "arm"]:
-		parts[k] = AssetLibrary.meshes("traveller_" + k, [BoxMesh.new()])[0]
-	var t := Node3D.new(); t.position = Vector3(2.5, 0, 0); root.add_child(t)
-	var b := MeshInstance3D.new(); b.mesh = parts.body; t.add_child(b)
-	for sx: float in [-0.11, 0.11]:
-		var l := MeshInstance3D.new(); l.mesh = parts.leg; l.position = Vector3(sx, 0.86, 0); t.add_child(l)
-	for sx: float in [-0.27, 0.27]:
-		var a := MeshInstance3D.new(); a.mesh = parts.arm; a.position = Vector3(sx, 1.42, 0); t.add_child(a)
+	var keys: Array = ["villager_woman", "villager_man", "fisherman", "shepherd", "traveller"]
+	var anims: Array = ["talk", "idle", "walk", "talk", "walk"]
+	var x: float = -1.0
+	for i: int in keys.size():
+		var rig := CharacterRig.build(keys[i], BoxMesh.new())
+		rig.position = Vector3(x, 0, 0)
+		rig.rotation.y = 0.5 if i % 2 == 0 else -0.4
+		root.add_child(rig)
+		if rig.anim:
+			rig.anim.play(StringName(anims[i]), 0.0)
+			rig.anim.advance(0.3)
+			rig.anim.pause()
+		x += 0.9
 	var cam := Camera3D.new()
 	cam.position = Vector3(1.0, 1.5, -2.6)
 	root.add_child(cam)

@@ -22,22 +22,26 @@ var talk_target: Node3D
 var _interact := Interactable.new()
 var _body := StaticBody3D.new()
 var _rest_yaw: float = 0.0
+var rig: CharacterRig
+## Animation while idle at the spot: "idle" or "work" (e.g. picking tea).
+@export var idle_anim: StringName = &"idle"
 
 
 func _ready() -> void:
 	add_to_group(&"npc")
 	data = DialogueRunner.load_data(dialogue_path)
-	var mi := MeshInstance3D.new()
+	var fallback: Mesh
 	match model:
 		"villager_man":
-			mi.mesh = AssetLibrary.meshes("villager_man", [LowPolyMeshes.villager_man()])[0]
+			fallback = AssetLibrary.meshes("villager_man", [LowPolyMeshes.villager_man()])[0]
 		"shepherd":
-			mi.mesh = AssetLibrary.meshes("shepherd", [LowPolyMeshes.villager_man()])[0]
+			fallback = AssetLibrary.meshes("shepherd", [LowPolyMeshes.villager_man()])[0]
 		"fisherman":
-			mi.mesh = AssetLibrary.meshes("fisherman", [LowPolyMeshes.fisherman()])[0]
+			fallback = AssetLibrary.meshes("fisherman", [LowPolyMeshes.fisherman()])[0]
 		_:
-			mi.mesh = AssetLibrary.meshes("villager_woman", [LowPolyMeshes.villager_woman()])[0]
-	_visual.add_child(mi)
+			fallback = AssetLibrary.meshes("villager_woman", [LowPolyMeshes.villager_woman()])[0]
+	rig = CharacterRig.build(model if model in ["villager_man", "shepherd", "fisherman"] else "villager_woman", fallback)
+	_visual.add_child(rig)
 	_interact.prompt_key = "UI_TALK"
 	_interact.position = Vector3(0, 1.0, 0)
 	_interact.interacted.connect(_on_interacted)
@@ -91,6 +95,9 @@ func _process(delta: float) -> void:
 		var to: Vector3 = talk_target.global_position - global_position
 		target_yaw = atan2(-to.x, -to.z)
 		_visual.rotation.x = lerpf(_visual.rotation.x, 0.0, 6.0 * delta)
+		rig.play(&"talk")
+	elif rig.is_animated():
+		rig.play(idle_anim)
 	else:
 		# Idle: lean into the tea now and then, like picking.
 		var t: float = Time.get_ticks_msec() * 0.001

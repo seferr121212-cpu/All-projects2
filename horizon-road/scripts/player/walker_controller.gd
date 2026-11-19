@@ -20,9 +20,14 @@ var _bob_time: float = 0.0
 var _legs: Array[Node3D] = []
 var _arms: Array[Node3D] = []
 var _swing: float = 0.0
+var _rig: CharacterRig
 
 
 func _ready() -> void:
+	if AssetLibrary.rig_scene("traveller"):
+		_rig = CharacterRig.build("traveller", null)
+		_visual.add_child(_rig)
+		return
 	var parts: Dictionary = LowPolyMeshes.traveller_parts()
 	for key: String in ["body", "leg", "arm"]:
 		parts[key] = AssetLibrary.meshes("traveller_" + key, [parts[key]])[0]
@@ -64,9 +69,12 @@ func _physics_process(delta: float) -> void:
 		var target_yaw: float = atan2(-horizontal.x, -horizontal.z)
 		_visual.rotation.y = lerp_angle(_visual.rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
 		_bob_time += delta * horizontal.length() * 2.2
-		_visual.position.y = absf(sin(_bob_time)) * 0.04
+		_visual.position.y = 0.0 if _rig else absf(sin(_bob_time)) * 0.04
 	else:
 		_visual.position.y = lerpf(_visual.position.y, 0.0, 10.0 * delta)
+	if _rig:
+		_rig.set_motion(horizontal.length())
+		return
 	# Walk cycle: legs swing opposite each other, arms counter to the legs.
 	var amount: float = clampf(horizontal.length() / sprint_speed, 0.0, 1.0) * 0.75
 	_swing = lerpf(_swing, amount, 1.0 - exp(-8.0 * delta))

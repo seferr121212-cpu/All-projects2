@@ -140,9 +140,8 @@ func get_status_text() -> String:
 func _spawn_customer() -> void:
 	_to_spawn -= 1
 	var node := Node3D.new()
-	var mi := MeshInstance3D.new()
-	mi.mesh = _man_mesh if _rng.randf() < 0.5 else _woman_mesh
-	node.add_child(mi)
+	var man: bool = _rng.randf() < 0.5
+	node.add_child(CharacterRig.build("villager_man" if man else "villager_woman", _man_mesh if man else _woman_mesh))
 	var bubble := Label3D.new()
 	bubble.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	bubble.font_size = 44
@@ -188,9 +187,13 @@ func _update_customers(delta: float) -> void:
 				var step: Vector3 = to.normalized() * WALK_SPEED * delta
 				node.global_position = _on_ground(node.global_position + step)
 				node.rotation.y = atan2(-to.x, -to.z)
-				node.get_child(0).position.y = absf(sin(Time.get_ticks_msec() * 0.008)) * 0.05
+				var body := node.get_child(0) as CharacterRig
+				body.set_motion(WALK_SPEED)
+				if not body.is_animated():
+					body.position.y = absf(sin(Time.get_ticks_msec() * 0.008)) * 0.05
 			"wait":
 				c.wait = float(c.wait) + delta
+				(node.get_child(0) as CharacterRig).play(&"idle")
 				var look: Vector3 = global_position - node.global_position
 				node.rotation.y = lerp_angle(node.rotation.y, atan2(-look.x, -look.z), delta * 3.0)
 

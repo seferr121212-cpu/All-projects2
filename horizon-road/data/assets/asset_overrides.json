@@ -271,5 +271,30 @@
 			"scale": 1.0,
 			"material": "vertex:0.65"
 		}
+	],
+	"villager_woman_rig": [
+		{
+			"path": "res://assets/models/blender/villager_woman_rig.glb"
+		}
+	],
+	"villager_man_rig": [
+		{
+			"path": "res://assets/models/blender/villager_man_rig.glb"
+		}
+	],
+	"shepherd_rig": [
+		{
+			"path": "res://assets/models/blender/shepherd_rig.glb"
+		}
+	],
+	"fisherman_rig": [
+		{
+			"path": "res://assets/models/blender/fisherman_rig.glb"
+		}
+	],
+	"traveller_rig": [
+		{
+			"path": "res://assets/models/blender/traveller_rig.glb"
+		}
 	]
 }

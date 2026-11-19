@@ -47,6 +47,15 @@ static func _apply_material(mesh: ArrayMesh, spec: String) -> void:
 		mesh.surface_set_material(s, mat)
 
 
+## The rigged, animated scene for "<key>_rig", or null.
+static func rig_scene(key: String) -> PackedScene:
+	for entry: Dictionary in _entries(key + "_rig"):
+		var p: String = String(entry.get("path", ""))
+		if ResourceLoader.exists(p):
+			return load(p) as PackedScene
+	return null
+
+
 static func has_override(key: String) -> bool:
 	for entry: Dictionary in _entries(key):
 		var p: String = String(entry.get("path", ""))

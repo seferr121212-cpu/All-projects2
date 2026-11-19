@@ -207,3 +207,9 @@ Genel doğrulama araçları:
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;
   ayrı iç içe depo açmak yerine bu depo kullanıldı.
+
+## Aşama 10 — Blender yapılar ve iskeletli karakterler
+- `tools/blender_structures.py`: 4 ev stili (yayla, ege, tüf, plato; camlar ayrı GLB, gece yanar), peri bacaları, kıl çadır, kayıklar.
+- `tools/blender_characters.py`: iskeletli karakterler (kadın, köylü, çoban/kepenek, balıkçı, gezgin), animasyonlar idle/walk/work/talk.
+- `CharacterRig` (scripts/core/character_rig.gd): NPC, kafe müşterileri ve yürüyen oyuncu bunu kullanır; rig yoksa statik meshe düşer.
+- Oranlar: bel/göğüs profilli gövde, omuz, el/başparmak; kıyafet: yelek, önlük, çiçekli etek, oya, kepenek, çizgili kazak, sırt çantası.
