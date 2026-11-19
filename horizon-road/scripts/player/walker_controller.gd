@@ -24,6 +24,8 @@ var _swing: float = 0.0
 
 func _ready() -> void:
 	var parts: Dictionary = LowPolyMeshes.traveller_parts()
+	for key: String in ["body", "leg", "arm"]:
+		parts[key] = AssetLibrary.meshes("traveller_" + key, [parts[key]])[0]
 	var body := MeshInstance3D.new()
 	body.mesh = parts.body
 	_visual.add_child(body)

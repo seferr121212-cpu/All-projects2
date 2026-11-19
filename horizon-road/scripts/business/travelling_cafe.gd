@@ -47,8 +47,8 @@ func _ready() -> void:
 	_kettle.stream = ProceduralAudio.kettle()
 	_kettle.bus = AudioManager.BUS_SFX
 	add_child(_kettle)
-	_man_mesh = LowPolyMeshes.villager_man(31)
-	_woman_mesh = LowPolyMeshes.villager_woman(32)
+	_man_mesh = AssetLibrary.meshes("villager_man", [LowPolyMeshes.villager_man(31)])[0]
+	_woman_mesh = AssetLibrary.meshes("villager_woman", [LowPolyMeshes.villager_woman(32)])[0]
 	_build_props()
 	_build_ui()
 

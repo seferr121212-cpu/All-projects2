@@ -60,6 +60,10 @@ godot --headless --path . res://regions/aegean_village/aegean_village.tscn -- --
 godot --path . -- --hour=18.9 --weather=partly_cloudy --shot=out.png
 ```
 
+### Modeller (Blender)
+
+`pip install bpy` sonrası `python tools/blender_models.py assets/models/blender` ağaç, kaya, çalı ve karakter modellerini yeniden üretir. `tools/model_preview.tscn` karakterleri yan yana gösterir.
+
 ## Build
 
 Godot 4.7 export şablonları kurulu olmalı (Editor → Manage Export Templates).

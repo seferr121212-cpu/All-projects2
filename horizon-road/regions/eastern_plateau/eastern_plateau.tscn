@@ -109,7 +109,7 @@ dialogue_path = "res://data/npcs/ferhat.json"
 subject_id = &"SUBJ_NPC_FERHAT"
 present_from = 5.5
 present_until = 21.0
-model = "villager_man"
+model = "shepherd"
 
 [node name="Flock" type="Node3D" parent="."]
 transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, 70, 0, -70)

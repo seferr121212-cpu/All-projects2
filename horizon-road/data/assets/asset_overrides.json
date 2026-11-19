@@ -1,26 +1,136 @@
 {
-	"_comment": "Model packs used instead of the procedural meshes when the files exist. Paths follow the folder layout in ASSETS.md (Kenney Nature Kit GLB names). Add or reorder entries freely; missing files are skipped.",
+	"_comment": "Model files used instead of procedural meshes when present (first existing wins per entry list; all existing entries become variants). Blender-made models come from tools/blender_models.py. 'material': foliage:<sway>,<sway height>,<backlight> | vertex:<roughness>.",
 	"spruce": [
-		{"path": "res://assets/models/kenney_nature/tree_pineTallA_detailed.glb", "scale": 2.4},
-		{"path": "res://assets/models/kenney_nature/tree_pineDefaultA.glb", "scale": 2.4},
-		{"path": "res://assets/models/kenney_nature/tree_pineRoundB.glb", "scale": 2.4}
+		{
+			"path": "res://assets/models/blender/spruce_1.glb",
+			"scale": 1.0,
+			"material": "foliage:0.1,10,0.2"
+		},
+		{
+			"path": "res://assets/models/blender/spruce_2.glb",
+			"scale": 1.0,
+			"material": "foliage:0.1,10,0.2"
+		},
+		{
+			"path": "res://assets/models/blender/spruce_3.glb",
+			"scale": 1.0,
+			"material": "foliage:0.1,10,0.2"
+		}
 	],
 	"broadleaf": [
-		{"path": "res://assets/models/kenney_nature/tree_oak.glb", "scale": 2.6},
-		{"path": "res://assets/models/kenney_nature/tree_default.glb", "scale": 2.6}
+		{
+			"path": "res://assets/models/blender/broadleaf_1.glb",
+			"scale": 1.0,
+			"material": "foliage:0.1,6,0.32"
+		},
+		{
+			"path": "res://assets/models/blender/broadleaf_2.glb",
+			"scale": 1.0,
+			"material": "foliage:0.1,6,0.32"
+		}
 	],
 	"rock": [
-		{"path": "res://assets/models/kenney_nature/rock_largeA.glb", "scale": 1.2},
-		{"path": "res://assets/models/kenney_nature/rock_largeC.glb", "scale": 1.2}
+		{
+			"path": "res://assets/models/blender/rock_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.9"
+		},
+		{
+			"path": "res://assets/models/blender/rock_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.9"
+		},
+		{
+			"path": "res://assets/models/blender/rock_3.glb",
+			"scale": 1.0,
+			"material": "vertex:0.9"
+		}
 	],
 	"shrub": [
-		{"path": "res://assets/models/kenney_nature/plant_bush.glb", "scale": 1.6},
-		{"path": "res://assets/models/kenney_nature/plant_bushLarge.glb", "scale": 1.6}
+		{
+			"path": "res://assets/models/blender/bush_1.glb",
+			"scale": 1.0,
+			"material": "foliage:0.04,1.2,0.3"
+		},
+		{
+			"path": "res://assets/models/blender/bush_2.glb",
+			"scale": 1.0,
+			"material": "foliage:0.04,1.2,0.3"
+		}
 	],
 	"poplar": [
-		{"path": "res://assets/models/kenney_nature/tree_tall.glb", "scale": 2.8}
+		{
+			"path": "res://assets/models/blender/poplar_1.glb",
+			"scale": 1.0,
+			"material": "foliage:0.08,11,0.35"
+		}
 	],
 	"olive": [
-		{"path": "res://assets/models/kenney_nature/tree_blocks.glb", "scale": 2.2}
+		{
+			"path": "res://assets/models/blender/olive_1.glb",
+			"scale": 1.0,
+			"material": "foliage:0.06,3,0.28"
+		},
+		{
+			"path": "res://assets/models/blender/olive_2.glb",
+			"scale": 1.0,
+			"material": "foliage:0.06,3,0.28"
+		}
+	],
+	"apricot": [
+		{
+			"path": "res://assets/models/blender/apricot_3.glb",
+			"scale": 0.7,
+			"material": "foliage:0.06,4,0.3"
+		}
+	],
+	"villager_woman": [
+		{
+			"path": "res://assets/models/blender/villager_woman.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		}
+	],
+	"villager_man": [
+		{
+			"path": "res://assets/models/blender/villager_man.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		}
+	],
+	"fisherman": [
+		{
+			"path": "res://assets/models/blender/fisherman.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		}
+	],
+	"shepherd": [
+		{
+			"path": "res://assets/models/blender/shepherd.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		}
+	],
+	"traveller_body": [
+		{
+			"path": "res://assets/models/blender/traveller_body.glb",
+			"scale": 1.0,
+			"material": "vertex:0.7"
+		}
+	],
+	"traveller_leg": [
+		{
+			"path": "res://assets/models/blender/traveller_leg.glb",
+			"scale": 1.0,
+			"material": "vertex:0.7"
+		}
+	],
+	"traveller_arm": [
+		{
+			"path": "res://assets/models/blender/traveller_arm.glb",
+			"scale": 1.0,
+			"material": "vertex:0.7"
+		}
 	]
 }

@@ -176,7 +176,7 @@ func _scatter_understory() -> void:
 ## the hills, cypress sentinels near roads and houses, maquis everywhere.
 func _scatter_coastal() -> void:
 	var olives: Array[Dictionary] = [{}, {}]
-	var olive_meshes: Array[Mesh] = [LowPolyMeshes.olive(100), LowPolyMeshes.olive(110)]
+	var olive_meshes: Array[Mesh] = AssetLibrary.meshes("olive", [LowPolyMeshes.olive(100), LowPolyMeshes.olive(110)])
 	var grid: float = 9.0
 	for gz: int in int(_terrain.size / grid):
 		for gx: int in int(_terrain.size / grid):
@@ -208,7 +208,7 @@ func _scatter_coastal() -> void:
 		elif roll < 0.5 and _terrain.forest_mask(p.x, p.y) < 0.3:
 			_add(maquis[i % 2], _ground_transform(p, _rng.randf_range(0.7, 1.6), 0.1, 0.05), _tint(0.1))
 	for i: int in olives.size():
-		_build(olives[i], olive_meshes[i], "Olives%d" % i, 0.0, true)
+		_build(olives[i], olive_meshes[i % olive_meshes.size()], "Olives%d" % i, 0.0, true)
 	_build(pines, LowPolyMeshes.umbrella_pine(), "Pines", 0.0, true)
 	_build(cypresses, LowPolyMeshes.cypress(), "Cypresses", 0.0, true)
 	for i: int in maquis.size():
@@ -220,7 +220,7 @@ func _scatter_coastal() -> void:
 func _scatter_steppe() -> void:
 	var poplars: Dictionary = {}
 	var orchards: Array[Dictionary] = [{}, {}]
-	var orchard_meshes: Array[Mesh] = [AnatoliaMeshes.apricot(401), AnatoliaMeshes.apricot(411)]
+	var orchard_meshes: Array[Mesh] = AssetLibrary.meshes("apricot", [AnatoliaMeshes.apricot(401), AnatoliaMeshes.apricot(411)])
 	var bushes: Array[Dictionary] = [{}, {}]
 	var bush_meshes: Array[Mesh] = [AnatoliaMeshes.steppe_bush(403), AnatoliaMeshes.steppe_bush(413)]
 	var vines: Dictionary = {}
@@ -256,7 +256,7 @@ func _scatter_steppe() -> void:
 				_add(vines, _ground_transform(p, _rng.randf_range(0.8, 1.1), 0.05, 0.0), _tint(0.08), detail_chunk_size * 2.0)
 	_build(poplars, AssetLibrary.meshes("poplar", [AnatoliaMeshes.poplar()])[0], "Poplars", 0.0, true)
 	for i: int in 2:
-		_build(orchards[i], orchard_meshes[i], "Orchard%d" % i, 0.0, true)
+		_build(orchards[i], orchard_meshes[i % orchard_meshes.size()], "Orchard%d" % i, 0.0, true)
 		_build(bushes[i], bush_meshes[i], "SteppeBush%d" % i, 160.0, false)
 	_build(vines, AnatoliaMeshes.vine(), "Vines", 180.0, true)
 

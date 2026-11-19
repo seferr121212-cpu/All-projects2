@@ -21,10 +21,30 @@ static func meshes(key: String, fallback: Array[Mesh]) -> Array[Mesh]:
 	for entry: Dictionary in _entries(key):
 		var mesh: ArrayMesh = load_model(String(entry.get("path", "")), float(entry.get("scale", 1.0)))
 		if mesh:
+			_apply_material(mesh, String(entry.get("material", "")))
 			found.append(mesh)
 	var result: Array[Mesh] = found if not found.is_empty() else fallback
 	_cache[key] = result
 	return result
+
+
+## "foliage:<sway>,<sway height>,<backlight>" or "vertex:<roughness>" replaces
+## every surface material (models are exported with vertex colours only).
+static func _apply_material(mesh: ArrayMesh, spec: String) -> void:
+	if spec == "":
+		return
+	var parts: PackedStringArray = spec.split(":")
+	var args: PackedFloat64Array = parts[1].split_floats(",") if parts.size() > 1 else PackedFloat64Array()
+	var mat: Material
+	match parts[0]:
+		"foliage":
+			mat = LowPolyMeshes.foliage_material(args[0] if args.size() > 0 else 0.1, args[1] if args.size() > 1 else 6.0, args[2] if args.size() > 2 else 0.3)
+		"grass":
+			mat = LowPolyMeshes.grass_material()
+		_:
+			mat = LowPolyMeshes.vertex_color_material(args[0] if args.size() > 0 else 0.8)
+	for s: int in mesh.get_surface_count():
+		mesh.surface_set_material(s, mat)
 
 
 static func has_override(key: String) -> bool:

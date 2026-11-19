@@ -30,11 +30,13 @@ func _ready() -> void:
 	var mi := MeshInstance3D.new()
 	match model:
 		"villager_man":
-			mi.mesh = LowPolyMeshes.villager_man()
+			mi.mesh = AssetLibrary.meshes("villager_man", [LowPolyMeshes.villager_man()])[0]
+		"shepherd":
+			mi.mesh = AssetLibrary.meshes("shepherd", [LowPolyMeshes.villager_man()])[0]
 		"fisherman":
-			mi.mesh = LowPolyMeshes.fisherman()
+			mi.mesh = AssetLibrary.meshes("fisherman", [LowPolyMeshes.fisherman()])[0]
 		_:
-			mi.mesh = LowPolyMeshes.villager_woman()
+			mi.mesh = AssetLibrary.meshes("villager_woman", [LowPolyMeshes.villager_woman()])[0]
 	_visual.add_child(mi)
 	_interact.prompt_key = "UI_TALK"
 	_interact.position = Vector3(0, 1.0, 0)
