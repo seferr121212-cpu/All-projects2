@@ -19,6 +19,7 @@ var _detail_image := TextureRect.new()
 var _detail_text := Label.new()
 var _detail_entry: Dictionary = {}
 var _people_box := VBoxContainer.new()
+var _quest_box := VBoxContainer.new()
 var _drawing_grid := GridContainer.new()
 var _drawing_empty := Label.new()
 
@@ -73,6 +74,8 @@ func _refresh() -> void:
 	_tabs.set_tab_title(1, tr(&"JOURNAL_COLLECTION"))
 	_tabs.set_tab_title(2, tr(&"JOURNAL_DRAWINGS"))
 	_tabs.set_tab_title(3, tr(&"JOURNAL_PEOPLE"))
+	_tabs.set_tab_title(4, tr(&"JOURNAL_QUESTS"))
+	_fill_quests()
 	_fill_album()
 	_fill_collection()
 	_fill_people()
@@ -204,6 +207,17 @@ func _fill_people() -> void:
 		_people_box.add_child(row)
 
 
+func _fill_quests() -> void:
+	for child: Node in _quest_box.get_children():
+		child.queue_free()
+	for q: Dictionary in QuestLog.load_quests():
+		var done: bool = QuestLog.is_done(q)
+		var p: Vector2i = QuestLog.progress(q)
+		var mark: String = "✔" if done else "○"
+		var count: String = "" if p.y <= 1 else "   %d/%d" % [p.x, p.y]
+		_quest_box.add_child(_label("%s  %s%s   —   %s %d ₺" % [mark, tr(StringName("QUEST_%s" % String(q.id).to_upper())), count, tr(&"QUEST_REWARD"), int(q.reward)], 19, INK_SOFT if done else INK))
+
+
 # --- Layout ----------------------------------------------------------------
 
 func _build() -> void:
@@ -297,6 +311,13 @@ func _build() -> void:
 	_people_box.add_theme_constant_override(&"separation", 16)
 	people_scroll.add_child(_people_box)
 	_tabs.add_child(people_scroll)
+
+	var quest_scroll := ScrollContainer.new()
+	quest_scroll.name = "Quests"
+	_quest_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_quest_box.add_theme_constant_override(&"separation", 10)
+	quest_scroll.add_child(_quest_box)
+	_tabs.add_child(quest_scroll)
 
 	# Detail view overlays the book.
 	var dstyle := style.duplicate() as StyleBoxFlat

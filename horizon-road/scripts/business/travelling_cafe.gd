@@ -223,6 +223,7 @@ func serve(item: String) -> int:
 	GameState.add_money(gain)
 	earned += gain
 	served += 1
+	GameState.set_counter("cafe.served", GameState.get_counter("cafe.served") + 1)
 	_kettle.play()
 	(c.bubble as Label3D).text = tr(&"CAFE_THANKS")
 	c.state = "leave"

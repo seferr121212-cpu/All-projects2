@@ -1,0 +1,16 @@
+{
+	"_comment": "Road quests. type: photo (subject id discovered) | job (activity node name finished N times) | counter (GameState counter >= n) | visited (all listed regions reached). Completed quests set flag quest.<id>.",
+	"quests": [
+		{"id": "first_tea", "type": "job", "target": "TeaHarvest", "n": 1, "reward": 30},
+		{"id": "yayla_cow", "type": "photo", "target": "SUBJ_COW", "reward": 20},
+		{"id": "to_aegean", "type": "visited", "targets": ["aegean_village"], "reward": 40},
+		{"id": "boats", "type": "photo", "target": "SUBJ_FISHING_BOATS", "reward": 25},
+		{"id": "nets", "type": "job", "target": "NetMending", "n": 2, "reward": 40},
+		{"id": "potter", "type": "job", "target": "Pottery", "n": 1, "reward": 40},
+		{"id": "balloons", "type": "photo", "target": "SUBJ_BALLOONS", "reward": 50},
+		{"id": "shepherd", "type": "job", "target": "Herding", "n": 1, "reward": 50},
+		{"id": "barista", "type": "counter", "target": "cafe.served", "n": 10, "reward": 60},
+		{"id": "hard_worker", "type": "counter", "target": "jobs.total", "n": 15, "reward": 100},
+		{"id": "grand_tour", "type": "visited", "targets": ["blacksea_highland", "aegean_village", "cappadocia", "eastern_plateau"], "reward": 150}
+	]
+}

@@ -69,6 +69,7 @@ func _ready() -> void:
 	Settings.apply_all.call_deferred()
 	album.load_index()
 	drawings.load_index()
+	add_child(QuestLog.new())
 	if DevCli.is_requested():
 		add_child(DevCli.new())
 
@@ -287,6 +288,7 @@ func get_counter(key: String) -> int:
 
 func set_counter(key: String, value: int) -> void:
 	counters[key] = value
+	flags_changed.emit()
 
 
 func add_money(amount: int) -> void:

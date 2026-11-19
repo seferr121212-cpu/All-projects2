@@ -74,6 +74,8 @@ func _ready() -> void:
 			journal._show_detail(GameState.album.entries[GameState.album.entries.size() - 1])
 		elif _args["journal"] == "collection":
 			journal._tabs.current_tab = 1
+		elif _args["journal"] == "quests":
+			journal._tabs.current_tab = 4
 	if _args.has("probe"):
 		await _probe()
 	if _args.has("bench"):

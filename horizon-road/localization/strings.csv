@@ -294,3 +294,17 @@ CAFE_LEMONADE,Lemonade,Limonata
 CAFE_SIMIT,Simit,Simit
 CAFE_HONEY_BREAKFAST,Honey & kaymak,Bal kaymak
 CAFE_COMPOTE,Grape compote,Üzüm hoşafı
+JOURNAL_QUESTS,Road tasks,Yol görevleri
+QUEST_DONE,"Task done: %s  (+%d ₺)","Görev tamam: %s  (+%d ₺)"
+QUEST_REWARD,Reward,Ödül
+QUEST_FIRST_TEA,Pick a full basket of tea with Fadime,Fadime ile bir küfe çay topla
+QUEST_YAYLA_COW,Photograph a highland cow,Bir yayla ineğinin fotoğrafını çek
+QUEST_TO_AEGEAN,Drive down to the Aegean coast,Ege kıyısına in
+QUEST_BOATS,Photograph the fishing boats,Balıkçı kayıklarını fotoğrafla
+QUEST_NETS,Mend nets with Hasan twice,Hasan ile iki kez ağ ör
+QUEST_POTTER,Throw a pot on Zeynep's wheel,Zeynep'in çarkında bir çömlek yap
+QUEST_BALLOONS,Photograph the balloons at dawn,Şafakta balonları fotoğrafla
+QUEST_SHEPHERD,Bring Ferhat's flock into the pen,Ferhat'ın sürüsünü ağıla topla
+QUEST_BARISTA,Serve 10 customers at your café,Kafende 10 müşteriye servis yap
+QUEST_HARD_WORKER,Finish 15 jobs along the road,Yol boyunca 15 iş bitir
+QUEST_GRAND_TOUR,Visit all four regions,Dört bölgenin hepsini gez

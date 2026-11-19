@@ -29,6 +29,7 @@ func _ready() -> void:
 	_test_herding()
 	_test_cafe()
 	_test_asset_overrides()
+	_test_quests()
 	_test_translation_coverage()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -608,6 +609,41 @@ func _test_cafe() -> void:
 
 
 ## A .glb dropped in (here written to user://) replaces the procedural mesh.
+func _test_quests() -> void:
+	var qs: Array = QuestLog.load_quests()
+	_check(qs.size() >= 10, "quests load from data")
+	var q: Dictionary = {}
+	for x: Dictionary in qs:
+		if x.id == "barista":
+			q = x
+	var log := GameState.get_node_or_null("QuestLog") as QuestLog
+	if log == null:
+		for c: Node in GameState.get_children():
+			if c is QuestLog:
+				log = c
+	_check(log != null, "quest log runs under GameState")
+	var others: Array[String] = []
+	for x: Dictionary in qs:
+		if x.id != "barista" and not QuestLog.is_done(x):
+			others.append("quest.%s" % x.id)
+			GameState.flags["quest.%s" % x.id] = true
+	var money0: int = GameState.money
+	GameState.set_flag("quest.barista", false)
+	GameState.set_counter("cafe.served", 9)
+	_check(not QuestLog.is_done(q), "quest open below target")
+	GameState.set_counter("cafe.served", 10)
+	log._run()
+	_check(QuestLog.is_done(q) and GameState.money == money0 + int(q.reward), "quest completes once and pays reward")
+	GameState.set_counter("cafe.served", 11)
+	log._run()
+	_check(GameState.money == money0 + int(q.reward), "quest reward not paid twice")
+	GameState.counters.erase("cafe.served")
+	GameState.flags.erase("quest.barista")
+	for f: String in others:
+		GameState.flags.erase(f)
+	GameState.money = money0
+
+
 func _test_asset_overrides() -> void:
 	var fallback: Array[Mesh] = [LowPolyMeshes.rock(4)]
 	AssetLibrary.clear_cache()
