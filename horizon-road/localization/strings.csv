@@ -177,6 +177,7 @@ TRAVEL_GO,Drive to %s (%.1f h),%s yoluna çık (%.1f sa)
 TRAVEL_NEED_GATE,"To travel, drive to the road sign at the edge of the region or use the map table in the camper.","Seyahat için bölgenin kenarındaki yol tabelasına git ya da karavandaki harita masasını kullan."
 UI_GATE_HINT,[M] Travel map,[M] Seyahat haritası
 SUBJ_CAT,Harbour cat,Liman kedisi
+SUBJ_DOG,Village dog,Köy köpeği
 TITLE_SUBTITLE,Horizon Road · a slow journey across Türkiye,Horizon Road · Türkiye'de yavaş bir yolculuk
 TITLE_CONTINUE,Continue the journey,Yolculuğa devam et
 TITLE_NEW,New journey,Yeni yolculuk

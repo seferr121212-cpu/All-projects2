@@ -113,8 +113,10 @@ func _spawn_flock() -> void:
 		groups.append(Vector2(cos(a), sin(a)) * _rng.randf_range(field_radius * 0.45, field_radius))
 	for i: int in sheep_count:
 		var c: Vector2 = groups[i % groups.size()] + Vector2(_rng.randf_range(-6, 6), _rng.randf_range(-6, 6))
-		var node := MeshInstance3D.new()
-		node.mesh = _sheep_mesh
+		var node := Node3D.new()
+		var body := CharacterRig.build("sheep", _sheep_mesh, i)
+		body.walk_ref_speed = 0.6
+		node.add_child(body)
 		add_child(node)
 		node.global_position = global_position + Vector3(c.x, 0, c.y)
 		sheep.append({"node": node, "vel": Vector2.ZERO, "penned": false, "wander": _rng.randf() * TAU})
@@ -176,8 +178,11 @@ func _process(delta: float) -> void:
 		node.global_position = Vector3(next.x, _ground(next.x, next.y), next.y)
 		if vel.length() > 0.15:
 			node.rotation.y = lerp_angle(node.rotation.y, atan2(-vel.x, -vel.y), clampf(delta * 6.0, 0.0, 1.0))
+		var rig := node.get_child(0) as CharacterRig
+		rig.set_motion(vel.length())
 		# A little hop while trotting.
-		node.position.y += absf(sin(_t * 9.0 + float(s.wander))) * clampf(vel.length() * 0.05, 0.0, 0.12)
+		if not rig.is_animated():
+			node.position.y += absf(sin(_t * 9.0 + float(s.wander))) * clampf(vel.length() * 0.05, 0.0, 0.12)
 		s.vel = vel
 		if not s.penned and next.distance_to(pc2) < pen_radius - 1.2:
 			s.penned = true

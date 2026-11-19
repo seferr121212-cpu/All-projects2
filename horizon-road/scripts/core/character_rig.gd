@@ -7,13 +7,15 @@ extends Node3D
 const WALK_REF_SPEED: float = 1.3
 
 var anim: AnimationPlayer
+## Ground speed (m/s) at which the walk cycle plays at normal rate.
+var walk_ref_speed: float = WALK_REF_SPEED
 var _current: StringName = &""
 
 
-static func build(key: String, fallback: Mesh) -> CharacterRig:
+static func build(key: String, fallback: Mesh, variant: int = 0) -> CharacterRig:
 	var rig := CharacterRig.new()
 	rig.name = "Body"
-	var scene: PackedScene = AssetLibrary.rig_scene(key)
+	var scene: PackedScene = AssetLibrary.rig_scene(key, variant)
 	if scene:
 		var inst: Node = scene.instantiate()
 		rig.add_child(inst)
@@ -48,6 +50,6 @@ func play(anim_name: StringName, speed: float = 1.0, blend: float = 0.3) -> void
 ## Walk while moving (playback rate follows speed in m/s), idle when still.
 func set_motion(speed: float) -> void:
 	if speed > 0.15:
-		play(&"walk", clampf(speed / WALK_REF_SPEED, 0.5, 2.6))
+		play(&"walk", clampf(speed / walk_ref_speed, 0.5, 2.6))
 	else:
 		play(&"idle")

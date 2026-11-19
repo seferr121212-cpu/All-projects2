@@ -7,7 +7,7 @@ extends Node3D
 @export var pasture_radius: float = 35.0
 @export var walk_speed: float = 0.55
 @export var herd_seed: int = 3
-## "cow" (highland pasture), "cat" (harbour) or "sheep" (steppe flock).
+## "cow" (highland pasture), "cat" (harbour), "dog" (village) or "sheep" (steppe flock).
 @export var animal: String = "cow"
 
 var _cows: Array[Dictionary] = []
@@ -25,16 +25,18 @@ func _ready() -> void:
 	for i: int in cow_count:
 		var cow := Node3D.new()
 		cow.name = "Cow%d" % i
-		var mesh := MeshInstance3D.new()
+		var fallback: Mesh
 		if animal == "sheep":
-			mesh.mesh = AnatoliaMeshes.sheep(510 + i % 3)
-		elif animal == "cat":
-			mesh.mesh = LowPolyMeshes.cat(i, coats[i % coats.size()])
+			fallback = AnatoliaMeshes.sheep(510 + i % 3)
+		elif animal == "cat" or animal == "dog":
+			fallback = LowPolyMeshes.cat(i, coats[i % coats.size()])
 		else:
-			mesh.mesh = LowPolyMeshes.cow(i, coats[i % coats.size()])
+			fallback = LowPolyMeshes.cow(i, coats[i % coats.size()])
+		var mesh := CharacterRig.build(animal, fallback, i)
+		mesh.walk_ref_speed = {"cat": 0.45, "dog": 0.9, "sheep": 0.6}.get(animal, 0.8)
 		cow.add_child(mesh)
 		var subject := PhotoSubject.new()
-		subject.subject_id = {"cat": &"SUBJ_CAT", "sheep": &"SUBJ_SHEEP"}.get(animal, &"SUBJ_COW")
+		subject.subject_id = {"cat": &"SUBJ_CAT", "dog": &"SUBJ_DOG", "sheep": &"SUBJ_SHEEP"}.get(animal, &"SUBJ_COW")
 		subject.name_key = String(subject.subject_id)
 		subject.category = PhotoSubject.Category.ANIMAL
 		subject.radius = 0.35 if animal == "cat" else 1.0
@@ -70,8 +72,11 @@ func _process(delta: float) -> void:
 		var pos: Vector2 = c.pos
 		if c.wait > 0.0:
 			c.wait -= delta
+			var body := c.mesh as CharacterRig
+			body.play(&"idle" if animal == "cat" or animal == "dog" or fmod(float(c.wait), 9.0) > 6.0 else &"work")
 			# Grazing: head-down nod.
-			(c.mesh as Node3D).rotation.x = lerpf((c.mesh as Node3D).rotation.x, -0.08 + sin(Time.get_ticks_msec() * 0.002 + pos.x) * 0.03, 2.0 * delta)
+			if not body.is_animated():
+				(c.mesh as Node3D).rotation.x = lerpf((c.mesh as Node3D).rotation.x, -0.08 + sin(Time.get_ticks_msec() * 0.002 + pos.x) * 0.03, 2.0 * delta)
 			if c.wait <= 0.0:
 				c.target = _pick_target(region)
 		else:
@@ -83,6 +88,7 @@ func _process(delta: float) -> void:
 				c.heading = lerp_angle(c.heading, desired, 1.5 * delta)
 				pos += Vector2(-sin(c.heading), -cos(c.heading)) * walk_speed * delta
 				c.pos = pos
+				(c.mesh as CharacterRig).set_motion(walk_speed)
 				(c.mesh as Node3D).rotation.x = lerpf((c.mesh as Node3D).rotation.x, 0.0, 3.0 * delta)
 		var world := global_position + Vector3(pos.x, 0.0, pos.y)
 		var node := c.node as Node3D

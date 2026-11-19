@@ -296,5 +296,40 @@
 		{
 			"path": "res://assets/models/blender/traveller_rig.glb"
 		}
+	],
+	"cow_rig": [
+		{
+			"path": "res://assets/models/blender/cow_1_rig.glb"
+		},
+		{
+			"path": "res://assets/models/blender/cow_2_rig.glb"
+		},
+		{
+			"path": "res://assets/models/blender/cow_3_rig.glb"
+		}
+	],
+	"sheep_rig": [
+		{
+			"path": "res://assets/models/blender/sheep_rig.glb"
+		}
+	],
+	"cat_rig": [
+		{
+			"path": "res://assets/models/blender/cat_1_rig.glb"
+		},
+		{
+			"path": "res://assets/models/blender/cat_2_rig.glb"
+		},
+		{
+			"path": "res://assets/models/blender/cat_3_rig.glb"
+		}
+	],
+	"dog_rig": [
+		{
+			"path": "res://assets/models/blender/dog_1_rig.glb"
+		},
+		{
+			"path": "res://assets/models/blender/dog_2_rig.glb"
+		}
 	]
 }

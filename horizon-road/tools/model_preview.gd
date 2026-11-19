@@ -47,6 +47,30 @@ func _ready() -> void:
 
 ## Second user arg: "houses" or "props" lays out structure models instead.
 func _structures(root: Node3D, which: String) -> void:
+	if which == "animals":
+		var ax: float = 0.0
+		for k: String in ["cow", "sheep", "cat", "dog"]:
+			for v: int in 3:
+				var r := CharacterRig.build(k, BoxMesh.new(), v)
+				r.position = Vector3(ax, 0, 0)
+				r.rotation.y = 2.2
+				root.add_child(r)
+				if r.anim:
+					r.anim.play([&"walk", &"work", &"idle"][v], 0.0)
+					r.anim.advance(0.3)
+					r.anim.pause()
+				ax += 1.6 if k == "cow" else 0.9
+		var c2 := Camera3D.new()
+		root.add_child(c2)
+		c2.position = Vector3(ax * 0.5, 2.2, 5.5)
+		c2.look_at(Vector3(ax * 0.5, 0.5, 0))
+		c2.current = true
+		for i: int in 8:
+			await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png(OS.get_cmdline_user_args()[0])
+		get_tree().quit()
+		return
 	var keys: Array = ["house_yayla", "house_ege", "house_tuff", "house_plateau"] if which == "houses" else ["fairy_chimney", "nomad_tent", "boat"]
 	var x: float = 0.0
 	var z: float = 0.0

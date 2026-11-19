@@ -211,3 +211,12 @@ travel_path = NodePath("../TravelController")
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("30_pause")
+
+[node name="Dogs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108, 0, 44)
+script = ExtResource("17_herd")
+cow_count = 2
+pasture_radius = 16.0
+walk_speed = 1.0
+herd_seed = 11
+animal = "dog"

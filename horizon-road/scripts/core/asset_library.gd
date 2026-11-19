@@ -48,12 +48,13 @@ static func _apply_material(mesh: ArrayMesh, spec: String) -> void:
 
 
 ## The rigged, animated scene for "<key>_rig", or null.
-static func rig_scene(key: String) -> PackedScene:
+static func rig_scene(key: String, variant: int = 0) -> PackedScene:
+	var found: Array[String] = []
 	for entry: Dictionary in _entries(key + "_rig"):
 		var p: String = String(entry.get("path", ""))
 		if ResourceLoader.exists(p):
-			return load(p) as PackedScene
-	return null
+			found.append(p)
+	return null if found.is_empty() else load(found[variant % found.size()]) as PackedScene
 
 
 static func has_override(key: String) -> bool:
