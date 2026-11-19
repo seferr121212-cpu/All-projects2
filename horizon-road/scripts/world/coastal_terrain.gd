@@ -144,64 +144,19 @@ func _build_water() -> void:
 
 
 ## Islands out at sea, dry hills inland.
-func _build_backdrop() -> void:
-	var inner: float = _half * 0.95
-	var outer: float = 3200.0
-	var rings: int = 14
-	var segments: int = 96
-	var hill_noise := FastNoiseLite.new()
-	hill_noise.seed = terrain_seed + 9
-	hill_noise.frequency = 0.0014
-	hill_noise.fractal_octaves = 4
-	var pts: Array[PackedVector3Array] = []
-	for ri: int in rings + 1:
-		var t: float = float(ri) / rings
-		var radius: float = lerpf(inner, outer, pow(t, 1.6))
-		var row := PackedVector3Array()
-		for si: int in segments:
-			var a: float = TAU * si / segments
-			var x: float = cos(a) * radius
-			var z: float = sin(a) * radius
-			var seaward: float = smoothstep(-0.1, 0.35, sin(a))  # +z is the sea
-			var hills: float = 20.0 + (hill_noise.get_noise_2d(x, z) * 0.5 + 0.5) * 90.0 * smoothstep(0.0, 0.3, t) + t * 40.0
-			var island: float = _noise_island.get_noise_2d(x, z)
-			var island_h: float = -20.0
-			if island > 0.2 and t > 0.25:
-				# Rounded, low islands (smoothstep dome), not spikes.
-				island_h = smoothstep(0.2, 0.55, island) * 130.0 - 8.0
-			var h: float = lerpf(hills, island_h, seaward)
-			if ri == 0:
-				var px: float = x * (_half * 0.98) / radius
-				var pz: float = z * (_half * 0.98) / radius
-				h = _base_height(px, pz) - 6.0
-			row.append(Vector3(x, h, z))
-		pts.append(row)
-	var verts := PackedVector3Array()
-	var normals := PackedVector3Array()
-	var cols := PackedColorArray()
-	for ri: int in rings:
-		var t: float = float(ri) / rings
-		for si: int in segments:
-			var s2: int = (si + 1) % segments
-			var a: Vector3 = pts[ri][si]
-			var b: Vector3 = pts[ri][s2]
-			var c: Vector3 = pts[ri + 1][si]
-			var d: Vector3 = pts[ri + 1][s2]
-			var land := Color(0.6, 0.58, 0.4).lerp(Color(0.55, 0.58, 0.6), t)
-			_face(verts, normals, cols, a, d, b, land if a.y > 2.0 else Color(0.85, 0.8, 0.62))
-			_face(verts, normals, cols, a, c, d, land.darkened(0.05) if d.y > 2.0 else Color(0.85, 0.8, 0.62))
-	var arrays: Array = []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = verts
-	arrays[Mesh.ARRAY_NORMAL] = normals
-	arrays[Mesh.ARRAY_COLOR] = cols
-	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	var mat := ShaderMaterial.new()
-	mat.shader = TERRAIN_SHADER
-	mesh.surface_set_material(0, mat)
-	var mi := MeshInstance3D.new()
-	mi.name = "Backdrop"
-	mi.mesh = mesh
-	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	add_child(mi)
+func _backdrop_height(x: float, z: float, t: float, a: float) -> float:
+	var seaward: float = smoothstep(-0.1, 0.35, sin(a))  # +z is the sea
+	var hills: float = 20.0 + (_backdrop_noise.get_noise_2d(x * 1.2, z * 1.2) * 0.5 + 0.5) * 110.0 * smoothstep(0.0, 0.3, t) + t * 40.0
+	var island: float = _noise_island.get_noise_2d(x, z)
+	var island_h: float = -20.0
+	if island > 0.2 and t > 0.25:
+		# Rounded, low islands (smoothstep dome), not spikes.
+		island_h = smoothstep(0.2, 0.55, island) * 130.0 - 8.0
+	return lerpf(hills, island_h, seaward)
+
+
+func _backdrop_color(p: Vector3, t: float) -> Color:
+	if p.y < 2.0:
+		return Color(0.85, 0.8, 0.62)
+	var scrub := Color(0.42, 0.46, 0.26).lerp(Color(0.5, 0.55, 0.5), t)
+	return scrub.lerp(Color(0.62, 0.56, 0.4), clampf(sin(p.x * 0.01 + p.z * 0.007) * 0.5 + 0.2, 0.0, 0.6))

@@ -104,7 +104,7 @@ func _create_environment() -> Environment:
 
 	env.fog_enabled = true
 	env.fog_mode = Environment.FOG_MODE_EXPONENTIAL
-	env.fog_aerial_perspective = 0.4
+	env.fog_aerial_perspective = 0.7
 	env.fog_sky_affect = 0.35
 	env.fog_height = 4.0
 	env.fog_height_density = 0.0015

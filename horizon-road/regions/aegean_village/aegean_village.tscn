@@ -51,6 +51,7 @@ palette = ExtResource("4_pal")
 
 [node name="Terrain" type="Node3D" parent="."]
 script = ExtResource("5_terrain")
+backdrop_params = {"snow_line": 9999.0, "rock_color": Color(0.62, 0.55, 0.45, 1), "rock_band_color": Color(0.72, 0.64, 0.52, 1), "rock_slope": 0.5, "forest_speckle": 0.6}
 
 [node name="VillageClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 0, -52)

@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode depth_draw_opaque;
 // Gravel highland road: two worn tyre tracks, a grassy crown, soft grass
 // edges. UV.x runs across the road (0..1), UV.y along it in metres.
 
@@ -26,8 +27,11 @@ void fragment() {
 
 	float crown = (1.0 - smoothstep(0.02, 0.09, abs(u - 0.5))) * smoothstep(0.35, 0.6, value_noise(world_pos.xz * 0.3));
 	c = mix(c, grass_color, crown * 0.8);
-	float edge = 1.0 - smoothstep(0.0, 0.14, min(u, 1.0 - u) + (value_noise(world_pos.xz * 0.7) - 0.5) * 0.08);
-	c = mix(c, grass_color, edge);
+	// Ragged edges fade out so the meadow underneath shows through: no halo.
+	float edge_d = min(u, 1.0 - u) + (value_noise(world_pos.xz * 0.7) - 0.5) * 0.07 + (value_noise(world_pos.xz * 3.0) - 0.5) * 0.03;
+	float edge_alpha = smoothstep(0.02, 0.16, edge_d);
+	c = mix(c, grass_color, (1.0 - smoothstep(0.1, 0.22, edge_d)) * 0.35);
+	c *= 0.92 + value_noise(world_pos.xz * 1.7) * 0.16;
 
 	float puddle = tracks * smoothstep(0.5, 0.68, value_noise(world_pos.xz * 0.23)) * smoothstep(0.4, 1.0, wetness);
 	c *= mix(1.0, 0.58, wetness);
@@ -39,4 +43,5 @@ void fragment() {
 	ALBEDO = c;
 	ROUGHNESS = mix(mix(0.95, 0.5, wetness), 0.05, puddle);
 	SPECULAR = mix(0.25, 0.6, wetness);
+	ALPHA = edge_alpha;
 }

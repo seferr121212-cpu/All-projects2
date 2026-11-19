@@ -29,4 +29,4 @@ night_ambient = Color(0.22, 0.3, 0.52, 1)
 saturation = 1.15
 contrast = 1.06
 base_fog_density = 0.0004
-fog_sun_scatter = 0.35
+fog_sun_scatter = 0.22

@@ -22,7 +22,18 @@ void fragment() {
 	float grassy = clamp((base.g - max(base.r, base.b)) * 6.0, 0.0, 1.0);
 	base = mix(base, base * mix(vec3(1.0), season_tint, 0.8), grassy);
 	float v = value_noise(world_pos.xz * 0.04) * 0.6 + value_noise(world_pos.xz * 0.19) * 0.4;
-	base *= 0.88 + v * 0.24;
+	base *= 0.86 + v * 0.28;
+	// Meadow patchwork: drier golden patches and deep lush hollows, so the
+	// grass never reads as one flat green sheet.
+	float patch_n = value_noise(world_pos.xz * 0.018 + 13.0) * 0.65 + value_noise(world_pos.xz * 0.07) * 0.35;
+	vec3 dry = base * vec3(1.18, 1.04, 0.7);
+	vec3 lush = base * vec3(0.78, 0.92, 0.82);
+	base = mix(base, dry, smoothstep(0.55, 0.8, patch_n) * grassy * 0.75);
+	base = mix(base, lush, smoothstep(0.42, 0.18, patch_n) * grassy * 0.7);
+	// Steeper banks show soil and stones through the turf.
+	float bank = smoothstep(0.86, 0.66, world_normal.y) * grassy;
+	vec3 soil = vec3(0.36, 0.29, 0.21) * (0.85 + value_noise(world_pos.xz * 0.9) * 0.3);
+	base = mix(base, soil, bank * 0.55);
 	// Fine grass grain near the camera; fades out before it can shimmer.
 	float view_dist = length(VERTEX);
 	float grain_fade = 1.0 - smoothstep(25.0, 90.0, view_dist);

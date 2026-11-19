@@ -4,6 +4,8 @@ extends RefCounted
 ## Stand-ins until CC0 model packs (Kenney/Quaternius) are dropped into
 ## assets/models; the faceted look is intentional and matches the art style.
 
+const GRASS_SHADER: Shader = preload("res://assets/shaders/grass.gdshader")
+const CAMPER_PAINT_SHADER: Shader = preload("res://assets/shaders/camper_paint.gdshader")
 const FOLIAGE_SHADER: Shader = preload("res://assets/shaders/foliage.gdshader")
 
 
@@ -50,6 +52,15 @@ class Builder:
 	func tri(a: Vector3, b: Vector3, c: Vector3, color: Color, normal: Vector3 = Vector3.ZERO) -> void:
 		var n: Vector3 = normal if normal != Vector3.ZERO else (c - a).cross(b - a).normalized()
 		_tri(a, b, c, n, color)
+
+	## Triangle with a colour per corner (gradients on grass blades).
+	func tri_grad(a: Vector3, b: Vector3, c: Vector3, ca: Color, cb: Color, cc: Color, n: Vector3) -> void:
+		var cols: Array[Color] = [ca, cb, cc]
+		var vs: Array[Vector3] = [a, b, c]
+		for i: int in 3:
+			st.set_color(cols[i].srgb_to_linear())
+			st.set_normal(n)
+			st.add_vertex(vs[i])
 
 	func _tri(a: Vector3, b: Vector3, c: Vector3, n: Vector3, color: Color) -> void:
 		var lin: Color = color.srgb_to_linear()
@@ -218,20 +229,30 @@ static func rock(seed_value: int = 4) -> ArrayMesh:
 ## like the ground beneath them instead of flickering per blade.
 static func grass_tuft(seed_value: int = 5, blades: int = 6, height: float = 0.5) -> ArrayMesh:
 	var b := Builder.new(seed_value)
-	var root := Color(0.2, 0.33, 0.1)
-	var tip := Color(0.5, 0.62, 0.26)
+	var root := Color(0.13, 0.24, 0.07)
+	var mid := Color(0.3, 0.46, 0.14)
+	var tip := Color(0.56, 0.7, 0.3)
 	for i: int in blades:
 		var angle: float = b.rng.randf() * TAU
-		var offset := Vector3(b.rng.randf_range(-0.18, 0.18), 0, b.rng.randf_range(-0.18, 0.18))
-		var side := Vector3(cos(angle), 0, sin(angle)) * 0.045
-		var lean := Vector3(b.rng.randf_range(-0.15, 0.15), 0, b.rng.randf_range(-0.15, 0.15))
-		var top: Vector3 = offset + lean + Vector3(0, height * b.rng.randf_range(0.6, 1.2), 0)
-		var p0: Vector3 = offset - side
-		var p1: Vector3 = offset + side
-		var mid := root.lerp(tip, 0.5)
-		b.tri(p0, top, p1, mid, Vector3.UP)
-		b.tri(p1, top, p0, mid, Vector3.UP)
-	return b.commit(foliage_material(0.18, 0.6, 0.45))
+		var offset := Vector3(b.rng.randf_range(-0.2, 0.2), 0, b.rng.randf_range(-0.2, 0.2))
+		var side := Vector3(cos(angle), 0, sin(angle)) * b.rng.randf_range(0.035, 0.055)
+		var lean := Vector3(b.rng.randf_range(-0.22, 0.22), 0, b.rng.randf_range(-0.22, 0.22))
+		var h: float = height * b.rng.randf_range(0.55, 1.25)
+		# Two segments so the blade arcs over instead of being a flat spike.
+		var m: Vector3 = offset + lean * 0.3 + Vector3(0, h * 0.55, 0)
+		var top: Vector3 = offset + lean + Vector3(0, h, 0)
+		var shade: float = b.rng.randf_range(0.85, 1.15)
+		var t: Color = tip * shade
+		b.tri_grad(offset - side, m - side * 0.6, offset + side, root, mid, root, Vector3.UP)
+		b.tri_grad(offset + side, m - side * 0.6, m + side * 0.6, root, mid, mid, Vector3.UP)
+		b.tri_grad(m - side * 0.6, top, m + side * 0.6, mid, t, mid, Vector3.UP)
+	return b.commit(grass_material())
+
+
+static func grass_material() -> ShaderMaterial:
+	var mat := foliage_material(0.18, 0.6, 0.5)
+	mat.shader = GRASS_SHADER
+	return mat
 
 
 static func flower_tuft(petal_color: Color, seed_value: int = 6) -> ArrayMesh:
@@ -608,77 +629,133 @@ static func cat(seed_value: int, fur: Color) -> ArrayMesh:
 ## Wheels are returned separately so the controller can spin and steer them.
 static func camper_body() -> ArrayMesh:
 	var b := Builder.new(11)
-	var teal := Color(0.22, 0.52, 0.52)
 	var cream := Color(0.93, 0.88, 0.76)
-	var trim := Color(0.2, 0.2, 0.22)
-	var glass := Color(0.12, 0.16, 0.2)
+	var trim := Color(0.16, 0.16, 0.18)
+	var chrome := Color(0.66, 0.67, 0.7)
 	var length: float = 4.8
 	var width: float = 2.0
-	# Lower teal body and upper cream body.
-	b.add(_box(Vector3(width, 1.0, length)), _at(Vector3(0, 0.95, 0)), teal)
-	b.add(_box(Vector3(width - 0.04, 1.05, length - 0.7)), _at(Vector3(0, 1.95, 0.35)), cream)
-	# Sloped cab front (wedge) with windscreen.
-	var front_z: float = -length * 0.5
-	var cab_back: float = front_z + 0.25
-	var hw: float = (width - 0.04) * 0.5
-	var y0: float = 1.45
-	var y1: float = 2.47
-	var base_l := Vector3(-hw, y0, front_z)
-	var base_r := Vector3(hw, y0, front_z)
-	var top_l := Vector3(-hw, y1, cab_back + 0.45)
-	var top_r := Vector3(hw, y1, cab_back + 0.45)
-	b.tri(base_l, top_r, top_l, cream)
-	b.tri(base_l, base_r, top_r, cream)
-	# Close the wedge sides down to the lower body.
-	b.tri(base_l, top_l, Vector3(-hw, y0, top_l.z), cream)
-	b.tri(base_r, Vector3(hw, y0, top_r.z), top_r, cream)
-	var inset := Vector3(0, 0, -0.02)
-	var g0 := base_l.lerp(top_l, 0.18) + Vector3(0.12, 0, 0) + inset
-	var g1 := base_r.lerp(top_r, 0.18) + Vector3(-0.12, 0, 0) + inset
-	var g2 := base_l.lerp(top_l, 0.9) + Vector3(0.12, 0, 0) + inset
-	var g3 := base_r.lerp(top_r, 0.9) + Vector3(-0.12, 0, 0) + inset
-	b.tri(g0, g3, g2, glass)
-	b.tri(g0, g1, g3, glass)
-	# Side windows (both sides) and rear window.
-	var curtain := Color(0.88, 0.55, 0.28)
+	var front_z: float = -2.4
+	var back_z: float = 2.4
 	for side: float in [-1.0, 1.0]:
-		for z: float in [-1.15, 0.25, 1.45]:
-			var wlen: float = 0.95 if z > -1.0 else 0.7
-			b.add(_box(Vector3(0.04, 0.6, wlen)), _at(Vector3(side * (hw + 0.01), 2.08, z)), glass)
-			if z > -1.0:
-				# Half-drawn curtains in the living area make the van feel lived in.
-				b.add(_box(Vector3(0.04, 0.26, wlen * 0.92)), _at(Vector3(side * (hw + 0.016), 1.93, z)), curtain)
-				b.add(_box(Vector3(0.04, 0.6, 0.14)), _at(Vector3(side * (hw + 0.017), 2.08, z - wlen * 0.42)), curtain.darkened(0.08))
-		# Door seams, side mirror, mudflap.
-		for z: float in [-1.55, -0.55]:
-			b.add(_box(Vector3(0.02, 1.9, 0.025)), _at(Vector3(side * (width * 0.5 + 0.005), 1.45, z)), cream.darkened(0.35))
-		b.add(_box(Vector3(0.22, 0.04, 0.04)), _at(Vector3(side * (hw + 0.1), 1.72, -1.95)), trim)
-		b.add(_box(Vector3(0.05, 0.2, 0.14)), _at(Vector3(side * (hw + 0.22), 1.72, -1.95)), Color(0.8, 0.82, 0.85))
-		b.add(_box(Vector3(0.3, 0.32, 0.02)), _at(Vector3(side * 0.88, 0.3, 2.05)), Color(0.12, 0.12, 0.13))
-	b.add(_box(Vector3(1.4, 0.55, 0.04)), _at(Vector3(0, 2.08, length * 0.5 + 0.02)), glass)
-	b.add(_box(Vector3(1.4, 0.2, 0.04)), _at(Vector3(0, 1.93, length * 0.5 + 0.026)), curtain)
-	# Roof vent and a round front badge.
-	b.add(_box(Vector3(0.5, 0.12, 0.5)), _at(Vector3(0, 2.53, -0.9)), Color(0.85, 0.85, 0.83))
-	b.add(_cone(0.17, 0.17, 0.03, 12), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.15, front_z - 0.015)), Color(0.85, 0.86, 0.88))
-	b.add(_box(Vector3(width - 0.3, 0.05, 0.03)), _at(Vector3(0, 0.82, front_z - 0.012)), Color(0.85, 0.86, 0.88))
-	# Roof rack + spare tyre + side stripe.
-	b.add(_box(Vector3(width - 0.3, 0.06, 2.6)), _at(Vector3(0, 2.55, 0.6)), trim)
+		# Side mirror on a thin arm, mudflap.
+		b.add(_box(Vector3(0.22, 0.04, 0.04)), _at(Vector3(side * 1.08, 1.72, -1.95)), trim)
+		b.add(_box(Vector3(0.06, 0.22, 0.15)), _at(Vector3(side * 1.2, 1.72, -1.95)), chrome)
+		b.add(_box(Vector3(0.3, 0.3, 0.02)), _at(Vector3(side * 0.86, 0.32, 2.02)), Color(0.1, 0.1, 0.11))
+		# Headlight rims and tail lights.
+		b.add(_cone(0.17, 0.17, 0.05, 14), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(side * 0.68, 1.05, front_z - 0.01)), chrome)
+		b.add(_box(Vector3(0.16, 0.32, 0.05)), _at(Vector3(side * 0.8, 1.05, back_z + 0.01)), Color(0.78, 0.1, 0.08))
+		# Indicator lamps.
+		b.add(_box(Vector3(0.14, 0.07, 0.04)), _at(Vector3(side * 0.7, 0.8, front_z - 0.01)), Color(1.0, 0.6, 0.15))
+		# Door handle.
+		b.add(_box(Vector3(0.03, 0.04, 0.16)), _at(Vector3(side * 1.005, 1.6, -1.15)), chrome)
+	# Front badge, V-shaped nose trim and chrome bumpers.
+	b.add(_cone(0.16, 0.16, 0.04, 16), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.2, front_z - 0.01)), chrome)
+	for side: float in [-1.0, 1.0]:
+		b.add(_box(Vector3(0.62, 0.05, 0.03)), Transform3D(Basis(Vector3.FORWARD, side * 0.32), Vector3(side * 0.3, 1.32, front_z - 0.008)), cream.darkened(0.06))
+	b.add(_box(Vector3(width + 0.06, 0.18, 0.16)), _at(Vector3(0, 0.55, front_z - 0.05)), chrome)
+	b.add(_box(Vector3(width + 0.06, 0.18, 0.16)), _at(Vector3(0, 0.55, back_z + 0.05)), chrome)
+	# Roof rack with a tied-down crate, roof vent, spare tyre with a cover.
+	b.add(_box(Vector3(width - 0.4, 0.05, 2.6)), _at(Vector3(0, 2.6, 0.6)), trim)
 	for z: float in [-0.6, 0.6, 1.8]:
-		b.add(_box(Vector3(width - 0.2, 0.1, 0.06)), _at(Vector3(0, 2.6, z)), trim)
-	b.add(_box(Vector3(1.1, 0.35, 1.0)), _at(Vector3(0, 2.75, 1.2)), Color(0.55, 0.42, 0.28), 0.03)
-	b.add(_cone(0.36, 0.36, 0.22, 10), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.3, length * 0.5 + 0.12)), trim)
-	b.add(_box(Vector3(width + 0.02, 0.1, length + 0.02)), _at(Vector3(0, 1.42, 0)), cream.darkened(0.08))
-	# Bumpers, headlights, taillights.
-	b.add(_box(Vector3(width + 0.1, 0.22, 0.2)), _at(Vector3(0, 0.55, front_z - 0.05)), Color(0.75, 0.75, 0.73))
-	b.add(_box(Vector3(width + 0.1, 0.22, 0.2)), _at(Vector3(0, 0.55, length * 0.5 + 0.05)), Color(0.75, 0.75, 0.73))
-	for side: float in [-1.0, 1.0]:
-		b.add(_cone(0.16, 0.16, 0.06, 10), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(side * 0.68, 1.05, front_z - 0.02)), Color(1.0, 0.97, 0.85))
-		b.add(_box(Vector3(0.18, 0.3, 0.04)), _at(Vector3(side * 0.82, 1.05, length * 0.5 + 0.01)), Color(0.8, 0.12, 0.1))
-	# Wheel arches (dark).
-	for x: float in [-1.0, 1.0]:
-		for z: float in [-1.45, 1.5]:
-			b.add(_box(Vector3(0.05, 0.75, 1.0)), _at(Vector3(x * (width * 0.5 + 0.005), 0.6, z)), trim)
-	return b.commit(vertex_color_material(0.55))
+		b.add(_box(Vector3(width - 0.3, 0.08, 0.06)), _at(Vector3(0, 2.62, z)), trim)
+		for x: float in [-0.82, 0.82]:
+			b.add(_box(Vector3(0.05, 0.14, 0.05)), _at(Vector3(x, 2.56, z)), trim)
+	b.add(_box(Vector3(1.1, 0.35, 1.0)), _at(Vector3(0, 2.82, 1.2)), Color(0.55, 0.42, 0.28), 0.03)
+	b.add(_box(Vector3(1.12, 0.04, 0.06)), _at(Vector3(0, 2.92, 1.05)), Color(0.2, 0.32, 0.5))
+	b.add(_box(Vector3(0.5, 0.1, 0.5)), _at(Vector3(0, 2.56, -0.9)), Color(0.85, 0.85, 0.83))
+	b.add(_cone(0.36, 0.36, 0.2, 14), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.3, back_z + 0.13)), Color(0.85, 0.5, 0.25))
+	b.add(_cone(0.2, 0.2, 0.22, 10), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.3, back_z + 0.14)), cream)
+	# Dark underside so the gap above the road isn't see-through.
+	b.add(_box(Vector3(width - 0.2, 0.1, length - 0.4)), _at(Vector3(0, 0.5, 0)), Color(0.08, 0.08, 0.09))
+	var mesh: ArrayMesh = b.commit(vertex_color_material(0.4))
+	_add_camper_shell(mesh)
+	return mesh
+
+
+## Rounded van shell lofted along Z: rounded-rectangle cross sections with
+## bevelled ends, smooth normals, painted by camper_paint.gdshader.
+static func _add_camper_shell(mesh: ArrayMesh) -> void:
+	const RING: int = 6  # points per corner arc
+	var stations: Array[Vector4] = []  # (z, half width, bottom y, top y)
+	var bevel: float = 0.3
+	var front_inner: float = -2.4 + bevel
+	var back_inner: float = 2.4 - bevel
+	for k: int in range(6, -1, -1):
+		var th: float = PI * 0.5 * k / 6.0
+		var inset: float = bevel * (1.0 - cos(th))
+		stations.append(Vector4(front_inner - bevel * sin(th), 1.0 - inset, 0.45 + inset * 0.6, 2.42 - inset * 1.2))
+	for z: float in [-1.6, -0.8, 0.0, 0.8, 1.6]:
+		stations.append(Vector4(z, 1.0, 0.45, 2.5))
+	for k: int in 7:
+		var th: float = PI * 0.5 * k / 6.0
+		var inset: float = bevel * (1.0 - cos(th))
+		stations.append(Vector4(back_inner + bevel * sin(th), 1.0 - inset, 0.45 + inset * 0.6, 2.48 - inset * 1.2))
+	# The roof eases down towards the windscreen.
+	var rings: Array[PackedVector3Array] = []
+	for st4: Vector4 in stations:
+		var top: float = st4.w - 0.08 * smoothstep(-1.4, -2.2, st4.x)
+		rings.append(_rounded_section(st4.x, st4.y, st4.z, top, 0.4, 0.12, RING))
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st.set_color(Color.WHITE)
+	var n: int = rings[0].size()
+	for ri: int in rings.size() - 1:
+		var mid_z: float = (stations[ri].x + stations[ri + 1].x) * 0.5
+		for i: int in n:
+			var j: int = (i + 1) % n
+			_shell_tri(st, rings[ri][i], rings[ri + 1][i], rings[ri + 1][j], mid_z)
+			_shell_tri(st, rings[ri][i], rings[ri + 1][j], rings[ri][j], mid_z)
+	# Flat end caps.
+	for cap: int in [0, rings.size() - 1]:
+		var ring: PackedVector3Array = rings[cap]
+		var centre := Vector3.ZERO
+		for p: Vector3 in ring:
+			centre += p
+		centre /= ring.size()
+		var out_dir: float = -1.0 if cap == 0 else 1.0
+		for i: int in n:
+			var a: Vector3 = ring[i]
+			var c: Vector3 = ring[(i + 1) % n]
+			var nrm: Vector3 = (c - centre).cross(a - centre)
+			if nrm.z * out_dir < 0.0:
+				st.add_vertex(centre); st.add_vertex(c); st.add_vertex(a)
+			else:
+				st.add_vertex(centre); st.add_vertex(a); st.add_vertex(c)
+	st.index()
+	st.generate_normals()
+	var arrays: Array = st.commit_to_arrays()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	var mat := ShaderMaterial.new()
+	mat.shader = CAMPER_PAINT_SHADER
+	mesh.surface_set_material(mesh.get_surface_count() - 1, mat)
+
+
+static func _rounded_section(z: float, hw: float, bottom: float, top: float, r_top: float, r_bottom: float, per_corner: int) -> PackedVector3Array:
+	var pts := PackedVector3Array()
+	# Corner centres and start angles, going round: bottom-right, top-right, top-left, bottom-left.
+	var corners: Array = [
+		[Vector2(hw - r_bottom, bottom + r_bottom), r_bottom, -PI * 0.5],
+		[Vector2(hw - r_top, top - r_top), r_top, 0.0],
+		[Vector2(-hw + r_top, top - r_top), r_top, PI * 0.5],
+		[Vector2(-hw + r_bottom, bottom + r_bottom), r_bottom, PI],
+	]
+	for c: Array in corners:
+		for k: int in per_corner:
+			var a: float = float(c[2]) + PI * 0.5 * k / (per_corner - 1)
+			var p: Vector2 = c[0] + Vector2(cos(a), sin(a)) * float(c[1])
+			pts.append(Vector3(p.x, p.y, z))
+	return pts
+
+
+## Adds a triangle wound so its normal faces away from the shell's axis.
+static func _shell_tri(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, mid_z: float) -> void:
+	var centroid: Vector3 = (a + b + c) / 3.0
+	var outward: Vector3 = centroid - Vector3(0, 1.45, mid_z)
+	var nrm: Vector3 = (c - a).cross(b - a)
+	if nrm.dot(outward) < 0.0:
+		st.add_vertex(a); st.add_vertex(c); st.add_vertex(b)
+	else:
+		st.add_vertex(a); st.add_vertex(b); st.add_vertex(c)
 
 
 static func wheel() -> ArrayMesh:

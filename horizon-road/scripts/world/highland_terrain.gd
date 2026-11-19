@@ -9,6 +9,7 @@ enum Surface { GRASS, ROAD, MUD, ROCK, SNOW, SAND }
 
 const TERRAIN_SHADER: Shader = preload("res://assets/shaders/terrain.gdshader")
 const ROAD_SHADER: Shader = preload("res://assets/shaders/road.gdshader")
+const BACKDROP_SHADER: Shader = preload("res://assets/shaders/backdrop.gdshader")
 const WATER_SHADER: Shader = preload("res://assets/shaders/water.gdshader")
 ## 0 = fully faceted, 1 = fully smooth. Mid values keep the low-poly look calm.
 const NORMAL_SOFTNESS: float = 0.55
@@ -37,6 +38,9 @@ const COLOR_SOFTNESS: float = 0.5
 
 var resolution: int
 var heights: PackedFloat32Array
+## Shader parameters for the distant ranges (snow_line, rock_color...).
+@export var backdrop_params: Dictionary = {}
+var _backdrop_noise: FastNoiseLite
 var road_distance: PackedFloat32Array
 var surfaces: PackedByteArray
 var water_level: float = 0.0
@@ -389,7 +393,7 @@ func _vertex_color(ix: int, iz: int) -> Color:
 			c = c.lerp(Color(0.3, 0.36, 0.2), 0.45)
 	var road_d: float = road_distance[i]
 	if road_d < road_half_width + 1.5:
-		c = c.lerp(Color(0.4, 0.4, 0.24), 0.45 * (1.0 - smoothstep(road_half_width, road_half_width + 1.5, road_d)))
+		c = c.lerp(c.darkened(0.12), 0.6 * (1.0 - smoothstep(road_half_width, road_half_width + 1.5, road_d)))
 	# Lake bed colour only inside the basin (low meadows elsewhere stay green).
 	if h < water_level + 0.15 and Vector2(x, z).distance_to(lake_center) < lake_radius * 1.25:
 		c = Color(0.33, 0.33, 0.24)
@@ -537,24 +541,26 @@ func _build_water() -> void:
 func _build_backdrop() -> void:
 	var inner: float = _half * 0.95
 	var outer: float = 3200.0
-	var rings: int = 14
-	var segments: int = 96
-	var noise := FastNoiseLite.new()
-	noise.seed = terrain_seed + 9
-	noise.frequency = 0.0012
-	noise.fractal_type = FastNoiseLite.FRACTAL_RIDGED
-	noise.fractal_octaves = 4
+	var rings: int = 30
+	var segments: int = 200
+	_backdrop_noise = FastNoiseLite.new()
+	_backdrop_noise.seed = terrain_seed + 9
+	_backdrop_noise.frequency = 0.00095
+	_backdrop_noise.fractal_type = FastNoiseLite.FRACTAL_RIDGED
+	_backdrop_noise.fractal_octaves = 5
+	_backdrop_noise.domain_warp_enabled = true
+	_backdrop_noise.domain_warp_amplitude = 120.0
 	var pts: Array[PackedVector3Array] = []
 	for ri: int in rings + 1:
 		var t: float = float(ri) / rings
-		var radius: float = lerpf(inner, outer, pow(t, 1.6))
+		var radius: float = lerpf(inner, outer, pow(t, 1.5))
 		var row := PackedVector3Array()
 		for si: int in segments:
-			var a: float = TAU * si / segments
+			# Jitter the angle a little so the rings don't read as a lathe.
+			var a: float = TAU * (si + (0.0 if ri == 0 else sin(si * 12.9898 + ri * 78.233) * 0.3)) / segments
 			var x: float = cos(a) * radius
 			var z: float = sin(a) * radius
-			var peak: float = (noise.get_noise_2d(x, z) * 0.5 + 0.5)
-			var h: float = 30.0 + peak * peak * 340.0 * smoothstep(0.0, 0.35, t) + t * 90.0
+			var h: float = _backdrop_height(x, z, t, a)
 			if ri == 0:
 				h = _base_height(x * (_half * 0.98) / radius, z * (_half * 0.98) / radius) - 10.0
 			row.append(Vector3(x, h, z))
@@ -570,11 +576,8 @@ func _build_backdrop() -> void:
 			var b: Vector3 = pts[ri][s2]
 			var c: Vector3 = pts[ri + 1][si]
 			var d: Vector3 = pts[ri + 1][s2]
-			var forest := Color(0.16, 0.26, 0.14).lerp(Color(0.3, 0.36, 0.34), t)
-			var col_a: Color = forest if a.y < 380.0 else Color(0.8, 0.83, 0.88)
-			var col_b: Color = forest if d.y < 380.0 else Color(0.8, 0.83, 0.88)
-			_face(verts, normals, cols, a, d, b, col_a)
-			_face(verts, normals, cols, a, c, d, col_b)
+			_face(verts, normals, cols, a, d, b, _backdrop_color((a + b + d) / 3.0, t))
+			_face(verts, normals, cols, a, c, d, _backdrop_color((a + c + d) / 3.0, t))
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = verts
@@ -583,13 +586,29 @@ func _build_backdrop() -> void:
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	var mat := ShaderMaterial.new()
-	mat.shader = TERRAIN_SHADER
+	mat.shader = BACKDROP_SHADER
+	for key: String in backdrop_params:
+		mat.set_shader_parameter(key, backdrop_params[key])
 	mesh.surface_set_material(0, mat)
 	var mi := MeshInstance3D.new()
 	mi.name = "Backdrop"
 	mi.mesh = mesh
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(mi)
+
+
+## Height of the distant ranges; t = 0 at the region edge, 1 at the horizon.
+func _backdrop_height(x: float, z: float, t: float, _angle: float) -> float:
+	var peak: float = _backdrop_noise.get_noise_2d(x, z) * 0.5 + 0.5
+	var massif: float = sin(x * 0.0021 + 1.3) * cos(z * 0.0017) * 0.5 + 0.5
+	return 30.0 + pow(peak, 1.7) * lerpf(220.0, 400.0, massif) * smoothstep(0.0, 0.35, t) + t * 90.0
+
+
+## Land cover colour of a distant face (the shader adds rock and snow).
+func _backdrop_color(p: Vector3, t: float) -> Color:
+	var forest := Color(0.15, 0.25, 0.13).lerp(Color(0.24, 0.3, 0.24), t)
+	var h: float = sin(p.x * 0.013) * cos(p.z * 0.011)
+	return forest.lerp(Color(0.32, 0.38, 0.2), clampf(h * 0.5, 0.0, 0.4)) if p.y < 240.0 else forest.lerp(Color(0.38, 0.4, 0.3), 0.5)
 
 
 ## Top-down painted map of the region for the map screen.

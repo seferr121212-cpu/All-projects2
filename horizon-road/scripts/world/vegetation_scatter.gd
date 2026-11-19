@@ -233,7 +233,7 @@ func _scatter_rocks() -> void:
 
 
 func _scatter_grass() -> void:
-	var variants: Array[Mesh] = [LowPolyMeshes.grass_tuft(5, 6, 0.45), LowPolyMeshes.grass_tuft(8, 8, 0.65)]
+	var variants: Array[Mesh] = [LowPolyMeshes.grass_tuft(5, 9, 0.42), LowPolyMeshes.grass_tuft(8, 12, 0.6)]
 	var buckets: Array[Dictionary] = [{}, {}]
 	for i: int in int(grass_count * density_scale):
 		var p: Vector2 = _random_point(0.62)
@@ -245,7 +245,7 @@ func _scatter_grass() -> void:
 			continue
 		var s: float = _rng.randf_range(0.7, 1.4)
 		var xf := _ground_transform(p, s, 0.02, 0.0)
-		var meadow := Color(1.0, 1.0, 1.0).lerp(Color(1.15, 1.05, 0.75), _rng.randf() * 0.6)
+		var meadow := Color(1.0, 1.0, 1.0).lerp(Color(1.12, 1.04, 0.8), _rng.randf() * 0.35)
 		if biome == "coastal":
 			# Sun-dried summer grass.
 			meadow = Color(1.35, 1.2, 0.65).lerp(Color(1.1, 1.05, 0.7), _rng.randf())
