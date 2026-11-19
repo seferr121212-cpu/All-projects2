@@ -33,6 +33,18 @@
 			"branches": [
 				{
 					"if": {
+						"flag": "hasan.net_mend.done"
+					},
+					"next": "work2_deliver"
+				},
+				{
+					"if": {
+						"flag": "hasan.net_mend.on"
+					},
+					"next": "work2_check"
+				},
+				{
+					"if": {
 						"flag": "hasan.net_full"
 					},
 					"next": "deliver"
@@ -114,6 +126,15 @@
 				{
 					"text": "HASAN_CH_WORK",
 					"next": "work"
+				},
+				{
+					"text": "HASAN_CH_WORK2",
+					"next": "work2",
+					"if": {
+						"flag": "hasan.met",
+						"not_flag": "hasan.net_mend.on",
+						"level_min": 1
+					}
 				},
 				{
 					"text": "HASAN_CH_FUEL",
@@ -412,6 +433,55 @@
 		},
 		"fuel_broke": {
 			"text": "HASAN_FUEL_BROKE",
+			"next": "hub"
+		},
+		"work2": {
+			"text": "HASAN_WORK2_ASK",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work2_go",
+					"actions": [
+						"start_activity:net_mend"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work2_go": {
+			"text": "HASAN_WORK2_GO"
+		},
+		"work2_check": {
+			"text": "HASAN_WORK2_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_GIVE_UP",
+					"next": "work2_cancel",
+					"actions": [
+						"complete_activity:net_mend"
+					]
+				}
+			]
+		},
+		"work2_cancel": {
+			"text": "HASAN_WORK2_CANCEL",
+			"next": "hub"
+		},
+		"work2_deliver": {
+			"text": "HASAN_WORK2_DELIVER",
+			"next": "work2_pay",
+			"actions": [
+				"complete_activity:net_mend"
+			]
+		},
+		"work2_pay": {
+			"text": "HASAN_WORK2_PAY",
 			"next": "hub"
 		}
 	}

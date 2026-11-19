@@ -23,6 +23,8 @@ static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres
 const REGIONS: Dictionary = {
 	&"blacksea_highland": "res://data/regions/blacksea_highland.tres",
 	&"aegean_village": "res://data/regions/aegean_village.tres",
+	&"cappadocia": "res://data/regions/cappadocia.tres",
+	&"eastern_plateau": "res://data/regions/eastern_plateau.tres",
 }
 const TRAVEL_FUEL_SHARE: float = 0.6
 

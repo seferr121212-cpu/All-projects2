@@ -97,6 +97,10 @@ func _process(delta: float) -> void:
 		var text: String = (node as Activity).get_status_text()
 		if text != "":
 			status.append(text)
+	for node: Node in get_tree().get_nodes_in_group(&"cafe"):
+		var cafe_text: String = (node as TravellingCafe).get_status_text()
+		if cafe_text != "":
+			status.append(cafe_text)
 	_status.text = "\n".join(status)
 	_toast_timer -= delta
 	_toast.modulate.a = clampf(_toast_timer / 0.5, 0.0, 1.0)

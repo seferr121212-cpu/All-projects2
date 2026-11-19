@@ -31,6 +31,9 @@
 [ext_resource type="Script" path="res://ui/sketch/sketch_mode.gd" id="29_sketch"]
 [ext_resource type="Script" path="res://ui/menus/pause_menu.gd" id="30_pause"]
 
+[ext_resource type="Script" path="res://scripts/activities/tea_brewing.gd" id="40_brew"]
+[ext_resource type="Script" path="res://scripts/activities/engine_repair.gd" id="41_repair"]
+
 [node name="BlackseaHighland" type="Node3D"]
 script = ExtResource("1_region")
 definition = ExtResource("2_def")
@@ -169,6 +172,14 @@ script = ExtResource("26_interior")
 [node name="TeaHarvest" type="Node3D" parent="."]
 script = ExtResource("23_harvest")
 vegetation_path = NodePath("../Vegetation")
+
+[node name="TeaBrewing" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 0, 155)
+script = ExtResource("40_brew")
+
+[node name="EngineRepair" type="Node3D" parent="."]
+transform = Transform3D(0.7, 0, 0.7, 0, 1, 0, -0.7, 0, 0.7, -108, 0, -38)
+script = ExtResource("41_repair")
 
 [node name="Camper" parent="." instance=ExtResource("10_camper")]
 

@@ -7,7 +7,7 @@ extends Node3D
 @export var pasture_radius: float = 35.0
 @export var walk_speed: float = 0.55
 @export var herd_seed: int = 3
-## "cow" (highland pasture) or "cat" (harbour).
+## "cow" (highland pasture), "cat" (harbour) or "sheep" (steppe flock).
 @export var animal: String = "cow"
 
 var _cows: Array[Dictionary] = []
@@ -26,10 +26,15 @@ func _ready() -> void:
 		var cow := Node3D.new()
 		cow.name = "Cow%d" % i
 		var mesh := MeshInstance3D.new()
-		mesh.mesh = LowPolyMeshes.cat(i, coats[i % coats.size()]) if animal == "cat" else LowPolyMeshes.cow(i, coats[i % coats.size()])
+		if animal == "sheep":
+			mesh.mesh = AnatoliaMeshes.sheep(510 + i % 3)
+		elif animal == "cat":
+			mesh.mesh = LowPolyMeshes.cat(i, coats[i % coats.size()])
+		else:
+			mesh.mesh = LowPolyMeshes.cow(i, coats[i % coats.size()])
 		cow.add_child(mesh)
 		var subject := PhotoSubject.new()
-		subject.subject_id = &"SUBJ_CAT" if animal == "cat" else &"SUBJ_COW"
+		subject.subject_id = {"cat": &"SUBJ_CAT", "sheep": &"SUBJ_SHEEP"}.get(animal, &"SUBJ_COW")
 		subject.name_key = String(subject.subject_id)
 		subject.category = PhotoSubject.Category.ANIMAL
 		subject.radius = 0.35 if animal == "cat" else 1.0

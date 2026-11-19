@@ -1,0 +1,376 @@
+{
+	"id": "ferhat",
+	"name_key": "NPC_FERHAT_NAME",
+	"role_key": "NPC_FERHAT_ROLE",
+	"note_key": "NPC_FERHAT_NOTE",
+	"personality": "Weathered shepherd in his sixties, quiet and poetic. Speaks slowly; the mountain is in every sentence.",
+	"interests": [
+		"SUBJ_AGRI",
+		"SUBJ_SHEEP",
+		"SUBJ_NOMAD_TENT",
+		"MOMENT_STARRY_NIGHT",
+		"SUBJ_NPC_FERHAT"
+	],
+	"photo_reactions": {
+		"love": "photo_love",
+		"nice": "photo_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "photo_sold",
+		"kept": "photo_kept"
+	},
+	"drawing_reactions": {
+		"love": "drawing_love",
+		"nice": "drawing_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "drawing_sold",
+		"kept": "photo_kept"
+	},
+	"start": "start",
+	"nodes": {
+		"start": {
+			"branches": [
+				{
+					"if": {
+						"flag": "ferhat.herd_done"
+					},
+					"next": "deliver"
+				},
+				{
+					"if": {
+						"flag": "ferhat.herding"
+					},
+					"next": "work_check"
+				},
+				{
+					"if": {
+						"not_flag": "ferhat.met"
+					},
+					"next": "intro"
+				},
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "greet_friend"
+				},
+				{
+					"next": "greet"
+				}
+			]
+		},
+		"intro": {
+			"text": "FERHAT_INTRO_1",
+			"next": "intro_who"
+		},
+		"intro_who": {
+			"branches": [
+				{
+					"if": {
+						"player_named": false
+					},
+					"next": "intro_name"
+				},
+				{
+					"next": "intro_end"
+				}
+			]
+		},
+		"intro_name": {
+			"type": "name_input",
+			"text": "FERHAT_ASK_NAME",
+			"next": "intro_end"
+		},
+		"intro_end": {
+			"text": "FERHAT_INTRO_END",
+			"next": "hub",
+			"actions": [
+				"meet",
+				"relationship:first_meeting"
+			]
+		},
+		"greet": {
+			"text": "FERHAT_GREET",
+			"next": "hub"
+		},
+		"greet_friend": {
+			"text": "FERHAT_GREET_FRIEND",
+			"next": "hub"
+		},
+		"hub": {
+			"text": "FERHAT_HUB",
+			"choices": [
+				{
+					"text": "FERHAT_CH_WORK",
+					"next": "work",
+					"if": {
+						"not_flag": "ferhat.herding"
+					}
+				},
+				{
+					"text": "FERHAT_CH_FUEL",
+					"next": "fuel",
+					"actions": [
+						"refuel"
+					]
+				},
+				{
+					"text": "FERHAT_CH_PHOTO",
+					"actions": [
+						"open_photo_picker"
+					],
+					"if": {
+						"has_photos": true
+					}
+				},
+				{
+					"text": "FERHAT_CH_DRAWING",
+					"actions": [
+						"open_drawing_picker"
+					],
+					"if": {
+						"has_drawings": true
+					}
+				},
+				{
+					"text": "FERHAT_CH_CHAT",
+					"next": "chat"
+				},
+				{
+					"text": "CH_BYE",
+					"next": "bye"
+				}
+			]
+		},
+		"work": {
+			"branches": [
+				{
+					"if": {
+						"not_flag": "ferhat.taught"
+					},
+					"next": "work_teach"
+				},
+				{
+					"next": "work_again"
+				}
+			]
+		},
+		"work_teach": {
+			"text": "FERHAT_WORK_TEACH",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"set_flag:ferhat.taught",
+						"start_activity:herding"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_again": {
+			"text": "FERHAT_WORK_AGAIN",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"start_activity:herding"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_go": {
+			"text": "FERHAT_WORK_GO"
+		},
+		"work_check": {
+			"text": "FERHAT_WORK_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_HAND_OVER",
+					"next": "deliver"
+				}
+			]
+		},
+		"deliver": {
+			"text": "FERHAT_DELIVER",
+			"next": "deliver_pay",
+			"actions": [
+				"complete_activity:herding"
+			]
+		},
+		"deliver_pay": {
+			"text": "FERHAT_DELIVER_PAY",
+			"next": "hub"
+		},
+		"chat": {
+			"branches": [
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "chat_3"
+				},
+				{
+					"if": {
+						"level_min": 1
+					},
+					"next": "chat_2"
+				},
+				{
+					"next": "chat_1"
+				}
+			]
+		},
+		"chat_1": {
+			"text": "FERHAT_CHAT_1",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_2": {
+			"text": "FERHAT_CHAT_2",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_3": {
+			"text": "FERHAT_CHAT_3",
+			"next": "hub"
+		},
+		"bye": {
+			"text": "FERHAT_BYE"
+		},
+		"fuel": {
+			"branches": [
+				{
+					"if": {
+						"var_min": {
+							"amount": 1
+						}
+					},
+					"next": "fuel_done"
+				},
+				{
+					"if": {
+						"tank_full": true
+					},
+					"next": "fuel_full"
+				},
+				{
+					"next": "fuel_broke"
+				}
+			]
+		},
+		"fuel_done": {
+			"text": "FERHAT_FUEL_DONE",
+			"next": "hub"
+		},
+		"fuel_full": {
+			"text": "FERHAT_FUEL_FULL",
+			"next": "hub"
+		},
+		"fuel_broke": {
+			"text": "FERHAT_FUEL_BROKE",
+			"next": "hub"
+		},
+		"photo_limit": {
+			"text": "FERHAT_PHOTO_LIMIT",
+			"next": "hub"
+		},
+		"photo_already": {
+			"text": "FERHAT_PHOTO_ALREADY",
+			"next": "hub"
+		},
+		"photo_sold": {
+			"text": "FERHAT_PHOTO_SOLD",
+			"next": "hub"
+		},
+		"drawing_sold": {
+			"text": "FERHAT_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"photo_kept": {
+			"text": "FERHAT_PHOTO_KEPT",
+			"next": "hub"
+		},
+		"photo_love": {
+			"text": "FERHAT_PHOTO_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"photo_nice": {
+			"text": "FERHAT_PHOTO_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_love": {
+			"text": "FERHAT_DRAWING_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_nice": {
+			"text": "FERHAT_DRAWING_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		}
+	}
+}

@@ -235,3 +235,61 @@ ACTION_JOURNAL,Journal,Günlük
 ACTION_MAP,Map,Harita
 ACTION_QUICKSAVE,Quick save,Hızlı kayıt
 ACTION_QUICKLOAD,Quick load,Hızlı yükleme
+REGION_CAPPADOCIA,Kapadokya Valleys,Kapadokya Vadileri
+REGION_EASTERN_PLATEAU,Eastern Plateau,Doğu Anadolu Yaylası
+SUBJ_FAIRY_CHIMNEYS,Fairy chimneys,Peri bacaları
+SUBJ_BALLOONS,Balloons at dawn,Şafakta balonlar
+SUBJ_TUFF_HOUSE,Cut-stone house,Kesme taş ev
+SUBJ_PLATEAU_HOUSE,Plateau house,Yayla evi (Doğu)
+SUBJ_NPC_ZEYNEP,Zeynep Usta,Zeynep Usta
+SUBJ_NPC_FERHAT,Ferhat Amca,Ferhat Amca
+SUBJ_SHEEP,Sheep,Koyun
+SUBJ_AGRI,Mount Ağrı,Ağrı Dağı
+SUBJ_NOMAD_TENT,Nomad tent,Göçer çadırı
+SUBJ_POTTERY,Avanos pottery,Avanos çömlekleri
+SUBJ_BEEHIVES,Beehives,Arı kovanları
+SUBJ_PLATEAU_LAKE,Mountain lake,Dağ gölü
+ACT_START_WORK,[E] Start work,[E] İşe başla
+ACT_GO_TO_SPOT,go to the work spot,iş yerine git
+ACT_REPORT_BACK,Done — report back,Bitti — haber ver
+ACT_JOB_FINISHED,Job finished (%d%%). Report back.,İş bitti (%%%d). Haber ver.
+ACT_POTTERY_SIT,[E] Sit at the wheel,[E] Çarkın başına otur
+ACT_POTTERY_TITLE,Throwing a pot,Çömlek çekiliyor
+ACT_POTTERY_HELP,Space: kick the wheel (keep it in the green). Hold E / click: pull the clay up. Stop at the line. W/F: finish. Esc: leave.,Boşluk: çarkı tekmele (yeşilde tut). E / tık basılı: kili yukarı çek. Çizgide dur. W/F: bitir. Esc: bırak.
+ACT_POTTERY_SPEED,Speed,Hız
+ACT_BREW_SIT,[E] Brew tea,[E] Çay demle
+ACT_BREW_TITLE,Brewing tea,Çay demleniyor
+ACT_BREW_HELP_BOIL,Press E / Space when the water is at a rolling boil.,Su fokur fokur kaynayınca E / Boşluk'a bas.
+ACT_BREW_HELP_STEEP,Let it steep. Press again when the pot reaches the red band.,Demlensin. Demlik kırmızı banda gelince tekrar bas.
+ACT_BREW_HELP_POUR,Hold to pour the brew; release at the red line.,Demi koymak için basılı tut; kırmızı çizgide bırak.
+ACT_BREW_HELP_WATER,Hold to top up with hot water; release at the blue line.,Sıcak su eklemek için basılı tut; mavi çizgide bırak.
+ACT_REPAIR_START,[E] Work on the tractor,[E] Traktörle uğraş
+ACT_REPAIR_TITLE,Tuning the tractor,Traktör ayarı
+ACT_REPAIR_HELP,"Watch the bolts light up, then repeat with the arrows / d-pad or click.","Civataların yanışını izle, sonra oklarla / yön tuşlarıyla ya da tıklayarak tekrarla."
+ACT_REPAIR_WATCH,Watch...,İzle...
+ACT_REPAIR_YOUR_TURN,Your turn!,Sıra sende!
+ACT_MEND_START,[E] Mend the net,[E] Ağı onar
+ACT_MEND_TITLE,Mending the net,Ağ onarılıyor
+ACT_MEND_HELP,"Move with arrows / mouse, tie with E / click. Old holes tear wider.","Oklarla / fareyle gez, E / tıkla bağla. Eski delikler büyür."
+ACT_HERD_STARTED,The flock is scattered. Drive the sheep into the pen.,Sürü dağılmış. Koyunları ağıla sür.
+ACT_HERD_PROGRESS,Sheep in the pen: %d / %d,Ağıldaki koyun: %d / %d
+ACT_HERD_DONE,Every sheep is home. Tell Ferhat.,Bütün koyunlar ağılda. Ferhat'a haber ver.
+UPG_CAFE,Travelling café kit,Gezici kafe seti
+UPG_CAFE_DESC,"Awning, counter and a samovar on the back door. Park, open, serve locals. Level 2: more customers, better tips.","Arka kapıya tente, tezgâh ve semaver. Park et, aç, yerlilere servis yap. Seviye 2: daha çok müşteri, daha iyi bahşiş."
+CAFE_OPEN,[E] Open the café,[E] Kafeyi aç
+CAFE_CLOSE,[E] Close the café,[E] Kafeyi kapat
+CAFE_SERVE,[E] Serve,[E] Servis yap
+CAFE_OPENED,The café is open. Customers will wander over.,Kafe açıldı. Müşteriler yavaş yavaş gelir.
+CAFE_CLOSED,"Café closed: %d served, %d ₺ earned.","Kafe kapandı: %d servis, %d ₺ kazanç."
+CAFE_STATUS,Café: %d / %d served · %d ₺,Kafe: %d / %d servis · %d ₺
+CAFE_MENU_TITLE,What will it be?,Ne alırsınız?
+CAFE_WRONG,"Oh, I asked for %s...","Ah, ben %s istemiştim..."
+CAFE_THANKS,Eline sağlık!,Eline sağlık!
+CAFE_TEA,Tea,Çay
+CAFE_COFFEE,Turkish coffee,Türk kahvesi
+CAFE_AYRAN,Ayran,Ayran
+CAFE_GOZLEME,Gözleme,Gözleme
+CAFE_LEMONADE,Lemonade,Limonata
+CAFE_SIMIT,Simit,Simit
+CAFE_HONEY_BREAKFAST,Honey & kaymak,Bal kaymak
+CAFE_COMPOTE,Grape compote,Üzüm hoşafı

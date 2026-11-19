@@ -1,0 +1,213 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/region.gd" id="1_region"]
+[ext_resource type="Script" path="res://scripts/world/atmosphere_controller.gd" id="3_atmo"]
+[ext_resource type="Script" path="res://scripts/world/vegetation_scatter.gd" id="6_veg"]
+[ext_resource type="Script" path="res://scripts/world/village_builder.gd" id="7_village"]
+[ext_resource type="Script" path="res://scripts/world/mist_banks.gd" id="8_mist"]
+[ext_resource type="Script" path="res://scripts/world/precipitation.gd" id="9_precip"]
+[ext_resource type="PackedScene" path="res://scenes/vehicle/camper.tscn" id="10_camper"]
+[ext_resource type="PackedScene" path="res://scenes/player/walker.tscn" id="11_walker"]
+[ext_resource type="PackedScene" path="res://scenes/camera/follow_camera.tscn" id="12_cam"]
+[ext_resource type="Script" path="res://scripts/player/travel_controller.gd" id="13_travel"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="14_hud"]
+[ext_resource type="Script" path="res://ui/debug/debug_panel.gd" id="15_debug"]
+[ext_resource type="Script" path="res://scripts/photo/photo_subject.gd" id="16_subject"]
+[ext_resource type="Script" path="res://scripts/world/grazing_herd.gd" id="17_herd"]
+[ext_resource type="Script" path="res://scripts/photo/photo_mode.gd" id="18_photo"]
+[ext_resource type="Resource" path="res://data/photo/photo_config.tres" id="19_photocfg"]
+[ext_resource type="Script" path="res://ui/journal/journal.gd" id="20_journal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="21_npc"]
+[ext_resource type="Script" path="res://ui/dialogue/dialogue_ui.gd" id="24_dialogue"]
+[ext_resource type="Script" path="res://scripts/interior/camper_interior.gd" id="26_interior"]
+[ext_resource type="Script" path="res://ui/rest/rest_menu.gd" id="27_rest"]
+[ext_resource type="Script" path="res://ui/map/map_panel.gd" id="28_map"]
+[ext_resource type="Script" path="res://ui/sketch/sketch_mode.gd" id="29_sketch"]
+[ext_resource type="Script" path="res://ui/menus/pause_menu.gd" id="30_pause"]
+[ext_resource type="Resource" path="res://data/regions/eastern_plateau.tres" id="2_def"]
+[ext_resource type="Resource" path="res://data/palettes/eastern_summer.tres" id="4_pal"]
+[ext_resource type="Script" path="res://scripts/world/eastern_terrain.gd" id="5_terrain"]
+[ext_resource type="Script" path="res://scripts/world/prop_placer.gd" id="40_props"]
+[ext_resource type="Script" path="res://scripts/activities/sheep_herding.gd" id="41_herd"]
+
+[node name="EasternPlateau" type="Node3D"]
+script = ExtResource("1_region")
+definition = ExtResource("2_def")
+terrain_path = NodePath("Terrain")
+camper_path = NodePath("Camper")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+
+[node name="Atmosphere" type="Node" parent="."]
+script = ExtResource("3_atmo")
+world_environment_path = NodePath("../WorldEnvironment")
+sun_path = NodePath("../Sun")
+moon_path = NodePath("../Moon")
+palette = ExtResource("4_pal")
+
+[node name="Terrain" type="Node3D" parent="."]
+script = ExtResource("5_terrain")
+backdrop_params = {"snow_line": 290.0, "rock_color": Color(0.36, 0.33, 0.31, 1), "rock_band_color": Color(0.44, 0.4, 0.36, 1), "rock_slope": 0.38, "forest_speckle": 0.15}
+road_params = {"gravel_color": Color(0.5, 0.47, 0.42, 1), "track_color": Color(0.38, 0.35, 0.31, 1), "grass_color": Color(0.42, 0.5, 0.24, 1)}
+
+[node name="VillageClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, 105, 0, 40)
+metadata/radius = 30
+
+[node name="CampClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, -150, 0, -62)
+metadata/radius = 22
+
+[node name="Vegetation" type="Node3D" parent="."]
+script = ExtResource("6_veg")
+terrain_path = NodePath("../Terrain")
+biome = "plateau"
+grass_count = 80000
+flower_count = 8000
+rock_count = 900
+
+[node name="Village" type="Node3D" parent="."]
+script = ExtResource("7_village")
+terrain_path = NodePath("../Terrain")
+style = "plateau"
+house_spots = Array[Vector3]([Vector3(128.2, 36.8, 64), Vector3(112.4, 44.5, 70), Vector3(112.1, 62.9, 107), Vector3(101.1, 47.5, 249), Vector3(90.2, 45.8, 98), Vector3(92.7, 32.5, 248), Vector3(99.9, 33.4, 136), Vector3(107.9, 24.7, 194), Vector3(120.5, 29.7, 49)])
+hay_spots = Array[Vector2]([Vector2(130, 62), Vector2(84, 22)])
+
+[node name="Tents" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "tent"
+spots = Array[Vector3]([Vector3(-160, -50, 20), Vector3(-138, -40, -15)])
+collider = Vector3(7, 2.3, 4.6)
+subject_id = &"SUBJ_NOMAD_TENT"
+subject_radius = 4.0
+
+[node name="Beehives" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "beehive"
+spots = Array[Vector3]([Vector3(70.0, 78.0, 0), Vector3(71.6, 78.0, 7), Vector3(73.2, 78.0, 14), Vector3(74.8, 78.0, 21), Vector3(70.0, 79.8, 28), Vector3(71.6, 79.8, 35), Vector3(73.2, 79.8, 42), Vector3(74.8, 79.8, 49)])
+subject_id = &"SUBJ_BEEHIVES"
+subject_radius = 3.5
+
+[node name="Herding" type="Node3D" parent="."]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, -150, 0, -70)
+script = ExtResource("41_herd")
+pen_offset = Vector3(0, 0, -16)
+pen_radius = 7.0
+sheep_count = 10
+field_radius = 50.0
+
+[node name="Ferhat" parent="." instance=ExtResource("21_npc")]
+transform = Transform3D(-0.9397, 0, -0.3420, 0, 1, 0, 0.3420, 0, -0.9397, -146, 0, -56)
+npc_id = &"ferhat"
+dialogue_path = "res://data/npcs/ferhat.json"
+subject_id = &"SUBJ_NPC_FERHAT"
+present_from = 5.5
+present_until = 21.0
+model = "villager_man"
+
+[node name="Flock" type="Node3D" parent="."]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, 70, 0, -70)
+script = ExtResource("17_herd")
+cow_count = 14
+pasture_radius = 26.0
+walk_speed = 0.5
+animal = "sheep"
+
+[node name="Cows" type="Node3D" parent="."]
+transform = Transform3D(1.0000, 0, -0.0000, 0, 1, 0, 0.0000, 0, 1.0000, 150, 0, 80)
+script = ExtResource("17_herd")
+cow_count = 4
+pasture_radius = 16.0
+walk_speed = 0.6
+
+[node name="MistBanks" type="Node3D" parent="."]
+script = ExtResource("8_mist")
+terrain_path = NodePath("../Terrain")
+banks = Array[Vector4]([Vector4(-60, 60, 140, 8)])
+thickness = 6.0
+max_density = 0.06
+
+[node name="Precipitation" type="Node3D" parent="."]
+script = ExtResource("9_precip")
+
+[node name="PhotoSubjects" type="Node3D" parent="."]
+
+[node name="Agri" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2600, 700, -1100)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_AGRI"
+name_key = "SUBJ_AGRI"
+radius = 900
+value = 1.0
+category = 0
+
+[node name="Lake" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 1, 60)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_PLATEAU_LAKE"
+name_key = "SUBJ_PLATEAU_LAKE"
+radius = 50
+value = 0.75
+category = 0
+snap_to_ground = true
+ground_offset = 2.0
+
+
+[node name="Camper" parent="." instance=ExtResource("10_camper")]
+
+[node name="Walker" parent="." instance=ExtResource("11_walker")]
+
+[node name="FollowCamera" parent="." instance=ExtResource("12_cam")]
+
+[node name="CamperInterior" type="Node3D" parent="."]
+script = ExtResource("26_interior")
+
+[node name="TravelController" type="Node" parent="."]
+script = ExtResource("13_travel")
+camper_path = NodePath("../Camper")
+walker_path = NodePath("../Walker")
+camera_path = NodePath("../FollowCamera")
+interior_path = NodePath("../CamperInterior")
+rest_menu_path = NodePath("../RestMenu")
+map_path = NodePath("../MapPanel")
+journal_path = NodePath("../Journal")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("14_hud")
+travel_path = NodePath("../TravelController")
+
+[node name="DebugPanel" type="CanvasLayer" parent="."]
+script = ExtResource("15_debug")
+
+[node name="PhotoMode" type="Node" parent="."]
+script = ExtResource("18_photo")
+config = ExtResource("19_photocfg")
+travel_path = NodePath("../TravelController")
+follow_camera_path = NodePath("../FollowCamera")
+
+[node name="Journal" type="CanvasLayer" parent="."]
+script = ExtResource("20_journal")
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+script = ExtResource("24_dialogue")
+travel_path = NodePath("../TravelController")
+
+[node name="RestMenu" type="CanvasLayer" parent="."]
+script = ExtResource("27_rest")
+
+[node name="MapPanel" type="CanvasLayer" parent="."]
+script = ExtResource("28_map")
+travel_path = NodePath("../TravelController")
+
+[node name="SketchMode" type="CanvasLayer" parent="."]
+script = ExtResource("29_sketch")
+travel_path = NodePath("../TravelController")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("30_pause")

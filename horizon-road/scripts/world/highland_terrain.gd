@@ -40,6 +40,8 @@ var resolution: int
 var heights: PackedFloat32Array
 ## Shader parameters for the distant ranges (snow_line, rock_color...).
 @export var backdrop_params: Dictionary = {}
+## Road shader colours (gravel_color, track_color, grass_color).
+@export var road_params: Dictionary = {}
 var _backdrop_noise: FastNoiseLite
 var road_distance: PackedFloat32Array
 var surfaces: PackedByteArray
@@ -288,6 +290,8 @@ func _height_grid_sample(x: float, z: float) -> float:
 func _build_road_meshes() -> void:
 	var mat := ShaderMaterial.new()
 	mat.shader = ROAD_SHADER
+	for key: String in road_params:
+		mat.set_shader_parameter(key, road_params[key])
 	for path: PackedVector3Array in road_paths:
 		var st := SurfaceTool.new()
 		st.begin(Mesh.PRIMITIVE_TRIANGLES)

@@ -24,6 +24,18 @@
 			"branches": [
 				{
 					"if": {
+						"flag": "recep.engine_repair.done"
+					},
+					"next": "work2_deliver"
+				},
+				{
+					"if": {
+						"flag": "recep.engine_repair.on"
+					},
+					"next": "work2_check"
+				},
+				{
+					"if": {
 						"not_flag": "recep.met"
 					},
 					"next": "intro"
@@ -67,6 +79,15 @@
 					"actions": [
 						"open_shop"
 					]
+				},
+				{
+					"text": "RECEP_CH_WORK2",
+					"next": "work2",
+					"if": {
+						"flag": "recep.met",
+						"not_flag": "recep.engine_repair.on",
+						"level_min": 1
+					}
 				},
 				{
 					"text": "RECEP_CH_FUEL",
@@ -266,6 +287,55 @@
 		},
 		"drawing_sold": {
 			"text": "RECEP_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"work2": {
+			"text": "RECEP_WORK2_ASK",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work2_go",
+					"actions": [
+						"start_activity:engine_repair"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work2_go": {
+			"text": "RECEP_WORK2_GO"
+		},
+		"work2_check": {
+			"text": "RECEP_WORK2_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_GIVE_UP",
+					"next": "work2_cancel",
+					"actions": [
+						"complete_activity:engine_repair"
+					]
+				}
+			]
+		},
+		"work2_cancel": {
+			"text": "RECEP_WORK2_CANCEL",
+			"next": "hub"
+		},
+		"work2_deliver": {
+			"text": "RECEP_WORK2_DELIVER",
+			"next": "work2_pay",
+			"actions": [
+				"complete_activity:engine_repair"
+			]
+		},
+		"work2_pay": {
+			"text": "RECEP_WORK2_PAY",
 			"next": "hub"
 		}
 	},

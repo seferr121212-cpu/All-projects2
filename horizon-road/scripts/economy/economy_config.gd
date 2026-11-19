@@ -55,3 +55,33 @@ extends Resource
 @export var net_fish_min: int = 4
 @export var net_fish_max: int = 8
 @export var net_completion_bonus: int = 15
+
+@export_group("Second jobs & new regions")
+## Base pay for the sit-down skill jobs (scaled 0.6x-1.4x by score).
+@export var pottery_pay: int = 45
+@export var brewing_pay: int = 25
+@export var repair_pay: int = 40
+@export var mending_pay: int = 30
+## Sheep herding: pay for the whole flock, plus a bonus when every sheep is in.
+@export var herding_pay: int = 50
+@export var herding_bonus: int = 15
+
+@export_group("Travelling café")
+## What each menu item costs to make and sells for (₺).
+@export var cafe_menu: Dictionary = {
+	"CAFE_TEA": [2, 6], "CAFE_COFFEE": [4, 12], "CAFE_AYRAN": [2, 7], "CAFE_GOZLEME": [6, 18],
+	"CAFE_LEMONADE": [3, 9], "CAFE_SIMIT": [2, 6], "CAFE_HONEY_BREAKFAST": [8, 24], "CAFE_COMPOTE": [3, 9],
+}
+## Items each region's customers ask for.
+@export var cafe_region_menu: Dictionary = {
+	"blacksea_highland": ["CAFE_TEA", "CAFE_COFFEE", "CAFE_GOZLEME", "CAFE_SIMIT"],
+	"aegean_village": ["CAFE_TEA", "CAFE_COFFEE", "CAFE_LEMONADE", "CAFE_GOZLEME"],
+	"cappadocia": ["CAFE_TEA", "CAFE_COFFEE", "CAFE_AYRAN", "CAFE_COMPOTE", "CAFE_GOZLEME"],
+	"eastern_plateau": ["CAFE_TEA", "CAFE_AYRAN", "CAFE_HONEY_BREAKFAST", "CAFE_SIMIT"],
+}
+@export var cafe_customers: int = 6
+## Tip as a share of the price when the order is served quickly.
+@export var cafe_tip_share: float = 0.3
+## Seconds a customer waits happily before the tip shrinks.
+@export var cafe_patience: float = 25.0
+

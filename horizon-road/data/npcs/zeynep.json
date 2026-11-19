@@ -1,0 +1,376 @@
+{
+	"id": "zeynep",
+	"name_key": "NPC_ZEYNEP_NAME",
+	"role_key": "NPC_ZEYNEP_ROLE",
+	"note_key": "NPC_ZEYNEP_NOTE",
+	"personality": "Warm, quick-witted potter in her forties. Explains everything with clay. Calls people 'canım'.",
+	"interests": [
+		"SUBJ_FAIRY_CHIMNEYS",
+		"SUBJ_BALLOONS",
+		"SUBJ_TUFF_HOUSE",
+		"MOMENT_SUNRISE",
+		"SUBJ_NPC_ZEYNEP"
+	],
+	"photo_reactions": {
+		"love": "photo_love",
+		"nice": "photo_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "photo_sold",
+		"kept": "photo_kept"
+	},
+	"drawing_reactions": {
+		"love": "drawing_love",
+		"nice": "drawing_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "drawing_sold",
+		"kept": "photo_kept"
+	},
+	"start": "start",
+	"nodes": {
+		"start": {
+			"branches": [
+				{
+					"if": {
+						"flag": "zeynep.pottery.done"
+					},
+					"next": "deliver"
+				},
+				{
+					"if": {
+						"flag": "zeynep.pottery.on"
+					},
+					"next": "work_check"
+				},
+				{
+					"if": {
+						"not_flag": "zeynep.met"
+					},
+					"next": "intro"
+				},
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "greet_friend"
+				},
+				{
+					"next": "greet"
+				}
+			]
+		},
+		"intro": {
+			"text": "ZEYNEP_INTRO_1",
+			"next": "intro_who"
+		},
+		"intro_who": {
+			"branches": [
+				{
+					"if": {
+						"player_named": false
+					},
+					"next": "intro_name"
+				},
+				{
+					"next": "intro_end"
+				}
+			]
+		},
+		"intro_name": {
+			"type": "name_input",
+			"text": "ZEYNEP_ASK_NAME",
+			"next": "intro_end"
+		},
+		"intro_end": {
+			"text": "ZEYNEP_INTRO_END",
+			"next": "hub",
+			"actions": [
+				"meet",
+				"relationship:first_meeting"
+			]
+		},
+		"greet": {
+			"text": "ZEYNEP_GREET",
+			"next": "hub"
+		},
+		"greet_friend": {
+			"text": "ZEYNEP_GREET_FRIEND",
+			"next": "hub"
+		},
+		"hub": {
+			"text": "ZEYNEP_HUB",
+			"choices": [
+				{
+					"text": "ZEYNEP_CH_WORK",
+					"next": "work",
+					"if": {
+						"not_flag": "zeynep.pottery.on"
+					}
+				},
+				{
+					"text": "ZEYNEP_CH_FUEL",
+					"next": "fuel",
+					"actions": [
+						"refuel"
+					]
+				},
+				{
+					"text": "ZEYNEP_CH_PHOTO",
+					"actions": [
+						"open_photo_picker"
+					],
+					"if": {
+						"has_photos": true
+					}
+				},
+				{
+					"text": "ZEYNEP_CH_DRAWING",
+					"actions": [
+						"open_drawing_picker"
+					],
+					"if": {
+						"has_drawings": true
+					}
+				},
+				{
+					"text": "ZEYNEP_CH_CHAT",
+					"next": "chat"
+				},
+				{
+					"text": "CH_BYE",
+					"next": "bye"
+				}
+			]
+		},
+		"work": {
+			"branches": [
+				{
+					"if": {
+						"not_flag": "zeynep.taught"
+					},
+					"next": "work_teach"
+				},
+				{
+					"next": "work_again"
+				}
+			]
+		},
+		"work_teach": {
+			"text": "ZEYNEP_WORK_TEACH",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"set_flag:zeynep.taught",
+						"start_activity:pottery"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_again": {
+			"text": "ZEYNEP_WORK_AGAIN",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"start_activity:pottery"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_go": {
+			"text": "ZEYNEP_WORK_GO"
+		},
+		"work_check": {
+			"text": "ZEYNEP_WORK_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_HAND_OVER",
+					"next": "deliver"
+				}
+			]
+		},
+		"deliver": {
+			"text": "ZEYNEP_DELIVER",
+			"next": "deliver_pay",
+			"actions": [
+				"complete_activity:pottery"
+			]
+		},
+		"deliver_pay": {
+			"text": "ZEYNEP_DELIVER_PAY",
+			"next": "hub"
+		},
+		"chat": {
+			"branches": [
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "chat_3"
+				},
+				{
+					"if": {
+						"level_min": 1
+					},
+					"next": "chat_2"
+				},
+				{
+					"next": "chat_1"
+				}
+			]
+		},
+		"chat_1": {
+			"text": "ZEYNEP_CHAT_1",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_2": {
+			"text": "ZEYNEP_CHAT_2",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_3": {
+			"text": "ZEYNEP_CHAT_3",
+			"next": "hub"
+		},
+		"bye": {
+			"text": "ZEYNEP_BYE"
+		},
+		"fuel": {
+			"branches": [
+				{
+					"if": {
+						"var_min": {
+							"amount": 1
+						}
+					},
+					"next": "fuel_done"
+				},
+				{
+					"if": {
+						"tank_full": true
+					},
+					"next": "fuel_full"
+				},
+				{
+					"next": "fuel_broke"
+				}
+			]
+		},
+		"fuel_done": {
+			"text": "ZEYNEP_FUEL_DONE",
+			"next": "hub"
+		},
+		"fuel_full": {
+			"text": "ZEYNEP_FUEL_FULL",
+			"next": "hub"
+		},
+		"fuel_broke": {
+			"text": "ZEYNEP_FUEL_BROKE",
+			"next": "hub"
+		},
+		"photo_limit": {
+			"text": "ZEYNEP_PHOTO_LIMIT",
+			"next": "hub"
+		},
+		"photo_already": {
+			"text": "ZEYNEP_PHOTO_ALREADY",
+			"next": "hub"
+		},
+		"photo_sold": {
+			"text": "ZEYNEP_PHOTO_SOLD",
+			"next": "hub"
+		},
+		"drawing_sold": {
+			"text": "ZEYNEP_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"photo_kept": {
+			"text": "ZEYNEP_PHOTO_KEPT",
+			"next": "hub"
+		},
+		"photo_love": {
+			"text": "ZEYNEP_PHOTO_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"photo_nice": {
+			"text": "ZEYNEP_PHOTO_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_love": {
+			"text": "ZEYNEP_DRAWING_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_nice": {
+			"text": "ZEYNEP_DRAWING_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		}
+	}
+}

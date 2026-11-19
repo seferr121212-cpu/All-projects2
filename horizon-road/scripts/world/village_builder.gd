@@ -16,7 +16,8 @@ const WINDOW_SHADER: Shader = preload("res://assets/shaders/window.gdshader")
 	Vector2(-92, -80), Vector2(-96, -78), Vector2(-120, -128), Vector2(-150, -55),
 ]
 
-## "yayla" (timber highland houses) or "ege" (whitewashed Aegean houses).
+## "yayla" (timber highland), "ege" (whitewashed Aegean), "tuff" (Kapadokya
+## cut stone) or "plateau" (eastern flat-roofed stone houses).
 @export var style: String = "yayla"
 
 var _porch_lights: Array[OmniLight3D] = []
@@ -33,7 +34,11 @@ func _ready() -> void:
 	for i: int in house_spots.size():
 		var spot: Vector3 = house_spots[i]
 		var meshes: Dictionary
-		if style == "ege":
+		if style == "tuff":
+			meshes = AnatoliaMeshes.tuff_house(i)
+		elif style == "plateau":
+			meshes = AnatoliaMeshes.plateau_house(i)
+		elif style == "ege":
 			var blues: Array[Color] = [Color(0.15, 0.4, 0.75), Color(0.2, 0.55, 0.7), Color(0.12, 0.3, 0.6)]
 			meshes = LowPolyMeshes.ege_house(i, i % 3 != 1, blues[i % blues.size()])
 		else:
@@ -62,7 +67,7 @@ func _ready() -> void:
 		col.position = Vector3(0, 2.6, 0)
 		house.add_child(col)
 		var subject := PhotoSubject.new()
-		subject.subject_id = &"SUBJ_EGE_HOUSE" if style == "ege" else &"SUBJ_YAYLA_HOUSE"
+		subject.subject_id = {"ege": &"SUBJ_EGE_HOUSE", "tuff": &"SUBJ_TUFF_HOUSE", "plateau": &"SUBJ_PLATEAU_HOUSE"}.get(style, &"SUBJ_YAYLA_HOUSE")
 		subject.name_key = String(subject.subject_id)
 		subject.category = PhotoSubject.Category.STRUCTURE
 		subject.radius = 4.5

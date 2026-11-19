@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="RegionDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/region_definition.gd" id="1_rd"]
+[ext_resource type="Resource" path="res://data/palettes/cappadocia_summer.tres" id="2_pal"]
+
+[resource]
+script = ExtResource("1_rd")
+id = &"cappadocia"
+name_key = "REGION_CAPPADOCIA"
+scene_path = "res://regions/cappadocia/cappadocia.tscn"
+map_position = Vector2(720, 300)
+season = 1
+palette = ExtResource("2_pal")
+weather_weights = {
+&"clear": 3.5,
+&"partly_cloudy": 2.0,
+&"fog": 0.2,
+&"rain": 0.3,
+&"storm": 0.3
+}
+start_weather = &"clear"
+start_hour = 5.8
+bird_density = 0.6
+music_style = "anatolia"
+season_profiles = {
+"spring": {
+"tint": [0.85, 1.2, 0.8],
+"snow": 0.0,
+"weights": {
+"clear": 2.0,
+"partly_cloudy": 2.0,
+"rain": 0.8
+}
+},
+"autumn": {
+"tint": [1.35, 0.9, 0.55],
+"snow": 0.0,
+"weights": {
+"clear": 2.0,
+"partly_cloudy": 2.0,
+"rain": 0.8,
+"fog": 0.6
+}
+},
+"winter": {
+"tint": [0.9, 0.95, 1.0],
+"snow": 0.75,
+"weights": {
+"snow": 1.8,
+"partly_cloudy": 1.5,
+"clear": 1.5,
+"fog": 0.8
+}
+}
+}

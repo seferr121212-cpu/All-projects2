@@ -30,6 +30,8 @@
 [ext_resource type="Script" path="res://ui/sketch/sketch_mode.gd" id="29_sketch"]
 [ext_resource type="Script" path="res://ui/menus/pause_menu.gd" id="30_pause"]
 
+[ext_resource type="Script" path="res://scripts/activities/net_mending.gd" id="40_mend"]
+
 [node name="AegeanVillage" type="Node3D"]
 script = ExtResource("1_region")
 definition = ExtResource("2_def")
@@ -52,6 +54,7 @@ palette = ExtResource("4_pal")
 [node name="Terrain" type="Node3D" parent="."]
 script = ExtResource("5_terrain")
 backdrop_params = {"snow_line": 9999.0, "rock_color": Color(0.62, 0.55, 0.45, 1), "rock_band_color": Color(0.72, 0.64, 0.52, 1), "rock_slope": 0.5, "forest_speckle": 0.6}
+road_params = {"gravel_color": Color(0.78, 0.72, 0.6, 1), "track_color": Color(0.66, 0.58, 0.46, 1), "grass_color": Color(0.6, 0.6, 0.38, 1)}
 
 [node name="VillageClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 0, -52)
@@ -137,6 +140,10 @@ cow_count = 4
 pasture_radius = 14.0
 walk_speed = 0.7
 animal = "cat"
+
+[node name="NetMending" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 13)
+script = ExtResource("40_mend")
 
 [node name="Camper" parent="." instance=ExtResource("10_camper")]
 

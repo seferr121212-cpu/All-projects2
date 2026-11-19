@@ -35,6 +35,8 @@ func _ready() -> void:
 	density_scale = minf(density_scale, float(Settings.quality().density))
 	if biome == "coastal":
 		_scatter_coastal()
+	elif biome == "steppe" or biome == "plateau":
+		_scatter_steppe()
 	else:
 		_scatter_spruces()
 		_scatter_broadleaves()
@@ -213,6 +215,52 @@ func _scatter_coastal() -> void:
 		_build(maquis[i], maquis_meshes[i], "Maquis%d" % i, 0.0, true)
 
 
+## Inland Anatolia: poplars and orchards along water, vine plots on the
+## valley floor (Kapadokya), cushion bushes on the open steppe.
+func _scatter_steppe() -> void:
+	var poplars: Dictionary = {}
+	var orchards: Array[Dictionary] = [{}, {}]
+	var orchard_meshes: Array[Mesh] = [AnatoliaMeshes.apricot(401), AnatoliaMeshes.apricot(411)]
+	var bushes: Array[Dictionary] = [{}, {}]
+	var bush_meshes: Array[Mesh] = [AnatoliaMeshes.steppe_bush(403), AnatoliaMeshes.steppe_bush(413)]
+	var vines: Dictionary = {}
+	var vine_noise := FastNoiseLite.new()
+	vine_noise.seed = scatter_seed + 31
+	vine_noise.frequency = 0.012
+	var vine_plots: bool = biome == "steppe"
+	for i: int in int(14000 * density_scale):
+		var p: Vector2 = _random_point()
+		if not _clear_of_features(p, 3.5, 2.0):
+			continue
+		var up: float = _terrain.normal_at(p.x, p.y).y
+		if up < 0.8:
+			continue
+		var wet: float = _terrain.forest_mask(p.x, p.y)
+		var roll: float = _rng.randf()
+		if roll < 0.06 * wet:
+			_add(poplars, _ground_transform(p, _rng.randf_range(0.8, 1.25), 0.2, 0.02), _tint(0.08))
+		elif roll < 0.2 * wet:
+			_add(orchards[i % 2], _ground_transform(p, _rng.randf_range(0.8, 1.2), 0.15, 0.04), _tint(0.1))
+		elif roll < 0.5:
+			_add(bushes[i % 2], _ground_transform(p, _rng.randf_range(0.6, 1.4), 0.1, 0.05), _tint(0.1))
+	if vine_plots:
+		# Rectangular vineyard plots in rows, low bush vines.
+		var grid: float = 2.6
+		for gz: int in int(_terrain.size / grid):
+			for gx: int in int(_terrain.size / grid):
+				var p := Vector2(-_terrain.size * 0.5 + (gx + 0.5) * grid, -_terrain.size * 0.5 + (gz + 0.5) * grid * 1.4)
+				if vine_noise.get_noise_2d(p.x, p.y) < 0.3 or not _clear_of_features(p, 4.0, 0.0):
+					continue
+				if _terrain.normal_at(p.x, p.y).y < 0.92 or _terrain.height_at(p.x, p.y) > 10.0:
+					continue
+				_add(vines, _ground_transform(p, _rng.randf_range(0.8, 1.1), 0.05, 0.0), _tint(0.08), detail_chunk_size * 2.0)
+	_build(poplars, AnatoliaMeshes.poplar(), "Poplars", 0.0, true)
+	for i: int in 2:
+		_build(orchards[i], orchard_meshes[i], "Orchard%d" % i, 0.0, true)
+		_build(bushes[i], bush_meshes[i], "SteppeBush%d" % i, 160.0, false)
+	_build(vines, AnatoliaMeshes.vine(), "Vines", 180.0, true)
+
+
 func _scatter_rocks() -> void:
 	var variants: Array[Mesh] = [LowPolyMeshes.rock(4), LowPolyMeshes.rock(5)]
 	var buckets: Array[Dictionary] = [{}, {}]
@@ -233,7 +281,8 @@ func _scatter_rocks() -> void:
 
 
 func _scatter_grass() -> void:
-	var variants: Array[Mesh] = [LowPolyMeshes.grass_tuft(5, 9, 0.42), LowPolyMeshes.grass_tuft(8, 12, 0.6)]
+	var dry: bool = biome == "steppe" or biome == "coastal"
+	var variants: Array[Mesh] = [LowPolyMeshes.grass_tuft(5, 9, 0.42, dry), LowPolyMeshes.grass_tuft(8, 12, 0.6, dry)]
 	var buckets: Array[Dictionary] = [{}, {}]
 	for i: int in int(grass_count * density_scale):
 		var p: Vector2 = _random_point(0.62)
@@ -246,9 +295,10 @@ func _scatter_grass() -> void:
 		var s: float = _rng.randf_range(0.7, 1.4)
 		var xf := _ground_transform(p, s, 0.02, 0.0)
 		var meadow := Color(1.0, 1.0, 1.0).lerp(Color(1.12, 1.04, 0.8), _rng.randf() * 0.35)
-		if biome == "coastal":
-			# Sun-dried summer grass.
-			meadow = Color(1.35, 1.2, 0.65).lerp(Color(1.1, 1.05, 0.7), _rng.randf())
+		if biome == "plateau":
+			meadow = Color(1.0, 1.0, 1.0).lerp(Color(1.25, 1.1, 0.7), _rng.randf() * 0.6)
+		elif dry:
+			meadow = Color(1.0, 1.0, 1.0).lerp(Color(0.9, 0.95, 0.85), _rng.randf())
 		_add(buckets[i % 2], xf, meadow, detail_chunk_size)
 	for i: int in variants.size():
 		_build(buckets[i], variants[i], "Grass%d" % i, 75.0, false)

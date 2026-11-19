@@ -10,6 +10,10 @@ const MIX_RATE: int = 22050
 const STYLES: Dictionary = {
 	"blacksea": {"root": 110.0, "scale": [0, 2, 3, 5, 7, 8, 10], "progression": [0, 5, 3, 4]},
 	"aegean": {"root": 146.83, "scale": [0, 2, 4, 5, 7, 9, 10], "progression": [0, 3, 6, 4]},
+	# Hicaz-flavoured (augmented second) for the Anatolian heartland.
+	"anatolia": {"root": 130.81, "scale": [0, 1, 4, 5, 7, 8, 10], "progression": [0, 3, 1, 0]},
+	# Hüseyni-like, low and open for the eastern steppe.
+	"east": {"root": 98.0, "scale": [0, 2, 3, 5, 7, 9, 10], "progression": [0, 4, 3, 0]},
 }
 ## mood -> {seconds, note gap range, rest chance, brightness, bass pulse}
 const MOODS: Dictionary = {

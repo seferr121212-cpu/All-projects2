@@ -227,11 +227,16 @@ static func rock(seed_value: int = 4) -> ArrayMesh:
 
 ## Grass tuft: a few double-sided blades with up-facing normals so they light
 ## like the ground beneath them instead of flickering per blade.
-static func grass_tuft(seed_value: int = 5, blades: int = 6, height: float = 0.5) -> ArrayMesh:
+static func grass_tuft(seed_value: int = 5, blades: int = 6, height: float = 0.5, dry: bool = false) -> ArrayMesh:
 	var b := Builder.new(seed_value)
 	var root := Color(0.13, 0.24, 0.07)
 	var mid := Color(0.3, 0.46, 0.14)
 	var tip := Color(0.56, 0.7, 0.3)
+	if dry:
+		# Summer steppe: straw blades with a little sage left at the base.
+		root = Color(0.3, 0.3, 0.16)
+		mid = Color(0.6, 0.53, 0.3)
+		tip = Color(0.86, 0.78, 0.52)
 	for i: int in blades:
 		var angle: float = b.rng.randf() * TAU
 		var offset := Vector3(b.rng.randf_range(-0.2, 0.2), 0, b.rng.randf_range(-0.2, 0.2))

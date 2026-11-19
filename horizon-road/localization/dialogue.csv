@@ -136,3 +136,97 @@ HASAN_CH_FUEL,Is there anywhere to get fuel around here?,Buralarda yakıt bulunu
 HASAN_FUEL_DONE,"I keep diesel for the boat; your camper can have some too. {amount} litres, {price} lira.","Kayık için mazot tutarım, karavanına da veririm. {amount} litre, {price} lira."
 HASAN_FUEL_FULL,"Your tank's full, son.","Deposu dolu evlat."
 HASAN_FUEL_BROKE,"No money? Haul a net with me first.","Para yok mu? Önce benimle bir ağ çek."
+FADIME_CH_WORK2,Teach me to brew tea properly?,Bana düzgün çay demlemeyi öğretir misin?
+FADIME_WORK2_ASK,"Brewing is half the tea, {player}. Come to the shelter: boil, steep, pour. The colour must be like a rabbit's blood, not like coffee!","Çayın yarısı demlemesidir {player}. Gel kulübeye: kaynat, demle, koy. Rengi tavşan kanı olacak, kahve gibi değil!"
+FADIME_WORK2_GO,"The çaydanlık is on the stove by the shelter. Go on, I'm watching.","Çaydanlık kulübenin yanındaki ocakta. Hadi bakalım, izliyorum."
+FADIME_WORK2_CHECK,The kettle is waiting for you. Shall we finish the tea?,Çaydanlık seni bekliyor. Çayı bitirelim mi?
+FADIME_WORK2_CANCEL,"Never mind, I'll brew it myself. Next time.","Boş ver, ben demlerim. Bir dahaki sefere."
+FADIME_WORK2_DELIVER,Let me taste... Hm! The pickers will be pleased.,Bir tadayım... Hım! Toplayıcılar sevinecek.
+FADIME_WORK2_PAY,Take {amount} lira for your trouble. And a glass for the road.,Zahmetine {amount} lira al. Bir bardak da yola.
+RECEP_CH_WORK2,Need a hand in the workshop?,Atölyede yardım lazım mı?
+RECEP_WORK2_ASK,"Muhtar's tractor coughs like an old man. I'll call the bolts, you tighten them in order. Mind the order, usta!","Muhtarın traktörü yaşlı adam gibi öksürüyor. Ben civataları söylerim, sen sırayla sıkarsın. Sıraya dikkat usta!"
+RECEP_WORK2_GO,The tractor is out the back. The spanner's on the seat.,Traktör arkada. Anahtar koltukta.
+RECEP_WORK2_CHECK,The tractor's still waiting. Shall we finish?,Traktör hâlâ bekliyor. Bitirelim mi?
+RECEP_WORK2_CANCEL,"Fine, it'll keep. Tractors are patient.","Peki, bekler. Traktör sabırlıdır."
+RECEP_WORK2_DELIVER,"Listen to that engine purr! You've got hands, you.",Şu motorun sesine bak! Sende el var be.
+RECEP_WORK2_PAY,Muhtar left {amount} lira. It's yours.,Muhtar {amount} lira bıraktı. Senin hakkın.
+HASAN_CH_WORK2,Can I help mend the nets?,Ağları onarmaya yardım edeyim mi?
+HASAN_WORK2_ASK,"The dolphins tore my net again, evlat. Holes open as you look. Tie them before they grow.",Yunuslar ağımı yine yırttı evlat. Baktıkça delik açılır. Büyümeden bağla.
+HASAN_WORK2_GO,The net is laid out on the quay. The shuttle is in the basket.,Ağ iskelede serili. Mekik sepette.
+HASAN_WORK2_CHECK,The net is still on the quay. Will you finish it?,Ağ hâlâ iskelede. Bitirecek misin?
+HASAN_WORK2_CANCEL,"No matter. The sea is patient, and so am I.","Önemli değil. Deniz sabırlı, ben de öyle."
+HASAN_WORK2_DELIVER,Good knots. My father would have nodded at those.,Sağlam düğümler. Babam görse başını sallardı.
+HASAN_WORK2_PAY,"{amount} lira, and the next sunset is on me.","{amount} lira, bir sonraki gün batımı da benden."
+NPC_ZEYNEP_NAME,Zeynep Usta,Zeynep Usta
+NPC_ZEYNEP_ROLE,Potter in Avanos,Avanoslu çömlekçi
+NPC_ZEYNEP_NOTE,"Third generation at the wheel. Red clay from the Kızılırmak, hands that never stop.","Çarkın başında üçüncü kuşak. Kızılırmak'ın kızıl kili, hiç durmayan eller."
+ZEYNEP_INTRO_1,"Hoş geldin, canım! You've come at balloon hour. I'm Zeynep; this wheel was my grandmother's.",Hoş geldin canım! Balon saatinde geldin. Ben Zeynep; bu çark babaannemindi.
+ZEYNEP_ASK_NAME,"And who are you, traveller with the dusty camper?","Sen kimsin bakalım, tozlu karavanlı yolcu?"
+ZEYNEP_INTRO_END,"Welcome to Kapadokya, {player}. The stone here is soft, like clay. Everything is shaped by hands, wind or water.","Kapadokya'ya hoş geldin {player}. Buranın taşı yumuşaktır, kil gibi. Her şeyi ya el şekillendirir ya rüzgâr ya su."
+ZEYNEP_GREET,"{player}! Sit, sit. The kiln is warm.",{player}! Otur otur. Fırın sıcak.
+ZEYNEP_GREET_FRIEND,"Ah, my favourite apprentice! The clay missed you.","Ah, en sevdiğim çırağım! Kil seni özledi."
+ZEYNEP_HUB,"What shall it be, canım?",Ne yapalım canım?
+ZEYNEP_CH_WORK,Can I try the wheel?,Çarkı deneyebilir miyim?
+ZEYNEP_CH_FUEL,Is there fuel around here?,Buralarda yakıt var mı?
+ZEYNEP_CH_PHOTO,I have a photo for you.,Sana bir fotoğrafım var.
+ZEYNEP_CH_DRAWING,I drew something.,Bir şey çizdim.
+ZEYNEP_CH_CHAT,Tell me about Avanos.,Bana Avanos'u anlat.
+ZEYNEP_WORK_TEACH,"The wheel listens to your feet, the clay to your hands. Kick to keep it turning, just so - not too slow, not too fast - and pull the clay up gently. Shall we?","Çark ayağını dinler, kil elini. Dönsün diye tekmele, kararında - ne yavaş ne hızlı - sonra kili yavaşça yukarı çek. Başlayalım mı?"
+ZEYNEP_WORK_AGAIN,Another pot? The clay is wet and ready.,"Bir çömlek daha mı? Kil ıslak, hazır."
+ZEYNEP_WORK_GO,The wheel is under the vine. Wet your hands first!,Çark asmanın altında. Önce ellerini ıslat!
+ZEYNEP_WORK_CHECK,Your pot is waiting on the wheel. Bring it when it's done.,Çömleğin çarkta bekliyor. Bitince getir.
+ZEYNEP_DELIVER,Let me see... It stands! A pot that stands is a pot that lives.,Bir bakayım... Duruyor! Ayakta duran çömlek yaşar.
+ZEYNEP_DELIVER_PAY,"A tourist bought it before the kiln was even cold. {amount} lira, your share.","Daha fırın soğumadan bir turist aldı. {amount} lira, senin payın."
+ZEYNEP_CHAT_1,My grandmother said the Kızılırmak gives red clay because it carries the sunsets downstream.,Babaannem derdi ki Kızılırmak kızıl kili gün batımlarını taşıdığı için verir.
+ZEYNEP_CHAT_2,At dawn a hundred balloons rise over the valley. I've seen it ten thousand times. I still stop the wheel.,Şafakta vadiden yüz balon yükselir. On bin kere gördüm. Hâlâ çarkı durdururum.
+ZEYNEP_CHAT_3,"You know what I like about you, {player}? You look at things slowly. Like a potter.",Sende neyi seviyorum biliyor musun {player}? Her şeye yavaş bakıyorsun. Çömlekçi gibi.
+ZEYNEP_BYE,"Güle güle, canım. Mind the fairy chimneys, they don't move for cars.","Güle güle canım. Peri bacalarına dikkat, arabalara yol vermezler."
+ZEYNEP_FUEL_DONE,My cousin's station is just behind the kiln. Filled you up: {amount} lira.,Kuzenimin istasyonu fırının hemen arkasında. Depoyu doldurduk: {amount} lira.
+ZEYNEP_FUEL_FULL,"Your tank's already full, canım.",Deposu zaten dolu canım.
+ZEYNEP_FUEL_BROKE,Short on money? Throw a pot or two first.,Para mı yok? Önce bir iki çömlek çek.
+ZEYNEP_PHOTO_LOVE,Oh! This one I'd hang above the kiln. Will you sell it to me?,Ah! Bunu fırının üstüne asarım. Bana satar mısın?
+ZEYNEP_PHOTO_NICE,Nice. You have a good eye. Selling?,Güzel. Gözün iyi. Satıyor musun?
+ZEYNEP_DRAWING_LOVE,A drawing! Clay of a different kind. I want it.,Bir çizim! Başka türlü bir kil. Bunu istiyorum.
+ZEYNEP_DRAWING_NICE,Not bad at all. Shall I buy it?,Hiç fena değil. Alayım mı?
+ZEYNEP_PHOTO_LIMIT,"My walls are full, canım. Another day.",Duvarlarım doldu canım. Başka gün.
+ZEYNEP_PHOTO_ALREADY,I already have that one!,Bundan bende var!
+ZEYNEP_PHOTO_SOLD,Done. It'll go above the kiln.,Tamam. Fırının üstüne gidiyor.
+ZEYNEP_DRAWING_SOLD,It'll go in the shop window.,Dükkânın vitrinine koyacağım.
+ZEYNEP_PHOTO_KEPT,"Keep it, then. Good memories travel well.",Sakla o zaman. İyi anılar iyi yolculuk eder.
+NPC_FERHAT_NAME,Ferhat Amca,Ferhat Amca
+NPC_FERHAT_ROLE,Shepherd on the plateau,Yaylada çoban
+NPC_FERHAT_NOTE,"Has watched Ağrı from this pasture for fifty summers. Few words, many stories.","Elli yazdır bu meradan Ağrı'yı seyreder. Az söz, çok hikâye."
+FERHAT_INTRO_1,"...You came a long way. The road ends here; after this, only the mountain.",...Uzaktan gelmişsin. Yol burada biter; sonrası dağ.
+FERHAT_ASK_NAME,What do they call you?,Sana ne derler?
+FERHAT_INTRO_END,"Ferhat. Sit, {player}. Drink the tea. The sheep are not going anywhere. Well... they are, but slowly.",Ferhat. Otur {player}. Çayını iç. Koyunlar bir yere gitmez. Yani... giderler ama yavaş.
+FERHAT_GREET,"Ah, the traveller. Welcome.","Ah, yolcu. Hoş geldin."
+FERHAT_GREET_FRIEND,"{player}, my son. The mountain asked about you.","{player}, oğlum. Dağ seni sordu."
+FERHAT_HUB,Yes?,Buyur?
+FERHAT_CH_WORK,Can I help with the flock?,Sürüye yardım edeyim mi?
+FERHAT_CH_FUEL,Where can I get fuel?,Nereden yakıt alabilirim?
+FERHAT_CH_PHOTO,I took a photo.,Bir fotoğraf çektim.
+FERHAT_CH_DRAWING,I drew something.,Bir şey çizdim.
+FERHAT_CH_CHAT,Tell me about the mountain.,Bana dağı anlat.
+FERHAT_WORK_TEACH,"The flock has spread across the pasture. Walk behind them, not at them; they go where you are not. The pen's gap faces the tent.","Sürü meraya dağıldı. Arkalarından yürü, üstlerine değil; sen neredeysen onlar oraya gitmez. Ağılın ağzı çadıra bakar."
+FERHAT_WORK_AGAIN,The sheep have wandered again. They always do.,Koyunlar yine dağıldı. Hep dağılırlar.
+FERHAT_WORK_GO,Slowly. Sheep can smell hurry.,Yavaş ol. Koyun aceleyi koklar.
+FERHAT_WORK_CHECK,"Some are still out. Bring them, or come back to tea, as you like.","Bazıları hâlâ dışarıda. İster getir, ister çaya dön."
+FERHAT_DELIVER,Mm. They are home. The dog will be jealous.,Hım. Evdeler. Köpek kıskanacak.
+FERHAT_DELIVER_PAY,"{amount} lira. And a pot of honey from the hives, for the road.","{amount} lira. Bir kavanoz da kovanlardan bal, yola."
+FERHAT_CHAT_1,"Ağrı wears its cloud like a hat. When the hat comes off, the weather turns.",Ağrı bulutunu şapka gibi giyer. Şapkasını çıkarınca hava döner.
+FERHAT_CHAT_2,My father brought the flock here every summer from the lowlands. Forty days on foot. Now I come by tractor. The sheep don't care.,Babam her yaz sürüyü ovadan buraya getirirdi. Kırk gün yürüyerek. Şimdi traktörle gelirim. Koyunların umurunda değil.
+FERHAT_CHAT_3,"At night here the stars come down to the grass. You should sleep outside once, {player}.",Burada gece yıldızlar çimene iner. Bir gece dışarıda uyu {player}.
+FERHAT_BYE,Go well. The road knows you now.,Yolun açık olsun. Yol artık seni tanıyor.
+FERHAT_FUEL_DONE,I keep a barrel for the tractor. Took what you need: {amount} lira.,Traktör için bir varil tutarım. Ne gerekiyorsa aldık: {amount} lira.
+FERHAT_FUEL_FULL,Your tank is full. Like my heart.,Deposu dolu. Kalbim gibi.
+FERHAT_FUEL_BROKE,No money? Help with the flock first.,Para yok mu? Önce sürüye yardım et.
+FERHAT_PHOTO_LOVE,...This is the mountain as my father saw it. Will you give it to me? I'll pay.,"...Dağ bu, babamın gördüğü gibi. Bana verir misin? Öderim."
+FERHAT_PHOTO_NICE,Good. Selling it?,Güzel. Satar mısın?
+FERHAT_DRAWING_LOVE,You drew this with your own hand? I want it for the tent.,Bunu kendi elinle mi çizdin? Çadıra isterim.
+FERHAT_DRAWING_NICE,Not bad. I'll buy it.,Fena değil. Alırım.
+FERHAT_PHOTO_LIMIT,"The tent has no more room, my son.",Çadırda yer kalmadı oğlum.
+FERHAT_PHOTO_ALREADY,I have that one already.,O bende var.
+FERHAT_PHOTO_SOLD,It goes beside the stove.,Sobanın yanına gider.
+FERHAT_DRAWING_SOLD,It goes on the tent pole.,Çadırın direğine asılır.
+FERHAT_PHOTO_KEPT,Keep it. Some things should travel with you.,Sakla. Bazı şeyler seninle gitmeli.
+CH_GIVE_UP,Let's leave it,Bırakalım

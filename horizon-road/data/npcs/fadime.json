@@ -25,6 +25,18 @@
 			"branches": [
 				{
 					"if": {
+						"flag": "fadime.tea_brew.done"
+					},
+					"next": "work2_deliver"
+				},
+				{
+					"if": {
+						"flag": "fadime.tea_brew.on"
+					},
+					"next": "work2_check"
+				},
+				{
+					"if": {
 						"flag": "fadime.harvest_full"
 					},
 					"next": "deliver"
@@ -83,6 +95,15 @@
 				{
 					"text": "FADIME_CH_WORK",
 					"next": "work"
+				},
+				{
+					"text": "FADIME_CH_WORK2",
+					"next": "work2",
+					"if": {
+						"flag": "fadime.met",
+						"not_flag": "fadime.tea_brew.on",
+						"level_min": 1
+					}
 				},
 				{
 					"text": "FADIME_CH_PHOTO",
@@ -358,6 +379,55 @@
 		},
 		"drawing_sold": {
 			"text": "FADIME_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"work2": {
+			"text": "FADIME_WORK2_ASK",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work2_go",
+					"actions": [
+						"start_activity:tea_brew"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work2_go": {
+			"text": "FADIME_WORK2_GO"
+		},
+		"work2_check": {
+			"text": "FADIME_WORK2_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_GIVE_UP",
+					"next": "work2_cancel",
+					"actions": [
+						"complete_activity:tea_brew"
+					]
+				}
+			]
+		},
+		"work2_cancel": {
+			"text": "FADIME_WORK2_CANCEL",
+			"next": "hub"
+		},
+		"work2_deliver": {
+			"text": "FADIME_WORK2_DELIVER",
+			"next": "work2_pay",
+			"actions": [
+				"complete_activity:tea_brew"
+			]
+		},
+		"work2_pay": {
+			"text": "FADIME_WORK2_PAY",
 			"next": "hub"
 		}
 	},

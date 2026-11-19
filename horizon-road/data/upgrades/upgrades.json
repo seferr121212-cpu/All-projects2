@@ -133,6 +133,27 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "cafe_kit",
+			"name_key": "UPG_CAFE",
+			"desc_key": "UPG_CAFE_DESC",
+			"icon": "☕",
+			"levels": [
+				{
+					"price": 160,
+					"effects": {
+						"cafe_customers": 0
+					}
+				},
+				{
+					"price": 300,
+					"effects": {
+						"cafe_customers": 3,
+						"cafe_tip_mult": 1.5
+					}
+				}
+			]
 		}
 	]
 }

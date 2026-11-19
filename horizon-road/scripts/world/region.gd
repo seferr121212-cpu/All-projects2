@@ -36,6 +36,10 @@ func _ready() -> void:
 		spawn.origin.y = terrain.height_at(spawn.origin.x, spawn.origin.z) + 0.3
 		camper.global_transform = spawn
 	_build_gate_sign()
+	if get_tree().get_first_node_in_group(&"cafe") == null:
+		var cafe := TravellingCafe.new()
+		cafe.name = "TravellingCafe"
+		add_child.call_deferred(cafe)
 	GameState.journey_started = true
 	GameState.arrival_pending = false
 	region_ready.emit()
