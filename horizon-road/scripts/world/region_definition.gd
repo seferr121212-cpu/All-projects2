@@ -20,6 +20,8 @@ const SEASON_IDS: Array[String] = ["spring", "summer", "autumn", "winter"]
 @export var start_weather: StringName = &"partly_cloudy"
 @export var start_hour: float = 7.0
 @export_range(0.0, 2.0) var bird_density: float = 1.0
+## MusicGenerator style: "blacksea" or "aegean".
+@export var music_style: String = "blacksea"
 ## season id ("autumn", "winter"...) -> {"tint": [r,g,b], "snow": 0..1, "weights": {...}}
 @export var season_profiles: Dictionary = {}
 

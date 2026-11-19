@@ -32,6 +32,7 @@ func _ready() -> void:
 	_terrain = get_node(terrain_path) as HighlandTerrain
 	var t0: int = Time.get_ticks_msec()
 	_rng.seed = scatter_seed
+	density_scale = minf(density_scale, float(Settings.quality().density))
 	if biome == "coastal":
 		_scatter_coastal()
 	else:

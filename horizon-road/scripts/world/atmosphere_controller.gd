@@ -32,11 +32,22 @@ func _ready() -> void:
 	environment = _create_environment()
 	world_env.environment = environment
 	_configure_lights()
+	apply_quality(Settings.quality())
 	_update(0.0)
 
 
 func _process(delta: float) -> void:
 	_update(delta)
+
+
+## Graphics quality preset from Settings (see Settings.QUALITY).
+func apply_quality(q: Dictionary) -> void:
+	environment.ssao_enabled = q.ssao
+	environment.ssil_enabled = q.ssil
+	environment.volumetric_fog_enabled = q.volumetric
+	environment.sdfgi_enabled = q.sdfgi
+	environment.sdfgi_use_occlusion = true
+	_sun.directional_shadow_max_distance = q.shadow_distance
 
 
 ## Current lightning flash strength (0..1); photo mode uses it for "moments".

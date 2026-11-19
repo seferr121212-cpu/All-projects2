@@ -54,12 +54,17 @@ var arrival_pending: bool = false
 ## False until the first region has loaded (start-of-game time setup).
 var journey_started: bool = false
 var _loading_screen: LoadingScreen
+## The title screen has been dealt with this session (continue / new game).
+var title_done: bool = false
+var _title: TitleMenu
 ## Runtime only (not saved): the active region root, so systems can query terrain.
 var current_region: Region = null
 
 
 func _ready() -> void:
 	InputSetup.register_default_actions()
+	# After every autoload exists (audio buses, clock), apply saved settings.
+	Settings.apply_all.call_deferred()
 	album.load_index()
 	drawings.load_index()
 	if DevCli.is_requested():
@@ -116,6 +121,44 @@ func travel_to(id: StringName) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_loading_screen.hide_curtain()
+
+
+# --- Title & new game ---------------------------------------------------------
+
+func show_title() -> void:
+	if _title == null:
+		_title = TitleMenu.new()
+		add_child(_title)
+	get_tree().paused = false
+	_title.open()
+
+
+## Fresh journey: wipe progress (the album and sketchbook stay -- they are the
+## player's own pictures) and restart in the first region.
+func new_game() -> void:
+	SaveManager.delete_all_saves()
+	player_name = ""
+	money = ECONOMY.starting_money
+	relationships = {}
+	flags = {}
+	counters = {}
+	people = {}
+	upgrades = {}
+	lens_level = 0
+	fuel = ECONOMY.base_tank_capacity
+	TimeManager.day = 1
+	TimeManager.forced_season = -1
+	journey_started = false
+	arrival_pending = false
+	title_done = true
+	WeatherManager.auto_change = true
+	player_mode = PlayerMode.DRIVING
+	current_region = null
+	current_region_id = &""
+	money_changed.emit(money)
+	set_context(Context.GAMEPLAY)
+	get_tree().paused = false
+	get_tree().change_scene_to_file(get_region_def(REGIONS.keys()[0]).scene_path)
 
 
 func set_context(value: Context) -> void:

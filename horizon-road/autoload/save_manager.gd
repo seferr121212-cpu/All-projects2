@@ -10,6 +10,7 @@ const SETTINGS_PATH: String = "user://settings.cfg"
 const SAVE_VERSION: int = 2
 const AUTOSAVE_SLOT: String = "autosave"
 const QUICK_SLOT: String = "quick"
+const MANUAL_SLOT: String = "manual"
 
 var settings := ConfigFile.new()
 var _autosave_timer: float = 0.0
@@ -49,12 +50,41 @@ func _notification(what: int) -> void:
 		autosave()
 
 
+## Most recently written of the player's slots, or "" when there is none.
+func latest_slot() -> String:
+	var best: String = ""
+	var best_time: int = -1
+	for slot: String in [AUTOSAVE_SLOT, QUICK_SLOT, MANUAL_SLOT]:
+		if has_save(slot):
+			var t: int = FileAccess.get_modified_time(_slot_path(slot))
+			if t > best_time:
+				best_time = t
+				best = slot
+	return best
+
+
+func load_latest() -> bool:
+	var slot: String = latest_slot()
+	return slot != "" and load_game(slot)
+
+
+func delete_all_saves() -> void:
+	for slot: String in [AUTOSAVE_SLOT, QUICK_SLOT, MANUAL_SLOT]:
+		if has_save(slot):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(_slot_path(slot)))
+
+
 func autosave() -> void:
 	_autosave_timer = 0.0
 	save_game(AUTOSAVE_SLOT)
 
 
 ## Called by the region when it is ready: resume the last session if any.
+func has_pending() -> bool:
+	return not _pending.is_empty()
+
+
+## Applies a save waiting for this region; DevCli runs may resume with --continue.
 func continue_if_possible() -> bool:
 	if not _pending.is_empty():
 		var data: Dictionary = _pending
@@ -62,9 +92,9 @@ func continue_if_possible() -> bool:
 		_apply(data)
 		game_loaded.emit("pending")
 		return true
-	if DevCli.is_requested() and not OS.get_cmdline_user_args().has("--continue"):
-		return false
-	return load_game(AUTOSAVE_SLOT)
+	if DevCli.is_requested() and OS.get_cmdline_user_args().has("--continue"):
+		return load_game(AUTOSAVE_SLOT)
+	return false
 
 
 func save_game(slot: String = "manual") -> bool:

@@ -177,3 +177,61 @@ TRAVEL_GO,Drive to %s (%.1f h),%s yoluna çık (%.1f sa)
 TRAVEL_NEED_GATE,"To travel, drive to the road sign at the edge of the region or use the map table in the camper.","Seyahat için bölgenin kenarındaki yol tabelasına git ya da karavandaki harita masasını kullan."
 UI_GATE_HINT,[M] Travel map,[M] Seyahat haritası
 SUBJ_CAT,Harbour cat,Liman kedisi
+TITLE_SUBTITLE,Horizon Road · a slow journey across Türkiye,Horizon Road · Türkiye'de yavaş bir yolculuk
+TITLE_CONTINUE,Continue the journey,Yolculuğa devam et
+TITLE_NEW,New journey,Yeni yolculuk
+TITLE_NEW_CONFIRM,"Start a new journey? Your progress will be reset (your photos and drawings stay in the album).","Yeni bir yolculuğa başlansın mı? İlerlemen sıfırlanır (fotoğrafların ve çizimlerin albümde kalır)."
+TITLE_CREDITS,"Made with Godot 4.7 · placeholder art and sound generated in code","Godot 4.7 ile yapıldı · geçici modeller ve sesler kodla üretildi"
+PAUSE_TITLE,Paused,Duraklatıldı
+PAUSE_RESUME,Resume,Devam et
+PAUSE_SAVE,Save,Kaydet
+PAUSE_LOAD,Load last save,Son kaydı yükle
+PAUSE_SETTINGS,Settings,Ayarlar
+PAUSE_TITLE_SCREEN,Title screen,Ana menü
+PAUSE_QUIT,Quit game,Oyundan çık
+SETTINGS_TITLE,Settings,Ayarlar
+SETTINGS_GRAPHICS,Graphics,Görüntü
+SETTINGS_AUDIO,Sound,Ses
+SETTINGS_GAMEPLAY,Game,Oyun
+SETTINGS_CONTROLS,Controls,Kontroller
+SETTINGS_QUALITY,Graphics quality,Grafik kalitesi
+SETTINGS_QUALITY_NOTE,"Vegetation density changes the next time a region loads.","Bitki yoğunluğu bir sonraki bölge yüklemesinde değişir."
+SETTINGS_FULLSCREEN,Fullscreen,Tam ekran
+SETTINGS_VSYNC,Vertical sync,Dikey eşitleme
+SETTINGS_MAX_FPS,Frame rate limit,Kare hızı sınırı
+SETTINGS_UNLIMITED,Unlimited,Sınırsız
+SETTINGS_VOL_MASTER,Master volume,Genel ses
+SETTINGS_VOL_MUSIC,Music,Müzik
+SETTINGS_VOL_SFX,Effects,Efektler
+SETTINGS_VOL_AMBIENCE,Ambience,Ortam sesi
+SETTINGS_LANGUAGE,Language,Dil
+SETTINGS_DAY_LENGTH,Length of a day,Bir günün uzunluğu
+SETTINGS_MINUTES,%.0f min,%.0f dk
+SETTINGS_MOUSE,Mouse sensitivity,Fare hassasiyeti
+SETTINGS_INVERT_Y,Invert vertical look,Dikey bakışı ters çevir
+SETTINGS_REBIND_HINT,"Click an action, then press a key. Esc cancels. Gamepad buttons stay as they are.","Bir eyleme tıkla, sonra bir tuşa bas. Esc vazgeçer. Gamepad tuşları değişmez."
+SETTINGS_PRESS_KEY,Press a key...,Bir tuşa bas...
+SETTINGS_RESET_KEYS,Reset to defaults,Varsayılana dön
+QUALITY_LOW,Low,Düşük
+QUALITY_MEDIUM,Medium,Orta
+QUALITY_HIGH,High,Yüksek
+QUALITY_ULTRA,Ultra,Ultra
+ACTION_ACCELERATE,Accelerate,Gaz
+ACTION_BRAKE_REVERSE,Brake / reverse,Fren / geri
+ACTION_STEER_LEFT,Steer left,Sola dön
+ACTION_STEER_RIGHT,Steer right,Sağa dön
+ACTION_MOVE_FORWARD,Walk forward,İleri yürü
+ACTION_MOVE_BACK,Walk back,Geri yürü
+ACTION_MOVE_LEFT,Walk left,Sola yürü
+ACTION_MOVE_RIGHT,Walk right,Sağa yürü
+ACTION_INTERACT,Interact / get in-out,Etkileşim / in-bin
+ACTION_HANDBRAKE,Handbrake,El freni
+ACTION_HEADLIGHTS,Headlights,Farlar
+ACTION_TOGGLE_CAMERA,Camera view,Kamera görünümü
+ACTION_SPRINT,Run,Koş
+ACTION_PHOTO_MODE,Camera (photo mode),Fotoğraf makinesi
+ACTION_SKETCH_MODE,Sketchbook,Çizim defteri
+ACTION_JOURNAL,Journal,Günlük
+ACTION_MAP,Map,Harita
+ACTION_QUICKSAVE,Quick save,Hızlı kayıt
+ACTION_QUICKLOAD,Quick load,Hızlı yükleme

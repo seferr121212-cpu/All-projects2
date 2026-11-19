@@ -64,7 +64,7 @@ Genel doğrulama araçları:
 - Bölge geçişi (yol + yükleme perdesi), bölge başına palet/mevsim profili, fırtına ve kar.
 - **Bitti:** iki bölge arasında kayıpsız geçiş; her bölgenin kendi atmosferi var.
 
-## Aşama 7 — Ses, müzik, menüler, ayarlar, yerelleştirme, cila, build
+## Aşama 7 — Ses, müzik, menüler, ayarlar, yerelleştirme, cila, build ✅
 - Ana menü, duraklat, ayarlar (grafik/ses/dil/tuş/gün uzunluğu), müzik katmanları.
 - Tüm metinler CSV'de; eksik anahtar taraması.
 - Windows export (export templates gerekir).
@@ -166,6 +166,20 @@ Genel doğrulama araçları:
 - Görsel cila 2. tur: yürüme animasyonu (kol/bacak), bulutlarda güneşe göre öz-gölge.
 - Test: 104 kontrol; `--fishing`, `--travel=<bölge>`, `--season=<mevsim>`, `--curtain`.
 - Bilinen sorunlar: bölge değiştirince öbür bölgedeki yarım iş kaydedilmez; NPC'ler animasyonsuz.
+
+## Aşama 7 notları
+- Başlık ekranı (canlı yayla üzerinde yavaş kamera), Esc duraklatma menüsü, yeni yolculuk
+  (albüm ve çizimler korunur), son kaydı yükleme.
+- Ayarlar: grafik kalitesi (Düşük/Orta/Yüksek/Ultra; MSAA, çözünürlük ölçeği, SSAO/SSIL,
+  hacimli sis, SDFGI, gölge, bitki yoğunluğu), tam ekran, dikey eşitleme, FPS sınırı; 4 ses
+  kanalı; dil, gün uzunluğu, fare hassasiyeti/ters Y; 19 eylem için klavye tuş atama.
+- Müzik: `MusicGenerator` (Karplus-Strong telli + pad + yankı), bölge başına gündüz/gece/sürüş
+  parçası, arka plan iş parçacığında üretim, parçalar arası 1–2,5 dk sessizlik.
+- Yerelleştirme taraması testi: koddaki/verideki her anahtarın TR+EN karşılığı var (106 kontrol).
+- Build: `export_presets.cfg` (Windows x86_64 + Linux), PCK gömülü. Linux build'i headless
+  olarak tüm akışlarla doğrulandı. Windows exe burada çalıştırılamadı (wine yok).
+- Bilinen sorunlar: Windows exe gerçek Windows'ta denenmedi; gamepad ile menü gezintisi kısmen
+  (odak var ama tam test edilmedi); FPS gerçek GPU'da ölçülmedi.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

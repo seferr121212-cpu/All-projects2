@@ -48,9 +48,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not GameState.is_gameplay():
 		return
-	if event.is_action_pressed(&"pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and not DevCli.is_requested():
+	if event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and not DevCli.is_requested():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed(&"interact"):
 		get_viewport().set_input_as_handled()

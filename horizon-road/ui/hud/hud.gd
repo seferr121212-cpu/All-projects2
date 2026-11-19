@@ -20,6 +20,8 @@ var _shown_money: float = 0.0
 
 
 func _ready() -> void:
+	# Keep updating while the tree is paused so the HUD hides behind menus.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_travel = get_node_or_null(travel_path)
 	var corner := VBoxContainer.new()
 	corner.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_MINSIZE, 28)

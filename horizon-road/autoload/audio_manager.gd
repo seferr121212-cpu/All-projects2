@@ -19,6 +19,15 @@ var _rng := RandomNumberGenerator.new()
 ## Region-specific multiplier (e.g. coastal regions have fewer forest birds).
 var region_bird_density: float = 1.0
 
+# Music: sparse pieces with long silences in between.
+const MUSIC_DB: float = -6.0
+var _music := AudioStreamPlayer.new()
+var _pieces: Dictionary = {}
+var _music_style: String = ""
+var _music_silence: float = 12.0
+var _music_task: int = -1
+var _music_mutex := Mutex.new()
+
 
 func _ready() -> void:
 	_rng.randomize()
@@ -29,6 +38,10 @@ func _ready() -> void:
 	for i: int in 6:
 		_bird_streams.append(ProceduralAudio.bird_chirp(100 + i))
 	_thunder_stream = ProceduralAudio.thunder()
+	_music.bus = BUS_MUSIC
+	_music.volume_db = MUSIC_DB
+	add_child(_music)
+	_music.finished.connect(func() -> void: _music_silence = _rng.randf_range(60.0, 150.0))
 
 
 func _process(delta: float) -> void:
@@ -38,9 +51,66 @@ func _process(delta: float) -> void:
 	_fade(_rain, _lin_to_db(w.rain), delta)
 	_fade(_crickets, _lin_to_db(night * (1.0 - w.rain) * (1.0 - w.snow) * 0.6), delta)
 	_update_birds(delta, w, night)
+	_update_music(delta)
+
+
+## Called by each region: generate its pieces on a worker thread.
+func set_music_style(style: String) -> void:
+	if style == _music_style:
+		return
+	_music_style = style
+	_music.stop()
+	_music_silence = 10.0
+	_music_mutex.lock()
+	_pieces.clear()
+	_music_mutex.unlock()
+	if DisplayServer.get_name() == "headless":
+		return  # tests and CI don't need music
+	_music_task = WorkerThreadPool.add_task(_generate_pieces.bind(style), false, "music")
+
+
+func _generate_pieces(style: String) -> void:
+	var seed_base: int = hash(style)
+	for mood: String in ["day", "night", "drive"]:
+		var stream: AudioStreamWAV = MusicGenerator.generate(style, mood, seed_base + mood.hash())
+		_music_mutex.lock()
+		if style == _music_style:
+			_pieces[mood] = stream
+		_music_mutex.unlock()
+
+
+## Starts a piece now (title screen) if one is ready.
+func play_music_now() -> void:
+	_music_silence = 0.0
+
+
+func _update_music(delta: float) -> void:
+	if _music.playing:
+		return
+	_music_silence -= delta
+	if _music_silence > 0.0:
+		return
+	var mood: String = "day"
+	if TimeManager.get_night_factor() > 0.6:
+		mood = "night"
+	var travel := get_tree().get_first_node_in_group(&"travel") as TravelController
+	if travel and GameState.player_mode == GameState.PlayerMode.DRIVING and travel.camper.get_speed_kmh() > 25.0:
+		mood = "drive"
+	_music_mutex.lock()
+	var stream: AudioStreamWAV = _pieces.get(mood, _pieces.get("day"))
+	_music_mutex.unlock()
+	if stream == null:
+		_music_silence = 2.0
+		return
+	_music.stream = stream
+	_music.play()
 
 
 func _exit_tree() -> void:
+	if _music_task >= 0:
+		WorkerThreadPool.wait_for_task_completion(_music_task)
+	_music.stop()
+	_music.stream = null
 	# Stop loops explicitly so their playbacks are freed on quit.
 	for player: AudioStreamPlayer in [_wind, _rain, _crickets]:
 		player.stop()

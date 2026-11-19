@@ -44,6 +44,15 @@ func _ready() -> void:
 		await _travel_test(_args["travel"])
 	if _args.has("sketch"):
 		await _sketch_test(_args.get("stop", ""))
+	if _args.has("title"):
+		GameState.show_title()
+	if _args.has("pause"):
+		var pm := get_tree().current_scene.find_child("PauseMenu", true, false) as PauseMenu
+		pm.open()
+		if _args.has("settings"):
+			pm._panel.visible = false
+			pm._settings.open()
+			pm._settings._tabs.current_tab = int(_args["settings"])
 	if _args.has("curtain"):
 		var curtain := LoadingScreen.new()
 		add_child(curtain)

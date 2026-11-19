@@ -24,6 +24,7 @@ func _ready() -> void:
 	_test_drawing()
 	_test_regions_and_seasons()
 	_test_net_haul()
+	_test_translation_coverage()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 
@@ -443,3 +444,38 @@ func _test_net_haul() -> void:
 	var pay: int = net.complete()
 	_check(pay > 0 and GameState.money == money + pay and not GameState.has_flag("hasan.hauling"), "catch paid, flags cleared")
 	net.queue_free()
+
+
+## Every translation-key-looking string in code, data and scenes must exist in both languages.
+func _test_translation_coverage() -> void:
+	var re := RegEx.new()
+	# Last char not "_": "PREFIX_" fragments are concatenated in code, not keys.
+	re.compile("\"([A-Z][A-Z0-9]*_[A-Z0-9_]*[A-Z0-9])\"")
+	var keys: Dictionary = {}
+	var files: Array[String] = []
+	_collect_files("res://", files)
+	for path: String in files:
+		var text: String = FileAccess.get_file_as_string(path)
+		for m: RegExMatch in re.search_all(text):
+			keys[m.get_string(1)] = path
+	var missing: Array[String] = []
+	for locale: String in ["tr", "en"]:
+		TranslationServer.set_locale(locale)
+		for key: String in keys:
+			if TranslationServer.translate(key) == key:
+				missing.append("%s:%s (%s)" % [locale, key, String(keys[key]).get_file()])
+	TranslationServer.set_locale("en")
+	_check(keys.size() > 200, "found translation keys in the project (%d)" % keys.size())
+	_check(missing.is_empty(), "all keys translated in TR+EN %s" % [missing])
+
+
+func _collect_files(dir_path: String, out: Array[String]) -> void:
+	var dir := DirAccess.open(dir_path)
+	if dir == null:
+		return
+	for f: String in dir.get_files():
+		if f.get_extension() in ["gd", "json", "tscn"] and not f.begins_with("test_runner"):
+			out.append(dir_path.path_join(f))
+	for d: String in dir.get_directories():
+		if not d.begins_with("."):
+			_collect_files(dir_path.path_join(d), out)

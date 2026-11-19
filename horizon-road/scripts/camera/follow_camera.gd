@@ -64,7 +64,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion := event as InputEventMouseMotion
-		_rotate_view(-motion.relative.x * mouse_sensitivity, -motion.relative.y * mouse_sensitivity)
+		var sens: float = mouse_sensitivity * float(Settings.get_value("gameplay", "mouse_sensitivity"))
+		var inv: float = -1.0 if Settings.get_value("gameplay", "invert_y") else 1.0
+		_rotate_view(-motion.relative.x * sens, -motion.relative.y * sens * inv)
 	elif event.is_action_pressed(&"toggle_camera"):
 		toggle_mode()
 

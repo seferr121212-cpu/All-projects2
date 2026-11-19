@@ -21,6 +21,7 @@ func _ready() -> void:
 	var arriving: bool = GameState.arrival_pending
 	if definition:
 		AudioManager.region_bird_density = definition.bird_density
+		AudioManager.set_music_style(definition.music_style)
 		if not GameState.journey_started:
 			TimeManager.set_time(definition.start_hour)
 		apply_season()
@@ -41,8 +42,12 @@ func _ready() -> void:
 	if arriving:
 		GameState.notify(tr(&"TRAVEL_ARRIVED") % tr(StringName(definition.name_key)))
 		SaveManager.autosave.call_deferred()
-	else:
+	elif SaveManager.has_pending() or DevCli.is_requested() or GameState.title_done:
 		SaveManager.continue_if_possible.call_deferred()
+	else:
+		# First boot: the title screen decides between continue and a new journey.
+		GameState.title_done = true
+		GameState.show_title.call_deferred()
 
 
 func apply_season() -> void:

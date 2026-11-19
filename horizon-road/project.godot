@@ -9,6 +9,8 @@ config/name="Horizon Road"
 config/description="Ufuk Yolu: a calm, low-poly exploration game about travelling Türkiye in a camper."
 run/main_scene="res://regions/blacksea_highland/blacksea_highland.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="res://icon.png"
+config/version="0.7.0"
 
 [autoload]
 

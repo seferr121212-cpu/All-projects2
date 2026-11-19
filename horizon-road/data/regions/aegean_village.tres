@@ -21,6 +21,7 @@ weather_weights = {
 start_weather = &"clear"
 start_hour = 7.0
 bird_density = 0.8
+music_style = "aegean"
 season_profiles = {
 "spring": {
 "tint": [0.85, 1.15, 0.85],
