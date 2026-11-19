@@ -96,3 +96,43 @@ RECEP_DRAWING_LOVE,"Well I never! You drew the old tortoise? I'll frame it. {amo
 RECEP_DRAWING_NICE,"Not bad for a traveller. {amount} lira?","Bir yolcuya göre fena değil. {amount} lira?"
 RECEP_DRAWING_ALREADY,"I've got that one by the workbench.","O tezgâhın yanında asılı zaten."
 RECEP_DRAWING_SOLD,"The lads will think I hired an artist.","Çocuklar sanatçı tuttuğumu sanacak."
+NPC_HASAN_NAME,Hasan Reis,Hasan Reis
+NPC_HASAN_ROLE,Fisherman,Balıkçı
+NPC_HASAN_NOTE,"Has fished the same bay for forty years. Reads the wind like a book.","Kırk yıldır aynı koyda balık tutuyor. Rüzgârı kitap gibi okuyor."
+HASAN_INTRO_1,"Welcome, son. They call me Hasan Reis. I've been casting nets in this bay for forty years.","Hoş geldin evlat. Bana Hasan Reis derler. Kırk yıldır bu koyda ağ atarım."
+HASAN_ASK_NAME,And what do they call you?,Sana ne derler peki?
+HASAN_INTRO_BLACKSEA,"Came down from the Black Sea, did you? I can tell by the dust on that camper. Their tea is famous up there.","Karadeniz'den mi indin? Karavanın tozundan belli. Oraların çayı meşhurdur."
+HASAN_INTRO_END,"Sit a while, {player}. The sea isn't going anywhere.","Otur biraz {player}. Deniz bir yere kaçmıyor."
+HASAN_GREET,"{player}! The wind is kind today.","{player}! Rüzgâr bugün tatlı."
+HASAN_GREET_FRIEND,"Ah, {player}, my son. Come, the coffee's on the stove.","Gel {player} evlat, gel. Kahve ocakta."
+HASAN_HUB,What'll it be?,Ne yapalım?
+HASAN_CH_WORK,Could you use a hand with the nets?,Ağlara bir el lazım mı?
+HASAN_CH_PHOTO,Let me show you a photo.,Sana bir fotoğraf göstereyim.
+HASAN_CH_DRAWING,I drew something by the sea.,Deniz kenarında bir şey çizdim.
+HASAN_CH_CHAT,Tell me about the sea.,Bana denizi anlat.
+HASAN_CH_TIP,Where's the most beautiful spot here?,Burada en güzel yer neresi?
+HASAN_WORK_TEACH,"I set a net at dawn. Go to the end of the pier and haul it in. Pull when the float rises, not before. Slow and steady. Whatever you catch, I'll pay for.","Sabah bir ağ attım. İskelenin ucuna git, ağı çek. Mantar kalkınca asıl, erken değil. Yavaş yavaş. Ne çıkarsa parasını veririm."
+HASAN_WORK_AGAIN,"There's another net out there waiting. Will you haul it?","Açıkta bir ağ daha bekliyor. Çeker misin?"
+HASAN_WORK_GO,"Go on. And mind your feet on the wet stones.","Hadi bakalım. Islak taşlarda ayağına dikkat."
+HASAN_HAUL_CHECK,"Net's still out there. Or shall we call it a day?","Ağ hâlâ açıkta. Yoksa bugünlük bitirelim mi?"
+HASAN_DELIVER_FULL,"Look at that! The sea was generous today.","Şuna bak! Deniz bugün cömertmiş."
+HASAN_DELIVER_PARTIAL,"Whatever the sea gives is enough.","Denizin verdiği yeter."
+HASAN_DELIVER_PAY,"Here, {amount} lira. You've earned it, {player}.","Al bakalım, {amount} lira. Hak ettin {player}."
+HASAN_CHAT_1,"When the wind blows from the north, the fish go deep. When it's from the south, the sea gets angry. You learn to listen.","Poyraz eserse balık dibe kaçar. Lodos eserse deniz kızar. Dinlemeyi öğrenirsin."
+HASAN_CHAT_2,"My father fished here, and his father too. My grandson wants to be an engineer in İzmir. Times change, the sea doesn't.","Babam burada balık tuttu, onun babası da. Torunum İzmir'de mühendis olacakmış. Zaman değişir, deniz değişmez."
+HASAN_CHAT_3,"You're like family now. If you ever want to stay a while, my door is open.","Artık bizden birisin. Kalmak istersen kapım açık."
+HASAN_TIP_SUNSET,"At sunset, go to the end of the pier. The islands turn purple. Even after forty years I still stop and watch.","Gün batarken iskelenin ucuna git. Adalar mora boyanır. Kırk yıl oldu, hâlâ durup bakarım."
+HASAN_TIP_MIST,"Early in the morning, sometimes a mist rises off the sea. The boats look like they're floating in the clouds.","Sabah erkenden bazen denizden sis kalkar. Kayıklar bulutların içinde yüzüyor sanırsın."
+HASAN_PHOTO_LOVE,"That's my boat! And the bay... You have an eye, son. {amount} lira for it?","Bu benim kayığım! Bir de koy... Gözün var evlat. {amount} lira olur mu?"
+HASAN_PHOTO_NICE,"Pretty. I'd give {amount} lira.","Güzel. {amount} lira veririm."
+HASAN_DRAWING_LOVE,"You drew the sea with your own hand... My wife would have loved this. {amount} lira?","Denizi kendi elinle çizmişsin... Rahmetli hanım bayılırdı buna. {amount} lira?"
+HASAN_PHOTO_LIMIT,"One a day, son. The coffee house wall is filling up.","Günde bir tane evlat. Kahvehanenin duvarı doluyor."
+HASAN_PHOTO_ALREADY,"That one's already up in the coffee house.","O kahvehanede asılı zaten."
+HASAN_PHOTO_SOLD,"I'll hang it in the coffee house. The old men will argue about it all week.","Kahvehaneye asarım. İhtiyarlar bütün hafta bunu tartışır."
+HASAN_DRAWING_SOLD,"I'll put it by the window, where the light is good.","Pencerenin önüne koyarım, ışık iyi vurur."
+HASAN_PHOTO_KEPT,"Keep it, keep it. Memories are for keeping.","Sende kalsın. Hatıra saklanır."
+HASAN_BYE,"Fair winds, {player}.","Rastgele {player}."
+HASAN_CH_FUEL,Is there anywhere to get fuel around here?,Buralarda yakıt bulunur mu?
+HASAN_FUEL_DONE,"I keep diesel for the boat; your camper can have some too. {amount} litres, {price} lira.","Kayık için mazot tutarım, karavanına da veririm. {amount} litre, {price} lira."
+HASAN_FUEL_FULL,"Your tank's full, son.","Deposu dolu evlat."
+HASAN_FUEL_BROKE,"No money? Haul a net with me first.","Para yok mu? Önce benimle bir ağ çek."

@@ -19,6 +19,13 @@ enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE, MENU, SKETCH }
 
 static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
 
+## All regions of the journey: id -> definition resource.
+const REGIONS: Dictionary = {
+	&"blacksea_highland": "res://data/regions/blacksea_highland.tres",
+	&"aegean_village": "res://data/regions/aegean_village.tres",
+}
+const TRAVEL_FUEL_SHARE: float = 0.6
+
 var player_name: String = ""
 var money: int = ECONOMY.starting_money
 ## npc id -> relationship points
@@ -42,6 +49,11 @@ var lens_level: int = 0
 var album := PhotoAlbum.new()
 ## Sketchbook, also independent of save slots.
 var drawings := DrawingBook.new()
+## Set while travelling: the next region spawns the camper at its road gate.
+var arrival_pending: bool = false
+## False until the first region has loaded (start-of-game time setup).
+var journey_started: bool = false
+var _loading_screen: LoadingScreen
 ## Runtime only (not saved): the active region root, so systems can query terrain.
 var current_region: Region = null
 
@@ -61,6 +73,51 @@ func set_player_mode(mode: PlayerMode) -> void:
 	player_mode_changed.emit(mode)
 
 
+# --- Regions & travel ---------------------------------------------------------
+
+func get_region_def(id: StringName) -> RegionDefinition:
+	return load(REGIONS[id]) if REGIONS.has(id) else null
+
+
+## Hours on the road between two regions (straight line on the country map, 70 km/h).
+func travel_hours(from_id: StringName, to_id: StringName) -> float:
+	var a: RegionDefinition = get_region_def(from_id)
+	var b: RegionDefinition = get_region_def(to_id)
+	return roundf(a.map_position.distance_to(b.map_position) / 70.0 * 2.0) / 2.0
+
+
+func travel_km(from_id: StringName, to_id: StringName) -> int:
+	return roundi(get_region_def(from_id).map_position.distance_to(get_region_def(to_id).map_position) / 10.0) * 10
+
+
+## Drive to another region: autosave, loading curtain, time and fuel pass,
+## then the new region scene loads with the camper at its road gate.
+func travel_to(id: StringName) -> void:
+	var target: RegionDefinition = get_region_def(id)
+	if target == null or id == current_region_id:
+		return
+	for node: Node in get_tree().get_nodes_in_group(&"activity"):
+		(node as Activity).cancel()
+	SaveManager.autosave()
+	var from_id: StringName = current_region_id
+	var hours: float = travel_hours(from_id, id)
+	set_context(Context.MENU)
+	if _loading_screen == null:
+		_loading_screen = LoadingScreen.new()
+		add_child(_loading_screen)
+	await _loading_screen.show_journey(from_id, id, hours, travel_km(from_id, id))
+	TimeManager.advance_hours(hours)
+	use_fuel(get_tank_capacity() * TRAVEL_FUEL_SHARE)
+	arrival_pending = true
+	current_region = null
+	set_context(Context.GAMEPLAY)
+	get_tree().paused = false
+	get_tree().change_scene_to_file(target.scene_path)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_loading_screen.hide_curtain()
+
+
 func set_context(value: Context) -> void:
 	if value == context:
 		return
@@ -77,6 +134,7 @@ func register_region(region: Region) -> void:
 	if region.definition and region.definition.id != current_region_id:
 		current_region_id = region.definition.id
 		region_changed.emit(current_region_id)
+
 
 
 func get_display_name() -> String:

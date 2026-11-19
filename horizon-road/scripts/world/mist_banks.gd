@@ -39,7 +39,7 @@ func _ready() -> void:
 		v.size = Vector3(b.z, thickness, b.w)
 		v.material = _material
 		add_child(v)
-		var ground: float = terrain.height_at(b.x, b.y)
+		var ground: float = maxf(terrain.height_at(b.x, b.y), terrain.water_level)
 		v.global_position = Vector3(b.x, ground + thickness * 0.25, b.y)
 		_volumes.append(v)
 

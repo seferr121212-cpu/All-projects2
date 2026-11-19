@@ -7,6 +7,7 @@ shader_type spatial;
 global uniform float wind_strength;
 global uniform float wetness;
 global uniform float snow_cover;
+global uniform vec3 season_tint;
 
 uniform float sway_strength = 0.12;
 uniform float sway_height = 6.0;
@@ -31,6 +32,9 @@ void vertex() {
 
 void fragment() {
 	vec3 base = COLOR.rgb;
+	// Seasonal colour (autumn gold, spring fresh); green-dominant parts shift most.
+	float leafy = clamp((base.g - max(base.r, base.b)) * 6.0, 0.0, 1.0);
+	base = mix(base, base * season_tint, leafy);
 	base *= mix(1.0, 0.72, wetness);
 	float snow = snow_cover * snow_amount * smoothstep(0.3, 0.8, world_normal.y);
 	base = mix(base, vec3(0.88, 0.9, 0.95), snow);

@@ -59,7 +59,7 @@ Genel doğrulama araçları:
 - 2D tuval, fırça/renk, silik referans, PNG kaydı, günlükte Çizimler sekmesi, satış.
 - **Bitti:** çizim kaydedilip günlükte görünüyor ve satılabiliyor.
 
-## Aşama 6 — Ege bölgesi + hava/mevsim çeşitliliği + geçiş
+## Aşama 6 — Ege bölgesi + hava/mevsim çeşitliliği + geçiş ✅
 - Ege balıkçı köyü sahnesi, balıkçı NPC + ağ toplama aktivitesi.
 - Bölge geçişi (yol + yükleme perdesi), bölge başına palet/mevsim profili, fırtına ve kar.
 - **Bitti:** iki bölge arasında kayıpsız geçiş; her bölgenin kendi atmosferi var.
@@ -150,6 +150,22 @@ Genel doğrulama araçları:
 - Fadime ve Recep çizim alır (kendi tepkileriyle); günlükte "Çizimler" sekmesi.
 - Test: 86 kontrol; `--sketch [--stop=draw|open]` geliştirici akışı.
 - Bilinen sorun: gamepad ile çizim yok (fare gerekli).
+
+## Aşama 6 notları
+- Ege Balıkçı Köyü (`regions/aegean_village`): `CoastalTerrain` (HighlandTerrain'den türetildi):
+  koy, kumsal (SAND yüzeyi), turkuaz sığlık, burun, ufukta adalar; teraslı zeytinlikler,
+  servi, fıstık çamı, maki; beyaz badanalı evler; taş iskele, kayıklar, ağlar, liman feneri, kediler.
+- Hasan Reis (balıkçı): ağ çekme ritim oyunu (12 çekiş, ıskalamak sadece yavaşlatır),
+  5 balık türü (lagos nadir), yakıt satışı, fotoğraf/çizim alımı; Fadime'yi tanıyorsan ona değinir.
+- Seyahat: bölge kenarındaki yol tabelasında ya da karavan içindeki harita masasında, haritadan
+  "… yoluna çık". Yolculuk perdesi; 990 km / 14 saat, deponun %60'ı. Yarım kalan işler iptal olur.
+  Varışta karavan yeni bölgenin yol girişinde; otomatik kayıt.
+- Kayıt bölgeye duyarlı: başka bölgede alınmış kayıt önce o bölgeyi yükler.
+- Mevsimler: 7 günde bir (yaz → sonbahar → kış → ilkbahar). Bölge başına renk tonu, yerde kar
+  ve hava ağırlıkları (`season_profiles`). Karadeniz kışı karlı, Ege kışı yağmurlu.
+- Görsel cila 2. tur: yürüme animasyonu (kol/bacak), bulutlarda güneşe göre öz-gölge.
+- Test: 104 kontrol; `--fishing`, `--travel=<bölge>`, `--season=<mevsim>`, `--curtain`.
+- Bilinen sorunlar: bölge değiştirince öbür bölgedeki yarım iş kaydedilmez; NPC'ler animasyonsuz.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

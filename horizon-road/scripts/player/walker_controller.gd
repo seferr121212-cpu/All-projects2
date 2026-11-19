@@ -17,10 +17,32 @@ var camera_yaw: float = 0.0
 var _bob_time: float = 0.0
 
 
+var _legs: Array[Node3D] = []
+var _arms: Array[Node3D] = []
+var _swing: float = 0.0
+
+
 func _ready() -> void:
-	var mi := MeshInstance3D.new()
-	mi.mesh = LowPolyMeshes.traveller()
-	_visual.add_child(mi)
+	var parts: Dictionary = LowPolyMeshes.traveller_parts()
+	var body := MeshInstance3D.new()
+	body.mesh = parts.body
+	_visual.add_child(body)
+	for side: float in [-1.0, 1.0]:
+		var hip := Node3D.new()
+		hip.position = Vector3(0.11 * side, 0.86, 0)
+		var leg := MeshInstance3D.new()
+		leg.mesh = parts.leg
+		hip.add_child(leg)
+		_visual.add_child(hip)
+		_legs.append(hip)
+		var shoulder := Node3D.new()
+		shoulder.position = Vector3(0.3 * side, 1.43, 0)
+		shoulder.rotation.z = -0.08 * side
+		var arm := MeshInstance3D.new()
+		arm.mesh = parts.arm
+		shoulder.add_child(arm)
+		_visual.add_child(shoulder)
+		_arms.append(shoulder)
 
 
 func _physics_process(delta: float) -> void:
@@ -43,3 +65,11 @@ func _physics_process(delta: float) -> void:
 		_visual.position.y = absf(sin(_bob_time)) * 0.04
 	else:
 		_visual.position.y = lerpf(_visual.position.y, 0.0, 10.0 * delta)
+	# Walk cycle: legs swing opposite each other, arms counter to the legs.
+	var amount: float = clampf(horizontal.length() / sprint_speed, 0.0, 1.0) * 0.75
+	_swing = lerpf(_swing, amount, 1.0 - exp(-8.0 * delta))
+	var phase: float = sin(_bob_time)
+	for i: int in 2:
+		var sgn: float = 1.0 if i == 0 else -1.0
+		_legs[i].rotation.x = phase * _swing * sgn
+		_arms[i].rotation.x = -phase * _swing * 0.8 * sgn

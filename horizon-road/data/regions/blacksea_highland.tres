@@ -7,6 +7,8 @@
 script = ExtResource("1_rd")
 id = &"blacksea_highland"
 name_key = "REGION_BLACKSEA_HIGHLAND"
+scene_path = "res://regions/blacksea_highland/blacksea_highland.tscn"
+map_position = Vector2(1050, 120)
 season = 1
 palette = ExtResource("2_pal")
 weather_weights = {
@@ -19,3 +21,35 @@ weather_weights = {
 start_weather = &"partly_cloudy"
 start_hour = 7.0
 bird_density = 1.2
+season_profiles = {
+"spring": {
+"tint": [0.92, 1.12, 0.9],
+"snow": 0.0,
+"weights": {
+"clear": 1.2,
+"partly_cloudy": 2.0,
+"rain": 1.5,
+"fog": 1.2
+}
+},
+"autumn": {
+"tint": [1.7, 0.74, 0.3],
+"snow": 0.0,
+"weights": {
+"partly_cloudy": 1.5,
+"rain": 2.0,
+"fog": 2.0,
+"storm": 0.5
+}
+},
+"winter": {
+"tint": [0.85, 0.9, 0.95],
+"snow": 0.9,
+"weights": {
+"snow": 2.5,
+"fog": 1.0,
+"partly_cloudy": 1.0,
+"clear": 0.8
+}
+}
+}

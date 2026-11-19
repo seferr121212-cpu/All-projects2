@@ -44,3 +44,14 @@ extends Resource
 @export var nap_hours: float = 3.0
 ## Seconds between automatic saves while playing.
 @export var autosave_interval: float = 240.0
+
+@export_group("Net haul")
+@export var net_pulls: int = 12
+## fish id -> [price, weight]
+@export var fish_table: Dictionary = {
+	"FISH_ISTAVRIT": [4, 40], "FISH_BARBUN": [7, 25], "FISH_CIPURA": [9, 18],
+	"FISH_LEVREK": [10, 14], "FISH_LAGOS": [25, 3],
+}
+@export var net_fish_min: int = 4
+@export var net_fish_max: int = 8
+@export var net_completion_bonus: int = 15

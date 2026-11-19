@@ -7,6 +7,7 @@ shader_type spatial;
 
 global uniform float wetness;
 global uniform float snow_cover;
+global uniform vec3 season_tint;
 
 varying vec3 world_pos;
 varying vec3 world_normal;
@@ -18,6 +19,8 @@ void vertex() {
 
 void fragment() {
 	vec3 base = COLOR.rgb;
+	float grassy = clamp((base.g - max(base.r, base.b)) * 6.0, 0.0, 1.0);
+	base = mix(base, base * mix(vec3(1.0), season_tint, 0.8), grassy);
 	float v = value_noise(world_pos.xz * 0.04) * 0.6 + value_noise(world_pos.xz * 0.19) * 0.4;
 	base *= 0.88 + v * 0.24;
 	// Fine grass grain near the camera; fades out before it can shimmer.

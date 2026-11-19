@@ -429,6 +429,179 @@ static func tea_shelter() -> ArrayMesh:
 	return b.commit(vertex_color_material(0.85))
 
 
+# --- Aegean ----------------------------------------------------------------
+
+## Old olive tree: twisted split trunk, silvery grey-green clumped crown.
+static func olive(seed_value: int = 100) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var bark := Color(0.42, 0.37, 0.3)
+	b.add(_cone(0.32, 0.2, 1.3, 7), Transform3D(Basis(Vector3.FORWARD, 0.15), Vector3(0, 0.6, 0)), bark, 0.06)
+	b.add(_cone(0.16, 0.1, 1.2, 6), Transform3D(Basis(Vector3.FORWARD, -0.5), Vector3(-0.35, 1.5, 0)), bark, 0.04)
+	b.add(_cone(0.16, 0.1, 1.2, 6), Transform3D(Basis(Vector3.RIGHT, 0.5), Vector3(0.15, 1.5, 0.3)), bark, 0.04)
+	var leaf := Color(0.48, 0.55, 0.38)
+	for i: int in 5:
+		var p := Vector3(b.rng.randf_range(-1.0, 1.0), b.rng.randf_range(2.0, 2.7), b.rng.randf_range(-1.0, 1.0))
+		b.add(_sphere(0.9, 1.1, 7, 3), _at(p, 0.0, Vector3(1.0, 0.75, 1.0)), leaf.lightened(b.rng.randf_range(-0.06, 0.08)), 0.15, 0.1)
+	return b.commit(foliage_material(0.06, 3.0, 0.28))
+
+
+## Italian cypress: tall dark flame shape.
+static func cypress(seed_value: int = 101) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_cone(0.18, 0.12, 0.8, 5), _at(Vector3(0, 0.4, 0)), Color(0.35, 0.26, 0.18))
+	b.add(_sphere(0.7, 8.5, 8, 6), _at(Vector3(0, 4.9, 0)), Color(0.13, 0.25, 0.14), 0.1, 0.1)
+	return b.commit(foliage_material(0.05, 9.0, 0.15))
+
+
+## Umbrella (stone) pine: bare leaning trunk, flat dark canopy.
+static func umbrella_pine(seed_value: int = 102) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_cone(0.3, 0.18, 6.5, 6), Transform3D(Basis(Vector3.FORWARD, 0.12), Vector3(-0.35, 3.2, 0)), Color(0.5, 0.36, 0.26), 0.05)
+	for i: int in 3:
+		var p := Vector3(-0.8 + b.rng.randf_range(-1.2, 1.2), 6.8 + b.rng.randf_range(-0.2, 0.3), b.rng.randf_range(-1.0, 1.0))
+		b.add(_sphere(2.2, 1.4, 9, 3), _at(p), Color(0.2, 0.36, 0.2).lightened(b.rng.randf_range(-0.04, 0.06)), 0.2, 0.08)
+	return b.commit(foliage_material(0.06, 8.0, 0.22))
+
+
+## Maquis shrub (mastic/thyme): low, grey-green.
+static func maquis(seed_value: int = 103) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	for i: int in 3:
+		var p := Vector3(b.rng.randf_range(-0.4, 0.4), 0.0, b.rng.randf_range(-0.4, 0.4))
+		var r: float = b.rng.randf_range(0.3, 0.5)
+		b.add(_sphere(r, r * 1.3, 6, 3), _at(p + Vector3(0, r * 0.5, 0)), Color(0.42, 0.48, 0.3).lightened(b.rng.randf_range(-0.05, 0.08)), 0.08, 0.12)
+	return b.commit(foliage_material(0.04, 1.0, 0.25))
+
+
+## Whitewashed Aegean house: cubic, terracotta or flat roof, blue door and
+## shutters, a bougainvillea on the wall. Windows returned separately.
+static func ege_house(seed_value: int, tiled_roof: bool, blue: Color) -> Dictionary:
+	var b := Builder.new(seed_value)
+	var white := Color(0.96, 0.95, 0.92)
+	var w: float = b.rng.randf_range(5.0, 6.5)
+	var d: float = b.rng.randf_range(5.5, 7.0)
+	var h: float = b.rng.randf_range(3.2, 4.0)
+	b.add(_box(Vector3(w, h, d)), _at(Vector3(0, h * 0.5 - 0.3, 0)), white, 0.02, 0.02)
+	if tiled_roof:
+		var rh: float = 1.3
+		var half: float = (w + 0.6) * 0.5
+		var ang: float = atan2(rh, half)
+		var slope: float = Vector2(half, rh).length()
+		for side: float in [-1.0, 1.0]:
+			b.add(_box(Vector3(slope, 0.14, d + 0.6)), Transform3D(Basis(Vector3.FORWARD, -side * ang), Vector3(side * half * 0.5, h - 0.3 + rh * 0.5, 0)), Color(0.78, 0.38, 0.24), 0.0, 0.06)
+		for zz: float in [-d * 0.5, d * 0.5]:
+			var s: float = signf(zz)
+			var l := Vector3(-w * 0.5, h - 0.3, zz)
+			var r := Vector3(w * 0.5, h - 0.3, zz)
+			var top := Vector3(0, h - 0.3 + rh - 0.1, zz)
+			if s > 0.0:
+				b.tri(l, top, r, white)
+			else:
+				b.tri(r, top, l, white)
+	else:
+		b.add(_box(Vector3(w + 0.1, 0.35, d + 0.1)), _at(Vector3(0, h - 0.2, 0)), white.darkened(0.04))
+		b.add(_box(Vector3(1.4, 1.4, 1.4)), _at(Vector3(w * 0.25, h + 0.4, -d * 0.2)), white)
+		b.add(_sphere(0.75, 0.8, 8, 3), _at(Vector3(w * 0.25, h + 1.1, -d * 0.2)), blue)
+	b.add(_box(Vector3(1.0, 2.0, 0.1)), _at(Vector3(-w * 0.2, 0.7, -d * 0.5 - 0.03)), blue)
+	b.add(_box(Vector3(0.12, 3.0, 0.12)), _at(Vector3(w * 0.42, 1.2, -d * 0.5 - 0.15)), Color(0.4, 0.3, 0.2))
+	for i: int in 5:
+		b.add(_sphere(0.45, 0.6, 6, 3), _at(Vector3(w * 0.42 + b.rng.randf_range(-0.5, 0.3), 2.0 + i * 0.25, -d * 0.5 - 0.25)), Color(0.85, 0.2, 0.5).lightened(b.rng.randf_range(-0.1, 0.1)), 0.08)
+	var wb := Builder.new(seed_value + 1)
+	for p: Vector3 in [Vector3(w * 0.15, 1.6, -d * 0.5 - 0.04), Vector3(-w * 0.5 - 0.04, 1.6, 0.8), Vector3(w * 0.5 + 0.04, 1.6, -0.6)]:
+		var size := Vector3(0.8, 0.9, 0.06) if absf(p.z) > absf(p.x) else Vector3(0.06, 0.9, 0.8)
+		wb.add(_box(size), _at(p), Color.WHITE)
+		var shutter := Vector3(0.36, 0.95, 0.04) if size.x > 0.1 else Vector3(0.04, 0.95, 0.36)
+		var off := Vector3(0.6, 0, 0) if size.x > 0.1 else Vector3(0, 0, 0.6)
+		b.add(_box(shutter), _at(p + off), blue)
+		b.add(_box(shutter), _at(p - off), blue)
+	return {"body": b.commit(vertex_color_material(0.75)), "windows": wb.commit(), "size": Vector3(w, h, d)}
+
+
+## Wooden fishing boat (kayık), painted hull, facing -Z.
+static func boat(seed_value: int, hull: Color) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_box(Vector3(1.8, 0.7, 5.0)), _at(Vector3(0, 0.35, 0)), hull, 0.0, 0.04)
+	b.add(_cone(0.0, 0.9, 1.4, 4), Transform3D(Basis(Vector3.RIGHT, -PI * 0.5) * Basis(Vector3.UP, PI * 0.25), Vector3(0, 0.35, -3.1)), hull)
+	b.add(_box(Vector3(1.9, 0.12, 5.1)), _at(Vector3(0, 0.72, 0)), Color(0.95, 0.93, 0.88))
+	b.add(_box(Vector3(1.5, 0.08, 4.4)), _at(Vector3(0, 0.62, 0.1)), Color(0.55, 0.4, 0.26))
+	b.add(_box(Vector3(1.2, 1.0, 1.2)), _at(Vector3(0, 1.1, 1.2)), Color(0.95, 0.93, 0.88))
+	b.add(_box(Vector3(1.35, 0.1, 1.35)), _at(Vector3(0, 1.62, 1.2)), Color(0.2, 0.35, 0.6))
+	b.add(_box(Vector3(0.08, 2.5, 0.08)), _at(Vector3(0, 1.9, -0.8)), Color(0.4, 0.3, 0.2))
+	return b.commit(vertex_color_material(0.7))
+
+
+## Stone pier (iskele) segment-built along -Z from its origin, with bollards.
+static func pier(length: float, width: float) -> ArrayMesh:
+	var b := Builder.new(104)
+	var stone := Color(0.78, 0.74, 0.66)
+	var segs: int = int(length / 2.0)
+	for i: int in segs:
+		b.add(_box(Vector3(width, 2.0, 2.02)), _at(Vector3(0, -0.6, -1.0 - i * 2.0)), stone.darkened(0.04 * (i % 3)), 0.0, 0.03)
+	for i: int in range(1, segs, 3):
+		for x: float in [-width * 0.5 + 0.3, width * 0.5 - 0.3]:
+			b.add(_cone(0.14, 0.12, 0.45, 6), _at(Vector3(x, 0.62, -i * 2.0)), Color(0.25, 0.25, 0.27))
+	return b.commit(vertex_color_material(0.85))
+
+
+static func net_pile(seed_value: int = 105) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_sphere(0.8, 0.6, 8, 3), _at(Vector3(0, 0.2, 0)), Color(0.35, 0.5, 0.55), 0.12, 0.1)
+	for i: int in 6:
+		b.add(_sphere(0.08, 0.1, 5, 2), _at(Vector3(b.rng.randf_range(-0.7, 0.7), 0.35, b.rng.randf_range(-0.6, 0.6))), Color(0.95, 0.55, 0.15))
+	return b.commit(vertex_color_material(0.9))
+
+
+static func buoy() -> ArrayMesh:
+	var b := Builder.new(106)
+	b.add(_sphere(0.22, 0.32, 8, 4), _at(Vector3(0, 0.05, 0)), Color(0.95, 0.5, 0.15))
+	b.add(_box(Vector3(0.04, 0.4, 0.04)), _at(Vector3(0, 0.3, 0)), Color(0.2, 0.2, 0.2))
+	return b.commit(vertex_color_material(0.5))
+
+
+## Old fisherman: navy cap, white beard, striped shirt, rolled trousers.
+static func fisherman(seed_value: int = 23) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var shirt := Color(0.92, 0.92, 0.9)
+	var skin := Color(0.72, 0.52, 0.38)
+	for x: float in [-0.12, 0.12]:
+		b.add(_box(Vector3(0.18, 0.12, 0.3)), _at(Vector3(x, 0.06, -0.03)), Color(0.15, 0.12, 0.1))
+		b.add(_box(Vector3(0.18, 0.78, 0.2)), _at(Vector3(x, 0.5, 0)), Color(0.3, 0.35, 0.5))
+	b.add(_box(Vector3(0.52, 0.66, 0.32)), _at(Vector3(0, 1.2, 0)), shirt, 0.02, 0.03)
+	for y: float in [0.98, 1.12, 1.26, 1.4]:
+		b.add(_box(Vector3(0.54, 0.05, 0.34)), _at(Vector3(0, y, 0)), Color(0.15, 0.3, 0.6))
+	for x: float in [-0.31, 0.31]:
+		b.add(_box(Vector3(0.12, 0.56, 0.14)), Transform3D(Basis(Vector3.FORWARD, x * 0.2), Vector3(x, 1.15, 0)), shirt)
+		b.add(_sphere(0.065, 0.12, 6, 3), _at(Vector3(x * 1.06, 0.84, 0)), skin)
+	b.add(_cone(0.065, 0.065, 0.1, 6), _at(Vector3(0, 1.57, 0)), skin)
+	b.add(_sphere(0.145, 0.3, 10, 5), _at(Vector3(0, 1.71, 0)), skin)
+	_face(b, Vector3(0, 1.71, 0), 0.145, Color(0.9, 0.9, 0.88))
+	b.add(_sphere(0.13, 0.16, 8, 3), _at(Vector3(0, 1.6, -0.08)), Color(0.93, 0.93, 0.9), 0.02)
+	b.add(_cone(0.16, 0.15, 0.12, 10), _at(Vector3(0, 1.84, 0)), Color(0.12, 0.16, 0.3))
+	b.add(_box(Vector3(0.22, 0.03, 0.12)), _at(Vector3(0, 1.8, -0.15)), Color(0.08, 0.08, 0.1))
+	return b.commit(vertex_color_material(0.8))
+
+
+static func fish(color: Color) -> ArrayMesh:
+	var b := Builder.new(107)
+	b.add(_sphere(0.09, 0.14, 6, 3), _at(Vector3.ZERO, 0.0, Vector3(1.0, 1.0, 2.6)), color)
+	b.add(_cone(0.0, 0.09, 0.14, 4), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 0, 0.28)), color.darkened(0.2))
+	return b.commit(vertex_color_material(0.35))
+
+
+## Harbour cat, ~0.35 m tall, facing -Z.
+static func cat(seed_value: int, fur: Color) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_box(Vector3(0.18, 0.16, 0.42)), _at(Vector3(0, 0.22, 0)), fur, 0.01)
+	b.add(_box(Vector3(0.16, 0.14, 0.14)), _at(Vector3(0, 0.33, -0.25)), fur)
+	for x: float in [-0.05, 0.05]:
+		b.add(_cone(0.035, 0.0, 0.07, 3), _at(Vector3(x, 0.43, -0.25)), fur.darkened(0.15))
+		b.add(_sphere(0.012, 0.02, 4, 2), _at(Vector3(x * 0.8, 0.35, -0.325)), Color(0.4, 0.75, 0.3))
+		for z: float in [-0.15, 0.15]:
+			b.add(_box(Vector3(0.05, 0.16, 0.05)), _at(Vector3(x * 1.4, 0.08, z)), fur.darkened(0.05))
+	b.add(_box(Vector3(0.04, 0.04, 0.3)), Transform3D(Basis(Vector3.RIGHT, -0.7), Vector3(0, 0.36, 0.3)), fur.darkened(0.1))
+	return b.commit(vertex_color_material(0.9))
+
+
 # --- Vehicle ---------------------------------------------------------------
 
 ## Retro two-tone camper van. Origin at ground level, facing -Z.
@@ -540,6 +713,35 @@ static func traveller() -> ArrayMesh:
 	b.add(_box(Vector3(0.22, 0.03, 0.12)), Transform3D(Basis(Vector3.RIGHT, 0.12), Vector3(0, 1.73, -0.17)), Color(0.65, 0.17, 0.13))
 	b.add(_box(Vector3(0.26, 0.08, 0.1)), _at(Vector3(0, 1.66, 0.11)), Color(0.3, 0.2, 0.12))
 	return b.commit(vertex_color_material(0.8))
+
+
+## Traveller split into parts for walk animation. Legs pivot at the hip
+## (origin at the joint, hanging down -Y); arms pivot at the shoulder.
+static func traveller_parts() -> Dictionary:
+	var jacket := Color(0.9, 0.48, 0.18)
+	var trousers := Color(0.22, 0.25, 0.32)
+	var skin := Color(0.87, 0.7, 0.56)
+	var mat := vertex_color_material(0.8)
+	var body := Builder.new(13)
+	body.add(_box(Vector3(0.46, 0.62, 0.28)), _at(Vector3(0, 1.17, 0)), jacket, 0.02, 0.04)
+	body.add(_box(Vector3(0.5, 0.08, 0.3)), _at(Vector3(0, 0.88, 0)), jacket.darkened(0.15))
+	body.add(_box(Vector3(0.04, 0.5, 0.02)), _at(Vector3(0, 1.17, -0.15)), Color(0.75, 0.75, 0.72))
+	body.add(_box(Vector3(0.36, 0.48, 0.2)), _at(Vector3(0, 1.2, 0.24)), Color(0.32, 0.4, 0.3), 0.02)
+	body.add(_box(Vector3(0.3, 0.12, 0.08)), _at(Vector3(0, 1.0, 0.36)), Color(0.28, 0.35, 0.26))
+	body.add(_cone(0.06, 0.06, 0.1, 6), _at(Vector3(0, 1.52, 0)), skin)
+	body.add(_sphere(0.14, 0.3, 10, 5), _at(Vector3(0, 1.66, 0)), skin)
+	_face(body, Vector3(0, 1.66, 0), 0.14, Color(0.3, 0.2, 0.12))
+	body.add(_sphere(0.15, 0.17, 10, 4), _at(Vector3(0, 1.75, 0.01)), Color(0.75, 0.2, 0.15))
+	body.add(_box(Vector3(0.22, 0.03, 0.12)), Transform3D(Basis(Vector3.RIGHT, 0.12), Vector3(0, 1.73, -0.17)), Color(0.65, 0.17, 0.13))
+	body.add(_box(Vector3(0.26, 0.08, 0.1)), _at(Vector3(0, 1.66, 0.11)), Color(0.3, 0.2, 0.12))
+	body.add(_box(Vector3(0.42, 0.12, 0.22)), _at(Vector3(0, 0.84, 0)), trousers)
+	var leg := Builder.new(14)
+	leg.add(_box(Vector3(0.16, 0.78, 0.18)), _at(Vector3(0, -0.39, 0)), trousers)
+	leg.add(_box(Vector3(0.17, 0.12, 0.28)), _at(Vector3(0, -0.8, -0.03)), Color(0.32, 0.22, 0.14))
+	var arm := Builder.new(15)
+	arm.add(_box(Vector3(0.12, 0.56, 0.14)), _at(Vector3(0, -0.28, 0)), jacket)
+	arm.add(_sphere(0.055, 0.1, 6, 3), _at(Vector3(0, -0.6, 0)), skin)
+	return {"body": body.commit(mat), "leg": leg.commit(mat), "arm": arm.commit(mat)}
 
 
 ## Simple friendly face on a head sphere facing -Z: eyes, brows, nose.

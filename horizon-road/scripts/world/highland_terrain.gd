@@ -5,7 +5,7 @@ extends Node3D
 ## small lake. Builds flat-shaded chunk meshes, a heightmap collider, the road
 ## mesh, the water surface and a distant mountain backdrop.
 
-enum Surface { GRASS, ROAD, MUD, ROCK, SNOW }
+enum Surface { GRASS, ROAD, MUD, ROCK, SNOW, SAND }
 
 const TERRAIN_SHADER: Shader = preload("res://assets/shaders/terrain.gdshader")
 const ROAD_SHADER: Shader = preload("res://assets/shaders/road.gdshader")
@@ -42,6 +42,9 @@ var surfaces: PackedByteArray
 var water_level: float = 0.0
 var spawn_transform: Transform3D
 var viewpoint_position: Vector3
+## End of the last spur road, facing back into the region: where travellers
+## arrive from (and leave to) other regions.
+var gate_transform: Transform3D
 var road_paths: Array[PackedVector3Array] = []
 
 var _noise_hills := FastNoiseLite.new()
@@ -60,7 +63,7 @@ func build() -> void:
 	_setup_noise()
 	_half = size * 0.5
 	resolution = int(size / cell) + 1
-	water_level = _base_height(lake_center.x, lake_center.y) - 1.2
+	water_level = _compute_water_level()
 	_compute_heights()
 	_build_roads()
 	_classify_surfaces()
@@ -69,7 +72,16 @@ func build() -> void:
 	_build_road_meshes()
 	_build_water()
 	_build_backdrop()
-	print("[HighlandTerrain] built in %d ms" % (Time.get_ticks_msec() - t0))
+	print("[%s] built in %d ms" % [get_script().get_global_name(), Time.get_ticks_msec() - t0])
+
+
+## Subclass hooks: water height, per-point surface, water test.
+func _compute_water_level() -> float:
+	return _base_height(lake_center.x, lake_center.y) - 1.2
+
+
+func is_water(x: float, z: float) -> bool:
+	return is_in_lake(x, z) and height_at(x, z) < water_level
 
 
 # --- Queries ---------------------------------------------------------------
@@ -218,6 +230,8 @@ func _build_roads() -> void:
 	spawn_transform = Transform3D(Basis.looking_at((b - a) * Vector3(1, 0, 1), Vector3.UP), a + Vector3(0, 0.6, 0))
 	var spur_end: PackedVector3Array = road_paths[road_paths.size() - 1]
 	viewpoint_position = spur_end[spur_end.size() - 1]
+	var inward: Vector3 = (spur_end[maxi(spur_end.size() - 10, 0)] - viewpoint_position) * Vector3(1, 0, 1)
+	gate_transform = Transform3D(Basis.looking_at(inward, Vector3.UP), viewpoint_position + Vector3(0, 0.6, 0))
 
 
 ## Smooth curve through control points, with heights following the terrain
@@ -322,17 +336,19 @@ func _classify_surfaces() -> void:
 			var i: int = iz * resolution + ix
 			var x: float = -_half + ix * cell
 			var z: float = -_half + iz * cell
-			var slope: float = 1.0 - _grid_normal(ix, iz).y
-			var s: Surface = Surface.GRASS
-			if slope > 0.28:
-				s = Surface.ROCK
-			elif heights[i] > 95.0:
-				s = Surface.SNOW
-			elif _noise_mask.get_noise_2d(x * 2.3 + 500.0, z * 2.3) > 0.6 and slope < 0.05:
-				s = Surface.MUD
-			elif Vector2(x, z).distance_to(lake_center) < lake_radius * 1.12:
-				s = Surface.MUD
-			surfaces[i] = s
+			surfaces[i] = _surface_for(i, x, z, 1.0 - _grid_normal(ix, iz).y)
+
+
+func _surface_for(i: int, x: float, z: float, slope: float) -> Surface:
+	if slope > 0.28:
+		return Surface.ROCK
+	if heights[i] > 95.0:
+		return Surface.SNOW
+	if _noise_mask.get_noise_2d(x * 2.3 + 500.0, z * 2.3) > 0.6 and slope < 0.05:
+		return Surface.MUD
+	if Vector2(x, z).distance_to(lake_center) < lake_radius * 1.12:
+		return Surface.MUD
+	return Surface.GRASS
 
 
 func _grid_normal(ix: int, iz: int) -> Vector3:
@@ -594,7 +610,7 @@ func render_map_image(px: int) -> Image:
 				c = c.darkened(0.15)
 			if road_distance[i] < road_half_width + 0.8:
 				c = Color(0.62, 0.45, 0.3)
-			if is_in_lake(x, z) and heights[i] < water_level:
+			if is_water(x, z):
 				c = Color(0.45, 0.62, 0.72)
 			img.set_pixel(pxx, py, c)
 	return img

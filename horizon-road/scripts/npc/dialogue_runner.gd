@@ -144,6 +144,8 @@ func check(condition: Dictionary) -> bool:
 		return false
 	if condition.has("has_photos") and GameState.album.entries.is_empty() == bool(condition.has_photos):
 		return false
+	if condition.has("player_named") and (GameState.player_name != "") != bool(condition.player_named):
+		return false
 	if condition.has("has_drawings") and GameState.drawings.entries.is_empty() == bool(condition.has_drawings):
 		return false
 	if condition.has("var_min"):

@@ -19,6 +19,8 @@ extends Node3D
 @export var reed_count: int = 320
 @export var flower_count: int = 6000
 @export_range(0.25, 1.0) var density_scale: float = 1.0
+## "highland" (spruce, tea, ferns) or "coastal" (olive, cypress, pine, maquis).
+@export var biome: String = "highland"
 
 ## World positions of every tea bush (tea harvest places shoots on them).
 var tea_positions: PackedVector3Array = PackedVector3Array()
@@ -30,10 +32,13 @@ func _ready() -> void:
 	_terrain = get_node(terrain_path) as HighlandTerrain
 	var t0: int = Time.get_ticks_msec()
 	_rng.seed = scatter_seed
-	_scatter_spruces()
-	_scatter_broadleaves()
-	_scatter_tea_rows()
-	_scatter_understory()
+	if biome == "coastal":
+		_scatter_coastal()
+	else:
+		_scatter_spruces()
+		_scatter_broadleaves()
+		_scatter_tea_rows()
+		_scatter_understory()
 	_scatter_rocks()
 	_scatter_grass()
 	_scatter_flowers()
@@ -164,6 +169,49 @@ func _scatter_understory() -> void:
 	_build(reeds, LowPolyMeshes.reeds(), "Reeds", 120.0, false)
 
 
+## Aegean slopes: olive groves planted in rows on terraces, umbrella pines on
+## the hills, cypress sentinels near roads and houses, maquis everywhere.
+func _scatter_coastal() -> void:
+	var olives: Array[Dictionary] = [{}, {}]
+	var olive_meshes: Array[Mesh] = [LowPolyMeshes.olive(100), LowPolyMeshes.olive(110)]
+	var grid: float = 9.0
+	for gz: int in int(_terrain.size / grid):
+		for gx: int in int(_terrain.size / grid):
+			var p := Vector2(-_terrain.size * 0.5 + (gx + 0.5) * grid, -_terrain.size * 0.5 + (gz + 0.5) * grid)
+			p += Vector2(_rng.randf_range(-1.2, 1.2), _rng.randf_range(-1.2, 1.2))
+			if _terrain.forest_mask(p.x, p.y) < 0.35 or not _clear_of_features(p, 5.0, 0.0):
+				continue
+			if _terrain.normal_at(p.x, p.y).y < 0.8:
+				continue
+			_add(olives[(gx + gz) % 2], _ground_transform(p, _rng.randf_range(0.8, 1.2), 0.2, 0.06), _tint(0.08))
+	var pines: Dictionary = {}
+	var cypresses: Dictionary = {}
+	var maquis: Array[Dictionary] = [{}, {}]
+	var maquis_meshes: Array[Mesh] = [LowPolyMeshes.maquis(103), LowPolyMeshes.maquis(113)]
+	var coast := _terrain as CoastalTerrain
+	for i: int in int(9000 * density_scale):
+		var p: Vector2 = _random_point()
+		if not _clear_of_features(p, 3.5, 0.0):
+			continue
+		var inland: float = coast.distance_inland(p.x, p.y) if coast else 100.0
+		if inland < 18.0:
+			continue
+		var up: float = _terrain.normal_at(p.x, p.y).y
+		var roll: float = _rng.randf()
+		if roll < 0.05 and inland > 120.0 and up > 0.75:
+			_add(pines, _ground_transform(p, _rng.randf_range(0.8, 1.3), 0.3, 0.05), _tint(0.08))
+		elif roll < 0.08 and _terrain.distance_to_road(p.x, p.y) < 14.0:
+			_add(cypresses, _ground_transform(p, _rng.randf_range(0.8, 1.2), 0.2, 0.0), _tint(0.06))
+		elif roll < 0.5 and _terrain.forest_mask(p.x, p.y) < 0.3:
+			_add(maquis[i % 2], _ground_transform(p, _rng.randf_range(0.7, 1.6), 0.1, 0.05), _tint(0.1))
+	for i: int in olives.size():
+		_build(olives[i], olive_meshes[i], "Olives%d" % i, 0.0, true)
+	_build(pines, LowPolyMeshes.umbrella_pine(), "Pines", 0.0, true)
+	_build(cypresses, LowPolyMeshes.cypress(), "Cypresses", 0.0, true)
+	for i: int in maquis.size():
+		_build(maquis[i], maquis_meshes[i], "Maquis%d" % i, 0.0, true)
+
+
 func _scatter_rocks() -> void:
 	var variants: Array[Mesh] = [LowPolyMeshes.rock(4), LowPolyMeshes.rock(5)]
 	var buckets: Array[Dictionary] = [{}, {}]
@@ -190,13 +238,16 @@ func _scatter_grass() -> void:
 		var p: Vector2 = _random_point(0.62)
 		if _terrain.distance_to_road(p.x, p.y) < _terrain.road_half_width + 0.3:
 			continue
-		if _terrain.is_in_lake(p.x, p.y, 1.0) or _terrain.in_tea_garden(p.x, p.y):
+		if _terrain.is_in_lake(p.x, p.y, 1.0) or _terrain.in_tea_garden(p.x, p.y) or _terrain.is_water(p.x, p.y):
 			continue
 		if _terrain.surface_at(p.x, p.y) != HighlandTerrain.Surface.GRASS:
 			continue
 		var s: float = _rng.randf_range(0.7, 1.4)
 		var xf := _ground_transform(p, s, 0.02, 0.0)
 		var meadow := Color(1.0, 1.0, 1.0).lerp(Color(1.15, 1.05, 0.75), _rng.randf() * 0.6)
+		if biome == "coastal":
+			# Sun-dried summer grass.
+			meadow = Color(1.35, 1.2, 0.65).lerp(Color(1.1, 1.05, 0.7), _rng.randf())
 		_add(buckets[i % 2], xf, meadow, detail_chunk_size)
 	for i: int in variants.size():
 		_build(buckets[i], variants[i], "Grass%d" % i, 75.0, false)
@@ -240,7 +291,7 @@ func _clear_of_features(p: Vector2, road_margin: float, lake_margin: float) -> b
 		return false
 	if _terrain.distance_to_road(p.x, p.y) < _terrain.road_half_width + road_margin:
 		return false
-	if _terrain.is_in_lake(p.x, p.y, lake_margin) or _terrain.in_tea_garden(p.x, p.y):
+	if _terrain.is_in_lake(p.x, p.y, lake_margin) or _terrain.in_tea_garden(p.x, p.y) or _terrain.is_water(p.x, p.y):
 		return false
 	for keep_clear: Node in get_tree().get_nodes_in_group(&"vegetation_clearing"):
 		var c := keep_clear as Node3D

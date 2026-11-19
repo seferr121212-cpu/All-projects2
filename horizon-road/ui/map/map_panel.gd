@@ -14,6 +14,7 @@ var _frame := PanelContainer.new()
 var _map := TextureRect.new()
 var _overlay: Control
 var _title := Label.new()
+var _travel_box := VBoxContainer.new()
 
 
 func _ready() -> void:
@@ -44,10 +45,50 @@ func open() -> void:
 		_map.texture = ImageTexture.create_from_image(region.terrain.render_map_image(MAP_PX))
 	var def_name: String = region.definition.name_key if region.definition else ""
 	_title.text = "%s — %s" % [tr(&"MAP_TITLE"), tr(StringName(def_name))]
+	_fill_travel()
 	GameState.set_context(GameState.Context.MENU)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
 	_overlay.queue_redraw()
+
+
+## Travel is possible with the camper at the road gate, or from the map table inside.
+func can_travel() -> bool:
+	if _travel == null or GameState.current_region == null:
+		return false
+	if GameState.player_mode == GameState.PlayerMode.INTERIOR:
+		return true
+	return GameState.current_region.is_near_gate(_travel.camper.global_position)
+
+
+func _fill_travel() -> void:
+	for c: Node in _travel_box.get_children():
+		_travel_box.remove_child(c)
+		c.queue_free()
+	if not can_travel():
+		var hint := Label.new()
+		hint.text = "TRAVEL_NEED_GATE"
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		hint.custom_minimum_size = Vector2(760, 0)
+		hint.add_theme_color_override(&"font_color", Color(0.45, 0.38, 0.3))
+		_travel_box.add_child(hint)
+		return
+	for id: StringName in GameState.REGIONS:
+		if id == GameState.current_region_id:
+			continue
+		var def: RegionDefinition = GameState.get_region_def(id)
+		var b := Button.new()
+		b.text = tr(&"TRAVEL_GO") % [tr(StringName(def.name_key)), GameState.travel_hours(GameState.current_region_id, id)]
+		var st := StyleBoxFlat.new()
+		st.bg_color = Color(0.88, 0.78, 0.6)
+		st.set_corner_radius_all(6)
+		st.set_content_margin_all(10)
+		b.add_theme_stylebox_override(&"normal", st)
+		b.add_theme_color_override(&"font_color", INK)
+		b.pressed.connect(func() -> void:
+			close()
+			GameState.travel_to(id))
+		_travel_box.add_child(b)
 
 
 func close() -> void:
@@ -127,9 +168,6 @@ func _build() -> void:
 	_overlay.draw.connect(_draw_overlay)
 	_map.add_child(_overlay)
 	col.add_child(_map)
-	var next := Label.new()
-	next.text = "MAP_NEXT_REGION"
-	next.add_theme_color_override(&"font_color", Color(0.45, 0.38, 0.3))
-	col.add_child(next)
+	col.add_child(_travel_box)
 	_frame.add_child(col)
 	add_child(_frame)

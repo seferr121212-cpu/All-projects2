@@ -28,7 +28,13 @@ func _ready() -> void:
 	add_to_group(&"npc")
 	data = DialogueRunner.load_data(dialogue_path)
 	var mi := MeshInstance3D.new()
-	mi.mesh = LowPolyMeshes.villager_man() if model == "villager_man" else LowPolyMeshes.villager_woman()
+	match model:
+		"villager_man":
+			mi.mesh = LowPolyMeshes.villager_man()
+		"fisherman":
+			mi.mesh = LowPolyMeshes.fisherman()
+		_:
+			mi.mesh = LowPolyMeshes.villager_woman()
 	_visual.add_child(mi)
 	_interact.prompt_key = "UI_TALK"
 	_interact.position = Vector3(0, 1.0, 0)

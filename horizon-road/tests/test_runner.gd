@@ -22,6 +22,8 @@ func _ready() -> void:
 	_test_rest()
 	_test_full_save()
 	_test_drawing()
+	_test_regions_and_seasons()
+	_test_net_haul()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 
@@ -169,7 +171,7 @@ func _test_album() -> void:
 
 
 func _test_dialogue_data() -> void:
-	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json"]:
+	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json", "res://data/npcs/hasan.json"]:
 		var data: Dictionary = DialogueRunner.load_data(path)
 		_check(not data.is_empty(), "%s parses" % path)
 		var nodes: Dictionary = data.nodes
@@ -387,3 +389,57 @@ func _test_drawing() -> void:
 	_check(GameState.money > money and "fadime" in entry.sold_to, "drawing sold to Fadime")
 	again.remove_drawing(again.entries[again.entries.size() - 1])
 	canvas.queue_free()
+
+
+func _test_regions_and_seasons() -> void:
+	TimeManager.forced_season = -1
+	TimeManager.days_per_season = 7
+	TimeManager.day = 1
+	_check(TimeManager.get_season() == RegionDefinition.Season.SUMMER, "journey starts in summer")
+	TimeManager.day = 8
+	_check(TimeManager.get_season() == RegionDefinition.Season.AUTUMN, "autumn after a week")
+	TimeManager.day = 15
+	_check(TimeManager.get_season() == RegionDefinition.Season.WINTER, "then winter")
+	TimeManager.day = 29
+	_check(TimeManager.get_season() == RegionDefinition.Season.SUMMER, "the year wraps around")
+	TimeManager.day = 1
+	var bs: RegionDefinition = GameState.get_region_def(&"blacksea_highland")
+	var eg: RegionDefinition = GameState.get_region_def(&"aegean_village")
+	_check(bs != null and eg != null and ResourceLoader.exists(eg.scene_path), "both regions defined with scenes")
+	_check(bs.snow_for(RegionDefinition.Season.WINTER) > 0.5 and eg.snow_for(RegionDefinition.Season.WINTER) == 0.0, "snowy highland winters, mild Aegean ones")
+	_check(bs.weights_for(RegionDefinition.Season.WINTER).has("snow"), "winter weather includes snow in the highland")
+	var hours: float = GameState.travel_hours(&"blacksea_highland", &"aegean_village")
+	_check(hours > 8.0 and hours < 20.0 and is_equal_approx(hours, GameState.travel_hours(&"aegean_village", &"blacksea_highland")), "travel time sensible and symmetric (%.1f h)" % hours)
+	var coast := CoastalTerrain.new()
+	coast.size = 240.0
+	coast.cell = 6.0
+	coast.road_loop = PackedVector2Array([Vector2(-60, -40), Vector2(0, -60), Vector2(60, -40), Vector2(40, -90), Vector2(-40, -90)])
+	coast.road_spurs = [PackedVector2Array([Vector2(0, -60), Vector2(0, -100)])]
+	add_child(coast)
+	_check(coast.is_water(0, 110) and not coast.is_water(0, -100), "sea to the south, land to the north")
+	_check(coast.surface_at(0, coast.coast_z(0) - 8.0) == HighlandTerrain.Surface.SAND, "beach is sand")
+	coast.queue_free()
+
+
+func _test_net_haul() -> void:
+	var net := NetHaulActivity.new()
+	add_child(net)
+	GameState.flags = {}
+	GameState.relationships = {}
+	net.begin()
+	_check(net.active and GameState.has_flag("hasan.hauling"), "net haul starts")
+	net._zone_center = 0.5
+	net._zone_width = 0.2
+	_check(net.pull_strength(0.5) == 1.0 and net.pull_strength(0.9) < 1.0 and net.pull_strength(0.9) > 0.0, "timing matters but never fails")
+	net.hauling = true
+	var pulls: int = 0
+	while net.hauling and pulls < 100:
+		net._marker = 0.95  # always mistimed
+		net.pull()
+		pulls += 1
+	_check(not net.hauling and GameState.has_flag("hasan.net_full") and pulls > 12, "even clumsy hauling finishes (%d pulls)" % pulls)
+	_check(net.catch.size() >= GameState.ECONOMY.net_fish_min, "the net brings up fish")
+	var money: int = GameState.money
+	var pay: int = net.complete()
+	_check(pay > 0 and GameState.money == money + pay and not GameState.has_flag("hasan.hauling"), "catch paid, flags cleared")
+	net.queue_free()

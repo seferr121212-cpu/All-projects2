@@ -38,8 +38,16 @@ func _ready() -> void:
 		await _workshop_test(_args.get("stop", ""))
 	if _args.has("interior"):
 		await _interior_test(_args.get("stop", ""))
+	if _args.has("fishing"):
+		await _fishing_test(_args.get("stop", ""))
+	if _args.has("travel"):
+		await _travel_test(_args["travel"])
 	if _args.has("sketch"):
 		await _sketch_test(_args.get("stop", ""))
+	if _args.has("curtain"):
+		var curtain := LoadingScreen.new()
+		add_child(curtain)
+		curtain.show_journey(&"blacksea_highland", &"aegean_village", GameState.travel_hours(&"blacksea_highland", &"aegean_village"), GameState.travel_km(&"blacksea_highland", &"aegean_village"))
 	if _args.has("map"):
 		(get_tree().current_scene.find_child("MapPanel", true, false) as MapPanel).open()
 	if _args.has("journal") and not _args.has("sketch"):
@@ -71,6 +79,8 @@ func _apply_world_settings() -> void:
 	if _args.has("hour"):
 		TimeManager.set_time(float(_args["hour"]))
 		TimeManager.paused = true
+	if _args.has("season"):
+		TimeManager.force_season(["spring", "summer", "autumn", "winter"].find(_args["season"]))
 	if _args.has("weather"):
 		WeatherManager.auto_change = false
 		WeatherManager.set_weather(StringName(_args["weather"]), 0.0)
@@ -161,6 +171,7 @@ func _probe() -> void:
 	var query := PhysicsRayQueryParameters3D.create(cam.global_position, cam.global_position + cam.global_basis.z * 9.0)
 	var hit: Dictionary = cam.get_world_3d().direct_space_state.intersect_ray(query)
 	print("[DevCli] probe ray: ", hit.get("collider"), " ", hit.get("position"))
+	print("[DevCli] probe scene=%s region=%s" % [get_tree().current_scene.name, GameState.current_region_id])
 	print("[DevCli] probe state: day=%d time=%s money=%d fuel=%.1f upgrades=%s" % [TimeManager.day, TimeManager.get_clock_string(), GameState.money, GameState.fuel, GameState.upgrades])
 	var camper := get_tree().current_scene.find_child("Camper", true, false) as CamperController
 	print("[DevCli] probe camper: headlights=%s night=%.2f surface=%s" % [camper.headlights_on, TimeManager.get_night_factor(), HighlandTerrain.Surface.keys()[camper.surface]])
@@ -463,6 +474,94 @@ func _sketch_test(stop: String) -> void:
 		journal._tabs.current_tab = 2
 		if _args.has("detail"):
 			journal._show_detail(entry)
+
+
+## --fishing [--stop=haul|caught] : meet Hasan Reis, haul a net, deliver the catch.
+func _fishing_test(stop: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var ui := scene.find_child("DialogueUI", true, false) as DialogueUI
+	var hasan := scene.find_child("Hasan", true, false) as Npc
+	var net := scene.find_child("NetHaul", true, false) as NetHaulActivity
+	for i: int in 60:
+		await get_tree().physics_frame
+		if i > 10 and travel.camper.is_stopped():
+			break
+	_press_once(&"interact")
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, hasan.global_position + hasan.global_basis.z * -1.7)
+	await get_tree().physics_frame
+	var focus: Interactable = travel.get_focused_interactable()
+	print("[DevCli] fishing: focused=%s" % (focus.get_parent().name if focus else "none"))
+	if focus:
+		focus.interacted.emit(travel.walker)
+	await _settle()
+	print("[DevCli] fishing: node=%s" % ui.runner.current_id)
+	while ui.runner.current_id != "hub" and ui.runner.current_id != "":
+		if ui._name_row.visible:
+			ui._name_edit.text = "Deniz"
+			ui._submit_name()
+			await _settle()
+		else:
+			await _advance(ui)
+	await _choose(ui, "HASAN_CH_WORK")
+	await _choose(ui, "CH_YES_GLADLY")
+	await _advance(ui)
+	print("[DevCli] fishing: net active=%s status='%s'" % [net.active, net.get_status_text()])
+	# Walk to the pier head and haul.
+	var head: Vector3 = net.global_position + Vector3(0, 1.0, -1.0)
+	travel.walker.global_position = head
+	travel.walker.velocity = Vector3.ZERO
+	travel.follow_camera.yaw = 0.0
+	travel.follow_camera.pitch = -0.25
+	for i: int in 3:
+		await get_tree().physics_frame
+	var spot: Interactable = travel.get_focused_interactable()
+	print("[DevCli] fishing: pier spot prompt=%s" % (spot.prompt_key if spot else "none"))
+	if spot:
+		spot.interacted.emit(travel.walker)
+	var pulls: int = 0
+	while net.hauling and pulls < 40:
+		# Alternate a perfect pull and a mistimed one, like a real player would.
+		net._marker = net._zone_center if pulls % 3 != 2 else fposmod(net._zone_center + 0.5, 1.0)
+		net.pull()
+		pulls += 1
+		await get_tree().process_frame
+		if stop == "haul" and pulls == 6:
+			return
+	print("[DevCli] fishing: pulls=%d catch=%s status='%s'" % [pulls, net.catch, net.get_status_text()])
+	if stop == "caught":
+		travel.walker.global_position = head + Vector3(1.2, 0, -3.5)
+		travel.follow_camera.yaw = PI * 0.15
+		return
+	_place_walker(travel, hasan.global_position + hasan.global_basis.z * -1.7)
+	var money: int = GameState.money
+	(travel.get_focused_interactable()).interacted.emit(travel.walker)
+	await _settle()
+	await _advance(ui)
+	print("[DevCli] fishing: delivered pay=%d rel=%d" % [GameState.money - money, GameState.get_relationship(&"hasan")])
+	await _advance(ui)
+	await _choose(ui, "CH_BYE")
+	await _advance(ui)
+
+
+## --travel=<region_id> : drive to the gate, open the map and travel.
+func _travel_test(region_id: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var region: Region = GameState.current_region
+	var gate: Transform3D = region.terrain.gate_transform
+	travel.camper.global_transform = Transform3D(gate.basis, Vector3(gate.origin.x, region.get_ground_height(gate.origin.x, gate.origin.z) + 0.5, gate.origin.z))
+	for i: int in 30:
+		await get_tree().physics_frame
+	var map := scene.find_child("MapPanel", true, false) as MapPanel
+	print("[DevCli] travel: near_gate=%s can_travel=%s from=%s day=%d %s fuel=%.1f" % [region.is_near_gate(travel.camper.global_position), map.can_travel(), GameState.current_region_id, TimeManager.day, TimeManager.get_clock_string(), GameState.fuel])
+	await GameState.travel_to(StringName(region_id))
+	for i: int in 30:
+		await get_tree().process_frame
+	var cam_travel := get_tree().current_scene.find_child("TravelController", true, false) as TravelController
+	print("[DevCli] travel: arrived region=%s scene=%s day=%d %s fuel=%.1f camper=%s near_gate=%s" % [GameState.current_region_id, get_tree().current_scene.name, TimeManager.day, TimeManager.get_clock_string(), GameState.fuel, cam_travel.camper.global_position.snapped(Vector3.ONE), GameState.current_region.is_near_gate(cam_travel.camper.global_position)])
 
 
 func _place_walker(travel: TravelController, pos: Vector3) -> void:

@@ -14,6 +14,7 @@ const SURFACE_HANDLING: Dictionary = {
 	HighlandTerrain.Surface.MUD: Vector3(0.5, 0.55, 0.55),
 	HighlandTerrain.Surface.ROCK: Vector3(0.6, 0.7, 0.75),
 	HighlandTerrain.Surface.SNOW: Vector3(0.55, 0.6, 0.5),
+	HighlandTerrain.Surface.SAND: Vector3(0.6, 0.65, 0.7),
 }
 const GRAVITY: float = 22.0
 const WHEEL_RADIUS: float = 0.42

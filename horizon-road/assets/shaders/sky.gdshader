@@ -68,7 +68,12 @@ void sky() {
 		cloud = smoothstep(threshold - 0.06, threshold + 0.22, n);
 		cloud *= smoothstep(-0.02, 0.1, h);
 		float density = smoothstep(threshold, threshold + 0.35, n);
-		vec3 lit = mix(cloud_lit_color, cloud_shadow_color, clamp(density * 0.85 + cloud_darkness, 0.0, 1.0));
+		// Self-shadowing: denser cloud between this point and the sun means a darker underside.
+		vec2 to_sun = normalize(sun_direction.xz + vec2(0.0001)) * 0.035;
+		float n_sun = texture(cloud_noise, (uv + to_sun / 0.16) * 0.16 + wind).r * 0.68
+				+ texture(cloud_noise, (uv + to_sun / 0.16) * 0.47 - wind * 1.6).r * 0.32;
+		float occlusion = clamp((n_sun - n) * 4.0 + 0.5, 0.0, 1.0);
+		vec3 lit = mix(cloud_lit_color, cloud_shadow_color, clamp(density * 0.55 + occlusion * 0.55 + cloud_darkness - 0.25, 0.0, 1.0));
 		// Silver lining on thin cloud edges facing the sun.
 		lit += sun_color * pow(sd, 8.0) * (1.0 - density) * 0.8 * sun_above * sun_visibility;
 		cloud_col = lit + vec3(0.8, 0.85, 1.0) * lightning_flash * (0.5 + density);

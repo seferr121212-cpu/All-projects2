@@ -148,6 +148,20 @@ static func shutter() -> AudioStreamWAV:
 	return _to_stream(out, false)
 
 
+## Net splash: short burst of filtered noise with a slosh.
+static func splash() -> AudioStreamWAV:
+	var rng := _rng(10)
+	var n: int = int(0.5 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var lp: float = 0.0
+	for i: int in n:
+		var k: float = float(i) / n
+		lp += (0.35 - k * 0.25) * (rng.randf_range(-1.0, 1.0) - lp)
+		out[i] = lp * pow(1.0 - k, 2.0) * (0.6 + 0.4 * sin(k * 40.0))
+	return _to_stream(out, false)
+
+
 ## Kettle coming to the boil: rising hiss with a soft whistle at the end.
 static func kettle() -> AudioStreamWAV:
 	var rng := _rng(9)

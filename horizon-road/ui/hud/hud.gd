@@ -108,6 +108,9 @@ func _context_hint() -> String:
 		return tr(&"UI_CAPTURE_MOUSE")
 	if _travel == null:
 		return ""
+	if GameState.current_region and GameState.player_mode != GameState.PlayerMode.INTERIOR \
+			and GameState.current_region.is_near_gate(_travel.camper.global_position) and _travel.camper.is_stopped():
+		return tr(&"UI_GATE_HINT")
 	if GameState.player_mode == GameState.PlayerMode.DRIVING:
 		return (tr(&"UI_EXIT_VEHICLE") + "   " + tr(&"UI_ENTER_PHOTO")) if _travel.camper.is_stopped() else ""
 	var focused: Interactable = _travel.get_focused_interactable()

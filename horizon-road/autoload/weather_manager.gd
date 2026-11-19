@@ -23,6 +23,9 @@ var current: WeatherProfile = WeatherProfile.new()
 var target_id: StringName = &"clear"
 var auto_change: bool = true
 var wetness: float = 0.0
+## Lying snow from the season (winter), independent of falling snow.
+var ground_snow: float = 0.0
+var season_tint := Color(1, 1, 1)
 
 var _from: WeatherProfile = WeatherProfile.new()
 var _blend_t: float = 1.0
@@ -117,7 +120,8 @@ func _update_wetness(hours: float) -> void:
 func _publish_globals() -> void:
 	RenderingServer.global_shader_parameter_set(&"wetness", wetness)
 	RenderingServer.global_shader_parameter_set(&"wind_strength", current.wind)
-	RenderingServer.global_shader_parameter_set(&"snow_cover", current.snow)
+	RenderingServer.global_shader_parameter_set(&"snow_cover", maxf(current.snow, ground_snow))
+	RenderingServer.global_shader_parameter_set(&"season_tint", Vector3(season_tint.r, season_tint.g, season_tint.b))
 
 
 func _pick_weighted() -> StringName:

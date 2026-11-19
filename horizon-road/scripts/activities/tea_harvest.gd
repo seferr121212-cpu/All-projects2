@@ -4,7 +4,6 @@ extends Activity
 ## tea rows; walk up and pick them with [E]. A few golden shoots pay extra.
 ## No timer, no failure: hand over whatever you have whenever you like.
 
-static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
 
 @export var vegetation_path: NodePath
 @export var npc_id: StringName = &"fadime"

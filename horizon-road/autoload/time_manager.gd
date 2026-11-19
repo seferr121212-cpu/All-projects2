@@ -5,6 +5,7 @@ extends Node
 signal hour_changed(hour: int)
 signal phase_changed(phase: DayPhase)
 signal day_changed(day: int)
+signal season_changed(season: int)
 
 enum DayPhase { NIGHT, DAWN, MORNING, NOON, GOLDEN_HOUR, DUSK }
 
@@ -19,6 +20,11 @@ const PHASE_KEYS: Array[String] = [
 @export var sunset_hour: float = 20.0
 ## Highest sun elevation at noon, in degrees.
 @export var max_sun_elevation_deg: float = 62.0
+
+## Calendar: the journey starts in summer and seasons turn every few days.
+@export var days_per_season: int = 7
+## Debug/testing override (-1 = follow the calendar).
+var forced_season: int = -1
 
 var time_of_day: float = 7.0
 var day: int = 1
@@ -49,8 +55,11 @@ func advance_hours(hours: float) -> void:
 	time_of_day += hours
 	while time_of_day >= HOURS_PER_DAY:
 		time_of_day -= HOURS_PER_DAY
+		var old_season: int = get_season()
 		day += 1
 		day_changed.emit(day)
+		if get_season() != old_season:
+			season_changed.emit(get_season())
 	_emit_changes()
 
 
@@ -73,6 +82,19 @@ func get_phase(hour: float = time_of_day) -> DayPhase:
 	if hour < sunset_hour + 1.25:
 		return DayPhase.DUSK
 	return DayPhase.NIGHT
+
+
+## RegionDefinition.Season value for the current day.
+func get_season() -> int:
+	if forced_season >= 0:
+		return forced_season
+	var start: int = RegionDefinition.Season.SUMMER
+	return (start + (day - 1) / maxi(days_per_season, 1)) % 4
+
+
+func force_season(season: int) -> void:
+	forced_season = season
+	season_changed.emit(get_season())
 
 
 func get_phase_key() -> String:

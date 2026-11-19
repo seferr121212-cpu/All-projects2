@@ -1,0 +1,418 @@
+{
+	"id": "hasan",
+	"name_key": "NPC_HASAN_NAME",
+	"role_key": "NPC_HASAN_ROLE",
+	"note_key": "NPC_HASAN_NOTE",
+	"personality": "Old Aegean fisherman, calm and wry, reads the wind like a book. Calls everyone 'evlat'. Forty years in the same bay.",
+	"interests": [
+		"SUBJ_FISHING_BOATS",
+		"SUBJ_HARBOR",
+		"MOMENT_SUNSET",
+		"SUBJ_SEA_ISLANDS",
+		"SUBJ_AEGEAN_BAY"
+	],
+	"photo_reactions": {
+		"love": "photo_love",
+		"nice": "photo_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "photo_sold",
+		"kept": "photo_kept"
+	},
+	"drawing_reactions": {
+		"love": "drawing_love",
+		"nice": "drawing_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "drawing_sold",
+		"kept": "photo_kept"
+	},
+	"start": "start",
+	"nodes": {
+		"start": {
+			"branches": [
+				{
+					"if": {
+						"flag": "hasan.net_full"
+					},
+					"next": "deliver"
+				},
+				{
+					"if": {
+						"flag": "hasan.hauling"
+					},
+					"next": "haul_check"
+				},
+				{
+					"if": {
+						"not_flag": "hasan.met"
+					},
+					"next": "intro"
+				},
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "greet_friend"
+				},
+				{
+					"next": "greet"
+				}
+			]
+		},
+		"intro": {
+			"text": "HASAN_INTRO_1",
+			"next": "intro_who"
+		},
+		"intro_who": {
+			"branches": [
+				{
+					"if": {
+						"player_named": false
+					},
+					"next": "intro_name"
+				},
+				{
+					"if": {
+						"flag": "fadime.met"
+					},
+					"next": "intro_blacksea"
+				},
+				{
+					"next": "intro_end"
+				}
+			]
+		},
+		"intro_name": {
+			"type": "name_input",
+			"text": "HASAN_ASK_NAME",
+			"next": "intro_end"
+		},
+		"intro_blacksea": {
+			"text": "HASAN_INTRO_BLACKSEA",
+			"next": "intro_end"
+		},
+		"intro_end": {
+			"text": "HASAN_INTRO_END",
+			"next": "hub",
+			"actions": [
+				"meet",
+				"relationship:first_meeting"
+			]
+		},
+		"greet": {
+			"text": "HASAN_GREET",
+			"next": "hub"
+		},
+		"greet_friend": {
+			"text": "HASAN_GREET_FRIEND",
+			"next": "hub"
+		},
+		"hub": {
+			"text": "HASAN_HUB",
+			"choices": [
+				{
+					"text": "HASAN_CH_WORK",
+					"next": "work"
+				},
+				{
+					"text": "HASAN_CH_FUEL",
+					"next": "fuel",
+					"actions": [
+						"refuel"
+					]
+				},
+				{
+					"text": "HASAN_CH_PHOTO",
+					"actions": [
+						"open_photo_picker"
+					],
+					"if": {
+						"has_photos": true
+					}
+				},
+				{
+					"text": "HASAN_CH_DRAWING",
+					"actions": [
+						"open_drawing_picker"
+					],
+					"if": {
+						"has_drawings": true
+					}
+				},
+				{
+					"text": "HASAN_CH_CHAT",
+					"next": "chat"
+				},
+				{
+					"text": "HASAN_CH_TIP",
+					"next": "tip",
+					"if": {
+						"level_min": 1
+					}
+				},
+				{
+					"text": "CH_BYE",
+					"next": "bye"
+				}
+			]
+		},
+		"work": {
+			"branches": [
+				{
+					"if": {
+						"not_flag": "hasan.taught"
+					},
+					"next": "work_teach"
+				},
+				{
+					"next": "work_again"
+				}
+			]
+		},
+		"work_teach": {
+			"text": "HASAN_WORK_TEACH",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"set_flag:hasan.taught",
+						"start_activity:net_haul"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_again": {
+			"text": "HASAN_WORK_AGAIN",
+			"choices": [
+				{
+					"text": "CH_YES_GLADLY",
+					"next": "work_go",
+					"actions": [
+						"start_activity:net_haul"
+					]
+				},
+				{
+					"text": "CH_MAYBE_LATER",
+					"next": "hub"
+				}
+			]
+		},
+		"work_go": {
+			"text": "HASAN_WORK_GO"
+		},
+		"haul_check": {
+			"text": "HASAN_HAUL_CHECK",
+			"choices": [
+				{
+					"text": "CH_KEEP_PICKING"
+				},
+				{
+					"text": "CH_HAND_OVER",
+					"next": "deliver_partial"
+				}
+			]
+		},
+		"deliver": {
+			"text": "HASAN_DELIVER_FULL",
+			"next": "deliver_pay",
+			"actions": [
+				"complete_activity:net_haul"
+			]
+		},
+		"deliver_partial": {
+			"text": "HASAN_DELIVER_PARTIAL",
+			"next": "deliver_pay",
+			"actions": [
+				"complete_activity:net_haul"
+			]
+		},
+		"deliver_pay": {
+			"text": "HASAN_DELIVER_PAY",
+			"next": "hub"
+		},
+		"chat": {
+			"branches": [
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "chat_3"
+				},
+				{
+					"if": {
+						"level_min": 1
+					},
+					"next": "chat_2"
+				},
+				{
+					"next": "chat_1"
+				}
+			]
+		},
+		"chat_1": {
+			"text": "HASAN_CHAT_1",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_2": {
+			"text": "HASAN_CHAT_2",
+			"next": "hub",
+			"actions": [
+				"relationship:2"
+			]
+		},
+		"chat_3": {
+			"text": "HASAN_CHAT_3",
+			"next": "hub"
+		},
+		"tip": {
+			"branches": [
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "tip_2"
+				},
+				{
+					"next": "tip_1"
+				}
+			]
+		},
+		"tip_1": {
+			"text": "HASAN_TIP_SUNSET",
+			"next": "hub"
+		},
+		"tip_2": {
+			"text": "HASAN_TIP_MIST",
+			"next": "hub"
+		},
+		"photo_love": {
+			"text": "HASAN_PHOTO_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"photo_nice": {
+			"text": "HASAN_PHOTO_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_love": {
+			"text": "HASAN_DRAWING_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_nice": {
+			"text": "HASAN_PHOTO_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"photo_limit": {
+			"text": "HASAN_PHOTO_LIMIT",
+			"next": "hub"
+		},
+		"photo_already": {
+			"text": "HASAN_PHOTO_ALREADY",
+			"next": "hub"
+		},
+		"photo_sold": {
+			"text": "HASAN_PHOTO_SOLD",
+			"next": "hub"
+		},
+		"drawing_sold": {
+			"text": "HASAN_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"photo_kept": {
+			"text": "HASAN_PHOTO_KEPT",
+			"next": "hub"
+		},
+		"bye": {
+			"text": "HASAN_BYE"
+		},
+		"fuel": {
+			"branches": [
+				{
+					"if": {
+						"var_min": {
+							"amount": 1
+						}
+					},
+					"next": "fuel_done"
+				},
+				{
+					"if": {
+						"tank_full": true
+					},
+					"next": "fuel_full"
+				},
+				{
+					"next": "fuel_broke"
+				}
+			]
+		},
+		"fuel_done": {
+			"text": "HASAN_FUEL_DONE",
+			"next": "hub"
+		},
+		"fuel_full": {
+			"text": "HASAN_FUEL_FULL",
+			"next": "hub"
+		},
+		"fuel_broke": {
+			"text": "HASAN_FUEL_BROKE",
+			"next": "hub"
+		}
+	}
+}

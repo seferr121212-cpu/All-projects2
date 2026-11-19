@@ -149,3 +149,31 @@ JOURNAL_DRAWINGS,Drawings,Çizimler
 JOURNAL_EMPTY_DRAWINGS,"No drawings yet. Press B to open your sketchbook.","Henüz çizim yok. Çizim defterini açmak için B'ye bas."
 JOURNAL_STROKES,Strokes,Fırça darbesi
 UI_PICK_DRAWING,Which drawing will you show?,Hangi çizimi göstereceksin?
+REGION_AEGEAN_VILLAGE,Aegean Fishing Village,Ege Balıkçı Köyü
+SUBJ_AEGEAN_BAY,The bay,Koy
+SUBJ_SEA_ISLANDS,Islands on the horizon,Ufuktaki adalar
+SUBJ_OLIVE_GROVE,Olive grove,Zeytinlik
+SUBJ_EGE_HOUSE,Whitewashed house,Beyaz badanalı ev
+SUBJ_HARBOR,Fishing harbour,Balıkçı limanı
+SUBJ_FISHING_BOATS,Fishing boats,Balıkçı kayıkları
+SUBJ_NPC_HASAN,Hasan Reis,Hasan Reis
+FISH_ISTAVRIT,horse mackerel,istavrit
+FISH_BARBUN,red mullet,barbun
+FISH_CIPURA,sea bream,çipura
+FISH_LEVREK,sea bass,levrek
+FISH_LAGOS,grouper,lagos
+ACT_HAUL_NET,[E] Haul the net,[E] Ağı çek
+ACT_NET_TITLE,Hauling the net,Ağ çekiliyor
+ACT_NET_HELP,"Pull (E / Space / click) when the marker is in the green. Esc to stop.","İşaret yeşildeyken çek (E / Boşluk / tık). Esc ile bırak."
+ACT_NET_GOOD,Strong pull!,Güçlü çekiş!
+ACT_NET_SOFT,A little early... it still moves.,Biraz erken... yine de geliyor.
+ACT_NET_PROGRESS,Net: %d / %d,Ağ: %d / %d
+ACT_NET_DONE,Net in: %d fish. Take them to Hasan Reis.,Ağ çekildi: %d balık. Hasan Reis'e götür.
+ACT_NET_CAUGHT,Caught: %s,Çıkanlar: %s
+ACT_NET_STARTED,Walk to the end of the pier and haul the net.,İskelenin ucuna yürü ve ağı çek.
+TRAVEL_ARRIVED,Welcome to %s,%s bölgesine hoş geldin
+TRAVEL_DETAIL,"≈ %d km · %.1f hours on the road","≈ %d km · yolda %.1f saat"
+TRAVEL_GO,Drive to %s (%.1f h),%s yoluna çık (%.1f sa)
+TRAVEL_NEED_GATE,"To travel, drive to the road sign at the edge of the region or use the map table in the camper.","Seyahat için bölgenin kenarındaki yol tabelasına git ya da karavandaki harita masasını kullan."
+UI_GATE_HINT,[M] Travel map,[M] Seyahat haritası
+SUBJ_CAT,Harbour cat,Liman kedisi

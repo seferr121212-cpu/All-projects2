@@ -15,6 +15,8 @@ var settings := ConfigFile.new()
 var _autosave_timer: float = 0.0
 ## True while a save is being applied (systems can skip intro toasts etc.).
 var is_loading: bool = false
+## Save data waiting for its region scene to finish loading.
+var _pending: Dictionary = {}
 
 
 func _ready() -> void:
@@ -54,6 +56,12 @@ func autosave() -> void:
 
 ## Called by the region when it is ready: resume the last session if any.
 func continue_if_possible() -> bool:
+	if not _pending.is_empty():
+		var data: Dictionary = _pending
+		_pending = {}
+		_apply(data)
+		game_loaded.emit("pending")
+		return true
 	if DevCli.is_requested() and not OS.get_cmdline_user_args().has("--continue"):
 		return false
 	return load_game(AUTOSAVE_SLOT)
@@ -76,6 +84,14 @@ func load_game(slot: String = "manual") -> bool:
 	if typeof(data) != TYPE_DICTIONARY:
 		push_error("Save file '%s' is corrupt" % slot)
 		return false
+	# A save from another region: switch scenes first, apply once it's ready.
+	var region_id := StringName(data.get("game", {}).get("region", ""))
+	if region_id != &"" and region_id != GameState.current_region_id and GameState.REGIONS.has(region_id):
+		_pending = data
+		GameState.journey_started = true
+		GameState.current_region = null
+		get_tree().change_scene_to_file(GameState.get_region_def(region_id).scene_path)
+		return true
 	_apply(data)
 	game_loaded.emit(slot)
 	return true

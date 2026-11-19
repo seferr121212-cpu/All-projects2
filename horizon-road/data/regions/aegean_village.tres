@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="RegionDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/world/region_definition.gd" id="1_rd"]
+[ext_resource type="Resource" path="res://data/palettes/aegean_summer.tres" id="2_pal"]
+
+[resource]
+script = ExtResource("1_rd")
+id = &"aegean_village"
+name_key = "REGION_AEGEAN_VILLAGE"
+scene_path = "res://regions/aegean_village/aegean_village.tscn"
+map_position = Vector2(80, 300)
+season = 1
+palette = ExtResource("2_pal")
+weather_weights = {
+&"clear": 3.0,
+&"partly_cloudy": 2.0,
+&"fog": 0.3,
+&"rain": 0.3,
+&"storm": 0.4
+}
+start_weather = &"clear"
+start_hour = 7.0
+bird_density = 0.8
+season_profiles = {
+"spring": {
+"tint": [0.85, 1.15, 0.85],
+"snow": 0.0,
+"weights": {
+"clear": 2.0,
+"partly_cloudy": 2.0,
+"rain": 0.6
+}
+},
+"autumn": {
+"tint": [1.15, 0.95, 0.75],
+"snow": 0.0,
+"weights": {
+"clear": 1.5,
+"partly_cloudy": 2.0,
+"rain": 1.0,
+"storm": 0.6
+}
+},
+"winter": {
+"tint": [0.95, 1.05, 0.95],
+"snow": 0.0,
+"weights": {
+"partly_cloudy": 1.5,
+"rain": 2.0,
+"storm": 1.0,
+"fog": 0.5
+}
+}
+}

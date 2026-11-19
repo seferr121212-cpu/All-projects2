@@ -22,6 +22,7 @@ var _side_door := Interactable.new()
 
 func _ready() -> void:
 	add_to_group(&"save_participant")
+	add_to_group(&"travel")
 	camper = get_node(camper_path)
 	walker = get_node(walker_path)
 	follow_camera = get_node(camera_path)
