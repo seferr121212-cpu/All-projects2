@@ -237,6 +237,22 @@ static func hay_stack(seed_value: int = 7) -> ArrayMesh:
 	return b.commit(foliage_material(0.02, 3.0, 0.2))
 
 
+## Brown highland cow (Karadeniz breed look), ~1.4 m tall, facing -Z.
+static func cow(seed_value: int, coat: Color) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var dark: Color = coat.darkened(0.35)
+	b.add(_box(Vector3(0.75, 0.75, 1.6)), _at(Vector3(0, 1.0, 0.05)), coat, 0.04, 0.05)
+	b.add(_box(Vector3(0.42, 0.45, 0.55)), _at(Vector3(0, 1.2, -0.95)), coat, 0.03)
+	b.add(_box(Vector3(0.36, 0.26, 0.2)), _at(Vector3(0, 1.08, -1.25)), Color(0.85, 0.72, 0.65))
+	for x: float in [-0.24, 0.24]:
+		b.add(_cone(0.04, 0.0, 0.22, 4), Transform3D(Basis(Vector3.FORWARD, x * 4.0), Vector3(x, 1.5, -0.95)), Color(0.9, 0.86, 0.75))
+		b.add(_box(Vector3(0.16, 0.08, 0.1)), _at(Vector3(x * 1.35, 1.38, -0.85)), dark)
+		for z: float in [-0.5, 0.6]:
+			b.add(_box(Vector3(0.16, 0.65, 0.16)), _at(Vector3(x * 1.1, 0.33, z)), dark)
+	b.add(_box(Vector3(0.06, 0.6, 0.06)), Transform3D(Basis(Vector3.RIGHT, 0.25), Vector3(0, 0.95, 0.9)), dark)
+	return b.commit(vertex_color_material(0.9))
+
+
 # --- Vehicle ---------------------------------------------------------------
 
 ## Retro two-tone camper van. Origin at ground level, facing -Z.
@@ -279,7 +295,7 @@ static func camper_body() -> ArrayMesh:
 		for z: float in [-1.15, 0.25, 1.45]:
 			var wsize := Vector3(0.04, 0.6, 0.95 if z > -1.0 else 0.7)
 			b.add(_box(wsize), _at(Vector3(side * (hw + 0.01), 2.08, z)), glass)
-	b.add(_box(Vector3(1.4, 0.55, 0.04)), _at(Vector3(0, 2.08, length * 0.5 - 0.02)), glass)
+	b.add(_box(Vector3(1.4, 0.55, 0.04)), _at(Vector3(0, 2.08, length * 0.5 + 0.02)), glass)
 	# Roof rack + spare tyre + side stripe.
 	b.add(_box(Vector3(width - 0.3, 0.06, 2.6)), _at(Vector3(0, 2.55, 0.6)), trim)
 	for z: float in [-0.6, 0.6, 1.8]:

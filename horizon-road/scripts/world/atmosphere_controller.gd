@@ -23,6 +23,7 @@ var _rng := RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	add_to_group(&"atmosphere")
 	_rng.randomize()
 	_sun = get_node(sun_path)
 	_moon = get_node(moon_path)
@@ -35,6 +36,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_update(delta)
+
+
+## Current lightning flash strength (0..1); photo mode uses it for "moments".
+func get_flash() -> float:
+	return _flash
 
 
 func _create_environment() -> Environment:

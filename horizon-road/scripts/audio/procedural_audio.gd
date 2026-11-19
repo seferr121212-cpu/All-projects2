@@ -134,6 +134,40 @@ static func engine() -> AudioStreamWAV:
 	return _to_stream(out, true)
 
 
+## Mechanical shutter: two short clicks (curtain open/close).
+static func shutter() -> AudioStreamWAV:
+	var rng := _rng(6)
+	var out := PackedFloat32Array()
+	for click: int in 2:
+		var n: int = int(0.018 * MIX_RATE)
+		for i: int in n:
+			var env: float = exp(-float(i) / n * 6.0)
+			out.append((rng.randf_range(-1.0, 1.0) * 0.6 + sin(i * 0.9) * 0.4) * env)
+		for i: int in int(0.055 * MIX_RATE):
+			out.append(0.0)
+	return _to_stream(out, false)
+
+
+## Distant cow moo: a low voice with a formant-like sweep.
+static func moo(seed_value: int = 7) -> AudioStreamWAV:
+	var rng := _rng(seed_value)
+	var n: int = int(1.4 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var phase: float = 0.0
+	var lp: float = 0.0
+	var f0: float = rng.randf_range(95.0, 125.0)
+	for i: int in n:
+		var k: float = float(i) / n
+		var f: float = f0 * (1.0 + 0.25 * sin(k * PI)) * (1.0 - 0.15 * k)
+		phase += f / MIX_RATE
+		var saw: float = fposmod(phase, 1.0) * 2.0 - 1.0
+		var cutoff: float = 0.05 + 0.12 * sin(k * PI)
+		lp += cutoff * (saw - lp)
+		out[i] = lp * minf(k * 8.0, 1.0) * pow(1.0 - k, 0.6)
+	return _to_stream(out, false)
+
+
 static func _rng(seed_value: int) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value

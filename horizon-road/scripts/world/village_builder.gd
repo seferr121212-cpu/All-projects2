@@ -53,6 +53,15 @@ func _ready() -> void:
 		col.shape = shape
 		col.position = Vector3(0, 2.6, 0)
 		house.add_child(col)
+		var subject := PhotoSubject.new()
+		subject.subject_id = &"SUBJ_YAYLA_HOUSE"
+		subject.name_key = "SUBJ_YAYLA_HOUSE"
+		subject.category = PhotoSubject.Category.STRUCTURE
+		subject.radius = 4.5
+		subject.value = 0.7
+		subject.own_body = house
+		subject.position = Vector3(0, 3.0, 0)
+		house.add_child(subject)
 		if i % 2 == 0:
 			var lamp := OmniLight3D.new()
 			lamp.light_color = Color(1.0, 0.72, 0.42)

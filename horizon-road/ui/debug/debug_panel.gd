@@ -53,12 +53,12 @@ func _ready() -> void:
 	grid.columns = 3
 	for id: StringName in WeatherManager.get_weather_ids():
 		var b := Button.new()
-		b.text = tr(StringName(WeatherManager.profiles[id].name_key))
+		b.text = WeatherManager.profiles[id].name_key
 		b.pressed.connect(func() -> void: WeatherManager.set_weather(id, 0.15))
 		grid.add_child(b)
 	box.add_child(grid)
 	_auto_weather = CheckBox.new()
-	_auto_weather.text = tr(&"DEBUG_AUTO_WEATHER")
+	_auto_weather.text = "DEBUG_AUTO_WEATHER"
 	_auto_weather.button_pressed = WeatherManager.auto_change
 	_auto_weather.toggled.connect(func(on: bool) -> void: WeatherManager.auto_change = on)
 	box.add_child(_auto_weather)
@@ -88,6 +88,6 @@ func _process(_delta: float) -> void:
 
 func _caption(key: StringName) -> Label:
 	var l := Label.new()
-	l.text = tr(key)
+	l.text = key
 	l.add_theme_color_override(&"font_color", Color(0.75, 0.8, 0.85))
 	return l

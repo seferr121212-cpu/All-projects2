@@ -37,6 +37,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	visible = GameState.is_gameplay()
 	_clock.text = TimeManager.get_clock_string()
 	_info.text = "%s  ·  %s  ·  %s" % [
 		tr(&"UI_DAY") % TimeManager.day,
@@ -55,7 +56,7 @@ func _context_hint() -> String:
 	if _travel == null:
 		return ""
 	if GameState.player_mode == GameState.PlayerMode.DRIVING:
-		return tr(&"UI_EXIT_VEHICLE") if _travel.camper.is_stopped() else ""
+		return (tr(&"UI_EXIT_VEHICLE") + "   " + tr(&"UI_ENTER_PHOTO")) if _travel.camper.is_stopped() else ""
 	return tr(&"UI_ENTER_VEHICLE") if _travel.can_enter_vehicle() else ""
 
 

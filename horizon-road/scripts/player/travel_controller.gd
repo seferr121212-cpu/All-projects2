@@ -26,9 +26,11 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not GameState.is_gameplay():
+		return
 	if event.is_action_pressed(&"pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and not DevCli.is_requested():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed(&"interact"):
 		if GameState.player_mode == GameState.PlayerMode.DRIVING:
@@ -40,6 +42,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	walker.camera_yaw = follow_camera.yaw
+
+
+## Re-enables whichever body the player controls (after photo mode / journal).
+func restore_control() -> void:
+	camper.active = GameState.player_mode == GameState.PlayerMode.DRIVING
+	walker.active = GameState.player_mode == GameState.PlayerMode.ON_FOOT
+
+
+func suspend_control() -> void:
+	camper.active = false
+	walker.active = false
+
+
+## The body the player currently controls.
+func get_controlled_body() -> Node3D:
+	return camper if GameState.player_mode == GameState.PlayerMode.DRIVING else walker
 
 
 func can_enter_vehicle() -> bool:

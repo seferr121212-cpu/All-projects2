@@ -27,11 +27,19 @@ Genel doğrulama araçları:
 - **Bitti:** oyuncu karavanla bölgeyi gezebiliyor, gün döngüsü ve en az 3 hava
   durumu görsel+işitsel olarak değişiyor; konsolda hata yok; 60 FPS hedefinde.
 
-## Aşama 2 — Fotoğraf modu + günlük albümü
+## Aşama 2 — Fotoğraf modu + günlük albümü ✅
 - Vizör UI, ızgara, DOF, pozlama, filtreler; PNG kaydı; hedef tespiti ve puanlama.
 - Günlük ekranı: Albüm sekmesi.
 - **Bitti:** çekilen fotoğraf `user://photos/` altında PNG olarak oluşuyor, puanı ve
   hedefleri ile albümde görünüyor; yeniden başlatınca kayıtlı.
+
+## Aşama 2.5 — Görsel cila (kullanıcı isteği)
+- Arazi: doku/renk geçişleri, düz üçgen lekelerini yumuşatma, yol kenarı geçişleri.
+- Bitki: daha fazla ağaç/çalı varyasyonu, yumuşak silüet, yakında yoğun çimen.
+- Su: yansıma, kıyı köpüğü; ışık: SDFGI/SSIL (kalite ayarına bağlı), sıcak gölgeler.
+- Bulut: hacimli bulut + araziye bulut gölgesi.
+- Karavan: daha yuvarlak model, krom detaylar, kokpit içi; saat başına renk düzeltme.
+- **Bitti:** önce/sonra ekran görüntüleriyle karşılaştırma onaylandı.
 
 ## Aşama 3 — İlk esnaf + diyalog + mini aktivite + para
 - JSON diyalog sistemi (TR/EN), ilişki seviyesi, isimle hitap.
@@ -80,6 +88,15 @@ Genel doğrulama araçları:
   - Kokpit kamerasında iç mekân yok (Aşama 4: karavan içi).
   - Yağmur karavan çatısından içeri yağabilir (parçacık çarpışması yok).
   - Çıkışta dummy ses sürücüsüne bağlı zararsız "ObjectDB leaked" uyarısı.
+
+## Aşama 2 notları
+- F: fotoğraf modu (oyuncuya 8 m bağlı serbest kamera), J: günlük.
+- Puan = içerik %45 + kompozisyon %30 + pozlama %15 + odak %10 + özel an bonusu;
+  ayarlar `data/photo/photo_config.tres`. Minimum puan var, ceza yok.
+- Albüm `user://photos/album.json` + PNG/JPG küçük resim; kayıt slotlarından bağımsız
+  (eski kaydı yüklemek fotoğrafları silmez).
+- Bilinen sorunlar: inekler çarpışmasız (karavan içinden geçer); fotoğraf satışı ve
+  esnafa gösterme Aşama 3'te; lens yükseltmeleri (`GameState.lens_level`) Aşama 4'te.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/vehicle/camper_controller.gd" id="1_cc"]
+[ext_resource type="Script" path="res://scripts/photo/photo_subject.gd" id="2_ps"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.95
@@ -35,3 +36,13 @@ spot_attenuation = 0.8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.8)
 unit_size = 6.0
 bus = &"SFX"
+
+[node name="PhotoSubject" type="Node3D" parent="." node_paths=PackedStringArray("own_body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+script = ExtResource("2_ps")
+subject_id = &"SUBJ_OUR_CAMPER"
+name_key = "SUBJ_OUR_CAMPER"
+category = 3
+radius = 2.6
+value = 0.55
+own_body = NodePath("..")

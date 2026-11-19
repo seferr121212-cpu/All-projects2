@@ -54,6 +54,8 @@ func toggle_mode() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not GameState.is_gameplay():
+		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion := event as InputEventMouseMotion
 		_rotate_view(-motion.relative.x * mouse_sensitivity, -motion.relative.y * mouse_sensitivity)
@@ -65,7 +67,7 @@ func _process(delta: float) -> void:
 	if target == null:
 		return
 	var stick := Input.get_vector(&"camera_left", &"camera_right", &"camera_up", &"camera_down")
-	if stick.length() > 0.0:
+	if stick.length() > 0.0 and GameState.is_gameplay():
 		_rotate_view(-stick.x * stick_sensitivity * delta, -stick.y * stick_sensitivity * delta)
 	_idle_time += delta
 

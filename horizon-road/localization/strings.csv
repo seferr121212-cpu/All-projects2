@@ -6,7 +6,7 @@ UI_EXIT_VEHICLE,[E] Get out,[E] Araçtan in
 UI_ENTER_VEHICLE,[E] Get in,[E] Araca bin
 UI_SLOW_DOWN_TO_EXIT,Stop to get out,İnmek için dur
 UI_CAPTURE_MOUSE,Click to look around,Etrafa bakmak için tıkla
-UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F3 hata ayıklama"
+UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F camera · J journal · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F fotoğraf · J günlük · F3 hata ayıklama"
 WEATHER_CLEAR,Clear,Açık
 WEATHER_PARTLY_CLOUDY,Partly cloudy,Parçalı bulutlu
 WEATHER_FOG,Fog,Sis
@@ -29,3 +29,59 @@ DEBUG_TIME_SPEED,Time speed,Zaman hızı
 DEBUG_WEATHER,Weather,Hava
 DEBUG_AUTO_WEATHER,Automatic weather,Otomatik hava
 DEBUG_LANGUAGE,Language,Dil
+UI_ENTER_PHOTO,[F] Camera,[F] Fotoğraf makinesi
+PHOTO_HELP,"LMB shoot · Wheel zoom · R/T aperture · Z/X exposure · Tab filter · G grid · H hide · WASD/Q/E move · F exit","Sol tık çek · Tekerlek yakınlaştır · R/T diyafram · Z/X pozlama · Tab filtre · G ızgara · H gizle · WASD/Q/E hareket · F çık"
+PHOTO_APERTURE,Aperture,Diyafram
+PHOTO_EXPOSURE,Exposure,Pozlama
+PHOTO_ZOOM,Zoom,Yakınlaştırma
+PHOTO_FOCUS,Focus,Odak
+PHOTO_FILTER,Filter,Filtre
+FILTER_NONE,Natural,Doğal
+FILTER_WARM,Warm,Sıcak
+FILTER_COOL,Cool,Soğuk
+FILTER_MONO,Black & white,Siyah beyaz
+FILTER_VINTAGE,Vintage,Eski film
+FILTER_VIVID,Vivid,Canlı
+PHOTO_SAVED,Added to the album,Albüme eklendi
+PHOTO_NEW_SUBJECT,New: %s,Yeni: %s
+PHOTO_NOTHING,A quiet view,Sakin bir manzara
+PHOTO_FB_GREAT_COMPOSITION,Lovely composition!,Harika kompozisyon!
+PHOTO_FB_TOO_DARK,A little dark,Biraz karanlık
+PHOTO_FB_TOO_BRIGHT,A little bright,Biraz parlak
+PHOTO_FB_OUT_OF_FOCUS,Subject is soft,Konu biraz flu
+PHOTO_FB_TOO_SMALL,Get closer to the subject,Konuya biraz yaklaş
+JOURNAL_TITLE,Travel journal,Yol günlüğü
+JOURNAL_ALBUM,Album,Albüm
+JOURNAL_COLLECTION,Collection,Koleksiyon
+JOURNAL_PEOPLE,People,İnsanlar
+JOURNAL_PLACES,Places,Yerler
+JOURNAL_EMPTY_ALBUM,"No photos yet. Press F to take out your camera.","Henüz fotoğraf yok. Fotoğraf makineni çıkarmak için F'ye bas."
+JOURNAL_EMPTY_PEOPLE,You haven't met anyone yet.,Henüz kimseyle tanışmadın.
+JOURNAL_UNKNOWN,???,???
+JOURNAL_CLOSE,[J] Close,[J] Kapat
+JOURNAL_BACK,Back,Geri
+JOURNAL_SCORE,Score,Puan
+JOURNAL_SUBJECTS,Subjects,Konular
+JOURNAL_MOMENTS,Moments,Anlar
+JOURNAL_VALUE,Value,Değer
+JOURNAL_DISCOVERED,%d / %d discovered,%d / %d keşfedildi
+CATEGORY_LANDSCAPE,Landscapes,Manzaralar
+CATEGORY_ANIMAL,Animals,Hayvanlar
+CATEGORY_PERSON,People,İnsanlar
+CATEGORY_STRUCTURE,Structures,Yapılar
+CATEGORY_MOMENT,Special moments,Özel anlar
+SUBJ_HIGHLAND_LAKE,Highland lake,Yayla gölü
+SUBJ_TEA_GARDEN,Tea terraces,Çay bahçesi
+SUBJ_YAYLA_HOUSE,Highland house,Yayla evi
+SUBJ_YAYLA_VILLAGE,Highland village,Yayla köyü
+SUBJ_MOUNTAIN_RANGE,Kaçkar ridges,Kaçkar sırtları
+SUBJ_SPRUCE_FOREST,Spruce forest,Ladin ormanı
+SUBJ_COW,Highland cow,Yayla ineği
+SUBJ_OUR_CAMPER,Our camper,Karavanımız
+MOMENT_SUNRISE,Sunrise,Gün doğumu
+MOMENT_SUNSET,Sunset,Gün batımı
+MOMENT_MIST,Sea of mist,Sis denizi
+MOMENT_STARRY_NIGHT,Starry night,Yıldızlı gece
+MOMENT_LIGHTNING,Lightning,Şimşek
+MOMENT_RAIN,Rainy day,Yağmurlu gün
+MOMENT_FIRST_SNOW,First snow,İlk kar

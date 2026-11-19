@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/region.gd" id="1_region"]
 [ext_resource type="Resource" path="res://data/regions/blacksea_highland.tres" id="2_def"]
@@ -15,6 +15,11 @@
 [ext_resource type="Script" path="res://scripts/player/travel_controller.gd" id="13_travel"]
 [ext_resource type="Script" path="res://ui/hud/hud.gd" id="14_hud"]
 [ext_resource type="Script" path="res://ui/debug/debug_panel.gd" id="15_debug"]
+[ext_resource type="Script" path="res://scripts/photo/photo_subject.gd" id="16_subject"]
+[ext_resource type="Script" path="res://scripts/world/grazing_herd.gd" id="17_herd"]
+[ext_resource type="Script" path="res://scripts/photo/photo_mode.gd" id="18_photo"]
+[ext_resource type="Resource" path="res://data/photo/photo_config.tres" id="19_photocfg"]
+[ext_resource type="Script" path="res://ui/journal/journal.gd" id="20_journal"]
 
 [node name="BlackseaHighland" type="Node3D"]
 script = ExtResource("1_region")
@@ -61,6 +66,64 @@ terrain_path = NodePath("../Terrain")
 [node name="Precipitation" type="Node3D" parent="."]
 script = ExtResource("9_precip")
 
+[node name="PhotoSubjects" type="Node3D" parent="."]
+
+[node name="Lake" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -15)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_HIGHLAND_LAKE"
+name_key = "SUBJ_HIGHLAND_LAKE"
+category = 0
+radius = 30.0
+value = 0.8
+snap_to_ground = true
+ground_offset = 0.0
+
+[node name="TeaGarden" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 205)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_TEA_GARDEN"
+name_key = "SUBJ_TEA_GARDEN"
+category = 0
+radius = 40.0
+value = 0.8
+snap_to_ground = true
+ground_offset = 1.0
+
+[node name="Village" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112, 0, -92)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_YAYLA_VILLAGE"
+name_key = "SUBJ_YAYLA_VILLAGE"
+category = 3
+radius = 22.0
+value = 0.75
+snap_to_ground = true
+ground_offset = 3.0
+
+[node name="SpruceForest" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230, 0, 60)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_SPRUCE_FOREST"
+name_key = "SUBJ_SPRUCE_FOREST"
+category = 0
+radius = 25.0
+value = 0.6
+snap_to_ground = true
+ground_offset = 6.0
+
+[node name="MountainRange" type="Node3D" parent="PhotoSubjects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 220, -1500)
+script = ExtResource("16_subject")
+subject_id = &"SUBJ_MOUNTAIN_RANGE"
+name_key = "SUBJ_MOUNTAIN_RANGE"
+radius = 350.0
+value = 0.75
+
+[node name="Herd" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 40)
+script = ExtResource("17_herd")
+
 [node name="Camper" parent="." instance=ExtResource("10_camper")]
 
 [node name="Walker" parent="." instance=ExtResource("11_walker")]
@@ -79,3 +142,12 @@ travel_path = NodePath("../TravelController")
 
 [node name="DebugPanel" type="CanvasLayer" parent="."]
 script = ExtResource("15_debug")
+
+[node name="PhotoMode" type="Node" parent="."]
+script = ExtResource("18_photo")
+config = ExtResource("19_photocfg")
+travel_path = NodePath("../TravelController")
+follow_camera_path = NodePath("../FollowCamera")
+
+[node name="Journal" type="CanvasLayer" parent="."]
+script = ExtResource("20_journal")

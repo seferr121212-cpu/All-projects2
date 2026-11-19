@@ -7,6 +7,7 @@ extends Node
 ##          --camdist --cockpit --drive (seconds of throttle) --steer
 ##          --bench (seconds) --walk (exit van, walk forward N seconds)
 ##          --camper=x,z,heading --probe --locale --stay
+##          --photo --aim --thirds --fov --aperture --filter --ev --shoot=N --journal[=collection] --detail
 
 var _args: Dictionary = {}
 var _frames: int = 0
@@ -29,6 +30,17 @@ func _ready() -> void:
 	if _args.has("walk"):
 		await _walk_test(float(_args["walk"]))
 	_apply_camera()
+	if _args.has("photo"):
+		await _photo_test()
+	if _args.has("journal"):
+		var journal := get_tree().current_scene.find_child("Journal", true, false) as Journal
+		var photo_mode := get_tree().current_scene.find_child("PhotoMode", true, false) as PhotoMode
+		photo_mode.exit()
+		journal.open()
+		if _args.has("detail") and not GameState.album.entries.is_empty():
+			journal._show_detail(GameState.album.entries[GameState.album.entries.size() - 1])
+		elif _args["journal"] == "collection":
+			journal._tabs.current_tab = 1
 	if _args.has("probe"):
 		await _probe()
 	if _args.has("bench"):
@@ -134,6 +146,50 @@ func _probe() -> void:
 	print("[DevCli] probe ray: ", hit.get("collider"), " ", hit.get("position"))
 	var camper := get_tree().current_scene.find_child("Camper", true, false) as CamperController
 	print("[DevCli] probe camper: headlights=%s night=%.2f surface=%s" % [camper.headlights_on, TimeManager.get_night_factor(), HighlandTerrain.Surface.keys()[camper.surface]])
+
+
+## --photo [--aim=SUBJECT_ID|x,y,z] [--fov] [--aperture=i] [--filter=i] [--ev] [--shoot=N]
+func _photo_test() -> void:
+	var photo := get_tree().current_scene.find_child("PhotoMode", true, false) as PhotoMode
+	photo.enter()
+	await get_tree().process_frame
+	var cam: Camera3D = photo._camera
+	if _args.has("aim"):
+		var target := Vector3.ZERO
+		var aim: String = _args["aim"]
+		if aim.begins_with("SUBJ_"):
+			for n: Node in get_tree().get_nodes_in_group(&"photo_subject"):
+				if String((n as PhotoSubject).subject_id) == aim:
+					target = (n as PhotoSubject).get_focus_point()
+					break
+		else:
+			var v: PackedFloat64Array = aim.split_floats(",")
+			target = Vector3(v[0], v[1], v[2])
+		var dir: Vector3 = (target - cam.global_position).normalized()
+		photo._yaw = atan2(-dir.x, -dir.z)
+		photo._pitch = asin(clampf(dir.y, -1.0, 1.0))
+		# Nudge so the subject lands near a thirds point instead of dead centre.
+		if _args.has("thirds"):
+			photo._yaw += deg_to_rad(photo.fov * 0.16 * (16.0 / 9.0))
+	if _args.has("fov"):
+		photo.fov = float(_args["fov"])
+	if _args.has("aperture"):
+		photo.aperture_index = int(_args["aperture"])
+	if _args.has("filter"):
+		photo.filter_index = int(_args["filter"])
+	if _args.has("ev"):
+		photo.exposure_ev = float(_args["ev"])
+	for i: int in 20:
+		await get_tree().process_frame
+	for n: int in int(_args.get("shoot", "0")):
+		await photo.shoot()
+		var e: Dictionary = photo.last_entry
+		var ids: Array = (e.subject_list as Array).map(func(x: Dictionary) -> String: return x.id)
+		print("[DevCli] photo: score=%d stars=%d subjects=%s new=%s breakdown=%s feedback=%s value=%d file=%s" % [
+			e.score, e.stars, ids, e.new_subjects, e.breakdown, e.feedback, e.value, e.path])
+		for i: int in 5:
+			await get_tree().process_frame
+	print("[DevCli] album entries=%d discovered=%d" % [GameState.album.entries.size(), GameState.album.discovered.size()])
 
 
 func _press_once(action: StringName) -> void:
