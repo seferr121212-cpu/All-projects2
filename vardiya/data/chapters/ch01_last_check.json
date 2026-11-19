@@ -552,7 +552,7 @@
 		},
 		"end": {
 			"type": "end",
-			"next_chapter": null
+			"next_chapter": "ch02_strike"
 		}
 	}
 }

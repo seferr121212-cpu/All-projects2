@@ -188,7 +188,16 @@ func _on_chapter_finished(_chapter_id: String, next_chapter: String) -> void:
 	_next_chapter = next_chapter
 	if PerfMonitor.benchmark:
 		return
-	_summary.show_summary(DialogueRunner.chapter, next_chapter == "")
+	var ending := {}
+	if next_chapter == "" and _chapter_id_is_last(DialogueRunner.chapter.get("id", "")):
+		ending = DecisionManager.resolve_ending()
+		GameState.flags["ending"] = ending.get("ending", "")
+	_summary.show_summary(DialogueRunner.chapter, next_chapter == "", ending)
+
+
+func _chapter_id_is_last(chapter_id: String) -> bool:
+	var order := SaveSystem.chapter_order
+	return not order.is_empty() and str(order[order.size() - 1]["id"]) == chapter_id
 
 
 func _on_summary_continued() -> void:

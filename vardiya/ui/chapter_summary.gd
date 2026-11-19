@@ -56,11 +56,14 @@ func _on_continue() -> void:
 	continued.emit()
 
 
-func show_summary(chapter: Dictionary, end_of_build: bool) -> void:
+func show_summary(chapter: Dictionary, end_of_build: bool, ending: Dictionary = {}) -> void:
 	var graph := DecisionManager.build_flowchart(chapter)
 	_title.text = "%s  -  %s" % [Localization.t("summary.title"), Localization.t(str(chapter.get("title", "")))]
 	_explored.text = Localization.t("summary.explored", {"p": FlowchartView.explored_percent(graph)})
 	_footer.text = Localization.t("summary.end_of_build") if end_of_build else Localization.t("summary.missed_hint")
+	if not ending.is_empty():
+		_footer.text = Localization.t("summary.ending", {"title": Localization.t(str(ending["title"])),
+			"desc": Localization.t(str(ending["description"]))})
 	_flow.set_graph(graph)
 	visible = true
 	_scroll.scroll_vertical = 0

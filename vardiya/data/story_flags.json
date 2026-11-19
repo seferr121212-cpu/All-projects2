@@ -63,5 +63,53 @@
 	"kemal_injured": {
 		"default": false,
 		"doc": "Kemal failed the robot-arm QTE and hurt his arm (ch1)."
+	},
+	"pov": {
+		"default": "",
+		"doc": "Whose eyes the current scene is seen through: kemal/defne/riza (set by POV branches)."
+	},
+	"riza_took_money": {
+		"default": false,
+		"doc": "Rıza accepted the dispatcher's envelope (ch3) or sold the barrels (ch5)."
+	},
+	"riza_spotted": {
+		"default": false,
+		"doc": "The port guard saw Rıza open container 47 (ch3)."
+	},
+	"cargo_hidden": {
+		"default": false,
+		"doc": "Rıza hid the barrels at the old depot (ch3)."
+	},
+	"cargo_photo": {
+		"default": false,
+		"doc": "Defne has Rıza's photo of the barrels (ch3)."
+	},
+	"defne_chose_exam": {
+		"default": false,
+		"doc": "Defne sat the exam and was not inside on the night shift (ch4)."
+	},
+	"defne_knows_envelope": {
+		"default": false,
+		"doc": "Defne found the envelope in Rıza's coat (ch4)."
+	},
+	"selim_dead": {
+		"default": false,
+		"doc": "Selim died in the fire (ch5)."
+	},
+	"fire_evidence": {
+		"default": false,
+		"doc": "Someone recorded proof of the arson / sabotage (ch5)."
+	},
+	"company_blamed": {
+		"default": false,
+		"doc": "The company (Demirtaş Logistics) was officially blamed."
+	},
+	"plan_together": {
+		"default": false,
+		"doc": "The survivors agreed to face the last shift together (ch7)."
+	},
+	"leave_town": {
+		"default": false,
+		"doc": "A survivor decided to leave Karaliman (ch7)."
 	}
 }

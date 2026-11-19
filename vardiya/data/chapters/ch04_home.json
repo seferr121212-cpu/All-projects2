@@ -1,0 +1,380 @@
+{
+	"id": "ch04_home",
+	"version": 1,
+	"title": "ch04.title",
+	"characters": [
+		"defne"
+	],
+	"start": "pov",
+	"nodes": {
+		"pov": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "loc"
+		},
+		"loc": {
+			"type": "location",
+			"location": "loc.ch04.loc",
+			"scene": "family_home",
+			"spawn": "defne_room",
+			"player": "defne",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.l02",
+			"next": "x01",
+			"variants": [
+				{
+					"if": {
+						"flag": "kemal_injured",
+						"eq": true
+					},
+					"text": "ch04.l02_v1"
+				}
+			]
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "family_home",
+			"objective": "ch04.x01.objective",
+			"items": [
+				{
+					"id": "ch04_exam_card",
+					"label": "ch04.it.ch04_exam_card",
+					"journal": "journal.ch04.ch04_exam_card",
+					"lines": [
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_exam_card.l1"
+						}
+					]
+				},
+				{
+					"id": "ch04_meds",
+					"label": "ch04.it.ch04_meds",
+					"if": {
+						"flag": "kemal_injured",
+						"eq": true
+					},
+					"journal": "journal.ch04.ch04_meds",
+					"lines": [
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_meds.l1"
+						}
+					]
+				},
+				{
+					"id": "ch04_letter",
+					"label": "ch04.it.ch04_letter",
+					"if": {
+						"any": [
+							{
+								"flag": "fault_reported",
+								"eq": true
+							},
+							{
+								"flag": "fault_hidden",
+								"eq": true
+							}
+						]
+					},
+					"journal": "journal.ch04.ch04_letter",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch04.it.ch04_letter.l1"
+						}
+					]
+				},
+				{
+					"id": "ch04_coat",
+					"label": "ch04.it.ch04_coat",
+					"if": {
+						"all": [
+							{
+								"flag": "riza_took_money",
+								"eq": true
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							}
+						]
+					},
+					"journal": "journal.ch04.ch04_coat",
+					"effects": [
+						{
+							"set_flag": "defne_knows_envelope",
+							"value": true
+						}
+					],
+					"lines": [
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_coat.l1"
+						}
+					]
+				},
+				{
+					"id": "ch04_phone",
+					"label": "ch04.it.ch04_phone",
+					"if": {
+						"flag": "cargo_photo",
+						"eq": true
+					},
+					"journal": "journal.ch04.ch04_phone",
+					"lines": [
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_phone.l1"
+						}
+					]
+				},
+				{
+					"id": "ch04_kemal",
+					"label": "ch04.it.ch04_kemal",
+					"actor": "kemal",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "b4_yuzles",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch04.c01.prompt",
+			"options": [
+				{
+					"id": "truth",
+					"text": "ch04.c01.truth",
+					"next": "r_truth",
+					"effects": [
+						{
+							"trust_mutual": [
+								"defne",
+								"kemal"
+							],
+							"delta": 1
+						}
+					]
+				},
+				{
+					"id": "support",
+					"text": "ch04.c01.support",
+					"next": "r_support",
+					"effects": [
+						{
+							"trust_mutual": [
+								"defne",
+								"kemal"
+							],
+							"delta": 1
+						},
+						{
+							"mood": "kemal",
+							"value": "hopeful"
+						}
+					]
+				},
+				{
+					"id": "accuse",
+					"text": "ch04.c01.accuse",
+					"next": "r_accuse",
+					"effects": [
+						{
+							"trust_mutual": [
+								"defne",
+								"kemal"
+							],
+							"delta": -2
+						},
+						{
+							"mood": "defne",
+							"value": "angry"
+						}
+					],
+					"if": {
+						"flag": "gate_opened",
+						"eq": true
+					}
+				},
+				{
+					"id": "riza",
+					"text": "ch04.c01.riza",
+					"next": "r_riza",
+					"effects": [
+						{
+							"trust": [
+								"defne",
+								"riza"
+							],
+							"delta": -1
+						},
+						{
+							"set_flag": "secret_revealed",
+							"value": true
+						}
+					],
+					"if": {
+						"flag": "defne_knows_envelope",
+						"eq": true
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_silence"
+			}
+		},
+		"r_truth": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.r_truth",
+			"next": "c02",
+			"variants": [
+				{
+					"if": {
+						"flag": "fault_hidden",
+						"eq": true
+					},
+					"text": "ch04.r_truth_v1"
+				},
+				{
+					"if": {
+						"flag": "fault_reported",
+						"eq": true
+					},
+					"text": "ch04.r_truth_v2"
+				}
+			]
+		},
+		"r_support": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.r_support",
+			"next": "c02"
+		},
+		"r_accuse": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.r_accuse",
+			"next": "c02"
+		},
+		"r_riza": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch04.r_riza",
+			"next": "c02"
+		},
+		"r_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.r_silence",
+			"next": "c02"
+		},
+		"c02": {
+			"type": "choice",
+			"decision_id": "b4_sinav",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch04.c02.prompt",
+			"options": [
+				{
+					"id": "exam",
+					"text": "ch04.c02.exam",
+					"next": "r_exam",
+					"effects": [
+						{
+							"set_flag": "defne_chose_exam",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "father",
+					"text": "ch04.c02.father",
+					"next": "r_father",
+					"effects": [
+						{
+							"trust_mutual": [
+								"kemal",
+								"defne"
+							],
+							"delta": 1
+						}
+					]
+				},
+				{
+					"id": "strike",
+					"text": "ch04.c02.strike",
+					"next": "r_strike",
+					"effects": [
+						{
+							"mood": "defne",
+							"value": "hopeful"
+						}
+					],
+					"if": {
+						"flag": "strike_supported",
+						"eq": true
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_sleep",
+				"effects": [
+					{
+						"set_flag": "defne_chose_exam",
+						"value": true
+					}
+				]
+			}
+		},
+		"r_exam": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.r_exam",
+			"next": "end"
+		},
+		"r_father": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.r_father",
+			"next": "end"
+		},
+		"r_strike": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.r_strike",
+			"next": "end"
+		},
+		"r_sleep": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.r_sleep",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": "ch05_night_shift"
+		}
+	}
+}

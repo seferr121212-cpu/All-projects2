@@ -1,0 +1,941 @@
+{
+	"id": "ch05_night_shift",
+	"version": 1,
+	"title": "ch05.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "fire",
+	"nodes": {
+		"fire": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "fire_started",
+					"value": true,
+					"if": {
+						"any": [
+							{
+								"flag": "fault_hidden",
+								"eq": true
+							},
+							{
+								"flag": "cargo_delivered",
+								"eq": true
+							}
+						]
+					}
+				}
+			],
+			"next": "pov_k"
+		},
+		"pov_k": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "loc_k"
+		},
+		"loc_k": {
+			"type": "location",
+			"location": "loc.ch05.loc_k",
+			"scene": "factory_night",
+			"spawn": "kemal_floor",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.l01",
+			"next": "br_fire",
+			"variants": [
+				{
+					"if": {
+						"flag": "fire_started",
+						"eq": true
+					},
+					"text": "ch05.l01_v1"
+				}
+			]
+		},
+		"br_fire": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "fire_started",
+						"eq": true
+					},
+					"next": "f01"
+				}
+			],
+			"else": "n01"
+		},
+		"f01": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.f01",
+			"next": "fx",
+			"variants": [
+				{
+					"if": {
+						"flag": "fault_hidden",
+						"eq": true
+					},
+					"text": "ch05.f01_v1"
+				}
+			]
+		},
+		"fx": {
+			"type": "explore",
+			"scene": "factory_night",
+			"objective": "ch05.fx.objective",
+			"items": [
+				{
+					"id": "ch05_extinguisher",
+					"label": "ch05.it.ch05_extinguisher",
+					"journal": "journal.ch05.ch05_extinguisher",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch05.it.ch05_extinguisher.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_fusebox",
+					"label": "ch05.it.ch05_fusebox",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch05.it.ch05_fusebox.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_go",
+					"label": "ch05.it.ch05_go",
+					"next": "f_c1"
+				}
+			]
+		},
+		"f_c1": {
+			"type": "choice",
+			"decision_id": "b5_kurtar",
+			"major": true,
+			"timer": 6,
+			"prompt": "ch05.f_c1.prompt",
+			"options": [
+				{
+					"id": "save_defne",
+					"text": "ch05.f_c1.save_defne",
+					"next": "f_esc",
+					"effects": [
+						{
+							"set_flag": "selim_dead",
+							"value": true
+						},
+						{
+							"trust_mutual": [
+								"defne",
+								"kemal"
+							],
+							"delta": 2
+						}
+					],
+					"if": {
+						"not": {
+							"flag": "defne_chose_exam"
+						}
+					}
+				},
+				{
+					"id": "save_selim",
+					"text": "ch05.f_c1.save_selim",
+					"next": "f_esc",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "anxious"
+						}
+					]
+				},
+				{
+					"id": "go_out",
+					"text": "ch05.f_c1.go_out",
+					"next": "f_out",
+					"effects": [
+						{
+							"set_flag": "selim_dead",
+							"value": true
+						},
+						{
+							"mood": "kemal",
+							"value": "guilty"
+						}
+					],
+					"if": {
+						"flag": "defne_chose_exam",
+						"eq": true
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "f_sacrifice",
+				"effects": [
+					{
+						"status": "kemal",
+						"value": "dead"
+					}
+				]
+			}
+		},
+		"f_esc": {
+			"type": "qte",
+			"decision_id": "b5_duman_qte",
+			"mode": "mash",
+			"time": 3.0,
+			"prompt": "ch05.f_esc.prompt",
+			"success": {
+				"next": "f_esc_ok"
+			},
+			"fail": {
+				"next": "f_esc_fail",
+				"effects": [
+					{
+						"status": "kemal",
+						"value": "dead",
+						"if": {
+							"flag": "kemal_injured",
+							"eq": true
+						}
+					},
+					{
+						"set_flag": "kemal_injured",
+						"value": true
+					}
+				]
+			},
+			"count": 8
+		},
+		"f_esc_ok": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.f_esc_ok",
+			"next": "riza_part",
+			"variants": [
+				{
+					"if": {
+						"decision": "b5_kurtar",
+						"eq": "save_defne"
+					},
+					"text": "ch05.f_esc_ok_v1"
+				},
+				{
+					"if": {
+						"decision": "b5_kurtar",
+						"eq": "save_selim"
+					},
+					"text": "ch05.f_esc_ok_v2"
+				}
+			]
+		},
+		"f_esc_fail": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.f_esc_fail",
+			"next": "riza_part",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ch05.f_esc_fail_v1"
+				}
+			]
+		},
+		"f_out": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.f_out",
+			"next": "riza_part"
+		},
+		"f_sacrifice": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.f_sacrifice",
+			"next": "riza_part"
+		},
+		"riza_part": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "riza",
+								"eq": "alive"
+							},
+							{
+								"flag": "fire_started",
+								"eq": true
+							}
+						]
+					},
+					"next": "r_pov"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "alive"
+					},
+					"next": "nr_pov"
+				}
+			],
+			"else": "defne_part"
+		},
+		"r_pov": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "r_loc"
+		},
+		"r_loc": {
+			"type": "location",
+			"location": "loc.ch05.r_loc",
+			"scene": "factory_night",
+			"spawn": "riza_dock",
+			"player": "riza",
+			"next": "r01"
+		},
+		"r01": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.r01",
+			"next": "r_c",
+			"variants": [
+				{
+					"if": {
+						"flag": "cargo_delivered",
+						"eq": true
+					},
+					"text": "ch05.r01_v1"
+				}
+			]
+		},
+		"r_c": {
+			"type": "choice",
+			"decision_id": "b5_kamyon",
+			"major": true,
+			"timer": 6,
+			"prompt": "ch05.r_c.prompt",
+			"options": [
+				{
+					"id": "ram",
+					"text": "ch05.r_c.ram",
+					"next": "r_q"
+				},
+				{
+					"id": "flee",
+					"text": "ch05.r_c.flee",
+					"next": "r_flee",
+					"effects": [
+						{
+							"trust": [
+								"kemal",
+								"riza"
+							],
+							"delta": -2
+						},
+						{
+							"trust": [
+								"defne",
+								"riza"
+							],
+							"delta": -2
+						}
+					]
+				},
+				{
+					"id": "call",
+					"text": "ch05.r_c.call",
+					"next": "r_call"
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_call",
+				"effects": [
+					{
+						"trust": [
+							"kemal",
+							"riza"
+						],
+						"delta": -1
+					}
+				]
+			}
+		},
+		"r_q": {
+			"type": "qte",
+			"decision_id": "b5_kamyon_qte",
+			"mode": "press",
+			"time": 1.2,
+			"prompt": "ch05.r_q.prompt",
+			"success": {
+				"next": "r_ram_ok",
+				"effects": [
+					{
+						"trust_mutual": [
+							"riza",
+							"kemal"
+						],
+						"delta": 2
+					},
+					{
+						"trust_mutual": [
+							"riza",
+							"defne"
+						],
+						"delta": 2
+					}
+				]
+			},
+			"fail": {
+				"next": "r_ram_fail",
+				"effects": [
+					{
+						"status": "riza",
+						"value": "dead"
+					}
+				]
+			}
+		},
+		"r_ram_ok": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.r_ram_ok",
+			"next": "defne_part"
+		},
+		"r_ram_fail": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.r_ram_fail",
+			"next": "defne_part"
+		},
+		"r_flee": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.r_flee",
+			"next": "defne_part"
+		},
+		"r_call": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.r_call",
+			"next": "defne_part"
+		},
+		"n01": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.n01",
+			"next": "nx"
+		},
+		"nx": {
+			"type": "explore",
+			"scene": "factory_night",
+			"objective": "ch05.nx.objective",
+			"items": [
+				{
+					"id": "ch05_fusebox_n",
+					"label": "ch05.it.ch05_fusebox_n",
+					"point": "ch05_fusebox",
+					"journal": "journal.ch05.ch05_fusebox_n",
+					"lines": [
+						{
+							"speaker": "kemal",
+							"text": "ch05.it.ch05_fusebox_n.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_go_n",
+					"label": "ch05.it.ch05_go_n",
+					"point": "ch05_go",
+					"next": "n_c1"
+				}
+			]
+		},
+		"n_c1": {
+			"type": "choice",
+			"decision_id": "b5_sabotaj",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch05.n_c1.prompt",
+			"options": [
+				{
+					"id": "stop",
+					"text": "ch05.n_c1.stop",
+					"next": "n_q"
+				},
+				{
+					"id": "report",
+					"text": "ch05.n_c1.report",
+					"next": "n_report",
+					"effects": [
+						{
+							"set_flag": "company_blamed",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "away",
+					"text": "ch05.n_c1.away",
+					"next": "n_away",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "guilty"
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "n_away"
+			}
+		},
+		"n_q": {
+			"type": "qte",
+			"decision_id": "b5_sabotaj_qte",
+			"mode": "mash",
+			"time": 2.5,
+			"prompt": "ch05.n_q.prompt",
+			"success": {
+				"next": "n_stop",
+				"effects": [
+					{
+						"set_flag": "fire_evidence",
+						"value": true
+					}
+				]
+			},
+			"fail": {
+				"next": "n_hurt",
+				"effects": [
+					{
+						"set_flag": "kemal_injured",
+						"value": true
+					}
+				]
+			},
+			"count": 6
+		},
+		"n_stop": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.n_stop",
+			"next": "nr_branch"
+		},
+		"n_hurt": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.n_hurt",
+			"next": "nr_branch"
+		},
+		"n_report": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.n_report",
+			"next": "nr_branch"
+		},
+		"n_away": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.n_away",
+			"next": "nr_branch"
+		},
+		"nr_branch": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "alive"
+					},
+					"next": "nr_pov"
+				}
+			],
+			"else": "defne_part"
+		},
+		"nr_pov": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "nr_loc"
+		},
+		"nr_loc": {
+			"type": "location",
+			"location": "loc.ch05.nr_loc",
+			"scene": "factory_night",
+			"spawn": "riza_dock",
+			"player": "riza",
+			"next": "nr01"
+		},
+		"nr01": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.nr01",
+			"next": "nr_c",
+			"variants": [
+				{
+					"if": {
+						"flag": "cargo_hidden",
+						"eq": true
+					},
+					"text": "ch05.nr01_v1"
+				}
+			]
+		},
+		"nr_c": {
+			"type": "choice",
+			"decision_id": "b5_polis",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch05.nr_c.prompt",
+			"options": [
+				{
+					"id": "police",
+					"text": "ch05.nr_c.police",
+					"next": "nr_police",
+					"effects": [
+						{
+							"set_flag": "company_blamed",
+							"value": true
+						},
+						{
+							"trust_mutual": [
+								"riza",
+								"kemal"
+							],
+							"delta": 1
+						},
+						{
+							"trust_mutual": [
+								"riza",
+								"defne"
+							],
+							"delta": 1
+						}
+					]
+				},
+				{
+					"id": "sell",
+					"text": "ch05.nr_c.sell",
+					"next": "nr_sell",
+					"effects": [
+						{
+							"set_flag": "harm_done",
+							"value": true
+						},
+						{
+							"set_flag": "riza_took_money",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "keep",
+					"text": "ch05.nr_c.keep",
+					"next": "nr_keep"
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "nr_keep"
+			}
+		},
+		"nr_police": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.nr_police",
+			"next": "defne_part"
+		},
+		"nr_sell": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.nr_sell",
+			"next": "defne_part"
+		},
+		"nr_keep": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.nr_keep",
+			"next": "defne_part"
+		},
+		"defne_part": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"not": {
+									"flag": "defne_chose_exam"
+								}
+							}
+						]
+					},
+					"next": "d_pov"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "alive"
+					},
+					"next": "d_out"
+				}
+			],
+			"else": "outro"
+		},
+		"d_pov": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "d_loc"
+		},
+		"d_loc": {
+			"type": "location",
+			"location": "loc.ch05.d_loc",
+			"scene": "factory_night",
+			"spawn": "defne_office",
+			"player": "defne",
+			"next": "d01"
+		},
+		"d01": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch05.d01",
+			"next": "d_br",
+			"variants": [
+				{
+					"if": {
+						"flag": "fire_started",
+						"eq": true
+					},
+					"text": "ch05.d01_v1"
+				}
+			]
+		},
+		"d_br": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "fire_started",
+								"eq": true
+							},
+							{
+								"decision": "b5_kurtar",
+								"eq": "save_selim"
+							}
+						]
+					},
+					"next": "d_q"
+				}
+			],
+			"else": "d_c"
+		},
+		"d_q": {
+			"type": "qte",
+			"decision_id": "b5_defne_qte",
+			"mode": "hold",
+			"time": 3.5,
+			"prompt": "ch05.d_q.prompt",
+			"success": {
+				"next": "d_c"
+			},
+			"fail": {
+				"next": "d_dead",
+				"effects": [
+					{
+						"status": "defne",
+						"value": "dead"
+					}
+				]
+			},
+			"hold_time": 1.6
+		},
+		"d_dead": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.d_dead",
+			"next": "outro"
+		},
+		"d_c": {
+			"type": "choice",
+			"decision_id": "b5_kanit",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch05.d_c.prompt",
+			"options": [
+				{
+					"id": "record",
+					"text": "ch05.d_c.record",
+					"next": "d_rec",
+					"effects": [
+						{
+							"set_flag": "fire_evidence",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "help",
+					"text": "ch05.d_c.help",
+					"next": "d_help",
+					"effects": [
+						{
+							"trust_mutual": [
+								"defne",
+								"kemal"
+							],
+							"delta": 1
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "d_freeze"
+			}
+		},
+		"d_rec": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch05.d_rec",
+			"next": "outro"
+		},
+		"d_help": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch05.d_help",
+			"next": "outro"
+		},
+		"d_freeze": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.d_freeze",
+			"next": "outro"
+		},
+		"d_out": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.d_out",
+			"next": "outro",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "fire_started",
+							"eq": true
+						}
+					},
+					"text": "ch05.d_out_v1"
+				}
+			]
+		},
+		"outro": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.outro",
+			"next": "o_k",
+			"if": {
+				"flag": "fire_started",
+				"eq": true
+			}
+		},
+		"o_k": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.o_k",
+			"next": "o_r",
+			"if": {
+				"status": "kemal",
+				"eq": "dead"
+			}
+		},
+		"o_r": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.o_r",
+			"next": "o_d",
+			"if": {
+				"status": "riza",
+				"eq": "dead"
+			}
+		},
+		"o_d": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.o_d",
+			"next": "o_n",
+			"if": {
+				"status": "defne",
+				"eq": "dead"
+			}
+		},
+		"o_n": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.o_n",
+			"next": "chk",
+			"if": {
+				"not": {
+					"flag": "fire_started",
+					"eq": true
+				}
+			}
+		},
+		"chk": {
+			"type": "checkpoint",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": "ch06_informant"
+		}
+	}
+}

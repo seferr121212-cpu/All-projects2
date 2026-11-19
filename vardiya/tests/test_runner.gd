@@ -19,6 +19,9 @@ func _ready() -> void:
 		"test_explore_locked_and_exit", "test_explore_found_unlocks_option", "test_qte_press_and_fail",
 		"test_qte_easy_and_hold_alternative", "test_flowchart_graph", "test_resume_inside_exploration",
 		"test_chapter1_full_playthrough", "test_location_data_builds",
+		"test_story_index_and_majors", "test_fire_depends_on_earlier_choices", "test_rescue_options_depend_on_exam",
+		"test_pov_skips_dead_character", "test_all_dead_aftermath", "test_death_visible_later",
+		"test_inform_sets_informer_to_pov", "test_chapter1_links_to_chapter2",
 	]:
 		GameState.reset()
 		SaveSystem.active_slot = -1
@@ -455,3 +458,117 @@ func test_location_data_builds() -> void:
 		check(not (built["spawns"] as Dictionary).is_empty(), id + " has spawns")
 		check(root.get_child_count() > 6, id + " built geometry")
 		root.queue_free()
+
+
+# --- Stage 4: chapters 2-8, cross-chapter consequences ----------------------------
+
+func _collect_lines(callable_to_run: Callable) -> Array:
+	var shown := []
+	var cb := func(_s: String, key: String) -> void: shown.append(key)
+	DialogueRunner.line_shown.connect(cb)
+	callable_to_run.call()
+	DialogueRunner.line_shown.disconnect(cb)
+	return shown
+
+
+func test_story_index_and_majors() -> void:
+	check(SaveSystem.chapter_order.size() == 8, "eight story chapters")
+	check(SaveSystem.first_chapter_id() == "ch01_last_check", "new game starts at chapter 1")
+	for c: Dictionary in SaveSystem.chapter_order:
+		var data := DialogueRunner.load_chapter_data(str(c["id"]))
+		var majors := 0
+		for n: Dictionary in data["nodes"].values():
+			if n.get("type", "") == "choice" and n.get("major", false):
+				majors += 1
+		check(majors >= 2, str(c["id"]) + " has 2+ major decisions")
+
+
+func test_fire_depends_on_earlier_choices() -> void:
+	DialogueRunner.start("ch05_night_shift")
+	check(GameState.get_flag("fire_started") == false, "no hidden fault, no delivered cargo: no fire")
+	check(DialogueRunner.current_node_id == "l01", "night shift starts")
+	GameState.reset()
+	GameState.set_flag("fault_hidden", true)
+	DialogueRunner.start("ch05_night_shift")
+	check(GameState.get_flag("fire_started") == true, "hidden fault from chapter 1 starts the fire")
+	_run_until_blocking()
+	check(DialogueRunner.waiting == DialogueRunner.Wait.EXPLORE and DialogueRunner.current_node_id == "fx", "fire exploration")
+
+
+func test_rescue_options_depend_on_exam() -> void:
+	GameState.set_flag("cargo_delivered", true)
+	DialogueRunner.start("ch05_night_shift")
+	_run_until_blocking()
+	DialogueRunner.interact("ch05_go")
+	var ids := []
+	for o: Dictionary in DialogueRunner.current_options():
+		ids.append(o["id"])
+	check(ids == ["save_defne", "save_selim"], "Defne inside: save Defne or Selim")
+	GameState.reset()
+	GameState.set_flag("cargo_delivered", true)
+	GameState.set_flag("defne_chose_exam", true)
+	DialogueRunner.start("ch05_night_shift")
+	_run_until_blocking()
+	DialogueRunner.interact("ch05_go")
+	ids = []
+	for o: Dictionary in DialogueRunner.current_options():
+		ids.append(o["id"])
+	check(ids == ["save_selim", "go_out"], "Defne at the exam: Selim or get out")
+	DialogueRunner.force_timeout()
+	check(GameState.get_status("kemal") == "dead", "hesitating costs Kemal his life")
+
+
+func test_pov_skips_dead_character() -> void:
+	GameState.set_status("riza", "dead")
+	DialogueRunner.start("ch06_informant")
+	check(GameState.get_flag("pov") == "defne", "Rıza dead: chapter 6 seen through Defne")
+	check(GameState.location.get("player") == "defne", "Defne is in control")
+	GameState.reset()
+	GameState.set_status("defne", "dead")
+	DialogueRunner.start("ch08_last_shift")
+	check(GameState.get_flag("pov") == "kemal", "Defne dead: chapter 8 seen through Kemal")
+
+
+func test_all_dead_aftermath() -> void:
+	for c in GameState.CHARACTERS:
+		GameState.set_status(c, "dead")
+	var shown := _collect_lines(func() -> void:
+		DialogueRunner.start("ch06_informant")
+		_run_until_blocking())
+	check("ch06.a01" in shown, "the story continues without anyone to control")
+	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "chapter 6 completes with nobody alive")
+	check(DecisionManager.resolve_ending()["ending"] == "bitter_reckoning", "all dead -> Bitter Reckoning")
+
+
+func test_death_visible_later() -> void:
+	GameState.set_status("kemal", "dead")
+	GameState.set_flag("selim_dead", true)
+	var shown := _collect_lines(func() -> void:
+		DialogueRunner.start("ch07_reckoning")
+		_run_until_blocking())
+	check("ch07.dl_k" in shown, "Kemal's death is mentioned in chapter 7")
+	check("ch07.rc1" in shown, "Selim's death is mentioned in chapter 7")
+	check(GameState.location.get("player") == "defne", "Defne leads chapter 7")
+
+
+func test_inform_sets_informer_to_pov() -> void:
+	DialogueRunner.start("ch06_informant")
+	_run_until_blocking()
+	DialogueRunner.interact("ch06_komiser")
+	_run_until_blocking()
+	check(DialogueRunner.choose("inform"), "inform option available")
+	check(GameState.get_flag("informer") == "riza", "Rıza (POV) is the informer")
+	var k_trust := GameState.get_trust("kemal", "riza")
+	check(k_trust == -3 and GameState.get_trust("defne", "riza") == -3, "others lose trust in the informer")
+	check(GameState.get_trust("riza", "kemal") == 0, "informer's own trust unchanged")
+	check(DecisionManager.resolve_ending()["ending"] == "betrayal", "informing -> Betrayal ending")
+
+
+func test_chapter1_links_to_chapter2() -> void:
+	var data := DialogueRunner.load_chapter_data("ch01_last_check")
+	check(data["nodes"]["end"]["next_chapter"] == "ch02_strike", "chapter 1 continues to chapter 2")
+	GameState.set_flag("selim_warned", true)
+	var shown := _collect_lines(func() -> void:
+		DialogueRunner.start("ch02_strike")
+		_run_until_blocking())
+	check("ch02.l03" in shown, "warning Selim in chapter 1 changes chapter 2")

@@ -1,0 +1,506 @@
+{
+	"id": "ch06_informant",
+	"version": 1,
+	"title": "ch06.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "start",
+	"nodes": {
+		"start": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "alive"
+					},
+					"next": "pr"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "alive"
+					},
+					"next": "pd"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "alive"
+					},
+					"next": "pk"
+				}
+			],
+			"else": "after"
+		},
+		"pr": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "loc_riza"
+		},
+		"loc_riza": {
+			"type": "location",
+			"location": "loc.ch06.loc_riza",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "riza",
+			"next": "l01"
+		},
+		"pd": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "loc_defne"
+		},
+		"loc_defne": {
+			"type": "location",
+			"location": "loc.ch06.loc_defne",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "defne",
+			"next": "l01"
+		},
+		"pk": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "loc_kemal"
+		},
+		"loc_kemal": {
+			"type": "location",
+			"location": "loc.ch06.loc_kemal",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.l01",
+			"next": "dl_k",
+			"variants": [
+				{
+					"if": {
+						"flag": "fire_started",
+						"eq": true
+					},
+					"text": "ch06.l01_v1"
+				}
+			]
+		},
+		"dl_k": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.dl_k",
+			"next": "dl_d",
+			"if": {
+				"status": "kemal",
+				"eq": "dead"
+			}
+		},
+		"dl_d": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.dl_d",
+			"next": "dl_r",
+			"if": {
+				"status": "defne",
+				"eq": "dead"
+			}
+		},
+		"dl_r": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.dl_r",
+			"next": "dl_s",
+			"if": {
+				"status": "riza",
+				"eq": "dead"
+			}
+		},
+		"dl_s": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.dl_s",
+			"next": "x01",
+			"if": {
+				"flag": "selim_dead",
+				"eq": true
+			}
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "police_room",
+			"objective": "ch06.x01.objective",
+			"items": [
+				{
+					"id": "ch06_file",
+					"label": "ch06.it.ch06_file",
+					"journal": "journal.ch06.ch06_file",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_file.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_box",
+					"label": "ch06.it.ch06_box",
+					"if": {
+						"any": [
+							{
+								"flag": "fire_evidence",
+								"eq": true
+							},
+							{
+								"flag": "cargo_photo",
+								"eq": true
+							},
+							{
+								"flag": "fault_evidence",
+								"eq": true
+							}
+						]
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_box.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_window",
+					"label": "ch06.it.ch06_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_window.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_komiser",
+					"label": "ch06.it.ch06_komiser",
+					"actor": "komiser",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "b6_sir",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch06.c01.prompt",
+			"options": [
+				{
+					"id": "confess",
+					"text": "ch06.c01.confess",
+					"next": "r_confess",
+					"effects": [
+						{
+							"set_flag": "secret_revealed",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "inform",
+					"text": "ch06.c01.inform",
+					"next": "r_inform",
+					"effects": [
+						{
+							"set_flag": "harm_done",
+							"value": true
+						},
+						{
+							"set_flag": "informer",
+							"value": "kemal",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"trust": [
+								"riza",
+								"kemal"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"set_flag": "informer",
+							"value": "defne",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"trust": [
+								"kemal",
+								"defne"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"trust": [
+								"riza",
+								"defne"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"set_flag": "informer",
+							"value": "riza",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						},
+						{
+							"trust": [
+								"kemal",
+								"riza"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						},
+						{
+							"trust": [
+								"defne",
+								"riza"
+							],
+							"delta": -3,
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				},
+				{
+					"id": "blame",
+					"text": "ch06.c01.blame",
+					"next": "r_blame",
+					"effects": [
+						{
+							"set_flag": "company_blamed",
+							"value": true
+						}
+					],
+					"if": {
+						"any": [
+							{
+								"flag": "fire_evidence",
+								"eq": true
+							},
+							{
+								"flag": "cargo_photo",
+								"eq": true
+							},
+							{
+								"flag": "fault_evidence",
+								"eq": true
+							}
+						]
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_silence"
+			}
+		},
+		"r_confess": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.r_confess",
+			"next": "c02",
+			"variants": [
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "riza"
+					},
+					"text": "ch06.r_confess_v1",
+					"speaker": "riza"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "defne"
+					},
+					"text": "ch06.r_confess_v2",
+					"speaker": "defne"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "kemal"
+					},
+					"text": "ch06.r_confess_v3",
+					"speaker": "kemal"
+				}
+			]
+		},
+		"r_inform": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.r_inform",
+			"next": "c02"
+		},
+		"r_blame": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.r_blame",
+			"next": "c02"
+		},
+		"r_silence": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.r_silence",
+			"next": "c02"
+		},
+		"c02": {
+			"type": "choice",
+			"decision_id": "b6_basin",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch06.c02.prompt",
+			"options": [
+				{
+					"id": "speak",
+					"text": "ch06.c02.speak",
+					"next": "r_speak",
+					"effects": [
+						{
+							"trust_mutual": [
+								"kemal",
+								"defne"
+							],
+							"delta": 1
+						},
+						{
+							"trust_mutual": [
+								"defne",
+								"riza"
+							],
+							"delta": 1
+						},
+						{
+							"trust_mutual": [
+								"kemal",
+								"riza"
+							],
+							"delta": 1
+						}
+					]
+				},
+				{
+					"id": "hide",
+					"text": "ch06.c02.hide",
+					"next": "r_hide"
+				},
+				{
+					"id": "lawyer",
+					"text": "ch06.c02.lawyer",
+					"next": "r_lawyer",
+					"effects": [
+						{
+							"trust": [
+								"riza",
+								"kemal"
+							],
+							"delta": -1
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_hide"
+			}
+		},
+		"r_speak": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.r_speak",
+			"next": "end"
+		},
+		"r_hide": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.r_hide",
+			"next": "end"
+		},
+		"r_lawyer": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.r_lawyer",
+			"next": "end"
+		},
+		"after": {
+			"type": "location",
+			"location": "loc.ch06.after",
+			"next": "a01"
+		},
+		"a01": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch06.a01",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": "ch07_reckoning"
+		}
+	}
+}

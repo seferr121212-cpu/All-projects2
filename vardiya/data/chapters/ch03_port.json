@@ -1,0 +1,344 @@
+{
+	"id": "ch03_port",
+	"version": 1,
+	"title": "ch03.title",
+	"characters": [
+		"riza"
+	],
+	"start": "pov",
+	"nodes": {
+		"pov": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "loc"
+		},
+		"loc": {
+			"type": "location",
+			"location": "loc.ch03.loc",
+			"scene": "port_yard",
+			"spawn": "riza_truck",
+			"player": "riza",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.l02",
+			"next": "x01",
+			"variants": [
+				{
+					"if": {
+						"decision": "b2_kapi",
+						"eq": "riza_only"
+					},
+					"text": "ch03.l02_v1"
+				}
+			]
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "port_yard",
+			"objective": "ch03.x01.objective",
+			"items": [
+				{
+					"id": "ch03_seal",
+					"label": "ch03.it.ch03_seal",
+					"journal": "journal.ch03.ch03_seal",
+					"lines": [
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_seal.l1"
+						}
+					]
+				},
+				{
+					"id": "ch03_manifest",
+					"label": "ch03.it.ch03_manifest",
+					"journal": "journal.ch03.ch03_manifest",
+					"effects": [
+						{
+							"set_flag": "cargo_owner_known",
+							"value": true
+						}
+					],
+					"lines": [
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_manifest.l1"
+						}
+					]
+				},
+				{
+					"id": "ch03_crane",
+					"label": "ch03.it.ch03_crane",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_crane.l1"
+						}
+					]
+				},
+				{
+					"id": "ch03_dispatcher",
+					"label": "ch03.it.ch03_dispatcher",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_dispatcher.l1"
+						}
+					],
+					"next": "c00"
+				}
+			]
+		},
+		"c00": {
+			"type": "choice",
+			"decision_id": "b3_zarf",
+			"major": false,
+			"timer": 8,
+			"prompt": "ch03.c00.prompt",
+			"options": [
+				{
+					"id": "take",
+					"text": "ch03.c00.take",
+					"next": "c01",
+					"effects": [
+						{
+							"set_flag": "riza_took_money",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "refuse",
+					"text": "ch03.c00.refuse",
+					"next": "c01",
+					"effects": [
+						{
+							"mood": "riza",
+							"value": "angry"
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "c01",
+				"effects": [
+					{
+						"set_flag": "riza_took_money",
+						"value": true
+					}
+				]
+			}
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "b3_ogren",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch03.c01.prompt",
+			"options": [
+				{
+					"id": "open",
+					"text": "ch03.c01.open",
+					"next": "q01"
+				},
+				{
+					"id": "call",
+					"text": "ch03.c01.call",
+					"next": "r_call",
+					"effects": [
+						{
+							"trust_mutual": [
+								"kemal",
+								"riza"
+							],
+							"delta": 1
+						}
+					],
+					"if": {
+						"status": "kemal",
+						"eq": "alive"
+					}
+				},
+				{
+					"id": "dont",
+					"text": "ch03.c01.dont",
+					"next": "r_dont"
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_dont"
+			}
+		},
+		"q01": {
+			"type": "qte",
+			"decision_id": "b3_bekci_qte",
+			"mode": "mash",
+			"time": 2.5,
+			"prompt": "ch03.q01.prompt",
+			"success": {
+				"next": "r_open",
+				"effects": [
+					{
+						"set_flag": "cargo_owner_known",
+						"value": true
+					}
+				]
+			},
+			"fail": {
+				"next": "r_seen",
+				"effects": [
+					{
+						"set_flag": "riza_spotted",
+						"value": true
+					},
+					{
+						"set_flag": "cargo_owner_known",
+						"value": true
+					}
+				]
+			},
+			"count": 6
+		},
+		"r_seen": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.r_seen",
+			"next": "r_open"
+		},
+		"r_open": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.r_open",
+			"next": "c02"
+		},
+		"r_call": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch03.r_call",
+			"next": "c02"
+		},
+		"r_dont": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.r_dont",
+			"next": "c02"
+		},
+		"c02": {
+			"type": "choice",
+			"decision_id": "b3_teslim",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch03.c02.prompt",
+			"options": [
+				{
+					"id": "deliver",
+					"text": "ch03.c02.deliver",
+					"next": "r_deliver",
+					"effects": [
+						{
+							"set_flag": "cargo_delivered",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "hide",
+					"text": "ch03.c02.hide",
+					"next": "r_hide",
+					"effects": [
+						{
+							"set_flag": "cargo_hidden",
+							"value": true
+						},
+						{
+							"mood": "riza",
+							"value": "anxious"
+						}
+					]
+				},
+				{
+					"id": "tip",
+					"text": "ch03.c02.tip",
+					"next": "r_tip",
+					"effects": [
+						{
+							"set_flag": "cargo_delivered",
+							"value": true
+						},
+						{
+							"set_flag": "cargo_photo",
+							"value": true
+						},
+						{
+							"trust_mutual": [
+								"defne",
+								"riza"
+							],
+							"delta": 1
+						}
+					],
+					"if": {
+						"flag": "cargo_owner_known",
+						"eq": true
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r_silence",
+				"effects": [
+					{
+						"set_flag": "cargo_delivered",
+						"value": true
+					}
+				]
+			}
+		},
+		"r_deliver": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.r_deliver",
+			"next": "end"
+		},
+		"r_hide": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.r_hide",
+			"next": "end"
+		},
+		"r_tip": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.r_tip",
+			"next": "end"
+		},
+		"r_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.r_silence",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": "ch04_home"
+		}
+	}
+}

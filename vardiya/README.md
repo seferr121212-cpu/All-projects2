@@ -1,7 +1,7 @@
 # VARDİYA — NexDrive Game Studio
 
 Seçimlere dayalı, üçüncü şahıs sinematik hikâye oyunu (Godot 4.7, Compatibility renderer).
-Şu anki durum: **Aşama 3** — Bölüm 1 "Son Kontrol" gri kutu 3D mekânlarla oynanabilir. Raporlar: `docs/RAPOR_ASAMA_1_2.md`, `docs/RAPOR_ASAMA_3.md`.
+Şu anki durum: **Aşama 4** — 8 bölümün tamamı gri kutu 3D mekânlarla oynanabilir; kararlar bölümler arası taşınır. Raporlar: `docs/RAPOR_ASAMA_1_2.md`, `docs/RAPOR_ASAMA_3.md`, `docs/RAPOR_ASAMA_4.md`; sonlara test yolları: `docs/SON_TEST_YOLLARI.md`.
 
 ## Çalıştırma
 
@@ -28,7 +28,7 @@ python3 -m unittest discover -s vardiya/tools/tests
 ```
 
 ```bash
-python3 vardiya/tools/story_sim.py ch01_last_check
+python3 vardiya/tools/story_sim.py --game
 ```
 
 ```bash

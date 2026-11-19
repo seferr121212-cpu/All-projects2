@@ -82,6 +82,17 @@ class State:
         self.decisions: dict[str, str] = {}
         self.found: set[str] = set()
 
+    def clone(self) -> "State":
+        c = State.__new__(State)
+        c.status = dict(self.status)
+        c.mood = dict(self.mood)
+        c.trust = dict(self.trust)
+        c.flags = dict(self.flags)
+        c.counters = dict(self.counters)
+        c.decisions = dict(self.decisions)
+        c.found = set(self.found)
+        return c
+
     def alive_count(self) -> int:
         return sum(1 for c in CHARACTERS if self.status[c] == "alive")
 
@@ -692,7 +703,8 @@ def winning_ending(rules: list[dict], s: State):
     return fallback
 
 
-def check_endings(ctx: Context, endings: dict, chapters: list[dict], cfg: dict, seed: int = 7) -> dict:
+def check_endings(ctx: Context, endings: dict, chapters: list[dict], cfg: dict, seed: int = 7,
+                  game: dict | None = None) -> dict:
     rep = ctx.rep
     rules = endings.get("endings", [])
     info = endings.get("ending_info", {})
@@ -744,11 +756,55 @@ def check_endings(ctx: Context, endings: dict, chapters: list[dict], cfg: dict, 
             witness[e] = {"rule": r.get("id"), "alive": s.alive_count(), "avg_trust": round(s.avg_trust(), 2),
                           "flags": {k: v for k, v in s.flags.items() if v != ctx.flags.get(k)}}
     severity = cfg.get("ending_reachability", "error")
+    rep.info.append("ending reachability samples (independent variables): " + ", ".join(f"{k}={v}" for k, v in sorted(reached.items())))
+    if game is not None:
+        # Real playthroughs override the independent-variable sampling.
+        for eid in info:
+            if eid not in game["endings"]:
+                rep.add(severity, f"ending '{eid}' is unreachable: no simulated playthrough of the whole game ends there")
+        rep.info.append("ending reachability by full-game playthroughs: "
+                        + ", ".join(f"{k}={v}" for k, v in sorted(game["ending_counts"].items())))
+        return {e: {"rule": d["rule"], "alive": d["alive"], "avg_trust": d["avg_trust"],
+                    "path": [x for x in d["path"] if not x.startswith("examine:")]} for e, d in game["endings"].items()}
     for eid in info:
         if reached.get(eid, 0) == 0:
             rep.add(severity, f"ending '{eid}' is unreachable with the current chapter data")
-    rep.info.append("ending reachability samples: " + ", ".join(f"{k}={v}" for k, v in sorted(reached.items())))
     return witness
+
+
+def check_death_impact(rep: Report, chapters: list[dict]) -> None:
+    """Every character who can die in chapter i must visibly change a later chapter:
+    some later node must test that specific character's status."""
+    def conds(obj, out):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if k == "status" and isinstance(v, str) and any(op in obj for op in OPS):
+                    out.add(v)
+                conds(v, out)
+        elif isinstance(obj, list):
+            for x in obj:
+                conds(x, out)
+        return out
+
+    def deaths(ch):
+        out = set()
+        def walk(o):
+            if isinstance(o, dict):
+                if "status" in o and o.get("value") in ("dead", "missing") and "effects" not in o:
+                    out.add(o["status"])
+                for v in o.values():
+                    walk(v)
+            elif isinstance(o, list):
+                for x in o:
+                    walk(x)
+        walk(ch.get("nodes", {}))
+        return out
+
+    for i, ch in enumerate(chapters[:-1]):
+        for c in deaths(ch):
+            later = [ch2["id"] for ch2 in chapters[i + 1:] if c in conds(ch2.get("nodes", {}), set())]
+            if not later:
+                rep.error(f"{ch['id']}: '{c}' can die/disappear here but no later chapter reacts to it")
 
 
 # --------------------------------------------------------------------------- #
@@ -780,9 +836,11 @@ def scan_code_keys(root: Path) -> set[str]:
     return keys
 
 
-def validate(root: Path) -> tuple[Report, dict]:
+def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
     rep = Report()
     cfg = load_json(root / "tools" / "validator_config.json", Report()) or {}
+    if game_sim is None:
+        game_sim = bool(cfg.get("game_simulation", True))
     locales = {}
     for lang in cfg.get("locales", ["tr", "en"]):
         t = load_json(root / "data" / "locale" / f"{lang}.json", rep)
@@ -812,7 +870,8 @@ def validate(root: Path) -> tuple[Report, dict]:
     chapters = []
     decision_ids: dict[str, str] = {}
     listed = set()
-    story_ids = {e.get("id") for e in index.get("chapters", [])}
+    story_list = [e.get("id") for e in index.get("chapters", [])]
+    story_ids = set(story_list)
     for entry in index.get("chapters", []) + index.get("test_chapters", []):
         cid = entry.get("id")
         listed.add(cid)
@@ -824,6 +883,8 @@ def validate(root: Path) -> tuple[Report, dict]:
         check_chapter(ctx, path, data, decision_ids, cfg)
         if cid in story_ids:
             chapters.append(data)
+            if cid != story_list[0]:
+                continue  # judged by the full-game simulation below (needs carried-over state)
         try:
             sim_report = story_sim.simulate(data, flags)
         except (KeyError, TypeError, AttributeError) as e:
@@ -841,7 +902,26 @@ def validate(root: Path) -> tuple[Report, dict]:
         ctx.key("code", k)
 
     endings = load_json(root / "data" / "endings.json", rep) or {}
-    witness = check_endings(ctx, endings, chapters, cfg)
+    check_death_impact(rep, chapters)
+    game = None
+    if game_sim and chapters and not rep.errors:
+        game = story_sim.simulate_game(chapters, flags, endings)
+        for cid, info in game["chapters"].items():
+            if cid == story_list[0]:
+                continue
+            for msg in info["unreachable"]:
+                rep.add(cfg.get("path_reachability", "warning"), f"{cid}: {msg}")
+            rep.info.append(f"{cid}: {info['states']} play states from carried-over game states, "
+                            f"{info['ends']} distinct outcomes")
+        for e in game["pov_errors"]:
+            rep.error(e)
+        if game["sampled"]:
+            rep.info.append(f"full-game simulation is budget-limited ({story_sim.CARRY_CAP} carried states, "
+                            f"{story_sim.MAX_STATES} states per chapter), diversity-ordered: life status and flag "
+                            "combinations first, then trust extremes")
+    elif not game_sim:
+        rep.info.append("full-game simulation skipped")
+    witness = check_endings(ctx, endings, chapters, cfg, game=game)
 
     unused = sorted(k for k in locales.get("tr", {}) if k not in ctx.used_keys
                     and not k.startswith(("input.", "lang.", "settings.", "menu.", "slot.", "confirm.",

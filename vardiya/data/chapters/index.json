@@ -1,9 +1,81 @@
 {
-	"_doc": "Chapter play order. test_chapters are validated and used by tests but are not part of a new game. ch02-ch08 arrive in stage 4.",
+	"_doc": "Chapter play order. test_chapters are validated and used by tests but are not part of a new game.",
 	"chapters": [
-		{"id": "ch01_last_check", "title": "ch01.title", "characters": ["kemal"]}
+		{
+			"id": "ch01_last_check",
+			"title": "ch01.title",
+			"characters": [
+				"kemal"
+			]
+		},
+		{
+			"id": "ch02_strike",
+			"title": "ch02.title",
+			"characters": [
+				"defne",
+				"kemal"
+			]
+		},
+		{
+			"id": "ch03_port",
+			"title": "ch03.title",
+			"characters": [
+				"riza"
+			]
+		},
+		{
+			"id": "ch04_home",
+			"title": "ch04.title",
+			"characters": [
+				"defne"
+			]
+		},
+		{
+			"id": "ch05_night_shift",
+			"title": "ch05.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ch06_informant",
+			"title": "ch06.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ch07_reckoning",
+			"title": "ch07.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ch08_last_shift",
+			"title": "ch08.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		}
 	],
 	"test_chapters": [
-		{"id": "ch00_test", "title": "ch00.title", "characters": ["kemal", "defne", "riza"]}
+		{
+			"id": "ch00_test",
+			"title": "ch00.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		}
 	]
 }

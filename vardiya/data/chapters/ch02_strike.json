@@ -1,0 +1,408 @@
+{
+	"id": "ch02_strike",
+	"version": 1,
+	"title": "ch02.title",
+	"characters": [
+		"defne",
+		"kemal"
+	],
+	"start": "pov_d",
+	"nodes": {
+		"pov_d": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "loc_d"
+		},
+		"loc_d": {
+			"type": "location",
+			"location": "loc.ch02.loc_d",
+			"scene": "factory_gate",
+			"spawn": "defne_start",
+			"player": "defne",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.l02",
+			"next": "l03"
+		},
+		"l03": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.l03",
+			"next": "x01",
+			"if": {
+				"flag": "selim_warned",
+				"eq": true
+			}
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "factory_gate",
+			"objective": "ch02.x01.objective",
+			"items": [
+				{
+					"id": "ch02_flyer",
+					"label": "ch02.it.ch02_flyer",
+					"journal": "journal.ch02.ch02_flyer",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_flyer.l1"
+						}
+					]
+				},
+				{
+					"id": "ch02_banner",
+					"label": "ch02.it.ch02_banner",
+					"effects": [
+						{
+							"add_counter": "strike_awareness",
+							"delta": 1
+						}
+					],
+					"lines": [
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_banner.l1"
+						}
+					]
+				},
+				{
+					"id": "ch02_selim",
+					"label": "ch02.it.ch02_selim",
+					"actor": "selim",
+					"if": {
+						"not": {
+							"flag": "selim_dead"
+						}
+					},
+					"journal": "journal.ch02.ch02_selim",
+					"lines": [
+						{
+							"speaker": "selim",
+							"text": "ch02.it.ch02_selim.l1"
+						}
+					],
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "b2_grev_destek",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch02.c01.prompt",
+			"options": [
+				{
+					"id": "support",
+					"text": "ch02.c01.support",
+					"next": "r01_support",
+					"effects": [
+						{
+							"set_flag": "strike_supported",
+							"value": true
+						},
+						{
+							"mood": "defne",
+							"value": "hopeful"
+						}
+					]
+				},
+				{
+					"id": "mediate",
+					"text": "ch02.c01.mediate",
+					"next": "r01_mediate"
+				},
+				{
+					"id": "leave",
+					"text": "ch02.c01.leave",
+					"next": "r01_leave",
+					"effects": [
+						{
+							"trust": [
+								"kemal",
+								"defne"
+							],
+							"delta": 1
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r01_silence"
+			}
+		},
+		"r01_support": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r01_support",
+			"next": "kemal_part"
+		},
+		"r01_mediate": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r01_mediate",
+			"next": "kemal_part"
+		},
+		"r01_leave": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r01_leave",
+			"next": "kemal_part"
+		},
+		"r01_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r01_silence",
+			"next": "kemal_part"
+		},
+		"kemal_part": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "loc_k"
+		},
+		"loc_k": {
+			"type": "location",
+			"location": "loc.ch02.loc_k",
+			"scene": "factory_gate",
+			"spawn": "kemal_gate",
+			"player": "kemal",
+			"next": "l03k"
+		},
+		"l03k": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.l03k",
+			"next": "l04k",
+			"variants": [
+				{
+					"if": {
+						"flag": "fault_evidence",
+						"eq": true
+					},
+					"text": "ch02.l03k_v1"
+				}
+			]
+		},
+		"l04k": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.l04k",
+			"next": "c02",
+			"variants": [
+				{
+					"if": {
+						"flag": "strike_supported",
+						"eq": true
+					},
+					"text": "ch02.l04k_v1"
+				},
+				{
+					"if": {
+						"decision": "b2_grev_destek",
+						"eq": "leave"
+					},
+					"text": "ch02.l04k_v2"
+				}
+			]
+		},
+		"c02": {
+			"type": "choice",
+			"decision_id": "b2_kapi",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch02.c02.prompt",
+			"options": [
+				{
+					"id": "open",
+					"text": "ch02.c02.open",
+					"next": "r02_open",
+					"effects": [
+						{
+							"set_flag": "gate_opened",
+							"value": true
+						},
+						{
+							"trust": [
+								"riza",
+								"kemal"
+							],
+							"delta": 1
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": -2,
+							"if": {
+								"flag": "strike_supported",
+								"eq": true
+							}
+						}
+					]
+				},
+				{
+					"id": "closed",
+					"text": "ch02.c02.closed",
+					"next": "r02_closed",
+					"effects": [
+						{
+							"trust": [
+								"riza",
+								"kemal"
+							],
+							"delta": -1
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": 2,
+							"if": {
+								"flag": "strike_supported",
+								"eq": true
+							}
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": 1,
+							"if": {
+								"not": {
+									"flag": "strike_supported",
+									"eq": true
+								}
+							}
+						}
+					]
+				},
+				{
+					"id": "riza_only",
+					"text": "ch02.c02.riza_only",
+					"next": "r02_riza",
+					"effects": [
+						{
+							"trust_mutual": [
+								"kemal",
+								"riza"
+							],
+							"delta": 1
+						},
+						{
+							"trust": [
+								"defne",
+								"kemal"
+							],
+							"delta": -1,
+							"if": {
+								"flag": "strike_supported",
+								"eq": true
+							}
+						}
+					],
+					"if": {
+						"trust": [
+							"kemal",
+							"riza"
+						],
+						"gte": 0
+					}
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "r02_silence",
+				"effects": [
+					{
+						"set_flag": "gate_opened",
+						"value": true
+					},
+					{
+						"trust": [
+							"defne",
+							"kemal"
+						],
+						"delta": -1
+					}
+				]
+			}
+		},
+		"r02_open": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r02_open",
+			"next": "outro"
+		},
+		"r02_closed": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.r02_closed",
+			"next": "outro"
+		},
+		"r02_riza": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.r02_riza",
+			"next": "outro"
+		},
+		"r02_silence": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.r02_silence",
+			"next": "outro"
+		},
+		"outro": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.outro",
+			"next": "end",
+			"variants": [
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "gate_opened",
+								"eq": true
+							},
+							{
+								"flag": "strike_supported",
+								"eq": true
+							}
+						]
+					},
+					"text": "ch02.outro_v1"
+				}
+			]
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": "ch03_port"
+		}
+	}
+}

@@ -53,28 +53,28 @@ class ValidatorTests(unittest.TestCase):
         self.save("tools/validator_config.json", self.cfg)
 
     def test_real_project_has_no_errors(self):
-        rep, _ = vd.validate(ROOT)
+        rep, _ = vd.validate(ROOT, game_sim=False)
         self.assertEqual(rep.errors, [])
 
     def test_missing_translation_is_reported(self):
         en = self.load("data/locale/en.json")
         del en["ch00.l03"]
         self.save("data/locale/en.json", en)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("ch00.l03" in e and "en.json" in e for e in rep.errors), rep.errors)
 
     def test_placeholder_mismatch_is_reported(self):
         en = self.load("data/locale/en.json")
         en["slot.label"] = "Slot"
         self.save("data/locale/en.json", en)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("placeholder mismatch" in e for e in rep.errors), rep.errors)
 
     def test_broken_branch_is_reported(self):
         ch = self.load("data/chapters/ch00_test.json")
         ch["nodes"]["l02"]["next"] = "does_not_exist"
         self.save("data/chapters/ch00_test.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("broken link" in e for e in rep.errors), rep.errors)
 
     def test_unreachable_node_and_trap_loop(self):
@@ -84,7 +84,7 @@ class ValidatorTests(unittest.TestCase):
         ch["nodes"]["loop_a"] = {"type": "line", "speaker": "kemal", "text": "ch00.l03", "next": "loop_b"}
         ch["nodes"]["loop_b"] = {"type": "line", "speaker": "kemal", "text": "ch00.l03", "next": "loop_a"}
         self.save("data/chapters/ch00_test.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("orphan: unreachable" in e for e in rep.errors), rep.errors)
         self.assertTrue(any("loop_a: can never reach" in e for e in rep.errors), rep.errors)
 
@@ -93,7 +93,7 @@ class ValidatorTests(unittest.TestCase):
         ch["nodes"]["c01"]["options"][0]["effects"].append({"set_flag": "no_such_flag", "value": True})
         ch["nodes"]["c02"]["options"] = ch["nodes"]["c02"]["options"][:1]
         self.save("data/chapters/ch00_test.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("no_such_flag" in e for e in rep.errors), rep.errors)
         self.assertTrue(any("2-4 options" in e for e in rep.errors), rep.errors)
 
@@ -101,15 +101,29 @@ class ValidatorTests(unittest.TestCase):
         ch = self.load("data/chapters/ch00_test.json")
         ch["nodes"]["c02"]["major"] = False
         self.save("data/chapters/ch00_test.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("major decision" in e for e in rep.errors), rep.errors)
 
     def test_unreachable_endings_caught_in_strict_mode(self):
         self.strict()
-        rep, _ = vd.validate(self.root)
-        unreachable = sorted(e for e in rep.errors if "unreachable with" in e)
-        self.assertEqual(len(unreachable), 4, unreachable)
-        self.assertFalse(any("'separation'" in e for e in unreachable))
+        ch = self.load("data/chapters/ch06_informant.json")
+        ch["nodes"]["c01"]["options"] = [o for o in ch["nodes"]["c01"]["options"] if o["id"] != "inform"]
+        self.save("data/chapters/ch06_informant.json", ch)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        unreachable = [e for e in rep.errors if "unreachable" in e and "ending" in e]
+        self.assertEqual(len(unreachable), 1, unreachable)
+        self.assertIn("'betrayal'", unreachable[0])
+
+    def test_death_without_later_impact_is_an_error(self):
+        for cid in ["ch06_informant", "ch07_reckoning", "ch08_last_shift"]:
+            ch = self.load(f"data/chapters/{cid}.json")
+            text = json.dumps(ch).replace('"status": "riza"', '"status": "kemal"')
+            self.save(f"data/chapters/{cid}.json", json.loads(text))
+        ch = self.load("data/chapters/ch05_night_shift.json")
+        text = json.dumps(ch).replace('"status": "riza", "eq"', '"status": "kemal", "eq"')
+        self.save("data/chapters/ch05_night_shift.json", json.loads(text))
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("'riza' can die" in e for e in rep.errors), rep.errors)
 
     def _add_full_story_chapter(self):
         """A synthetic chapter whose effects can produce every ending."""
@@ -138,7 +152,7 @@ class ValidatorTests(unittest.TestCase):
     def test_all_endings_reachable_with_full_story(self):
         self.strict()
         self._add_full_story_chapter()
-        rep, witness = vd.validate(self.root)
+        rep, witness = vd.validate(self.root, game_sim=False)
         self.assertEqual([e for e in rep.errors if "unreachable with" in e], [])
         self.assertEqual(set(witness), {"solidarity", "separation", "bitter_reckoning", "betrayal", "secret"})
 
@@ -153,7 +167,7 @@ class ValidatorTests(unittest.TestCase):
             if r["id"] == "r_separation":
                 r["condition"] = {}
         self.save("data/endings.json", endings)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("'secret' is unreachable" in e for e in rep.errors), rep.errors)
 
     def test_evaluator_semantics(self):
@@ -171,7 +185,7 @@ class ValidatorTests(unittest.TestCase):
 
 
     def test_copied_project_is_clean(self):
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertEqual(rep.errors, [])
 
     def test_explore_item_without_point_or_actor(self):
@@ -179,7 +193,7 @@ class ValidatorTests(unittest.TestCase):
         ch["nodes"]["x02"]["items"][0]["id"] = "ch01_nowhere"
         ch["nodes"]["x02"]["items"][3]["actor"] = "ghost"
         self.save("data/chapters/ch01_last_check.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("no point 'ch01_nowhere'" in e for e in rep.errors), rep.errors)
         self.assertTrue(any("actor 'ghost'" in e for e in rep.errors), rep.errors)
 
@@ -188,7 +202,7 @@ class ValidatorTests(unittest.TestCase):
         ch["nodes"]["loc_floor"]["spawn"] = "nope"
         ch["nodes"]["loc_cell"]["scene"] = "moon_base"
         self.save("data/chapters/ch01_last_check.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("no spawn 'nope'" in e for e in rep.errors), rep.errors)
         self.assertTrue(any("unknown location scene 'moon_base'" in e for e in rep.errors), rep.errors)
 
@@ -196,14 +210,14 @@ class ValidatorTests(unittest.TestCase):
         ch = self.load("data/chapters/ch01_last_check.json")
         del ch["nodes"]["q01"]["fail"]
         self.save("data/chapters/ch01_last_check.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("QTE needs 'fail'" in e for e in rep.errors), rep.errors)
 
     def test_simulator_flags_option_that_can_never_appear(self):
         ch = self.load("data/chapters/ch01_last_check.json")
         ch["nodes"]["c01"]["options"][0]["if"] = {"found": "ch01_item_that_does_not_exist"}
         self.save("data/chapters/ch01_last_check.json", ch)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("c01.warn' can never be offered" in w for w in rep.warnings), rep.warnings)
 
     def test_simulator_covers_every_chapter1_branch(self):
@@ -231,12 +245,30 @@ class ValidatorTests(unittest.TestCase):
         loc["boxes"].append({"pos": [0, 1.0, 2.2], "size": [10, 2.0, 0.4], "color": "#000000"})
         loc["spawns"]["default"]["pos"] = [-3.6, 0, -3.2]
         self.save("data/locations/factory_locker.json", loc)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("spawn 'default' is inside geometry" in e for e in rep.errors), rep.errors)
         loc["spawns"]["default"]["pos"] = [-3.2, 0, 1.0]
         self.save("data/locations/factory_locker.json", loc)
-        rep, _ = vd.validate(self.root)
+        rep, _ = vd.validate(self.root, game_sim=False)
         self.assertTrue(any("ch01_locker_door' cannot be reached" in e for e in rep.errors), rep.errors)
+
+
+    def test_game_simulation_reaches_every_ending(self):
+        """Full playthrough simulation of chapters 1-8 (slow: about a minute)."""
+        rep, witness = vd.validate(ROOT, game_sim=True)
+        self.assertEqual(rep.errors, [])
+        self.assertEqual(set(witness), {"solidarity", "separation", "bitter_reckoning", "betrayal", "secret"})
+        for e, w in witness.items():
+            self.assertTrue(w["path"][-1].startswith("[ch08"), (e, w["path"][-3:]))
+
+    def test_simulator_reports_dead_pov(self):
+        flags = {"pov": ""}
+        ch = {"id": "t", "start": "a", "nodes": {
+            "a": {"type": "effect", "effects": [{"status": "riza", "value": "dead"}], "next": "b"},
+            "b": {"type": "location", "location": "x", "scene": "s", "spawn": "default", "player": "riza", "next": "e"},
+            "e": {"type": "end", "next_chapter": None}}}
+        r = story_sim.simulate(ch, flags)
+        self.assertTrue(any("dead/missing 'riza' in control" in m for m in r["unreachable"]))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,244 @@
+{
+	"_doc": "Grey-box: Karaliman port container yard at night (ch3).",
+	"id": "port_yard",
+	"size": [
+		30,
+		8,
+		22
+	],
+	"floor_color": "#24282c",
+	"wall_color": "#2f353b",
+	"background": "#05070a",
+	"ambient": "#3d4a5c",
+	"ambient_energy": 0.5,
+	"fog": true,
+	"fog_density": 0.03,
+	"sun": {
+		"rot": [
+			-50,
+			-120,
+			0
+		],
+		"energy": 0.35,
+		"color": "#b8c8ff",
+		"shadow": true,
+		"shadow_distance": 26
+	},
+	"lights": [
+		{
+			"pos": [
+				-10,
+				4,
+				-7
+			],
+			"range": 8,
+			"energy": 1.1,
+			"color": "#ffcf8a"
+		},
+		{
+			"pos": [
+				10,
+				5,
+				6
+			],
+			"range": 10,
+			"energy": 0.9,
+			"color": "#e0ecff"
+		}
+	],
+	"boxes": [
+		{
+			"pos": [
+				-6,
+				1.3,
+				-3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#a5452f"
+		},
+		{
+			"pos": [
+				-6,
+				1.3,
+				3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#2f6a8a"
+		},
+		{
+			"pos": [
+				0,
+				1.3,
+				-3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#8a7a2f"
+		},
+		{
+			"pos": [
+				0,
+				1.3,
+				3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#4f7a3f"
+		},
+		{
+			"pos": [
+				6,
+				1.3,
+				-3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#7a3f6a"
+		},
+		{
+			"pos": [
+				6,
+				1.3,
+				3
+			],
+			"size": [
+				2.4,
+				2.6,
+				6
+			],
+			"color": "#a5452f"
+		},
+		{
+			"pos": [
+				-11,
+				1.3,
+				-8
+			],
+			"size": [
+				5,
+				2.6,
+				2.6
+			],
+			"color": "#6a6e72"
+		},
+		{
+			"pos": [
+				-9.6,
+				1.6,
+				-6.68
+			],
+			"size": [
+				1.2,
+				0.6,
+				0.04
+			],
+			"color": "#ffd88a",
+			"collide": false,
+			"emissive": true
+		},
+		{
+			"pos": [
+				12,
+				1.4,
+				8
+			],
+			"size": [
+				2.4,
+				2.8,
+				6
+			],
+			"color": "#3f5a7a"
+		},
+		{
+			"pos": [
+				-13,
+				4,
+				6
+			],
+			"size": [
+				0.6,
+				8,
+				0.6
+			],
+			"color": "#c9a227"
+		},
+		{
+			"pos": [
+				-9,
+				4,
+				6
+			],
+			"size": [
+				0.6,
+				8,
+				0.6
+			],
+			"color": "#c9a227"
+		}
+	],
+	"spawns": {
+		"riza_truck": {
+			"pos": [
+				12,
+				0,
+				3.5
+			],
+			"rot": 200
+		}
+	},
+	"actors": [],
+	"points": {
+		"ch03_seal": {
+			"pos": [
+				1.6,
+				0,
+				-3
+			],
+			"radius": 1.3
+		},
+		"ch03_manifest": {
+			"pos": [
+				-11,
+				0,
+				-6.2
+			],
+			"radius": 1.3
+		},
+		"ch03_dispatcher": {
+			"pos": [
+				-9.6,
+				0,
+				-6.0
+			],
+			"radius": 1.2
+		},
+		"ch03_crane": {
+			"pos": [
+				-11,
+				0,
+				6
+			],
+			"radius": 1.6
+		}
+	},
+	"camera": {
+		"distance": 3.8
+	}
+}

@@ -1,12 +1,37 @@
 {
 	"_doc": "Speakers. Playable characters are tracked in GameState (status, trust, mood); NPCs only speak and appear in scenes.",
 	"playable": {
-		"kemal": {"name": "char.kemal", "color": "#8cbff2", "body": "#3e5a78"},
-		"defne": {"name": "char.defne", "color": "#fa9e73", "body": "#8a4b3a"},
-		"riza": {"name": "char.riza", "color": "#99d98c", "body": "#4b6b3f"}
+		"kemal": {
+			"name": "char.kemal",
+			"color": "#8cbff2",
+			"body": "#3e5a78"
+		},
+		"defne": {
+			"name": "char.defne",
+			"color": "#fa9e73",
+			"body": "#8a4b3a"
+		},
+		"riza": {
+			"name": "char.riza",
+			"color": "#99d98c",
+			"body": "#4b6b3f"
+		}
 	},
 	"npc": {
-		"selim": {"name": "char.selim", "color": "#e6d27a", "body": "#7a6a2e"},
-		"nevin": {"name": "char.nevin", "color": "#c9a0e8", "body": "#5b4470"}
+		"selim": {
+			"name": "char.selim",
+			"color": "#e6d27a",
+			"body": "#7a6a2e"
+		},
+		"nevin": {
+			"name": "char.nevin",
+			"color": "#c9a0e8",
+			"body": "#5b4470"
+		},
+		"komiser": {
+			"name": "char.komiser",
+			"color": "#9ec3b8",
+			"body": "#2f4a44"
+		}
 	}
 }

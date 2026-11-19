@@ -1,6 +1,10 @@
 {
-	"_doc": "Stage 2: only the test chapter exists, so unreachable endings are warnings. Switch ending_reachability to \"error\" once chapters 1-8 land (stage 4/5).",
-	"locales": ["tr", "en"],
+	"_doc": "Stage 4: all eight chapters exist, so an unreachable ending is an error. game_simulation plays the whole game (about 30 s).",
+	"locales": [
+		"tr",
+		"en"
+	],
 	"min_major_decisions_per_chapter": 2,
-	"ending_reachability": "warning"
+	"ending_reachability": "error",
+	"game_simulation": true
 }

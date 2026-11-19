@@ -138,6 +138,8 @@ static func build(world: Node3D, data: Dictionary) -> Dictionary:
 	box(world, Vector3(-size.x / 2.0, size.y / 2.0, 0), Vector3(t, size.y, size.z), wall_col)
 	box(world, Vector3(size.x / 2.0, size.y / 2.0, 0), Vector3(t, size.y, size.z), wall_col)
 	for b: Dictionary in data.get("boxes", []):
+		if b.has("if") and not DecisionManager.evaluate(b["if"]):
+			continue
 		box(world, vec3(b.get("pos")), vec3(b.get("size"), Vector3.ONE), color(b.get("color", "#555555")),
 			bool(b.get("collide", true)), float(b.get("rot", 0.0)), bool(b.get("emissive", false)))
 
