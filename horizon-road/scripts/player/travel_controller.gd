@@ -33,9 +33,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED and not DevCli.is_requested():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed(&"interact"):
+		get_viewport().set_input_as_handled()
 		if GameState.player_mode == GameState.PlayerMode.DRIVING:
 			if camper.is_stopped():
 				_exit_vehicle()
+			return
+		var target: Interactable = get_focused_interactable()
+		if target:
+			target.interacted.emit(walker)
 		elif can_enter_vehicle():
 			_enter_vehicle()
 
@@ -58,6 +63,23 @@ func suspend_control() -> void:
 ## The body the player currently controls.
 func get_controlled_body() -> Node3D:
 	return camper if GameState.player_mode == GameState.PlayerMode.DRIVING else walker
+
+
+## Nearest usable Interactable around the walker (on foot only), or null.
+func get_focused_interactable() -> Interactable:
+	if GameState.player_mode != GameState.PlayerMode.ON_FOOT:
+		return null
+	var best: Interactable = null
+	var best_d: float = INF
+	var from: Vector3 = walker.global_position + Vector3(0, 0.9, 0)
+	for node: Node in get_tree().get_nodes_in_group(&"interactable"):
+		var it := node as Interactable
+		if it and it.can_interact(from):
+			var d: float = from.distance_to(it.global_position)
+			if d < best_d:
+				best_d = d
+				best = it
+	return best
 
 
 func can_enter_vehicle() -> bool:

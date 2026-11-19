@@ -1,0 +1,93 @@
+{
+	"id": "fadime",
+	"name_key": "NPC_FADIME_NAME",
+	"role_key": "NPC_FADIME_ROLE",
+	"note_key": "NPC_FADIME_NOTE",
+	"personality": "Warm, talkative tea grower in her fifties. Proud of the family tea garden, teases gently, calls friends 'uşağum'. Her son works in Istanbul and she misses him.",
+	"interests": ["SUBJ_TEA_GARDEN", "SUBJ_COW", "MOMENT_MIST", "SUBJ_YAYLA_VILLAGE", "SUBJ_NPC_FADIME"],
+	"photo_reactions": {"love": "photo_love", "nice": "photo_nice", "limit": "photo_limit", "already": "photo_already", "sold": "photo_sold", "kept": "photo_kept"},
+	"start": "start",
+	"nodes": {
+		"start": {"branches": [
+			{"if": {"flag": "fadime.harvest_full"}, "next": "deliver"},
+			{"if": {"flag": "fadime.harvesting"}, "next": "harvest_check"},
+			{"if": {"not_flag": "fadime.met"}, "next": "intro"},
+			{"if": {"level_min": 2}, "next": "greet_friend"},
+			{"next": "greet"}
+		]},
+
+		"intro": {"text": "FADIME_INTRO_1", "next": "intro_name"},
+		"intro_name": {"type": "name_input", "text": "FADIME_INTRO_ASK_NAME", "next": "intro_3",
+			"actions": ["meet", "relationship:first_meeting"]},
+		"intro_3": {"text": "FADIME_INTRO_3", "next": "hub"},
+
+		"greet": {"text": "FADIME_GREET", "next": "hub"},
+		"greet_friend": {"text": "FADIME_GREET_FRIEND", "next": "hub"},
+
+		"hub": {"text": "FADIME_HUB", "choices": [
+			{"text": "FADIME_CH_WORK", "next": "work"},
+			{"text": "FADIME_CH_PHOTO", "actions": ["open_photo_picker"], "if": {"has_photos": true}},
+			{"text": "FADIME_CH_ABOUT", "next": "about"},
+			{"text": "FADIME_CH_TIP", "next": "tip", "if": {"level_min": 1}},
+			{"text": "CH_BYE", "next": "bye"}
+		]},
+
+		"work": {"branches": [
+			{"if": {"not_flag": "fadime.taught"}, "next": "work_teach"},
+			{"next": "work_again"}
+		]},
+		"work_teach": {"text": "FADIME_WORK_TEACH", "choices": [
+			{"text": "CH_YES_GLADLY", "next": "work_go", "actions": ["set_flag:fadime.taught", "start_activity:tea_harvest"]},
+			{"text": "CH_MAYBE_LATER", "next": "hub"}
+		]},
+		"work_again": {"text": "FADIME_WORK_AGAIN", "choices": [
+			{"text": "CH_YES_GLADLY", "next": "work_go", "actions": ["start_activity:tea_harvest"]},
+			{"text": "CH_MAYBE_LATER", "next": "hub"}
+		]},
+		"work_go": {"text": "FADIME_WORK_GO"},
+
+		"harvest_check": {"text": "FADIME_HARVEST_CHECK", "choices": [
+			{"text": "CH_KEEP_PICKING"},
+			{"text": "CH_HAND_OVER", "next": "deliver_partial"}
+		]},
+		"deliver": {"text": "FADIME_DELIVER_FULL", "next": "deliver_pay", "actions": ["complete_activity:tea_harvest"]},
+		"deliver_partial": {"text": "FADIME_DELIVER_PARTIAL", "next": "deliver_pay", "actions": ["complete_activity:tea_harvest"]},
+		"deliver_pay": {"text": "FADIME_DELIVER_PAY", "next": "hub"},
+
+		"about": {"branches": [
+			{"if": {"level_min": 2}, "next": "about_3"},
+			{"if": {"level_min": 1}, "next": "about_2"},
+			{"next": "about_1"}
+		]},
+		"about_1": {"text": "FADIME_ABOUT_1", "next": "hub"},
+		"about_2": {"text": "FADIME_ABOUT_2", "next": "hub"},
+		"about_3": {"text": "FADIME_ABOUT_3", "next": "hub", "actions": ["set_flag:fadime.heard_dream"]},
+
+		"tip": {"branches": [
+			{"if": {"level_min": 2}, "next": "tip_2"},
+			{"next": "tip_1"}
+		]},
+		"tip_1": {"text": "FADIME_TIP_MIST", "next": "hub"},
+		"tip_2": {"text": "FADIME_TIP_SUNSET", "next": "hub"},
+
+		"photo_love": {"text": "FADIME_PHOTO_LOVE", "choices": [
+			{"text": "CH_SELL", "next": "photo_sold", "actions": ["sell_photo"]},
+			{"text": "CH_KEEP", "next": "photo_kept"}
+		]},
+		"photo_nice": {"text": "FADIME_PHOTO_NICE", "choices": [
+			{"text": "CH_SELL", "next": "photo_sold", "actions": ["sell_photo"]},
+			{"text": "CH_KEEP", "next": "photo_kept"}
+		]},
+		"photo_limit": {"text": "FADIME_PHOTO_LIMIT", "next": "hub"},
+		"photo_already": {"text": "FADIME_PHOTO_ALREADY", "next": "hub"},
+		"photo_sold": {"text": "FADIME_PHOTO_SOLD", "next": "hub"},
+		"photo_kept": {"text": "FADIME_PHOTO_KEPT", "next": "hub"},
+
+		"bye": {"branches": [
+			{"if": {"level_min": 2}, "next": "bye_friend"},
+			{"next": "bye_plain"}
+		]},
+		"bye_plain": {"text": "FADIME_BYE"},
+		"bye_friend": {"text": "FADIME_BYE_FRIEND"}
+	}
+}

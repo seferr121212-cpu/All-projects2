@@ -32,6 +32,8 @@ func _ready() -> void:
 	_apply_camera()
 	if _args.has("photo"):
 		await _photo_test()
+	if _args.has("story"):
+		await _story_test(_args.get("stop", ""))
 	if _args.has("journal"):
 		var journal := get_tree().current_scene.find_child("Journal", true, false) as Journal
 		var photo_mode := get_tree().current_scene.find_child("PhotoMode", true, false) as PhotoMode
@@ -190,6 +192,143 @@ func _photo_test() -> void:
 		for i: int in 5:
 			await get_tree().process_frame
 	print("[DevCli] album entries=%d discovered=%d" % [GameState.album.entries.size(), GameState.album.discovered.size()])
+
+
+## --story [--stop=intro|name|hub|harvest|deliver|photo] : plays the stage-3 loop.
+func _story_test(stop: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var ui := scene.find_child("DialogueUI", true, false) as DialogueUI
+	var fadime := scene.find_child("Fadime", true, false) as Npc
+	var harvest := scene.find_child("TeaHarvest", true, false) as TeaHarvestActivity
+	var camper := travel.camper
+	# Park near the tea station and walk over.
+	var region: Region = GameState.current_region
+	var park := Vector3(24.0, 0.0, 149.0)
+	camper.global_transform = Transform3D(Basis(Vector3.UP, deg_to_rad(80)), Vector3(park.x, region.get_ground_height(park.x, park.z) + 0.5, park.z))
+	for i: int in 20:
+		await get_tree().physics_frame
+	_press_once(&"interact")
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, fadime.global_position + fadime.global_basis.z * -1.6)
+	travel.follow_camera.yaw = fadime.global_rotation.y + PI * 0.75
+	await get_tree().physics_frame
+	var focus: Interactable = travel.get_focused_interactable()
+	print("[DevCli] story: focused=%s prompt=%s" % [focus.get_parent().name if focus else "none", focus.prompt_key if focus else ""])
+	_press_once(&"interact")
+	await _settle()
+	print("[DevCli] story: dialogue open=%s node=%s" % [ui.is_open(), ui.runner.current_id if ui.runner else ""])
+	if stop == "intro":
+		return
+	await _advance(ui)                       # intro -> name input
+	if stop == "name":
+		ui._name_edit.text = "Deniz"
+		return
+	ui._name_edit.text = "Deniz"
+	ui._submit_name()
+	await _settle()
+	print("[DevCli] story: player_name=%s rel=%d met=%s" % [GameState.player_name, GameState.get_relationship(&"fadime"), GameState.has_flag("fadime.met")])
+	await _advance(ui)                       # intro_3 -> hub
+	if stop == "hub":
+		return
+	await _choose(ui, "FADIME_CH_WORK")
+	await _choose(ui, "CH_YES_GLADLY")
+	print("[DevCli] story: harvest active=%s status='%s'" % [harvest.active, harvest.get_status_text()])
+	await _advance(ui)                       # work_go -> end
+	print("[DevCli] story: dialogue closed=%s context=%s" % [not ui.is_open(), GameState.Context.keys()[GameState.context]])
+	var money_before: int = GameState.money
+	var picks: int = 0
+	while picks < GameState.ECONOMY.tea_target_bunches:
+		var shoot: Node3D = harvest._shoots[0]
+		_place_walker(travel, shoot.global_position + Vector3(0.9, -0.85, 0.4))
+		await get_tree().physics_frame
+		var target: Interactable = travel.get_focused_interactable()
+		if target == null or target.get_parent() != shoot:
+			print("[DevCli] story: WARNING focus mismatch at pick %d" % picks)
+		_press_once(&"interact")
+		await get_tree().physics_frame
+		await get_tree().physics_frame
+		picks += 1
+		if stop == "harvest" and picks == 9 and not harvest._shoots.is_empty():
+			shoot = harvest._shoots[0]
+			travel.follow_camera.yaw = atan2(-(shoot.global_position.x - travel.walker.global_position.x), -(shoot.global_position.z - travel.walker.global_position.z)) + 0.3
+			travel.follow_camera.pitch = -0.35
+			return
+	print("[DevCli] story: picked=%d golden=%d full_flag=%s status='%s'" % [harvest.picked, harvest.golden_picked, GameState.has_flag("fadime.harvest_full"), harvest.get_status_text()])
+	_place_walker(travel, fadime.global_position + Vector3(0.5, 0, -1.6))
+	await get_tree().physics_frame
+	_press_once(&"interact")
+	await _settle()
+	print("[DevCli] story: deliver node=%s" % ui.runner.current_id)
+	await _advance(ui)                       # deliver -> pay line
+	print("[DevCli] story: paid=%d money=%d rel=%d level=%d" % [GameState.money - money_before, GameState.money, GameState.get_relationship(&"fadime"), GameState.get_relationship_level(&"fadime")])
+	if stop == "deliver":
+		return
+	await _advance(ui)                       # pay -> hub
+	if not GameState.album.entries.is_empty():
+		await _choose(ui, "FADIME_CH_PHOTO")
+		print("[DevCli] story: picker visible=%s photos=%d" % [ui._picker.visible, GameState.album.entries.size()])
+		if stop == "picker":
+			return
+		# Prefer a photo Fadime loves and hasn't bought yet.
+		var pick: Dictionary = GameState.album.entries[0]
+		for e: Dictionary in GameState.album.entries:
+			if "fadime" in e.get("sold_to", []):
+				continue
+			for item: Dictionary in e.get("subject_list", []):
+				if item.id in ["SUBJ_TEA_GARDEN", "SUBJ_COW"]:
+					pick = e
+		ui._picker.visible = false
+		ui.runner.choose_photo(pick)
+		await _settle()
+		print("[DevCli] story: photo reaction=%s amount=%s" % [ui.runner.current_id, ui.runner.vars.get("amount")])
+		if stop == "photo":
+			return
+		var m: int = GameState.money
+		await _choose(ui, "CH_SELL")
+		print("[DevCli] story: sold for %d, rel=%d" % [GameState.money - m, GameState.get_relationship(&"fadime")])
+		await _advance(ui)
+	await _choose(ui, "CH_BYE")
+	await _advance(ui)
+	print("[DevCli] story: end money=%d rel=%d people=%s context=%s" % [GameState.money, GameState.get_relationship(&"fadime"), GameState.people.keys(), GameState.Context.keys()[GameState.context]])
+	SaveManager.save_game("story_test")
+	GameState.money = 0
+	GameState.relationships = {}
+	SaveManager.load_game("story_test")
+	print("[DevCli] story: after reload money=%d rel=%d name=%s" % [GameState.money, GameState.get_relationship(&"fadime"), GameState.player_name])
+
+
+func _place_walker(travel: TravelController, pos: Vector3) -> void:
+	var y: float = GameState.current_region.get_ground_height(pos.x, pos.z) + 0.05
+	travel.walker.global_position = Vector3(pos.x, y, pos.z)
+	travel.walker.velocity = Vector3.ZERO
+
+
+func _settle() -> void:
+	for i: int in 3:
+		await get_tree().process_frame
+
+
+## Finish typing and continue past the current line.
+func _advance(ui: DialogueUI) -> void:
+	ui._typing = false
+	ui._text.visible_ratio = 1.0
+	ui._waiting_advance = false
+	ui.runner.advance()
+	await _settle()
+
+
+func _choose(ui: DialogueUI, key: String) -> void:
+	if ui._typing:
+		ui._typing = false
+		ui._after_typing()
+	for i: int in ui.runner._visible_choices.size():
+		if ui.runner._visible_choices[i].text == key:
+			ui._pick(i)
+			await _settle()
+			return
+	print("[DevCli] story: WARNING choice %s not offered at %s" % [key, ui.runner.current_id])
 
 
 func _press_once(action: StringName) -> void:

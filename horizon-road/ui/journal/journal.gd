@@ -18,6 +18,7 @@ var _detail := PanelContainer.new()
 var _detail_image := TextureRect.new()
 var _detail_text := Label.new()
 var _detail_entry: Dictionary = {}
+var _people_box := VBoxContainer.new()
 
 
 func _ready() -> void:
@@ -71,6 +72,7 @@ func _refresh() -> void:
 	_tabs.set_tab_title(2, tr(&"JOURNAL_PEOPLE"))
 	_fill_album()
 	_fill_collection()
+	_fill_people()
 
 
 # --- Album -----------------------------------------------------------------
@@ -156,6 +158,28 @@ func _fill_collection() -> void:
 		_collection_box.add_child(spacer)
 
 
+# --- People ----------------------------------------------------------------
+
+func _fill_people() -> void:
+	for child: Node in _people_box.get_children():
+		child.queue_free()
+	if GameState.people.is_empty():
+		_people_box.add_child(_label("JOURNAL_EMPTY_PEOPLE", 18, INK_SOFT))
+		return
+	var levels: int = GameState.ECONOMY.level_thresholds.size()
+	for id: String in GameState.people:
+		var info: Dictionary = GameState.people[id]
+		var level: int = GameState.get_relationship_level(StringName(id))
+		var row := VBoxContainer.new()
+		row.add_child(_label("%s   —   %s" % [tr(StringName(info.get("name_key", id))), tr(StringName(info.get("role_key", "")))], 21, INK))
+		var hearts: String = "♥".repeat(level + 1) + "♡".repeat(levels - level - 1)
+		row.add_child(_label("%s  %s   (%d)" % [hearts, tr(StringName(GameState.ECONOMY.level_keys[level])), GameState.get_relationship(StringName(id))], 17, ACCENT))
+		var note := _label(tr(StringName(info.get("note_key", ""))), 16, INK_SOFT)
+		note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		row.add_child(note)
+		_people_box.add_child(row)
+
+
 # --- Layout ----------------------------------------------------------------
 
 func _build() -> void:
@@ -229,10 +253,12 @@ func _build() -> void:
 	collection_scroll.add_child(_collection_box)
 	_tabs.add_child(collection_scroll)
 
-	var people := _label("", 18, INK_SOFT)
-	people.name = "People"
-	people.text = "JOURNAL_EMPTY_PEOPLE"
-	_tabs.add_child(people)
+	var people_scroll := ScrollContainer.new()
+	people_scroll.name = "People"
+	_people_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_people_box.add_theme_constant_override(&"separation", 16)
+	people_scroll.add_child(_people_box)
+	_tabs.add_child(people_scroll)
 
 	# Detail view overlays the book.
 	var dstyle := style.duplicate() as StyleBoxFlat

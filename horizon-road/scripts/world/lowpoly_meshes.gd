@@ -253,6 +253,68 @@ static func cow(seed_value: int, coat: Color) -> ArrayMesh:
 	return b.commit(vertex_color_material(0.9))
 
 
+## Highland tea grower: patterned headscarf (yazma), cardigan, long skirt,
+## apron and a wicker tea basket (küfe) on her back. ~1.65 m, faces -Z.
+static func villager_woman(seed_value: int = 21) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var skirt := Color(0.32, 0.22, 0.35)
+	var cardigan := Color(0.55, 0.2, 0.18)
+	var scarf := Color(0.95, 0.75, 0.25)
+	var skin := Color(0.85, 0.66, 0.52)
+	b.add(_cone(0.34, 0.22, 0.85, 8), _at(Vector3(0, 0.45, 0)), skirt, 0.0, 0.05)
+	b.add(_box(Vector3(0.36, 0.55, 0.04)), _at(Vector3(0, 0.5, -0.22)), Color(0.9, 0.88, 0.8))
+	b.add(_cone(0.24, 0.2, 0.55, 8), _at(Vector3(0, 1.15, 0)), cardigan, 0.0, 0.05)
+	for x: float in [-0.27, 0.27]:
+		b.add(_cone(0.07, 0.06, 0.5, 6), Transform3D(Basis(Vector3.FORWARD, x * 0.6), Vector3(x, 1.12, -0.03)), cardigan)
+		b.add(_sphere(0.06, 0.1, 6, 3), _at(Vector3(x * 1.08, 0.86, -0.06)), skin)
+	b.add(_sphere(0.13, 0.27, 8, 4), _at(Vector3(0, 1.52, 0)), skin)
+	b.add(_sphere(0.16, 0.3, 8, 4), _at(Vector3(0, 1.56, 0.03)), scarf, 0.0, 0.08)
+	b.add(_cone(0.12, 0.02, 0.22, 6), Transform3D(Basis(Vector3.RIGHT, -0.4), Vector3(0, 1.4, 0.13)), scarf.darkened(0.1))
+	# Küfe: tapered wicker basket strapped to the back.
+	b.add(_cone(0.2, 0.26, 0.55, 8), _at(Vector3(0, 1.2, 0.3)), Color(0.62, 0.48, 0.28), 0.0, 0.1)
+	b.add(_cone(0.22, 0.22, 0.06, 8), _at(Vector3(0, 1.47, 0.3)), Color(0.24, 0.45, 0.16), 0.02)
+	return b.commit(vertex_color_material(0.85))
+
+
+## Fresh tea shoot cluster (harvest target). Golden shoots are rarer bonuses.
+static func tea_shoot(golden: bool) -> ArrayMesh:
+	var b := Builder.new(31)
+	var leaf: Color = Color(0.95, 0.8, 0.3) if golden else Color(0.55, 0.85, 0.3)
+	for i: int in 5:
+		var a: float = TAU * i / 5.0
+		var p := Vector3(cos(a) * 0.08, 0.0, sin(a) * 0.08)
+		b.add(_sphere(0.06, 0.18, 5, 2), Transform3D(Basis(Vector3(sin(a), 0, -cos(a)), 0.5), p + Vector3(0, 0.07, 0)), leaf)
+	b.add(_cone(0.02, 0.0, 0.16, 4), _at(Vector3(0, 0.12, 0)), leaf.lightened(0.2))
+	var mat := StandardMaterial3D.new()
+	mat.vertex_color_use_as_albedo = true
+	mat.emission_enabled = true
+	mat.emission = Color(0.45, 0.8, 0.2) if not golden else Color(1.0, 0.7, 0.15)
+	mat.emission_energy_multiplier = 1.1
+	return b.commit(mat)
+
+
+## Tea shelter (çardak): posts, plank roof, table with teapot, stools, sacks.
+static func tea_shelter() -> ArrayMesh:
+	var b := Builder.new(41)
+	var wood := Color(0.5, 0.35, 0.22)
+	for x: float in [-1.6, 1.6]:
+		for z: float in [-1.3, 1.3]:
+			b.add(_box(Vector3(0.14, 2.4, 0.14)), _at(Vector3(x, 1.2, z)), wood)
+	b.add(_box(Vector3(3.8, 0.1, 3.2)), Transform3D(Basis(Vector3.RIGHT, 0.12), Vector3(0, 2.45, 0)), wood.darkened(0.15), 0.0, 0.06)
+	b.add(_box(Vector3(1.2, 0.06, 0.7)), _at(Vector3(0, 0.75, 0)), wood.lightened(0.1))
+	b.add(_box(Vector3(0.08, 0.72, 0.08)), _at(Vector3(0, 0.37, 0)), wood)
+	for x: float in [-0.85, 0.85]:
+		b.add(_cone(0.18, 0.16, 0.45, 6), _at(Vector3(x, 0.22, 0)), wood)
+	# Double teapot (çaydanlık) and tulip glasses.
+	b.add(_cone(0.13, 0.1, 0.18, 8), _at(Vector3(-0.2, 0.87, 0)), Color(0.8, 0.8, 0.82))
+	b.add(_cone(0.09, 0.07, 0.13, 8), _at(Vector3(-0.2, 1.02, 0)), Color(0.85, 0.85, 0.87))
+	for x: float in [0.15, 0.32]:
+		b.add(_cone(0.03, 0.035, 0.08, 6), _at(Vector3(x, 0.82, 0.1)), Color(0.65, 0.2, 0.1))
+	for i: int in 3:
+		b.add(_sphere(0.32, 0.6, 7, 3), _at(Vector3(1.9, 0.28, -0.9 + i * 0.6), 0.0, Vector3(1.0, 1.0, 0.8)), Color(0.82, 0.76, 0.6), 0.05, 0.05)
+	return b.commit(vertex_color_material(0.85))
+
+
 # --- Vehicle ---------------------------------------------------------------
 
 ## Retro two-tone camper van. Origin at ground level, facing -Z.

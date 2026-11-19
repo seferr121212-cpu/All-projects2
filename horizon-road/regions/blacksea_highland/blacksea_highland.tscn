@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/region.gd" id="1_region"]
 [ext_resource type="Resource" path="res://data/regions/blacksea_highland.tres" id="2_def"]
@@ -20,6 +20,10 @@
 [ext_resource type="Script" path="res://scripts/photo/photo_mode.gd" id="18_photo"]
 [ext_resource type="Resource" path="res://data/photo/photo_config.tres" id="19_photocfg"]
 [ext_resource type="Script" path="res://ui/journal/journal.gd" id="20_journal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="21_npc"]
+[ext_resource type="Script" path="res://scripts/world/tea_station.gd" id="22_station"]
+[ext_resource type="Script" path="res://scripts/activities/tea_harvest.gd" id="23_harvest"]
+[ext_resource type="Script" path="res://ui/dialogue/dialogue_ui.gd" id="24_dialogue"]
 
 [node name="BlackseaHighland" type="Node3D"]
 script = ExtResource("1_region")
@@ -50,6 +54,10 @@ metadata/radius = 34.0
 [node name="ViewpointClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178, 0, -190)
 metadata/radius = 14.0
+
+[node name="TeaStationClearing" type="Marker3D" parent="." groups=["vegetation_clearing"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 157)
+metadata/radius = 7.0
 
 [node name="Vegetation" type="Node3D" parent="."]
 script = ExtResource("6_veg")
@@ -124,6 +132,17 @@ value = 0.75
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 40)
 script = ExtResource("17_herd")
 
+[node name="TeaStation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 158)
+script = ExtResource("22_station")
+
+[node name="Fadime" parent="." instance=ExtResource("21_npc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 0, 156.5)
+
+[node name="TeaHarvest" type="Node3D" parent="."]
+script = ExtResource("23_harvest")
+vegetation_path = NodePath("../Vegetation")
+
 [node name="Camper" parent="." instance=ExtResource("10_camper")]
 
 [node name="Walker" parent="." instance=ExtResource("11_walker")]
@@ -151,3 +170,7 @@ follow_camera_path = NodePath("../FollowCamera")
 
 [node name="Journal" type="CanvasLayer" parent="."]
 script = ExtResource("20_journal")
+
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+script = ExtResource("24_dialogue")
+travel_path = NodePath("../TravelController")

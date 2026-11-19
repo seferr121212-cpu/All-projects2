@@ -29,7 +29,7 @@ window/stretch/aspect="expand"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://localization/strings.en.translation", "res://localization/strings.tr.translation")
+locale/translations=PackedStringArray("res://localization/strings.en.translation", "res://localization/strings.tr.translation", "res://localization/dialogue.en.translation", "res://localization/dialogue.tr.translation")
 locale/fallback="en"
 
 [physics]

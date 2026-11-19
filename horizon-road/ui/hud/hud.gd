@@ -11,6 +11,11 @@ var _info: Label
 var _hint: Label
 var _controls: Label
 var _controls_timer: float = 14.0
+var _money: Label
+var _status: Label
+var _toast: Label
+var _toast_timer: float = 0.0
+var _shown_money: float = 0.0
 
 
 func _ready() -> void:
@@ -24,6 +29,24 @@ func _ready() -> void:
 	_info = _label(17, HORIZONTAL_ALIGNMENT_RIGHT)
 	corner.add_child(_clock)
 	corner.add_child(_info)
+	_money = _label(22, HORIZONTAL_ALIGNMENT_RIGHT)
+	_money.add_theme_color_override(&"font_color", Color(1.0, 0.92, 0.7, 0.95))
+	corner.add_child(_money)
+	_shown_money = GameState.money
+
+	_status = _label(19, HORIZONTAL_ALIGNMENT_LEFT)
+	_status.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT, Control.PRESET_MODE_MINSIZE, 28)
+	add_child(_status)
+
+	_toast = _label(22, HORIZONTAL_ALIGNMENT_CENTER)
+	_toast.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_MINSIZE, 90)
+	_toast.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	add_child(_toast)
+	GameState.notified.connect(_show_toast)
+	GameState.money_changed.connect(func(new_amount: int) -> void:
+		var diff: int = new_amount - roundi(_shown_money)
+		if diff > 0:
+			_show_toast(tr(&"UI_MONEY_GAINED") % diff))
 
 	_hint = _label(20, HORIZONTAL_ALIGNMENT_CENTER)
 	_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE, 70)
@@ -45,6 +68,16 @@ func _process(delta: float) -> void:
 		tr(StringName(WeatherManager.current.name_key)),
 	]
 	_hint.text = _context_hint()
+	_shown_money = move_toward(_shown_money, GameState.money, maxf(absf(GameState.money - _shown_money) * 4.0, 20.0) * delta)
+	_money.text = "%d ₺" % roundi(_shown_money)
+	var status: PackedStringArray = []
+	for node: Node in get_tree().get_nodes_in_group(&"activity"):
+		var text: String = (node as Activity).get_status_text()
+		if text != "":
+			status.append(text)
+	_status.text = "\n".join(status)
+	_toast_timer -= delta
+	_toast.modulate.a = clampf(_toast_timer / 0.5, 0.0, 1.0)
 	_controls_timer -= delta
 	_controls.text = tr(&"UI_CONTROLS_HINT")
 	_controls.modulate.a = clampf(_controls_timer / 3.0, 0.0, 0.8)
@@ -57,7 +90,15 @@ func _context_hint() -> String:
 		return ""
 	if GameState.player_mode == GameState.PlayerMode.DRIVING:
 		return (tr(&"UI_EXIT_VEHICLE") + "   " + tr(&"UI_ENTER_PHOTO")) if _travel.camper.is_stopped() else ""
+	var focused: Interactable = _travel.get_focused_interactable()
+	if focused:
+		return tr(StringName(focused.prompt_key))
 	return tr(&"UI_ENTER_VEHICLE") if _travel.can_enter_vehicle() else ""
+
+
+func _show_toast(text: String) -> void:
+	_toast.text = text
+	_toast_timer = 3.0
 
 
 func _label(font_size: int, align: HorizontalAlignment) -> Label:

@@ -41,7 +41,7 @@ Genel doğrulama araçları:
 - Karavan: daha yuvarlak model, krom detaylar, kokpit içi; saat başına renk düzeltme.
 - **Bitti:** önce/sonra ekran görüntüleriyle karşılaştırma onaylandı.
 
-## Aşama 3 — İlk esnaf + diyalog + mini aktivite + para
+## Aşama 3 — İlk esnaf + diyalog + mini aktivite + para ✅
 - JSON diyalog sistemi (TR/EN), ilişki seviyesi, isimle hitap.
 - Çay üreticisi NPC + çay hasadı mini aktivitesi.
 - Para (GameState), economy_config, HUD'da para göstergesi, fotoğraf satışı.
@@ -97,6 +97,20 @@ Genel doğrulama araçları:
   (eski kaydı yüklemek fotoğrafları silmez).
 - Bilinen sorunlar: inekler çarpışmasız (karavan içinden geçer); fotoğraf satışı ve
   esnafa gösterme Aşama 3'te; lens yükseltmeleri (`GameState.lens_level`) Aşama 4'te.
+
+## Aşama 3 notları
+- NPC: Fadime Karaca (çay üreticisi), çaylığın kenarındaki çardakta, 06:00–21:00.
+- Diyalog: `data/npcs/fadime.json` (akış) + `localization/dialogue.csv` (TR/EN metin).
+  Koşullar: flag / not_flag / level_min / level_max / has_photos.
+  Eylemler: meet, relationship, set_flag, start/complete_activity, open_photo_picker, sell_photo.
+- İlişki: Yabancı 0 → Tanıdık 20 → Dost 50 → Yakın dost 100. Dostlukla selam değişir,
+  ipuçları açılır, fotoğraflar daha pahalıya satılır.
+- Çay hasadı: 15 tutam (3 altın filiz bonus), süre yok, istediğin an teslim edebilirsin.
+- Ekonomi ayarları: `data/economy/economy_config.tres`. Başlangıç 50 ₺; tam sepet 98 ₺;
+  fotoğraf satışı NPC başına günde 1.
+- Test: `godot --path . -- --story` tüm döngüyü oynar (`--stop=intro|name|hub|harvest|deliver|picker|photo`).
+- Bilinen sorunlar: karakterlerin yüz detayı yok (görsel cilada); çay çalıları çarpışmasız
+  (oyuncu üstlerinden geçer); satılan fotoğraf işareti albümde kalır, eski kayıt yüklense de geri gelmez.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

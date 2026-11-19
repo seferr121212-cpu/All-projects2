@@ -16,6 +16,8 @@ extends Node3D
 @export var flower_count: int = 6000
 @export_range(0.25, 1.0) var density_scale: float = 1.0
 
+## World positions of every tea bush (tea harvest places shoots on them).
+var tea_positions: PackedVector3Array = PackedVector3Array()
 var _terrain: HighlandTerrain
 var _rng := RandomNumberGenerator.new()
 
@@ -110,6 +112,7 @@ func _scatter_tea_rows() -> void:
 			# Align with the row so hedges read as continuous lines.
 			xf.basis = Basis(Vector3.UP, atan2(along.x, along.y)).scaled(Vector3(s, s * _rng.randf_range(0.85, 1.1), s * 1.3))
 			_add(bucket, xf, _tint(0.08))
+			tea_positions.append(xf.origin + Vector3(0, 0.85 * s, 0))
 	_build(bucket, mesh, "TeaRows", 220.0, true)
 
 

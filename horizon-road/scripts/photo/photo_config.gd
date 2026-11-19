@@ -30,5 +30,5 @@ extends Resource
 @export_group("Economy")
 ## Sale value = base + score * per_point (+ bonus for a newly discovered subject).
 @export var value_base: int = 5
-@export var value_per_point: float = 0.4
-@export var value_new_subject_bonus: int = 15
+@export var value_per_point: float = 0.3
+@export var value_new_subject_bonus: int = 10

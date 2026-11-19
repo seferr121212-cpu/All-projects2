@@ -1,0 +1,60 @@
+keys,en,tr
+PLAYER_DEFAULT_NAME,traveller,yolcu
+NPC_FADIME_NAME,Fadime Karaca,Fadime Karaca
+NPC_FADIME_ROLE,Tea grower,Çay üreticisi
+NPC_FADIME_NOTE,"Runs the family tea garden on the highland. Her son works in Istanbul; she misses him.","Yayladaki aile çaylığını işletiyor. Oğlu İstanbul'da çalışıyor, onu çok özlüyor."
+REL_STRANGER,Stranger,Yabancı
+REL_ACQUAINTANCE,Acquaintance,Tanıdık
+REL_FRIEND,Friend,Dost
+REL_CLOSE_FRIEND,Close friend,Yakın dost
+UI_TALK,[E] Talk,[E] Konuş
+UI_DIALOGUE_CONTINUE,[E] Continue,[E] Devam
+UI_NAME_PLACEHOLDER,Your name,Adın
+UI_NAME_CONFIRM,OK,Tamam
+UI_PICK_PHOTO,Which photo will you show?,Hangi fotoğrafı göstereceksin?
+UI_CANCEL,Cancel,Vazgeç
+UI_SOLD,Sold,Satıldı
+UI_MONEY_GAINED,+%d ₺,+%d ₺
+CH_BYE,Goodbye.,Hoşça kal.
+CH_YES_GLADLY,"Gladly, let's do it.","Seve seve, yapalım."
+CH_MAYBE_LATER,Maybe later.,Belki sonra.
+CH_KEEP_PICKING,I'll keep picking.,Toplamaya devam edeyim.
+CH_HAND_OVER,That's enough for today.,Bugünlük bu kadar yeter.
+CH_SELL,"Sure, it's yours.","Olur, senin olsun."
+CH_KEEP,I'd rather keep it.,Bende kalsın.
+FADIME_CH_WORK,Do you need a hand with anything?,İşlerde yardıma ihtiyacın var mı?
+FADIME_CH_PHOTO,Let me show you a photo.,Sana bir fotoğraf göstereyim.
+FADIME_CH_ABOUT,Tell me a bit about yourself.,Biraz kendinden bahset.
+FADIME_CH_TIP,Is there anything worth seeing around here?,Buralarda görülecek bir yer var mı?
+FADIME_INTRO_1,"Well, hello there! Not many strangers make it up to the highland. I'm Fadime — that tea garden you see is mine.","Hoş geldin! Yaylaya pek yabancı gelmez buralara. Ben Fadime, şu gördüğün çaylık benim."
+FADIME_INTRO_ASK_NAME,And what's your name?,Senin adın ne bakayım?
+FADIME_INTRO_3,"{player}... what a lovely name. Travelling in that camper, are you? How nice. When I was young I wanted to do the same.","{player}... Ne güzel isim. O karavanla mı geziyorsun? Ne hoş. Gençken ben de öyle gezmek isterdim."
+FADIME_GREET,"Ah, {player}, you're back! I've just brewed tea, come sit for a bit.","Ooo {player}, yine geldin! Çay demledim, otur biraz."
+FADIME_GREET_FRIEND,"{player}, my dear! Seeing you does my heart good.","Uşağum {player}! Seni görmek ne iyi geldi."
+FADIME_HUB,So what shall we do?,Ne yapalım bakalım?
+FADIME_WORK_TEACH,"Do you know how to pick tea? Two leaves and a bud, that's the rule. Look for the light green shoots and drop them in the basket. Bring me {target} handfuls and I'll pay you a little something.","Çay toplamayı bilir misin? İki yaprak bir tomurcuk, kural bu. Açık yeşil filizleri bul, sepete at. Bana {target} tutam getirirsen sana harçlık veririm."
+FADIME_WORK_AGAIN,The garden's been waiting for you. Will you pick again?,Çaylık seni bekliyor. Yine toplar mısın?
+FADIME_WORK_GO,"Take the basket and look along those rows. No rush, enjoy it.","Sepeti al, şu sıralara bak. Acele yok, keyfine bak."
+FADIME_HARVEST_CHECK,"The basket isn't full yet. If you like, just hand over what you've got.","Sepet daha dolmamış gibi. İstersen şimdilik bu kadarını ver."
+FADIME_DELIVER_FULL,"Look at that, a full basket! What lovely shoots.","Maşallah, sepeti doldurmuşsun! Bak ne güzel filizler."
+FADIME_DELIVER_PARTIAL,"Every handful counts. Thank you, dear.","Her tutam kıymetli. Sağ ol, uşağum."
+FADIME_DELIVER_PAY,"Here you go, {amount} lira. Bless your hands, {player}.","Al bakalım, {amount} lira. Emeğine sağlık {player}."
+FADIME_ABOUT_1,"This garden was my grandfather's. In winter we go down to the village; in summer we come up to the highland.","Bu bahçe dedemden kaldı. Kışın aşağı köye ineriz, yazın yaylaya çıkarız."
+FADIME_ABOUT_2,"My son works in Istanbul. He comes for the holidays... You must be about his age.","Oğlum İstanbul'da çalışıyor. Bayramlarda gelir... Sen de onun yaşlarındasın galiba."
+FADIME_ABOUT_3,"You know, when I was young I wanted to see the world too. I've never left the Black Sea. You'll tell me what you see, won't you?","Biliyor musun, gençken ben de dünyayı görmek isterdim. Karadeniz'den hiç çıkmadım. Gördüklerini bana anlatırsın, değil mi?"
+FADIME_TIP_MIST,"Go down to the lake early in the morning. The mist fills the valley; it's like standing above the clouds.","Sabah erkenden gölün oraya in. Sis vadiyi doldurur, bulutların üstündeymişsin gibi olur."
+FADIME_TIP_SUNSET,"In the late afternoon, look from the hill above the village. When the sun sinks behind the mountains the whole highland glows like gold.","Akşamüstü köyün üstündeki tepeden bak. Güneş dağların arkasına batarken bütün yayla altın gibi parlar."
+FADIME_PHOTO_LOVE,"Oh, that's our tea garden! You've captured it beautifully. Would you sell it to me? I'll give you {amount} lira.","Aaa, bu bizim çaylık! Ne güzel çekmişsin. Bunu bana satar mısın? {amount} lira vereyim."
+FADIME_PHOTO_NICE,"That's pretty... though I'm more fond of my tea garden and the cows. I could still give you {amount} lira for it.","Güzelmiş... Ama ben daha çok çaylığı, inekleri severim. Yine de {amount} lira veririm."
+FADIME_PHOTO_LIMIT,"I already bought one today. Show me again tomorrow, alright?","Bugün bir tane aldım ya. Yarın yine göster bana, olur mu?"
+FADIME_PHOTO_ALREADY,"I already have that one on my wall!","O fotoğraf zaten duvarımda asılı!"
+FADIME_PHOTO_SOLD,"I'll send it to my son. He must be missing the highland.","Bunu oğluma göndereceğim. Yaylayı özlüyordur."
+FADIME_PHOTO_KEPT,"Of course, keep it. Just seeing it was lovely.","Tabii, sende kalsın. Görmek bile güzeldi."
+FADIME_BYE,"Safe travels, {player}!","Yolun açık olsun {player}!"
+FADIME_BYE_FRIEND,"Come back soon, dear. The tea will be waiting.","Yine gel uşağum. Çay hep demli."
+ACT_PICK_TEA,[E] Pick tea,[E] Çay topla
+ACT_TEA_PROGRESS,Tea basket: %d / %d,Çay sepeti: %d / %d
+ACT_TEA_FULL,Basket full! Take it to Fadime.,Sepet doldu! Fadime'ye götür.
+ACT_TEA_GOLDEN,A golden shoot! Bonus,Altın filiz! Bonus
+ACT_TEA_STARTED,Pick the light green shoots in the tea rows.,Çay sıralarındaki açık yeşil filizleri topla.
+SUBJ_NPC_FADIME,Fadime,Fadime

@@ -148,6 +148,24 @@ static func shutter() -> AudioStreamWAV:
 	return _to_stream(out, false)
 
 
+## Leaves being snapped off a bush: soft filtered crackle.
+static func rustle() -> AudioStreamWAV:
+	var rng := _rng(8)
+	var n: int = int(0.35 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var hp: float = 0.0
+	var prev: float = 0.0
+	for i: int in n:
+		var k: float = float(i) / n
+		var white: float = rng.randf_range(-1.0, 1.0)
+		hp = 0.85 * (hp + white - prev)
+		prev = white
+		var crackle: float = 1.0 if rng.randf() < 0.02 else 0.3
+		out[i] = hp * crackle * sin(k * PI) * (1.0 - k * 0.5)
+	return _to_stream(out, false)
+
+
 ## Distant cow moo: a low voice with a formant-like sweep.
 static func moo(seed_value: int = 7) -> AudioStreamWAV:
 	var rng := _rng(seed_value)

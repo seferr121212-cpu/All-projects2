@@ -6,13 +6,27 @@ signal money_changed(new_amount: int)
 signal player_mode_changed(mode: PlayerMode)
 signal region_changed(region_id: StringName)
 signal context_changed(context: Context)
+signal relationship_changed(npc_id: StringName, points: int, level: int)
+signal flags_changed
+## Short on-screen message for the HUD (already translated text).
+signal notified(text: String)
 
 enum PlayerMode { DRIVING, ON_FOOT }
 ## Who owns player input right now. Gameplay systems ignore input outside GAMEPLAY.
-enum Context { GAMEPLAY, PHOTO, JOURNAL }
+enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE }
 
-var player_name: String = "Gezgin"
-var money: int = 0
+static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
+
+var player_name: String = ""
+var money: int = ECONOMY.starting_money
+## npc id -> relationship points
+var relationships: Dictionary = {}
+## Story/world flags, e.g. "fadime.met". Namespaced by NPC or system.
+var flags: Dictionary = {}
+## People met: npc id -> {name_key, role_key, note_key, region}
+var people: Dictionary = {}
+## Small numeric counters, e.g. "fadime.harvests" or "photo_sales.day".
+var counters: Dictionary = {}
 var current_region_id: StringName = &""
 var player_mode: PlayerMode = PlayerMode.DRIVING:
 	set = set_player_mode
@@ -57,6 +71,60 @@ func register_region(region: Region) -> void:
 		region_changed.emit(current_region_id)
 
 
+func get_display_name() -> String:
+	return player_name if player_name != "" else tr(&"PLAYER_DEFAULT_NAME")
+
+
+# --- Relationships & flags --------------------------------------------------
+
+func get_relationship(npc_id: StringName) -> int:
+	return int(relationships.get(String(npc_id), 0))
+
+
+func add_relationship(npc_id: StringName, points: int) -> void:
+	var value: int = maxi(get_relationship(npc_id) + points, 0)
+	relationships[String(npc_id)] = value
+	relationship_changed.emit(npc_id, value, get_relationship_level(npc_id))
+
+
+## 0 stranger, 1 acquaintance, 2 friend, 3 close friend.
+func get_relationship_level(npc_id: StringName) -> int:
+	var points: int = get_relationship(npc_id)
+	var level: int = 0
+	for i: int in ECONOMY.level_thresholds.size():
+		if points >= ECONOMY.level_thresholds[i]:
+			level = i
+	return level
+
+
+func register_person(npc_id: StringName, name_key: String, role_key: String, note_key: String) -> void:
+	people[String(npc_id)] = {"name_key": name_key, "role_key": role_key, "note_key": note_key, "region": String(current_region_id)}
+
+
+func notify(text: String) -> void:
+	notified.emit(text)
+
+
+func has_flag(flag: String) -> bool:
+	return flags.get(flag, false)
+
+
+func set_flag(flag: String, value: bool = true) -> void:
+	if value:
+		flags[flag] = true
+	else:
+		flags.erase(flag)
+	flags_changed.emit()
+
+
+func get_counter(key: String) -> int:
+	return int(counters.get(key, 0))
+
+
+func set_counter(key: String, value: int) -> void:
+	counters[key] = value
+
+
 func add_money(amount: int) -> void:
 	money += amount
 	money_changed.emit(money)
@@ -76,12 +144,21 @@ func to_dict() -> Dictionary:
 		"money": money,
 		"region": String(current_region_id),
 		"lens_level": lens_level,
+		"relationships": relationships,
+		"flags": flags,
+		"counters": counters,
+		"people": people,
 	}
 
 
 func from_dict(data: Dictionary) -> void:
 	player_name = data.get("player_name", player_name)
-	money = int(data.get("money", 0))
+	money = int(data.get("money", ECONOMY.starting_money))
 	current_region_id = StringName(data.get("region", ""))
 	lens_level = int(data.get("lens_level", 0))
+	relationships = data.get("relationships", {})
+	flags = data.get("flags", {})
+	counters = data.get("counters", {})
+	people = data.get("people", {})
+	flags_changed.emit()
 	money_changed.emit(money)

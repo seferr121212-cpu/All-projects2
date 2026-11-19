@@ -15,6 +15,9 @@ func _ready() -> void:
 	_test_translations()
 	_test_photo_scoring()
 	_test_album()
+	_test_dialogue_data()
+	_test_dialogue_flow()
+	_test_relationships()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 
@@ -159,3 +162,99 @@ func _test_album() -> void:
 	reloaded.discovered.erase("TEST_ALBUM_SUBJECT")
 	reloaded.save_index()
 	_check(not FileAccess.file_exists(entry.path), "photo removed")
+
+
+func _test_dialogue_data() -> void:
+	for path: String in ["res://data/npcs/fadime.json"]:
+		var data: Dictionary = DialogueRunner.load_data(path)
+		_check(not data.is_empty(), "%s parses" % path)
+		var nodes: Dictionary = data.nodes
+		var bad_refs: Array = []
+		var keys: Array = [data.name_key, data.role_key, data.note_key]
+		for id: String in nodes:
+			var n: Dictionary = nodes[id]
+			if n.has("text"):
+				keys.append(n.text)
+			for ref: String in _refs(n):
+				if not nodes.has(ref):
+					bad_refs.append("%s->%s" % [id, ref])
+			for c: Dictionary in n.get("choices", []):
+				keys.append(c.text)
+		for target: String in (data.photo_reactions as Dictionary).values():
+			if not nodes.has(target):
+				bad_refs.append("photo_reactions->" + target)
+		_check(bad_refs.is_empty(), "%s: all node references exist %s" % [path.get_file(), bad_refs])
+		var missing: Array = []
+		for locale: String in ["tr", "en"]:
+			TranslationServer.set_locale(locale)
+			for key: String in keys:
+				if TranslationServer.translate(key) == key:
+					missing.append("%s:%s" % [locale, key])
+		_check(missing.is_empty(), "%s: every line translated in TR+EN %s" % [path.get_file(), missing])
+	TranslationServer.set_locale("en")
+
+
+func _refs(n: Dictionary) -> Array:
+	var out: Array = []
+	if n.has("next"):
+		out.append(n.next)
+	for b: Dictionary in n.get("branches", []):
+		out.append(b.next)
+	for c: Dictionary in n.get("choices", []):
+		if c.has("next"):
+			out.append(c.next)
+	return out
+
+
+func _test_dialogue_flow() -> void:
+	GameState.flags = {}
+	GameState.relationships = {}
+	GameState.people = {}
+	GameState.player_name = ""
+	var data: Dictionary = DialogueRunner.load_data("res://data/npcs/fadime.json")
+	var runner := DialogueRunner.new(data, self)
+	var lines: Array[String] = []
+	var asked_name: Array[bool] = [false]
+	var choice_log: Array = []
+	runner.line_shown.connect(func(t: String) -> void: lines.append(t))
+	runner.name_requested.connect(func(_t: String) -> void: asked_name[0] = true)
+	runner.choices_shown.connect(func(c: Array[Dictionary]) -> void: choice_log.append(c.map(func(x: Dictionary) -> String: return x.text)))
+	runner.start()
+	_check(runner.current_id == "intro", "first meeting starts with intro")
+	runner.advance()
+	_check(asked_name[0], "intro asks the player's name")
+	_check(GameState.has_flag("fadime.met") and GameState.people.has("fadime"), "meeting registers the person")
+	TranslationServer.set_locale("tr")
+	runner.submit_name("  Deniz  ")
+	_check(GameState.player_name == "Deniz", "name trimmed and stored")
+	_check(lines[lines.size() - 1].contains("Deniz"), "NPC addresses player by name")
+	runner.advance()
+	_check(runner.current_id == "hub", "reaches hub")
+	runner.advance()  # hub line read -> choices appear
+	_check(not choice_log.is_empty(), "hub offers choices")
+	var offered: Array = choice_log[choice_log.size() - 1] if not choice_log.is_empty() else []
+	_check(not "FADIME_CH_TIP" in offered, "tips locked for strangers")
+	GameState.add_relationship(&"fadime", 60)
+	var again := DialogueRunner.new(data, self)
+	again.start()
+	_check(again.current_id == "greet_friend", "friends get a warmer greeting")
+	# Photo pricing: loved subject pays more than other subjects.
+	var loved: Dictionary = {"value": 40, "subject_list": [{"id": "SUBJ_TEA_GARDEN"}]}
+	var other: Dictionary = {"value": 40, "subject_list": [{"id": "SUBJ_HIGHLAND_LAKE"}]}
+	_check(again.photo_price(loved) > again.photo_price(other), "loved photos sell for more")
+	GameState.set_counter("fadime.photo_sale_day", TimeManager.day)
+	GameState.set_counter("fadime.photo_sales", 1)
+	again.choose_photo(other)
+	_check(again.current_id == "photo_limit", "one photo sale per day")
+	TranslationServer.set_locale("en")
+
+
+func _test_relationships() -> void:
+	GameState.relationships = {}
+	_check(GameState.get_relationship_level(&"x") == 0, "stranger by default")
+	GameState.add_relationship(&"x", 20)
+	_check(GameState.get_relationship_level(&"x") == 1, "acquaintance at 20")
+	GameState.add_relationship(&"x", 80)
+	_check(GameState.get_relationship_level(&"x") == 3, "close friend at 100")
+	GameState.add_relationship(&"x", -500)
+	_check(GameState.get_relationship(&"x") == 0, "points never negative")
