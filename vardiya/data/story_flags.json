@@ -111,5 +111,9 @@
 	"leave_town": {
 		"default": false,
 		"doc": "A survivor decided to leave Karaliman (ch7)."
+	},
+	"ending": {
+		"default": "",
+		"doc": "Resolved ending id, set when the last story chapter ends (before its epilogue)."
 	}
 }

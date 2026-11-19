@@ -2,6 +2,8 @@ extends Node
 ## Three save slots in a versioned JSON format, in-chapter autosave,
 ## per-chapter start snapshots (for "replay from chapter start") and
 ## player settings. No manual save: decisions cannot be undone.
+## A separate profile file (independent of slots) remembers which endings
+## have ever been reached, for the endings gallery.
 
 signal saved(slot: int)
 signal settings_changed
@@ -10,14 +12,20 @@ const FORMAT_VERSION := 1
 const SLOT_COUNT := 3
 const CHAPTER_INDEX_PATH := "res://data/chapters/index.json"
 const SETTINGS_PATH := "user://settings.json"
+const PROFILE_VERSION := 1
 
 var save_dir := "user://saves/"
+var profile_path := "user://profile.json"
+## {"version", "endings": [ending ids in unlock order], "credits_seen": bool}
+var profile: Dictionary = {}
 var active_slot := -1
 ## chapter_id -> GameState dict captured when that chapter began.
 var chapter_snapshots: Dictionary = {}
 
 var settings: Dictionary = default_settings()
 var chapter_order: Array = []
+## Final scenes, one per ending (index.json "epilogues"); not part of chapter_order.
+var epilogues: Array = []
 
 
 static func default_settings() -> Dictionary:
@@ -36,6 +44,7 @@ static func default_settings() -> Dictionary:
 func _ready() -> void:
 	chapter_order = _load_chapter_order()
 	load_settings()
+	load_profile()
 
 
 func _load_chapter_order() -> Array:
@@ -45,9 +54,12 @@ func _load_chapter_order() -> Array:
 		return []
 	var data: Variant = JSON.parse_string(f.get_as_text())
 	var out: Array = []
+	epilogues.clear()
 	if typeof(data) == TYPE_DICTIONARY:
 		for c: Dictionary in data.get("chapters", []):
 			out.append(c)
+		for c: Dictionary in data.get("epilogues", []):
+			epilogues.append(c)
 	return out
 
 
@@ -56,10 +68,21 @@ func first_chapter_id() -> String:
 
 
 func chapter_info(chapter_id: String) -> Dictionary:
-	for c: Dictionary in chapter_order:
+	for c: Dictionary in chapter_order + epilogues:
 		if c["id"] == chapter_id:
 			return c
 	return {}
+
+
+func is_epilogue(chapter_id: String) -> bool:
+	for c: Dictionary in epilogues:
+		if c["id"] == chapter_id:
+			return true
+	return false
+
+
+func is_last_story_chapter(chapter_id: String) -> bool:
+	return not chapter_order.is_empty() and str(chapter_order[chapter_order.size() - 1]["id"]) == chapter_id
 
 
 func _chapter_index(chapter_id: String) -> int:
@@ -95,6 +118,57 @@ func set_setting(key: String, value: Variant) -> void:
 func _apply_settings() -> void:
 	Localization.set_locale(str(settings["locale"]))
 	AudioBus.apply_volumes(settings)
+
+
+# --- Profile (endings gallery) ---------------------------------------------------
+
+func load_profile() -> void:
+	profile = {"version": PROFILE_VERSION, "endings": [], "credits_seen": false}
+	var f := FileAccess.open(profile_path, FileAccess.READ)
+	if f == null:
+		return
+	var data: Variant = JSON.parse_string(f.get_as_text())
+	if typeof(data) != TYPE_DICTIONARY:
+		return
+	for id: Variant in data.get("endings", []):
+		if typeof(id) == TYPE_STRING and not profile["endings"].has(id):
+			profile["endings"].append(id)
+	profile["credits_seen"] = bool(data.get("credits_seen", false))
+
+
+func _write_profile() -> bool:
+	var tmp := profile_path + ".tmp"
+	var f := FileAccess.open(tmp, FileAccess.WRITE)
+	if f == null:
+		return false
+	f.store_string(JSON.stringify(profile, "\t"))
+	f.close()
+	if FileAccess.file_exists(profile_path):
+		DirAccess.remove_absolute(profile_path)
+	return DirAccess.rename_absolute(tmp, profile_path) == OK
+
+
+## Returns true if this ending was not unlocked before.
+func unlock_ending(ending_id: String) -> bool:
+	if ending_id == "" or profile["endings"].has(ending_id):
+		return false
+	profile["endings"].append(ending_id)
+	_write_profile()
+	return true
+
+
+func is_ending_unlocked(ending_id: String) -> bool:
+	return profile.get("endings", []).has(ending_id)
+
+
+func unlocked_endings() -> Array:
+	return profile.get("endings", []).duplicate()
+
+
+func mark_credits_seen() -> void:
+	if not profile.get("credits_seen", false):
+		profile["credits_seen"] = true
+		_write_profile()
 
 
 # --- Slots ----------------------------------------------------------------------
@@ -151,9 +225,13 @@ func new_game(slot: int) -> void:
 func begin_chapter(chapter_id: String) -> void:
 	GameState.current_chapter = chapter_id
 	GameState.current_node = ""
-	var idx := _chapter_index(chapter_id)
+	# An epilogue sits after every story chapter: it keeps all story snapshots.
+	var idx := chapter_order.size() if is_epilogue(chapter_id) else _chapter_index(chapter_id)
 	for key: String in chapter_snapshots.keys():
-		if _chapter_index(key) >= idx:
+		var k := _chapter_index(key)
+		if k == -1:
+			k = chapter_order.size()  # earlier epilogue snapshot: always later than any story chapter
+		if k >= idx:
 			chapter_snapshots.erase(key)
 	chapter_snapshots[chapter_id] = GameState.to_dict()
 	autosave()

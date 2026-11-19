@@ -1,10 +1,12 @@
 extends Control
 ## Title screen: continue, new game (slot), load / chapter replay, settings,
-## quick language toggle (tab_next / R / RB), quit.
+## endings gallery, credits, quick language toggle (tab_next / R / RB), quit.
 
 const UiTheme = preload("res://ui/ui_theme.gd")
 const SlotMenu = preload("res://ui/slot_menu.gd")
 const SettingsMenu = preload("res://ui/settings_menu.gd")
+const EndingsGallery = preload("res://ui/endings_gallery.gd")
+const Credits = preload("res://ui/credits.gd")
 const STORY_SCENE := "res://scenes/story_player.tscn"
 
 var _menu: VBoxContainer
@@ -13,6 +15,9 @@ var _new_game: Button
 var _load: Button
 var _slots: SlotMenu
 var _settings: SettingsMenu
+var _gallery: EndingsGallery
+var _credits: Credits
+var _endings_button: Button
 var _lang_hint: Label
 
 
@@ -58,11 +63,15 @@ func _build() -> void:
 	_new_game.pressed.connect(_open_slots.bind("new"))
 	_load = UiTheme.make_button("menu.load")
 	_load.pressed.connect(_open_slots.bind("load"))
+	_endings_button = UiTheme.make_button("menu.endings")
+	_endings_button.pressed.connect(_open_gallery)
+	var credits := UiTheme.make_button("menu.credits")
+	credits.pressed.connect(_open_credits)
 	var settings := UiTheme.make_button("menu.settings")
 	settings.pressed.connect(_open_settings)
 	var quit := UiTheme.make_button("menu.quit")
 	quit.pressed.connect(func() -> void: get_tree().quit())
-	for b in [_continue, _new_game, _load, settings, quit]:
+	for b in [_continue, _new_game, _load, _endings_button, credits, settings, quit]:
 		_menu.add_child(b)
 
 	_lang_hint = UiTheme.make_label("", UiTheme.FONT_SMALL, UiTheme.TEXT_DIM)
@@ -89,6 +98,13 @@ func _build() -> void:
 	_settings.visible = false
 	holder.add_child(_settings)
 	_settings.closed.connect(_back_to_menu)
+	_gallery = EndingsGallery.new()
+	_gallery.visible = false
+	holder.add_child(_gallery)
+	_gallery.closed.connect(_back_to_menu)
+	_credits = Credits.new()
+	add_child(_credits)
+	_credits.finished.connect(_back_to_menu)
 
 	Localization.locale_changed.connect(_on_locale_changed)
 	InputRouter.device_changed.connect(_on_device_changed)
@@ -141,6 +157,18 @@ func _open_settings() -> void:
 	AudioBus.play("ui/select")
 	_menu.visible = false
 	_settings.open()
+
+
+func _open_gallery() -> void:
+	AudioBus.play("ui/select")
+	_menu.visible = false
+	_gallery.open()
+
+
+func _open_credits() -> void:
+	AudioBus.play("ui/select")
+	_menu.visible = false
+	_credits.start()
 
 
 func _on_continue() -> void:

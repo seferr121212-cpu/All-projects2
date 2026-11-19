@@ -1,0 +1,222 @@
+{
+	"id": "ep02_separation",
+	"version": 1,
+	"title": "ep02.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "start",
+	"nodes": {
+		"start": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "loc"
+		},
+		"loc": {
+			"type": "location",
+			"location": "loc.ep02.loc",
+			"scene": "family_home",
+			"spawn": "living",
+			"player": "defne",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.l01",
+			"next": "x01",
+			"variants": [
+				{
+					"if": {
+						"flag": "leave_town",
+						"eq": true
+					},
+					"text": "ep02.l01_v1"
+				}
+			]
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "family_home",
+			"objective": "ep02.x01.objective",
+			"items": [
+				{
+					"id": "ep02_boxes",
+					"label": "ep02.it.ep02_boxes",
+					"point": "ch04_coat",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep02.it.ep02_boxes.l1"
+						}
+					]
+				},
+				{
+					"id": "ep02_wall",
+					"label": "ep02.it.ep02_wall",
+					"point": "ch07_photo",
+					"journal": "journal.ep02.ep02_wall",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep02.it.ep02_wall.l1"
+						}
+					]
+				},
+				{
+					"id": "ep02_keys",
+					"label": "ep02.it.ep02_keys",
+					"point": "ch04_letter",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "e2_anahtar",
+			"major": false,
+			"timer": 8,
+			"prompt": "ep02.c01.prompt",
+			"options": [
+				{
+					"id": "leave",
+					"text": "ep02.c01.leave",
+					"next": "post"
+				},
+				{
+					"id": "keep",
+					"text": "ep02.c01.keep",
+					"next": "post",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "post"
+			}
+		},
+		"post": {
+			"type": "location",
+			"location": "loc.ep02.post",
+			"next": "f_kemal"
+		},
+		"f_kemal": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.f_kemal",
+			"next": "f_defne",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ep02.f_kemal_v1"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "missing"
+					},
+					"text": "ep02.f_kemal_v2"
+				}
+			]
+		},
+		"f_defne": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.f_defne",
+			"next": "f_riza",
+			"variants": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "dead"
+					},
+					"text": "ep02.f_defne_v1"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "missing"
+					},
+					"text": "ep02.f_defne_v2"
+				}
+			]
+		},
+		"f_riza": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.f_riza",
+			"next": "o01",
+			"variants": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"text": "ep02.f_riza_v1"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "missing"
+					},
+					"text": "ep02.f_riza_v2"
+				}
+			]
+		},
+		"o01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.o01",
+			"next": "end",
+			"variants": [
+				{
+					"if": {
+						"decision": "e2_anahtar",
+						"eq": "keep"
+					},
+					"text": "ep02.o01_v1"
+				}
+			]
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": null
+		}
+	}
+}

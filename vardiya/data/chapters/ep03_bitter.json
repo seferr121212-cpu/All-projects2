@@ -1,0 +1,347 @@
+{
+	"id": "ep03_bitter",
+	"version": 1,
+	"title": "ep03.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "start",
+	"nodes": {
+		"start": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "alive"
+					},
+					"next": "start_pd"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "alive"
+					},
+					"next": "start_pk"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "alive"
+					},
+					"next": "start_pr"
+				}
+			],
+			"else": "card"
+		},
+		"start_pd": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "start_ld"
+		},
+		"start_ld": {
+			"type": "location",
+			"location": "loc.ep03.start_ld",
+			"scene": "factory_gate",
+			"spawn": "dawn",
+			"player": "defne",
+			"next": "l01"
+		},
+		"start_pk": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "start_lk"
+		},
+		"start_lk": {
+			"type": "location",
+			"location": "loc.ep03.start_lk",
+			"scene": "factory_gate",
+			"spawn": "dawn",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"start_pr": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "start_lr"
+		},
+		"start_lr": {
+			"type": "location",
+			"location": "loc.ep03.start_lr",
+			"scene": "factory_gate",
+			"spawn": "dawn",
+			"player": "riza",
+			"next": "l01"
+		},
+		"card": {
+			"type": "location",
+			"location": "loc.ep03.card",
+			"next": "n01"
+		},
+		"n01": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ep03.n01",
+			"next": "n02",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "selim_dead",
+							"eq": true
+						}
+					},
+					"text": "ep03.n01_v1"
+				}
+			]
+		},
+		"n02": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ep03.n02",
+			"next": "n03",
+			"if": {
+				"not": {
+					"flag": "selim_dead",
+					"eq": true
+				}
+			}
+		},
+		"n03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.n03",
+			"next": "o01",
+			"variants": [
+				{
+					"if": {
+						"flag": "company_blamed",
+						"eq": true
+					},
+					"text": "ep03.n03_v1"
+				}
+			]
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.l01",
+			"next": "f_kemal"
+		},
+		"f_kemal": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.f_kemal",
+			"next": "f_defne",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ep03.f_kemal_v1"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "missing"
+					},
+					"text": "ep03.f_kemal_v2"
+				}
+			]
+		},
+		"f_defne": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.f_defne",
+			"next": "f_riza",
+			"variants": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "dead"
+					},
+					"text": "ep03.f_defne_v1"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "missing"
+					},
+					"text": "ep03.f_defne_v2"
+				}
+			]
+		},
+		"f_riza": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.f_riza",
+			"next": "l02",
+			"variants": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"text": "ep03.f_riza_v1"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "missing"
+					},
+					"text": "ep03.f_riza_v2"
+				}
+			]
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.l02",
+			"next": "x01",
+			"if": {
+				"flag": "harm_done",
+				"eq": true
+			}
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "factory_gate",
+			"objective": "ep03.x01.objective",
+			"items": [
+				{
+					"id": "ep03_gate",
+					"label": "ep03.it.ep03_gate",
+					"point": "ch08_gate",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep03.it.ep03_gate.l1"
+						}
+					]
+				},
+				{
+					"id": "ep03_flyer",
+					"label": "ep03.it.ep03_flyer",
+					"point": "ch02_flyer",
+					"journal": "journal.ep03.ep03_flyer",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep03.it.ep03_flyer.l1"
+						}
+					]
+				},
+				{
+					"id": "ep03_candle",
+					"label": "ep03.it.ep03_candle",
+					"point": "ch08_memorial",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "e3_mum",
+			"major": false,
+			"timer": 8,
+			"prompt": "ep03.c01.prompt",
+			"options": [
+				{
+					"id": "all",
+					"text": "ep03.c01.all",
+					"next": "o01",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				},
+				{
+					"id": "self",
+					"text": "ep03.c01.self",
+					"next": "o01",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "o01"
+			}
+		},
+		"o01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep03.o01",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": null
+		}
+	}
+}

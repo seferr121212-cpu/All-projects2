@@ -1,0 +1,380 @@
+{
+	"id": "ep04_betrayal",
+	"version": 1,
+	"title": "ep04.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "start",
+	"nodes": {
+		"start": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "riza"
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							}
+						]
+					},
+					"next": "pr"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "defne"
+							},
+							{
+								"status": "defne",
+								"eq": "alive"
+							}
+						]
+					},
+					"next": "pd"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "kemal"
+							},
+							{
+								"status": "kemal",
+								"eq": "alive"
+							}
+						]
+					},
+					"next": "pk"
+				}
+			],
+			"else": "card"
+		},
+		"pr": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "riza"
+				}
+			],
+			"next": "loc_r"
+		},
+		"loc_r": {
+			"type": "location",
+			"location": "loc.ep04.loc_r",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "riza",
+			"next": "l01"
+		},
+		"pd": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "loc_d"
+		},
+		"loc_d": {
+			"type": "location",
+			"location": "loc.ep04.loc_d",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "defne",
+			"next": "l01"
+		},
+		"pk": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "loc_k"
+		},
+		"loc_k": {
+			"type": "location",
+			"location": "loc.ep04.loc_k",
+			"scene": "police_room",
+			"spawn": "seat",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"card": {
+			"type": "location",
+			"location": "loc.ep04.card",
+			"next": "n01"
+		},
+		"n01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.n01",
+			"next": "o01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ep04.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.l02",
+			"next": "f_kemal"
+		},
+		"f_kemal": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.f_kemal",
+			"next": "f_defne",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ep04.f_kemal_v1"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "missing"
+					},
+					"text": "ep04.f_kemal_v2"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "kemal"
+							},
+							{
+								"status": "kemal",
+								"eq": "alive"
+							}
+						]
+					},
+					"text": "ep04.f_kemal_v3"
+				}
+			]
+		},
+		"f_defne": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.f_defne",
+			"next": "f_riza",
+			"variants": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "dead"
+					},
+					"text": "ep04.f_defne_v1"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "missing"
+					},
+					"text": "ep04.f_defne_v2"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "defne"
+							},
+							{
+								"status": "defne",
+								"eq": "alive"
+							}
+						]
+					},
+					"text": "ep04.f_defne_v3"
+				}
+			]
+		},
+		"f_riza": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.f_riza",
+			"next": "x01",
+			"variants": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"text": "ep04.f_riza_v1"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "missing"
+					},
+					"text": "ep04.f_riza_v2"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"flag": "informer",
+								"eq": "riza"
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							}
+						]
+					},
+					"text": "ep04.f_riza_v3"
+				}
+			]
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "police_room",
+			"objective": "ep04.x01.objective",
+			"items": [
+				{
+					"id": "ep04_window",
+					"label": "ep04.it.ep04_window",
+					"point": "ch06_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep04.it.ep04_window.l1"
+						}
+					]
+				},
+				{
+					"id": "ep04_box",
+					"label": "ep04.it.ep04_box",
+					"point": "ch06_box",
+					"journal": "journal.ep04.ep04_box",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep04.it.ep04_box.l1"
+						}
+					]
+				},
+				{
+					"id": "ep04_statement",
+					"label": "ep04.it.ep04_statement",
+					"point": "ch06_file",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "e4_imza",
+			"major": false,
+			"timer": 8,
+			"prompt": "ep04.c01.prompt",
+			"options": [
+				{
+					"id": "sign",
+					"text": "ep04.c01.sign",
+					"next": "o01",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "guilty",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				},
+				{
+					"id": "tear",
+					"text": "ep04.c01.tear",
+					"next": "o02",
+					"effects": [
+						{
+							"status": "kemal",
+							"value": "missing",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"status": "defne",
+							"value": "missing",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"status": "riza",
+							"value": "missing",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "o01"
+			}
+		},
+		"o02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.o02",
+			"next": "o01"
+		},
+		"o01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep04.o01",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": null
+		}
+	}
+}

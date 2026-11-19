@@ -260,6 +260,49 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(set(witness), {"solidarity", "separation", "bitter_reckoning", "betrayal", "secret"})
         for e, w in witness.items():
             self.assertTrue(w["path"][-1].startswith("[ch08"), (e, w["path"][-3:]))
+        played = [m for m in rep.info if m.startswith("ep0") and "played from" in m]
+        self.assertEqual(len(played), 5, played)
+
+    def test_every_ending_needs_an_epilogue(self):
+        endings = self.load("data/endings.json")
+        endings["ending_info"]["secret"]["epilogue"] = "ep99_nowhere"
+        self.save("data/endings.json", endings)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("ending_info.secret: epilogue 'ep99_nowhere'" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("epilogue 'ep05_secret' belongs to no ending" in w for w in rep.warnings), rep.warnings)
+
+    def test_ending_link_only_in_last_story_chapter(self):
+        ch = self.load("data/chapters/ch07_reckoning.json")
+        ch["nodes"]["end"]["next_chapter"] = "@ending"
+        self.save("data/chapters/ch07_reckoning.json", ch)
+        ch8 = self.load("data/chapters/ch08_last_shift.json")
+        ch8["nodes"]["end"]["next_chapter"] = None
+        self.save("data/chapters/ch08_last_shift.json", ch8)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("ch07_reckoning.end: next_chapter '@ending' should be" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("ch08_last_shift.end: the last story chapter must end" in e for e in rep.errors), rep.errors)
+
+    def test_epilogue_must_end_the_game(self):
+        ep = self.load("data/chapters/ep01_solidarity.json")
+        ep["nodes"]["end"]["next_chapter"] = "ch01_last_check"
+        self.save("data/chapters/ep01_solidarity.json", ep)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("ep01_solidarity.end: an epilogue must end the game" in e for e in rep.errors), rep.errors)
+
+    def test_epilogues_are_exempt_from_major_rule_but_story_is_not(self):
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertFalse(any(e.startswith("ep0") and "major decision" in e for e in rep.errors))
+
+    def test_epilogue_pov_on_dead_character_is_caught(self):
+        """Epilogues are played from the final game states; a POV given to the dead must be reported."""
+        flags = {"pov": "", "ending": ""}
+        ep = {"id": "ep_t", "start": "a", "nodes": {
+            "a": {"type": "location", "location": "x", "scene": "s", "spawn": "default", "player": "kemal", "next": "e"},
+            "e": {"type": "end", "next_chapter": None}}}
+        st = story_sim._vd().State(flags)
+        st.status["kemal"] = "dead"
+        r = story_sim.simulate(ep, flags, start_states=[(st, [])])
+        self.assertTrue(r["pov_errors"] or any("dead/missing 'kemal'" in m for m in r["unreachable"]), r)
 
     def test_simulator_reports_dead_pov(self):
         flags = {"pov": ""}

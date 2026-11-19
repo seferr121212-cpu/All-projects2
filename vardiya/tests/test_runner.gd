@@ -3,12 +3,16 @@ extends Control
 ##   godot --headless --path . res://tests/test_runner.tscn
 ## Exit code 0 = all passed. Uses a separate save directory.
 
+const EndingsGallery = preload("res://ui/endings_gallery.gd")
+const Credits = preload("res://ui/credits.gd")
+
 var _failures: Array[String] = []
 var _passed := 0
 
 
 func _ready() -> void:
 	SaveSystem.save_dir = "user://test_saves/"
+	SaveSystem.profile_path = "user://test_saves/profile.json"
 	_cleanup_saves()
 	for test in [
 		"test_locale_parity", "test_locale_switch", "test_trust_clamp", "test_conditions",
@@ -22,6 +26,9 @@ func _ready() -> void:
 		"test_story_index_and_majors", "test_fire_depends_on_earlier_choices", "test_rescue_options_depend_on_exam",
 		"test_pov_skips_dead_character", "test_all_dead_aftermath", "test_death_visible_later",
 		"test_inform_sets_informer_to_pov", "test_chapter1_links_to_chapter2",
+		"test_ending_link_and_unlock", "test_profile_survives_slots", "test_epilogue_keeps_snapshots",
+		"test_every_epilogue_completes", "test_epilogue_varies_by_fate", "test_betrayal_epilogue_pov",
+		"test_gallery_rows", "test_credits_data",
 	]:
 		GameState.reset()
 		SaveSystem.active_slot = -1
@@ -44,6 +51,9 @@ func check(cond: bool, label: String) -> void:
 func _cleanup_saves() -> void:
 	for i in SaveSystem.SLOT_COUNT:
 		SaveSystem.delete_slot(i)
+	if FileAccess.file_exists(SaveSystem.profile_path):
+		DirAccess.remove_absolute(SaveSystem.profile_path)
+	SaveSystem.load_profile()
 
 
 # --- Localization -----------------------------------------------------------
@@ -572,3 +582,152 @@ func test_chapter1_links_to_chapter2() -> void:
 		DialogueRunner.start("ch02_strike")
 		_run_until_blocking())
 	check("ch02.l03" in shown, "warning Selim in chapter 1 changes chapter 2")
+
+
+# --- Stage 5: endings, epilogues, gallery, credits ---------------------------
+
+func _trust_all(delta: int) -> void:
+	for a in GameState.CHARACTERS:
+		for b in GameState.CHARACTERS:
+			if a != b:
+				GameState.add_trust(a, b, delta)
+
+
+## Plays the current chapter to its end: advance lines, take the exit item of
+## every exploration, pick the first option of every choice, pass every QTE.
+func _play_to_end(first_option: bool = true) -> void:
+	var guard := 0
+	while DialogueRunner.waiting != DialogueRunner.Wait.FINISHED and guard < 400:
+		guard += 1
+		var w: int = DialogueRunner.waiting
+		if w == DialogueRunner.Wait.ADVANCE:
+			DialogueRunner.advance()
+		elif w == DialogueRunner.Wait.EXPLORE:
+			for it: Dictionary in DialogueRunner.explore_items():
+				if it.has("next"):
+					DialogueRunner.interact(str(it["id"]))
+					break
+		elif w == DialogueRunner.Wait.CHOICE:
+			var opts := DialogueRunner.current_options()
+			DialogueRunner.choose(str(opts[0 if first_option else opts.size() - 1]["id"]))
+		elif w == DialogueRunner.Wait.QTE:
+			DialogueRunner.force_qte_result(true)
+		else:
+			break
+
+
+func _setup_ending(id: String) -> void:
+	if id == "solidarity":
+		_trust_all(3)
+	elif id == "bitter_reckoning":
+		GameState.set_status("riza", "dead")
+	elif id == "betrayal":
+		GameState.set_flag("informer", "defne")
+	elif id == "secret":
+		GameState.set_flag("final_silence", true)
+		GameState.add_counter("silence", 6)
+
+
+func test_ending_link_and_unlock() -> void:
+	var ch8 := DialogueRunner.load_chapter_data("ch08_last_shift")
+	check(ch8["nodes"]["end"]["next_chapter"] == "@ending", "chapter 8 ends with @ending")
+	_trust_all(3)
+	var ending := DecisionManager.resolve_and_unlock_ending()
+	check(ending["ending"] == "solidarity", "high trust resolves to solidarity")
+	check(ending["epilogue"] == "ep01_solidarity", "solidarity plays its own epilogue")
+	check(GameState.get_flag("ending") == "solidarity", "ending stored in the story flags")
+	check(ending["new"] == true, "first time: newly unlocked")
+	check(DecisionManager.resolve_and_unlock_ending()["new"] == false, "second time: not new")
+	for id: String in DecisionManager.ending_ids():
+		var d := DecisionManager.ending_details(id)
+		check(SaveSystem.is_epilogue(str(d["epilogue"])), "ending %s has a listed epilogue" % id)
+		check(not Localization.t(str(d["hint"])).begins_with("["), "ending %s has a gallery hint" % id)
+
+
+func test_profile_survives_slots() -> void:
+	SaveSystem.new_game(0)
+	SaveSystem.unlock_ending("betrayal")
+	SaveSystem.delete_slot(0)
+	SaveSystem.load_profile()
+	check(SaveSystem.is_ending_unlocked("betrayal"), "unlocked ending survives deleting the slot")
+	check(not SaveSystem.is_ending_unlocked("secret"), "other endings stay locked")
+	SaveSystem.new_game(1)
+	check(SaveSystem.is_ending_unlocked("betrayal"), "unlocked ending survives a new game")
+
+
+func test_epilogue_keeps_snapshots() -> void:
+	SaveSystem.new_game(0)
+	SaveSystem.begin_chapter("ch02_strike")
+	SaveSystem.begin_chapter("ep02_separation")
+	check(SaveSystem.chapter_snapshots.has("ch01_last_check") and SaveSystem.chapter_snapshots.has("ch02_strike"),
+		"starting an epilogue keeps every story snapshot")
+	check(SaveSystem.chapter_info("ep02_separation").get("title", "") == "ep02.title", "epilogue has slot-menu info")
+	SaveSystem.begin_chapter("ch02_strike")
+	check(not SaveSystem.chapter_snapshots.has("ep02_separation"), "replaying a story chapter drops the epilogue snapshot")
+
+
+func test_every_epilogue_completes() -> void:
+	for id: String in ["solidarity", "separation", "bitter_reckoning", "betrayal", "secret"]:
+		for first: bool in [true, false]:
+			GameState.reset()
+			_setup_ending(id)
+			var ending := DecisionManager.resolve_and_unlock_ending()
+			check(ending["ending"] == id, "setup reaches " + id)
+			check(DialogueRunner.start(str(ending["epilogue"])), "epilogue starts: " + id)
+			check(GameState.is_alive(str(GameState.location.get("player", ""))) or GameState.location.get("scene", "") == "",
+				"epilogue camera follows a living character: " + id)
+			_play_to_end(first)
+			check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "epilogue finishes: %s (%s)" % [id, first])
+
+
+func test_epilogue_varies_by_fate() -> void:
+	GameState.set_status("kemal", "dead")
+	GameState.set_status("riza", "missing")
+	var shown := _collect_lines(func() -> void:
+		DialogueRunner.start("ep03_bitter")
+		_run_until_blocking())
+	check("ep03.f_kemal_v1" in shown, "bitter epilogue: Kemal's death line")
+	check("ep03.f_defne" in shown, "bitter epilogue: Defne's survivor line")
+	check("ep03.f_riza_v2" in shown, "bitter epilogue: Rıza missing line")
+	check(GameState.location.get("player") == "defne", "Defne leads the bitter epilogue")
+	GameState.reset()
+	for c in GameState.CHARACTERS:
+		GameState.set_status(c, "dead")
+	shown = _collect_lines(func() -> void:
+		DialogueRunner.start("ep03_bitter")
+		_run_until_blocking())
+	check("ep03.n01" in shown, "nobody alive: Nevin closes the story")
+	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "all-dead epilogue completes")
+
+
+func test_betrayal_epilogue_pov() -> void:
+	GameState.set_flag("informer", "kemal")
+	DialogueRunner.start("ep04_betrayal")
+	check(GameState.location.get("player") == "kemal", "the informer leads the betrayal epilogue")
+	GameState.reset()
+	GameState.set_flag("informer", "kemal")
+	GameState.set_status("kemal", "missing")
+	var shown := _collect_lines(func() -> void:
+		DialogueRunner.start("ep04_betrayal")
+		_run_until_blocking())
+	check("ep04.n01" in shown, "informer gone: narrated card instead of a scene")
+
+
+func test_gallery_rows() -> void:
+	SaveSystem.unlock_ending("separation")
+	var gallery := EndingsGallery.new()
+	var rows := gallery.rows()
+	gallery.free()
+	check(rows.size() == 5, "gallery lists five endings")
+	for r: Dictionary in rows:
+		if r["id"] == "separation":
+			check(r["unlocked"] and r["title"] == Localization.t("ending.separation.title"), "unlocked ending shows its title")
+		else:
+			check(not r["unlocked"] and r["title"] == Localization.t("gallery.locked"), "locked ending hidden: " + str(r["id"]))
+
+
+func test_credits_data() -> void:
+	var sections := Credits.load_sections()
+	check(sections.size() >= 5, "credits loaded")
+	check(Credits.display_name("credits.thanks_name") == Localization.t("credits.thanks_name"), "credit keys are translated")
+	check(Credits.display_name("NexDrive Game Studio") == "NexDrive Game Studio", "proper names are kept")

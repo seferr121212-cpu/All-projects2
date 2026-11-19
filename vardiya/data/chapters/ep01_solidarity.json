@@ -1,0 +1,286 @@
+{
+	"id": "ep01_solidarity",
+	"version": 1,
+	"title": "ep01.title",
+	"characters": [
+		"kemal",
+		"defne",
+		"riza"
+	],
+	"start": "start",
+	"nodes": {
+		"start": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "alive"
+					},
+					"next": "start_pd"
+				}
+			],
+			"else": "start_pk"
+		},
+		"start_pd": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "defne"
+				}
+			],
+			"next": "start_ld"
+		},
+		"start_ld": {
+			"type": "location",
+			"location": "loc.ep01.start_ld",
+			"scene": "factory_floor",
+			"spawn": "from_locker",
+			"player": "defne",
+			"next": "l01"
+		},
+		"start_pk": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "pov",
+					"value": "kemal"
+				}
+			],
+			"next": "start_lk"
+		},
+		"start_lk": {
+			"type": "location",
+			"location": "loc.ep01.start_lk",
+			"scene": "factory_floor",
+			"spawn": "from_locker",
+			"player": "kemal",
+			"next": "l01"
+		},
+		"l01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.l01",
+			"next": "l02"
+		},
+		"l02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.l02",
+			"next": "f_kemal",
+			"variants": [
+				{
+					"if": {
+						"flag": "company_blamed",
+						"eq": true
+					},
+					"text": "ep01.l02_v1"
+				}
+			]
+		},
+		"f_kemal": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.f_kemal",
+			"next": "f_defne",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ep01.f_kemal_v1"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "missing"
+					},
+					"text": "ep01.f_kemal_v2"
+				}
+			]
+		},
+		"f_defne": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.f_defne",
+			"next": "f_riza",
+			"variants": [
+				{
+					"if": {
+						"status": "defne",
+						"eq": "dead"
+					},
+					"text": "ep01.f_defne_v1"
+				},
+				{
+					"if": {
+						"status": "defne",
+						"eq": "missing"
+					},
+					"text": "ep01.f_defne_v2"
+				}
+			]
+		},
+		"f_riza": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.f_riza",
+			"next": "sel",
+			"variants": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"text": "ep01.f_riza_v1"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "missing"
+					},
+					"text": "ep01.f_riza_v2"
+				}
+			]
+		},
+		"sel": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.sel",
+			"next": "x01",
+			"variants": [
+				{
+					"if": {
+						"flag": "selim_dead",
+						"eq": true
+					},
+					"text": "ep01.sel_v1"
+				}
+			]
+		},
+		"x01": {
+			"type": "explore",
+			"scene": "factory_floor",
+			"objective": "ep01.x01.objective",
+			"items": [
+				{
+					"id": "ep01_sign",
+					"label": "ep01.it.ep01_sign",
+					"point": "ch01_work_order",
+					"journal": "journal.ep01.ep01_sign",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep01.it.ep01_sign.l1"
+						}
+					]
+				},
+				{
+					"id": "ep01_photos",
+					"label": "ep01.it.ep01_photos",
+					"point": "ch01_layoff_list",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ep01.it.ep01_photos.l1"
+						}
+					]
+				},
+				{
+					"id": "ep01_door",
+					"label": "ep01.it.ep01_door",
+					"point": "ch01_robot_panel",
+					"next": "c01"
+				}
+			]
+		},
+		"c01": {
+			"type": "choice",
+			"decision_id": "e1_son_soz",
+			"major": false,
+			"timer": 8,
+			"prompt": "ep01.c01.prompt",
+			"options": [
+				{
+					"id": "tomorrow",
+					"text": "ep01.c01.tomorrow",
+					"next": "o01",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "hopeful",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				},
+				{
+					"id": "remember",
+					"text": "ep01.c01.remember",
+					"next": "o01",
+					"effects": [
+						{
+							"mood": "kemal",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "kemal"
+							}
+						},
+						{
+							"mood": "defne",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "defne"
+							}
+						},
+						{
+							"mood": "riza",
+							"value": "calm",
+							"if": {
+								"flag": "pov",
+								"eq": "riza"
+							}
+						}
+					]
+				}
+			],
+			"timeout": {
+				"id": "silence",
+				"text": "dialogue.silence",
+				"next": "o01"
+			}
+		},
+		"o01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep01.o01",
+			"next": "end"
+		},
+		"end": {
+			"type": "end",
+			"next_chapter": null
+		}
+	}
+}

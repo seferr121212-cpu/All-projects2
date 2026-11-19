@@ -374,7 +374,51 @@
 				0,
 				4.4
 			],
-			"rot": 180
+			"rot": 180,
+			"if": {
+				"not": {
+					"flag": "selim_dead"
+				}
+			}
+		},
+		{
+			"id": "kemal",
+			"pos": [
+				-2.6,
+				0,
+				1.8
+			],
+			"rot": 90,
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			}
+		},
+		{
+			"id": "defne",
+			"pos": [
+				0.6,
+				0,
+				2.6
+			],
+			"rot": 200,
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			}
+		},
+		{
+			"id": "riza",
+			"pos": [
+				2.6,
+				0,
+				4.2
+			],
+			"rot": 230,
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			}
 		}
 	],
 	"points": {

@@ -1,0 +1,53 @@
+{
+	"_doc": "Credits roll. 'role' and 'names' entries starting with a locale prefix are translated; others are shown as-is (proper names).",
+	"sections": [
+		{
+			"role": "credits.studio",
+			"names": [
+				"NexDrive Game Studio"
+			]
+		},
+		{
+			"role": "credits.story",
+			"names": [
+				"NexDrive Game Studio"
+			]
+		},
+		{
+			"role": "credits.assist",
+			"names": [
+				"Claude Code (Anthropic)"
+			]
+		},
+		{
+			"role": "credits.engine",
+			"names": [
+				"Godot Engine 4 (MIT)"
+			]
+		},
+		{
+			"role": "credits.font",
+			"names": [
+				"credits.font_name"
+			]
+		},
+		{
+			"role": "credits.audio",
+			"names": [
+				"credits.audio_name"
+			]
+		},
+		{
+			"role": "credits.thanks",
+			"names": [
+				"credits.thanks_name"
+			]
+		},
+		{
+			"role": "",
+			"names": [
+				"credits.fiction"
+			]
+		}
+	]
+}

@@ -385,6 +385,7 @@ def check_location(rep: Report, lid: str, loc: dict, speakers: set) -> None:
             rep.error(f"{w}: texture {tx.get('path')} exceeds 1024 px budget")
 
 
+ENDING_LINK = "@ending"
 PLAYER_RADIUS = 0.3
 CELL = 0.2
 
@@ -624,6 +625,46 @@ def check_chapter(ctx: Context, path: Path, data: dict, decision_ids: dict, cfg:
             rep.error(f"{cid}.{nid}: can never reach an 'end' node")
 
 
+def check_chapter_links(rep: Report, data: dict, story_list: list, is_epilogue: bool) -> None:
+    """next_chapter must name the following story chapter; only the last one may say '@ending';
+    epilogues end the game (null)."""
+    cid = data.get("id")
+    for nid, n in data.get("nodes", {}).items():
+        if n.get("type") != "end":
+            continue
+        nxt = n.get("next_chapter")
+        w = f"{cid}.{nid}"
+        if is_epilogue:
+            if nxt not in (None, ""):
+                rep.error(f"{w}: an epilogue must end the game (next_chapter null), got '{nxt}'")
+        elif cid in story_list:
+            i = story_list.index(cid)
+            last = i == len(story_list) - 1
+            if last and nxt != ENDING_LINK:
+                rep.error(f"{w}: the last story chapter must end with next_chapter '{ENDING_LINK}', got '{nxt}'")
+            elif not last and nxt != story_list[i + 1]:
+                rep.error(f"{w}: next_chapter '{nxt}' should be the next chapter in index.json ('{story_list[i + 1]}')")
+        elif nxt == ENDING_LINK:
+            rep.error(f"{w}: '{ENDING_LINK}' is only allowed in the last story chapter")
+
+
+def check_epilogues(ctx: Context, endings: dict, epilogue_ids: list, game) -> None:
+    """Every ending needs an epilogue and a gallery hint; every epilogue must belong to an ending."""
+    rep = ctx.rep
+    used = set()
+    for eid, info in endings.get("ending_info", {}).items():
+        ep = info.get("epilogue")
+        if ep not in epilogue_ids:
+            rep.error(f"ending_info.{eid}: epilogue '{ep}' is not listed under 'epilogues' in index.json")
+        used.add(ep)
+        ctx.key(f"ending_info.{eid}.hint", info.get("hint"))
+        if game is not None and eid in game.get("endings", {}) and ep not in game.get("epilogues", {}):
+            rep.error(f"ending_info.{eid}: epilogue '{ep}' was never played by the full-game simulation")
+    for ep in epilogue_ids:
+        if ep not in used:
+            rep.warn(f"index.json: epilogue '{ep}' belongs to no ending")
+
+
 # --------------------------------------------------------------------------- #
 # Ending reachability
 # --------------------------------------------------------------------------- #
@@ -830,7 +871,7 @@ def check_locales(rep: Report, locales: dict) -> None:
 def scan_code_keys(root: Path) -> set[str]:
     """Locale keys referenced from GDScript (string literals that look like keys)."""
     keys = set()
-    pat = re.compile(r'"((?:menu|slot|settings|pause|dialogue|summary|ui|confirm|game|lang|input|char|hud|journal|qte|flow)\.[a-z0-9_.]+)"')
+    pat = re.compile(r'"((?:menu|slot|settings|pause|dialogue|summary|ui|confirm|game|lang|input|char|hud|journal|qte|flow|endscreen|gallery|credits)\.[a-z0-9_.]+)"')
     for f in root.rglob("*.gd"):
         keys.update(pat.findall(f.read_text(encoding="utf-8")))
     return keys
@@ -872,7 +913,11 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
     listed = set()
     story_list = [e.get("id") for e in index.get("chapters", [])]
     story_ids = set(story_list)
-    for entry in index.get("chapters", []) + index.get("test_chapters", []):
+    epilogue_ids = [e.get("id") for e in index.get("epilogues", [])]
+    epilogues: dict[str, dict] = {}
+    # Epilogues are short final scenes: no minimum number of major decisions.
+    ep_cfg = {**cfg, "min_major_decisions_per_chapter": 0}
+    for entry in index.get("chapters", []) + index.get("test_chapters", []) + index.get("epilogues", []):
         cid = entry.get("id")
         listed.add(cid)
         ctx.key(f"index.{cid}.title", entry.get("title"))
@@ -880,7 +925,12 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
         data = load_json(path, rep)
         if data is None:
             continue
-        check_chapter(ctx, path, data, decision_ids, cfg)
+        is_ep = cid in epilogue_ids
+        check_chapter(ctx, path, data, decision_ids, ep_cfg if is_ep else cfg)
+        check_chapter_links(rep, data, story_list, is_ep)
+        if is_ep:
+            epilogues[cid] = data
+            continue  # played from the final states of the full-game simulation
         if cid in story_ids:
             chapters.append(data)
             if cid != story_list[0]:
@@ -900,12 +950,21 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
 
     for k in sorted(scan_code_keys(root)):
         ctx.key("code", k)
+    for st in ("alive", "dead", "missing"):  # ending screen builds "status." + status
+        ctx.key("ending_screen", f"status.{st}")
+    credits = load_json(root / "data" / "credits.json", rep) or {}
+    for i, sec in enumerate(credits.get("sections", [])):
+        if sec.get("role"):
+            ctx.key(f"credits[{i}].role", sec["role"])
+        for name in sec.get("names", []):
+            if name.startswith("credits."):
+                ctx.key(f"credits[{i}].names", name)
 
     endings = load_json(root / "data" / "endings.json", rep) or {}
     check_death_impact(rep, chapters)
     game = None
     if game_sim and chapters and not rep.errors:
-        game = story_sim.simulate_game(chapters, flags, endings)
+        game = story_sim.simulate_game(chapters, flags, endings, epilogues)
         for cid, info in game["chapters"].items():
             if cid == story_list[0]:
                 continue
@@ -913,6 +972,10 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
                 rep.add(cfg.get("path_reachability", "warning"), f"{cid}: {msg}")
             rep.info.append(f"{cid}: {info['states']} play states from carried-over game states, "
                             f"{info['ends']} distinct outcomes")
+        for cid, info in game.get("epilogues", {}).items():
+            for msg in info["unreachable"]:
+                rep.add(cfg.get("path_reachability", "warning"), f"{cid}: {msg}")
+            rep.info.append(f"{cid}: played from {info['starts']} final game states ({info['ending']})")
         for e in game["pov_errors"]:
             rep.error(e)
         if game["sampled"]:
@@ -922,6 +985,7 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
     elif not game_sim:
         rep.info.append("full-game simulation skipped")
     witness = check_endings(ctx, endings, chapters, cfg, game=game)
+    check_epilogues(ctx, endings, epilogue_ids, game)
 
     unused = sorted(k for k in locales.get("tr", {}) if k not in ctx.used_keys
                     and not k.startswith(("input.", "lang.", "settings.", "menu.", "slot.", "confirm.",

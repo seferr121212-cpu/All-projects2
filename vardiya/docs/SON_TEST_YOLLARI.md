@@ -10,6 +10,7 @@
 - **ch06_informant**: `b6_sir=inform`, `b6_basin=lawyer`
 - **ch07_reckoning**: `b7_barisma=kd`, `b7_plan=leave`
 - **ch08_last_shift**: `b8_final=alone`, `b8_bedel=refuse`
+- **Final sahnesi**: `ep04_betrayal` (bölüm 8 sonunda `@ending` ile otomatik) → son kartı → kredi
 
 ## bitter_reckoning  (kural `r_all_dead`, hayatta: kimse, ortalama güven 0.0)
 
@@ -21,6 +22,7 @@
 - **ch06_informant**: —
 - **ch07_reckoning**: —
 - **ch08_last_shift**: —
+- **Final sahnesi**: `ep03_bitter` (bölüm 8 sonunda `@ending` ile otomatik) → son kartı → kredi
 
 ## secret  (kural `r_secret`, hayatta: kemal, defne, riza, ortalama güven -0.5)
 
@@ -32,6 +34,7 @@
 - **ch06_informant**: `b6_sir=confess`, `b6_basin=speak`
 - **ch07_reckoning**: `b7_barisma=silence`, `b7_plan=alone`
 - **ch08_last_shift**: `b8_final=silence`, `b8_bedel=name`
+- **Final sahnesi**: `ep05_secret` (bölüm 8 sonunda `@ending` ile otomatik) → son kartı → kredi
 
 ## separation  (kural `r_separation`, hayatta: kemal, defne, riza, ortalama güven -0.5)
 
@@ -43,6 +46,7 @@
 - **ch06_informant**: `b6_sir=confess`, `b6_basin=speak`
 - **ch07_reckoning**: `b7_barisma=silence`, `b7_plan=alone`
 - **ch08_last_shift**: `b8_final=speak`, `b8_bedel=silence`
+- **Final sahnesi**: `ep02_separation` (bölüm 8 sonunda `@ending` ile otomatik) → son kartı → kredi
 
 ## solidarity  (kural `r_solidarity`, hayatta: kemal, defne, riza, ortalama güven 2.83)
 
@@ -54,4 +58,5 @@
 - **ch06_informant**: `b6_sir=silence`, `b6_basin=speak`
 - **ch07_reckoning**: `b7_barisma=kr`, `b7_plan=together`
 - **ch08_last_shift**: `b8_final=speak`, `b8_bedel=silence`
+- **Final sahnesi**: `ep01_solidarity` (bölüm 8 sonunda `@ending` ile otomatik) → son kartı → kredi
 

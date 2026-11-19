@@ -10,8 +10,12 @@ const PauseMenu = preload("res://ui/pause_menu.gd")
 const ExploreHud = preload("res://ui/explore_hud.gd")
 const QteUI = preload("res://ui/qte_ui.gd")
 const JournalMenu = preload("res://ui/journal_menu.gd")
+const EndingScreen = preload("res://ui/ending_screen.gd")
+const Credits = preload("res://ui/credits.gd")
 const WorldView = preload("res://scenes/world/world_view.gd")
 const MENU_SCENE := "res://ui/main_menu.tscn"
+## next_chapter value of the last story chapter: resolve the ending, then play its epilogue.
+const ENDING_LINK := "@ending"
 const BENCHMARK_STEP_SEC := 0.35
 const BENCHMARK_EXPLORE_SEC := 2.0
 const BENCHMARK_LOOPS := 2
@@ -25,11 +29,15 @@ var _qte: QteUI
 var _journal: JournalMenu
 var _summary: ChapterSummary
 var _pause: PauseMenu
+var _ending_screen: EndingScreen
+var _credits: Credits
 var _save_icon: Label
 var _bench_timer := 0.0
 var _bench_loops_left := BENCHMARK_LOOPS
 var _bench_choice := 0
 var _next_chapter := ""
+## Set when this session resolved the ending (true if it was unlocked for the first time).
+var _ending_new := false
 
 
 func _ready() -> void:
@@ -68,6 +76,12 @@ func _ready() -> void:
 	_summary = ChapterSummary.new()
 	add_child(_summary)
 	_summary.continued.connect(_on_summary_continued)
+	_ending_screen = EndingScreen.new()
+	add_child(_ending_screen)
+	_ending_screen.continued.connect(_on_ending_continued)
+	_credits = Credits.new()
+	add_child(_credits)
+	_credits.finished.connect(_go_to_menu)
 	_journal = JournalMenu.new()
 	add_child(_journal)
 	_pause = PauseMenu.new()
@@ -107,7 +121,7 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _summary.visible:
+	if _summary.visible or _ending_screen.visible or _credits.visible:
 		return
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
@@ -181,23 +195,35 @@ func _flash_save_icon() -> void:
 	tw.tween_property(_save_icon, "modulate:a", 0.0, 0.4)
 
 
-func _on_chapter_finished(_chapter_id: String, next_chapter: String) -> void:
+func _on_chapter_finished(chapter_id: String, next_chapter: String) -> void:
 	_dialogue.hide_all()
 	_hud.hide_explore()
 	_world.set_exploring(false)
 	_next_chapter = next_chapter
 	if PerfMonitor.benchmark:
 		return
-	var ending := {}
-	if next_chapter == "" and _chapter_id_is_last(DialogueRunner.chapter.get("id", "")):
-		ending = DecisionManager.resolve_ending()
-		GameState.flags["ending"] = ending.get("ending", "")
-	_summary.show_summary(DialogueRunner.chapter, next_chapter == "", ending)
+	if next_chapter == ENDING_LINK:
+		var ending := DecisionManager.resolve_and_unlock_ending()
+		_ending_new = bool(ending.get("new", false))
+		_next_chapter = str(ending.get("epilogue", ""))
+		_summary.show_summary(DialogueRunner.chapter, false, ending)
+	elif SaveSystem.is_epilogue(chapter_id):
+		_show_ending_screen()
+	else:
+		_summary.show_summary(DialogueRunner.chapter, next_chapter == "")
 
 
-func _chapter_id_is_last(chapter_id: String) -> bool:
-	var order := SaveSystem.chapter_order
-	return not order.is_empty() and str(order[order.size() - 1]["id"]) == chapter_id
+func _show_ending_screen() -> void:
+	_world.unload()
+	_bg.visible = true
+	var id := str(GameState.get_flag("ending", ""))
+	SaveSystem.unlock_ending(id)  # e.g. resumed from a save made inside the epilogue
+	SaveSystem.autosave()
+	_ending_screen.show_ending(DecisionManager.ending_details(id), _ending_new)
+
+
+func _on_ending_continued() -> void:
+	_credits.start()
 
 
 func _on_summary_continued() -> void:

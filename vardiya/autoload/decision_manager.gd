@@ -373,6 +373,28 @@ func resolve_ending() -> Dictionary:
 		chosen = fallback
 	if chosen.is_empty():
 		return {}
-	var info: Dictionary = ending_info.get(chosen["ending"], {})
-	return {"rule": chosen["id"], "ending": chosen["ending"],
-		"title": info.get("title", ""), "description": info.get("description", "")}
+	return ending_details(str(chosen["ending"]), str(chosen["id"]))
+
+
+## Called when the last story chapter ends ("@ending"): decide the ending,
+## remember it in the "ending" flag (epilogue scenes read it) and unlock it in
+## the gallery profile. Adds "new": true if it was never reached before.
+func resolve_and_unlock_ending() -> Dictionary:
+	var ending := resolve_ending()
+	var id := str(ending.get("ending", ""))
+	GameState.set_flag("ending", id)
+	ending["new"] = SaveSystem.unlock_ending(id)
+	return ending
+
+
+## {"rule", "ending", "title", "description", "hint", "epilogue"} for one ending id.
+func ending_details(ending_id: String, rule_id: String = "") -> Dictionary:
+	var info: Dictionary = ending_info.get(ending_id, {})
+	return {"rule": rule_id, "ending": ending_id,
+		"title": info.get("title", ""), "description": info.get("description", ""),
+		"hint": info.get("hint", ""), "epilogue": info.get("epilogue", "")}
+
+
+## Ending ids in the order they are listed in ending_info (gallery order).
+func ending_ids() -> Array:
+	return ending_info.keys()

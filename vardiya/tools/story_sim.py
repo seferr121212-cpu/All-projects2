@@ -257,11 +257,13 @@ def _reduce(states: list, rel: dict, cap: int, seed: int = 11) -> list:
     return chosen[:cap]
 
 
-def simulate_game(chapters: list, flags: dict, endings: dict) -> dict:
+def simulate_game(chapters: list, flags: dict, endings: dict, epilogues: dict | None = None) -> dict:
     """Play every chapter in order, carrying each distinct end state into the next chapter.
+    Then resolve the ending of every final state and play that ending's epilogue from those states.
     Returns per-chapter unreachable lists, per-ending example paths and state counts."""
     vd = _vd()
-    rel = relevance(chapters, endings)
+    epilogues = epilogues or {}
+    rel = relevance(chapters + list(epilogues.values()), endings)
     states = [(vd.State(flags), [])]
     report = {"chapters": {}, "endings": {}, "ending_counts": {}, "pov_errors": [], "truncated": False, "sampled": False}
     for ch in chapters:
@@ -279,17 +281,32 @@ def simulate_game(chapters: list, flags: dict, endings: dict) -> dict:
         if not states:
             break
     rules = sorted(endings.get("endings", []), key=lambda e: e.get("priority", 0))
+    per_ending: dict = {}
     for st, path in states:
         rule = vd.winning_ending(rules, st)
         if rule is None:
             continue
         e = rule.get("ending")
+        final = st.clone()
+        final.flags["ending"] = e
+        per_ending.setdefault(e, []).append((final, path))
         report["ending_counts"][e] = report["ending_counts"].get(e, 0) + 1
         if e not in report["endings"] or len(path) < len(report["endings"][e]["path"]):
             report["endings"][e] = {"rule": rule.get("id"), "path": path,
                                     "alive": [c for c in vd.CHARACTERS if st.status[c] == "alive"],
                                     "avg_trust": round(st.avg_trust(), 2)}
     report["final_states"] = len(states)
+    report["epilogues"] = {}
+    info = endings.get("ending_info", {})
+    for e, starts in sorted(per_ending.items()):
+        ep_id = info.get(e, {}).get("epilogue")
+        ep = epilogues.get(ep_id)
+        if ep is None:
+            continue
+        r = simulate(ep, flags, rel=rel, start_states=starts)
+        report["epilogues"][ep_id] = {"ending": e, "unreachable": r["unreachable"], "states": r["paths"],
+                                      "starts": len(starts), "ends": len(r["end_states"])}
+        report["pov_errors"] += [f"{ep_id}: {x}" for x in r["pov_errors"]]
     return report
 
 
@@ -303,13 +320,21 @@ def main(argv=None) -> int:
         index = json.loads((root / "data/chapters/index.json").read_text(encoding="utf-8"))
         chapters = [json.loads((root / f"data/chapters/{e['id']}.json").read_text(encoding="utf-8")) for e in index["chapters"]]
         endings = json.loads((root / "data/endings.json").read_text(encoding="utf-8"))
-        r = simulate_game(chapters, flags, endings)
+        eps = {e["id"]: json.loads((root / f"data/chapters/{e['id']}.json").read_text(encoding="utf-8"))
+               for e in index.get("epilogues", [])}
+        r = simulate_game(chapters, flags, endings, eps)
         for cid, info in r["chapters"].items():
             print(f"{cid}: {info['starts_explored']}/{info['starts']} start states fully explored, "
                   f"{info['states']} states, {info['ends']} distinct end states")
             for m in info["unreachable"]:
                 print(f"  ! {m}")
         print(f"final states: {r['final_states']}")
+        for eid, info in r["epilogues"].items():
+            print(f"{eid} ({info['ending']}): {info['starts']} start states, {info['states']} states")
+            for m in info["unreachable"]:
+                print(f"  ! {m}")
+        for m in r["pov_errors"]:
+            print(f"  POV ERROR {m}")
         for e, info in sorted(r["endings"].items()):
             print(f"\nENDING {e} ({r['ending_counts'][e]} final states) via {info['rule']}, alive={info['alive']}, avg_trust={info['avg_trust']}")
             print("  " + " > ".join(x for x in info["path"] if not x.startswith("examine:")))

@@ -1,5 +1,5 @@
 {
-	"_doc": "Chapter play order. test_chapters are validated and used by tests but are not part of a new game.",
+	"_doc": "Chapter play order. The last story chapter ends with next_chapter '@ending': the ending is resolved from data/endings.json and that ending's epilogue (listed under 'epilogues') is played. test_chapters are validated and used by tests but are not part of a new game.",
 	"chapters": [
 		{
 			"id": "ch01_last_check",
@@ -71,6 +71,53 @@
 		{
 			"id": "ch00_test",
 			"title": "ch00.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		}
+	],
+	"epilogues": [
+		{
+			"id": "ep01_solidarity",
+			"title": "ep01.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ep02_separation",
+			"title": "ep02.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ep03_bitter",
+			"title": "ep03.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ep04_betrayal",
+			"title": "ep04.title",
+			"characters": [
+				"kemal",
+				"defne",
+				"riza"
+			]
+		},
+		{
+			"id": "ep05_secret",
+			"title": "ep05.title",
 			"characters": [
 				"kemal",
 				"defne",
