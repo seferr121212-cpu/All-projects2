@@ -24,6 +24,10 @@ func _ready() -> void:
 	_test_drawing()
 	_test_regions_and_seasons()
 	_test_net_haul()
+	_test_new_regions()
+	_test_minigames()
+	_test_herding()
+	_test_cafe()
 	_test_translation_coverage()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -172,7 +176,7 @@ func _test_album() -> void:
 
 
 func _test_dialogue_data() -> void:
-	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json", "res://data/npcs/hasan.json"]:
+	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json", "res://data/npcs/hasan.json", "res://data/npcs/zeynep.json", "res://data/npcs/ferhat.json"]:
 		var data: Dictionary = DialogueRunner.load_data(path)
 		_check(not data.is_empty(), "%s parses" % path)
 		var nodes: Dictionary = data.nodes
@@ -479,3 +483,124 @@ func _collect_files(dir_path: String, out: Array[String]) -> void:
 	for d: String in dir.get_directories():
 		if not d.begins_with("."):
 			_collect_files(dir_path.path_join(d), out)
+
+
+func _test_new_regions() -> void:
+	for id: StringName in [&"cappadocia", &"eastern_plateau"]:
+		var def: RegionDefinition = GameState.get_region_def(id)
+		_check(def != null and ResourceLoader.exists(def.scene_path), "%s defined with a scene" % id)
+	var h1: float = GameState.travel_hours(&"aegean_village", &"cappadocia")
+	var h2: float = GameState.travel_hours(&"cappadocia", &"eastern_plateau")
+	_check(h1 > 5.0 and h2 > 5.0 and GameState.travel_hours(&"aegean_village", &"eastern_plateau") > h1, "inland travel times grow eastward (%.1f, %.1f h)" % [h1, h2])
+	var cap := CappadociaTerrain.new()
+	cap.cell = 12.0
+	add_child(cap)
+	_check(cap._mesa(0.0, cap.stream_z(0.0)) == 0.0, "the stream valley stays open")
+	_check(cap.distance_to_road(cap.road_loop[0].x, cap.road_loop[0].y) <= cap.cell and cap._mesa(cap.road_loop[0].x, cap.road_loop[0].y) < 0.05, "no mesas on the road (%.1f, %.2f)" % [cap.distance_to_road(cap.road_loop[0].x, cap.road_loop[0].y), cap._mesa(cap.road_loop[0].x, cap.road_loop[0].y)])
+	cap.queue_free()
+	var music: AudioStreamWAV = MusicGenerator.generate("anatolia", "day", 1)
+	_check(music.data.size() > 100000, "Anatolian music style generates")
+
+
+func _test_minigames() -> void:
+	GameState.flags = {}
+	var pottery := PotteryActivity.new()
+	add_child(pottery)
+	pottery.begin()
+	_check(GameState.has_flag("zeynep.pottery.on"), "pottery job opens")
+	pottery._game_start()
+	pottery.height = 1.0
+	pottery.wobble = 0.0
+	var good: float = pottery.shape_score()
+	pottery.wobble = 0.8
+	pottery.height = 0.5
+	var poor: float = pottery.shape_score()
+	_check(good > 0.9 and poor < good and poor > 0.0, "pot score rewards height and steadiness (%.2f vs %.2f)" % [good, poor])
+	pottery.speed = 0.6
+	_check(pottery.in_band(), "wheel speed band")
+	pottery.finish_game(good)
+	var money: int = GameState.money
+	var pay: int = pottery.complete()
+	_check(pay > GameState.ECONOMY.pottery_pay and GameState.money == money + pay and not GameState.has_flag("zeynep.pottery.on"), "good pot pays above base, flags cleared")
+	pottery.queue_free()
+	var brew := TeaBrewingActivity.new()
+	add_child(brew)
+	brew.begin()
+	brew._game_start()
+	brew.temp = 99.0
+	brew._game_input(_press())
+	brew.steep = 0.72
+	brew._game_input(_press())
+	brew.brew = 0.4
+	brew.fill = 0.4
+	brew._next_pour()
+	brew.fill = 0.9
+	brew._next_pour()
+	_check(GameState.has_flag("fadime.tea_brew.done") and brew.score > 0.95, "perfect brew scores top (%.2f)" % brew.score)
+	brew.complete()
+	brew.queue_free()
+	var repair := EngineRepairActivity.new()
+	add_child(repair)
+	repair.begin()
+	repair._game_start()
+	for r: int in 3:
+		for b: int in repair.sequence.duplicate():
+			repair.press_bolt(b)
+	_check(GameState.has_flag("recep.engine_repair.done") and is_equal_approx(repair.score, 1.0), "repeating the bolt order finishes the repair")
+	repair.complete()
+	repair.queue_free()
+	var mend := NetMendingActivity.new()
+	add_child(mend)
+	mend.begin()
+	mend._game_start()
+	mend.holes[Vector2i(2, 2)] = 0.0
+	mend.opened = 1
+	mend.mend(Vector2i(2, 2))
+	_check(mend.holes.is_empty() and mend.mended > 0.9, "tying a fresh hole mends it fully")
+	mend.cancel()
+	_check(not mend.active and not GameState.has_flag("hasan.net_mend.on"), "leaving mid-job clears it quietly")
+	mend.queue_free()
+
+
+func _press() -> InputEvent:
+	var ev := InputEventAction.new()
+	ev.action = &"interact"
+	ev.pressed = true
+	return ev
+
+
+func _test_herding() -> void:
+	GameState.flags = {}
+	var herd := SheepHerdingActivity.new()
+	add_child(herd)
+	herd.begin()
+	_check(herd.sheep.size() == herd.sheep_count and herd.penned_count() == 0, "flock spawns outside the pen")
+	# A sheep may only cross the wall through the gap (-Z side by default).
+	var pc := Vector2(herd.pen_center().x, herd.pen_center().z)
+	var s: Dictionary = herd.sheep[0]
+	var through_wall: Vector2 = herd._respect_walls(pc + Vector2(0, 8.0), pc + Vector2(0, 6.5), pc, s)
+	var through_gap: Vector2 = herd._respect_walls(pc + Vector2(0, -8.0), pc + Vector2(0, -6.5), pc, s)
+	_check(through_wall.distance_to(pc) > 7.0 and through_gap.distance_to(pc) < 7.0, "the pen wall holds; the gap lets sheep in")
+	herd.complete()
+	_check(not herd.active and herd.sheep.is_empty(), "herding ends cleanly")
+	herd.queue_free()
+
+
+func _test_cafe() -> void:
+	var cafe := TravellingCafe.new()
+	add_child(cafe)
+	GameState.current_region_id = &"cappadocia"
+	_check(cafe.region_menu().has("CAFE_AYRAN") and not cafe.region_menu().has("CAFE_LEMONADE"), "café menu follows the region")
+	GameState.upgrades["cafe_kit"] = 2
+	_check(cafe.session_size() == GameState.ECONOMY.cafe_customers + 3, "level 2 kit brings more customers")
+	cafe.open = true
+	var node := Node3D.new()
+	add_child(node)
+	cafe.customers.append({"node": node, "bubble": Label3D.new(), "order": "CAFE_AYRAN", "state": "wait", "target": Vector3.ZERO, "from": Vector3.ZERO, "wait": 0.0})
+	var money: int = GameState.money
+	_check(cafe.serve("CAFE_TEA") == 0 and GameState.money == money, "a wrong order costs nothing and can be retried")
+	var gain: int = cafe.serve("CAFE_AYRAN")
+	_check(gain > 0 and GameState.money == money + gain and cafe.served == 1, "a quick right order earns price + tip - cost (%d)" % gain)
+	GameState.upgrades.erase("cafe_kit")
+	cafe.open = false
+	cafe.queue_free()

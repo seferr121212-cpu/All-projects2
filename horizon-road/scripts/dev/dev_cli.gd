@@ -40,6 +40,10 @@ func _ready() -> void:
 		await _interior_test(_args.get("stop", ""))
 	if _args.has("fishing"):
 		await _fishing_test(_args.get("stop", ""))
+	if _args.has("job"):
+		await _job_test(_args["job"], _args.get("stop", ""))
+	if _args.has("cafe"):
+		await _cafe_test(_args.get("stop", ""))
 	if _args.has("travel"):
 		await _travel_test(_args["travel"])
 	if _args.has("sketch"):
@@ -571,6 +575,122 @@ func _travel_test(region_id: String) -> void:
 		await get_tree().process_frame
 	var cam_travel := get_tree().current_scene.find_child("TravelController", true, false) as TravelController
 	print("[DevCli] travel: arrived region=%s scene=%s day=%d %s fuel=%.1f camper=%s near_gate=%s" % [GameState.current_region_id, get_tree().current_scene.name, TimeManager.day, TimeManager.get_clock_string(), GameState.fuel, cam_travel.camper.global_position.snapped(Vector3.ONE), GameState.current_region.is_near_gate(cam_travel.camper.global_position)])
+
+
+## --job=<NpcNode>:<ActivityNode>:<choice key> [--stop=game]: talk the NPC
+## into a job, walk to it, play (auto-finish at 80%), report back, get paid.
+func _job_test(spec: String, stop: String) -> void:
+	var parts: PackedStringArray = spec.split(":")
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var ui := scene.find_child("DialogueUI", true, false) as DialogueUI
+	var npc := scene.find_child(parts[0], true, false) as Npc
+	var act := scene.find_child(parts[1], true, false) as Activity
+	if parts[2].ends_with("WORK2"):
+		GameState.add_relationship(npc.npc_id, 40)  # second jobs open with friendship
+	for i: int in 60:
+		await get_tree().physics_frame
+		if i > 10 and travel.camper.is_stopped():
+			break
+	_press_once(&"interact")
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, npc.global_position + npc.global_basis.z * -1.7)
+	await get_tree().physics_frame
+	var focus: Interactable = travel.get_focused_interactable()
+	if focus:
+		focus.interacted.emit(travel.walker)
+	await _settle()
+	while ui.runner.current_id != "hub" and ui.runner.current_id != "":
+		if ui._name_row.visible:
+			ui._name_edit.text = "Deniz"
+			ui._submit_name()
+			await _settle()
+		else:
+			await _advance(ui)
+	await _choose(ui, parts[2])
+	await _choose(ui, "CH_YES_GLADLY")
+	while ui.runner.current_id != "":
+		await _advance(ui)
+	print("[DevCli] job: started=%s status=%s" % [act.active, act.get_status_text()])
+	if act is SheepHerdingActivity:
+		var herd := act as SheepHerdingActivity
+		_place_walker(travel, herd.global_position + Vector3(0, 0, 30))
+		for i: int in 120:
+			await get_tree().physics_frame
+		if stop == "game":
+			return
+		for sh: Dictionary in herd.sheep:
+			(sh.node as Node3D).global_position = herd.pen_center() + Vector3(randf_range(-2, 2), 0, randf_range(-2, 2))
+		for i: int in 5:
+			await get_tree().process_frame
+		print("[DevCli] job: penned=%d done=%s" % [herd.penned_count(), GameState.has_flag("ferhat.herd_done")])
+	else:
+		var game := act as MiniGameActivity
+		_place_walker(travel, game.global_position + game.global_basis.z * 1.6)
+		await get_tree().physics_frame
+		var spot: Interactable = travel.get_focused_interactable()
+		print("[DevCli] job: spot=%s" % (spot.prompt_key if spot else "none"))
+		if spot:
+			spot.interacted.emit(travel.walker)
+		for i: int in 90:
+			await get_tree().process_frame
+		if stop == "game":
+			return
+		game.finish_game(0.8)
+		await _settle()
+	var money_before: int = GameState.money
+	_place_walker(travel, npc.global_position + npc.global_basis.z * -1.7)
+	await get_tree().physics_frame
+	focus = travel.get_focused_interactable()
+	if focus:
+		focus.interacted.emit(travel.walker)
+	await _settle()
+	for i: int in 3:
+		if ui.runner.current_id == "hub" or ui.runner.current_id == "":
+			break
+		await _advance(ui)
+	print("[DevCli] job: paid=%d active=%s node=%s" % [GameState.money - money_before, act.active, ui.runner.current_id])
+	if stop == "paid":
+		return
+	ui._close()
+
+
+## --cafe [--stop=menu]: buy the kit, open the café behind the camper, serve.
+func _cafe_test(stop: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	GameState.upgrades["cafe_kit"] = 1
+	for i: int in 60:
+		await get_tree().physics_frame
+		if i > 10 and travel.camper.is_stopped():
+			break
+	_press_once(&"interact")
+	for i: int in 10:
+		await get_tree().physics_frame
+	var cafe := get_tree().get_first_node_in_group(&"cafe") as TravellingCafe
+	print("[DevCli] cafe: can_open=%s" % cafe.can_open())
+	cafe.open_cafe()
+	cafe._spawn_t = 0.0
+	var money_before: int = GameState.money
+	for i: int in 2400:
+		await get_tree().physics_frame
+		if cafe._waiting_customer() != null:
+			break
+	var c: Variant = cafe._waiting_customer()
+	print("[DevCli] cafe: waiting=%s order=%s" % [c != null, c.order if c else ""])
+	_place_walker(travel, cafe._counter.global_position + cafe.global_basis.z * 1.3)
+	await get_tree().physics_frame
+	if stop == "menu":
+		cafe.open_menu()
+		return
+	if c:
+		var wrong: int = cafe.serve("CAFE_SIMIT" if c.order != "CAFE_SIMIT" else "CAFE_TEA")
+		var right: int = cafe.serve(c.order)
+		print("[DevCli] cafe: wrong=%d right=%d" % [wrong, right])
+	for i: int in 30:
+		await get_tree().process_frame
+	print("[DevCli] cafe: served=%d earned=%d money+%d" % [cafe.served, cafe.earned, GameState.money - money_before])
 
 
 func _place_walker(travel: TravelController, pos: Vector3) -> void:
