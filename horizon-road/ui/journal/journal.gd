@@ -19,6 +19,8 @@ var _detail_image := TextureRect.new()
 var _detail_text := Label.new()
 var _detail_entry: Dictionary = {}
 var _people_box := VBoxContainer.new()
+var _drawing_grid := GridContainer.new()
+var _drawing_empty := Label.new()
 
 
 func _ready() -> void:
@@ -69,10 +71,12 @@ func close() -> void:
 func _refresh() -> void:
 	_tabs.set_tab_title(0, tr(&"JOURNAL_ALBUM"))
 	_tabs.set_tab_title(1, tr(&"JOURNAL_COLLECTION"))
-	_tabs.set_tab_title(2, tr(&"JOURNAL_PEOPLE"))
+	_tabs.set_tab_title(2, tr(&"JOURNAL_DRAWINGS"))
+	_tabs.set_tab_title(3, tr(&"JOURNAL_PEOPLE"))
 	_fill_album()
 	_fill_collection()
 	_fill_people()
+	_fill_drawings()
 
 
 # --- Album -----------------------------------------------------------------
@@ -98,9 +102,29 @@ func _fill_album() -> void:
 		_album_grid.add_child(card)
 
 
+func _fill_drawings() -> void:
+	for child: Node in _drawing_grid.get_children():
+		child.queue_free()
+	var entries: Array[Dictionary] = GameState.drawings.entries
+	_drawing_empty.visible = entries.is_empty()
+	for i: int in range(entries.size() - 1, -1, -1):
+		var entry: Dictionary = entries[i]
+		var card := VBoxContainer.new()
+		var button := TextureButton.new()
+		button.texture_normal = GameState.drawings.get_thumbnail(entry)
+		button.ignore_texture_size = true
+		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_COVERED
+		button.custom_minimum_size = Vector2(256, 144)
+		button.pressed.connect(_show_detail.bind(entry))
+		card.add_child(button)
+		card.add_child(_label("✎   %s" % _when(entry), 15, INK_SOFT))
+		_drawing_grid.add_child(card)
+
+
 func _show_detail(entry: Dictionary) -> void:
 	_detail_entry = entry
-	_detail_image.texture = GameState.album.load_full(entry)
+	var is_drawing: bool = entry.get("kind", "") == "drawing"
+	_detail_image.texture = GameState.drawings.load_full(entry) if is_drawing else GameState.album.load_full(entry)
 	var names: PackedStringArray = []
 	var moments: PackedStringArray = []
 	for item: Dictionary in entry.get("subject_list", []):
@@ -111,7 +135,7 @@ func _show_detail(entry: Dictionary) -> void:
 	var lines: PackedStringArray = [
 		"%s   ·   %s   ·   %s" % [_when(entry), tr(&"REGION_BLACKSEA_HIGHLAND") if entry.get("region", "") == "blacksea_highland" else entry.get("region", ""),
 			tr(StringName(WeatherManager.profiles.get(StringName(entry.get("weather", "clear")), WeatherManager.profiles[&"clear"]).name_key))],
-		"%s: %s  %d" % [tr(&"JOURNAL_SCORE"), _stars(entry), int(entry.get("score", 0))],
+		("%s: %d" % [tr(&"JOURNAL_STROKES"), int(entry.get("strokes", 0))]) if is_drawing else ("%s: %s  %d" % [tr(&"JOURNAL_SCORE"), _stars(entry), int(entry.get("score", 0))]),
 		"%s: %s" % [tr(&"JOURNAL_SUBJECTS"), ", ".join(names) if not names.is_empty() else "—"],
 	]
 	if not moments.is_empty():
@@ -252,6 +276,20 @@ func _build() -> void:
 	_collection_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	collection_scroll.add_child(_collection_box)
 	_tabs.add_child(collection_scroll)
+
+	var drawing_scroll := ScrollContainer.new()
+	drawing_scroll.name = "Drawings"
+	var drawing_col := VBoxContainer.new()
+	drawing_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_drawing_empty.text = "JOURNAL_EMPTY_DRAWINGS"
+	_drawing_empty.add_theme_color_override(&"font_color", INK_SOFT)
+	drawing_col.add_child(_drawing_empty)
+	_drawing_grid.columns = 4
+	_drawing_grid.add_theme_constant_override(&"h_separation", 18)
+	_drawing_grid.add_theme_constant_override(&"v_separation", 14)
+	drawing_col.add_child(_drawing_grid)
+	drawing_scroll.add_child(drawing_col)
+	_tabs.add_child(drawing_scroll)
 
 	var people_scroll := ScrollContainer.new()
 	people_scroll.name = "People"

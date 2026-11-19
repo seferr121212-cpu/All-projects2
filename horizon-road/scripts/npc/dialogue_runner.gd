@@ -14,6 +14,7 @@ signal line_shown(text: String)
 signal choices_shown(choices: Array[Dictionary])
 signal name_requested(text: String)
 signal photo_picker_requested
+signal drawing_picker_requested
 signal shop_requested
 signal ended
 
@@ -69,8 +70,15 @@ func choose(index: int) -> void:
 		return  # an action ended or redirected the conversation
 	if choice.has("next"):
 		_enter(choice.next)
-	elif not ("open_photo_picker" in choice.get("actions", []) or "open_shop" in choice.get("actions", [])):
+	elif not _opens_panel(choice.get("actions", [])):
 		_end()
+
+
+func _opens_panel(actions: Array) -> bool:
+	for a: String in ["open_photo_picker", "open_drawing_picker", "open_shop"]:
+		if a in actions:
+			return true
+	return false
 
 
 func submit_name(player_name: String) -> void:
@@ -82,7 +90,8 @@ func submit_name(player_name: String) -> void:
 
 ## Player picked a photo to show. Decides the NPC's reaction.
 func choose_photo(entry: Dictionary) -> void:
-	var reactions: Dictionary = data.get("photo_reactions", {})
+	var is_drawing: bool = entry.get("kind", "") == "drawing"
+	var reactions: Dictionary = data.get("drawing_reactions" if is_drawing else "photo_reactions", data.get("photo_reactions", {}))
 	_pending_photo = entry
 	if String(npc_id) in entry.get("sold_to", []):
 		_enter(reactions.get("already", "hub"))
@@ -93,7 +102,7 @@ func choose_photo(entry: Dictionary) -> void:
 		shown.append(String(npc_id))
 		entry["shown_to"] = shown
 		GameState.add_relationship(npc_id, ECONOMY.points_photo_shown)
-		GameState.album.save_index()
+		_save_book(entry)
 	if _sales_today() >= ECONOMY.photo_sales_per_day:
 		_enter(reactions.get("limit", "hub"))
 		return
@@ -134,6 +143,8 @@ func check(condition: Dictionary) -> bool:
 	if condition.has("level_max") and level > int(condition.level_max):
 		return false
 	if condition.has("has_photos") and GameState.album.entries.is_empty() == bool(condition.has_photos):
+		return false
+	if condition.has("has_drawings") and GameState.drawings.entries.is_empty() == bool(condition.has_drawings):
 		return false
 	if condition.has("var_min"):
 		for key: Variant in condition.var_min:
@@ -205,6 +216,8 @@ func _apply_actions(actions: Array) -> void:
 					vars["amount"] = activity.complete()
 			"open_photo_picker":
 				photo_picker_requested.emit()
+			"open_drawing_picker":
+				drawing_picker_requested.emit()
 			"sell_photo":
 				_sell_pending_photo()
 			"open_shop":
@@ -225,12 +238,19 @@ func _sell_pending_photo() -> void:
 	var sold: Array = _pending_photo.get("sold_to", [])
 	sold.append(String(npc_id))
 	_pending_photo["sold_to"] = sold
-	GameState.album.save_index()
+	_save_book(_pending_photo)
 	if _photo_matches_interests(_pending_photo):
 		GameState.add_relationship(npc_id, ECONOMY.points_photo_sold_interest)
 	GameState.set_counter("%s.photo_sale_day" % npc_id, TimeManager.day)
 	GameState.set_counter("%s.photo_sales" % npc_id, _sales_today() + 1)
 	_pending_photo = {}
+
+
+func _save_book(entry: Dictionary) -> void:
+	if entry.get("kind", "") == "drawing":
+		GameState.drawings.save_index()
+	else:
+		GameState.album.save_index()
 
 
 func _sales_today() -> int:

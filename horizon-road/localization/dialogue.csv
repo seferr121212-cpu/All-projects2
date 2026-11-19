@@ -86,3 +86,13 @@ RECEP_PHOTO_KEPT,"Fair enough, keep it.","Peki, sende kalsın."
 RECEP_BYE,"Drive safe. And mind the potholes!","Dikkatli sür. Çukurlara da dikkat!"
 UI_TANK_FULL,Tank full,Depo dolu
 SUBJ_NPC_RECEP,Recep,Recep
+FADIME_CH_DRAWING,I drew something for you to see.,Sana göstermek için bir şey çizdim.
+RECEP_CH_DRAWING,Want to see a drawing of mine?,Bir çizimimi görmek ister misin?
+FADIME_DRAWING_LOVE,"You drew this yourself? With your own hands! My heart is warm. I'll hang it by the stove... {amount} lira, will you take it?","Bunu sen mi çizdin? Kendi elinle! Yüreğim ısındı. Ocağın yanına asarım... {amount} lira, verir misin?"
+FADIME_DRAWING_NICE,"Oh, how sweet. You have a good hand. I'd give {amount} lira for it.","Aaa, ne tatlı. Elin yatkın senin. Buna {amount} lira veririm."
+FADIME_DRAWING_ALREADY,"That one's already hanging on my wall, dear.","O zaten duvarımda asılı, uşağum."
+FADIME_DRAWING_SOLD,"Hand-made things are the most precious. Thank you.","El emeği en kıymetlisidir. Sağ ol."
+RECEP_DRAWING_LOVE,"Well I never! You drew the old tortoise? I'll frame it. {amount} lira, deal?","Vay be! Tosbağayı sen mi çizdin? Bunu çerçeveletirim. {amount} lira, anlaştık mı?"
+RECEP_DRAWING_NICE,"Not bad for a traveller. {amount} lira?","Bir yolcuya göre fena değil. {amount} lira?"
+RECEP_DRAWING_ALREADY,"I've got that one by the workbench.","O tezgâhın yanında asılı zaten."
+RECEP_DRAWING_SOLD,"The lads will think I hired an artist.","Çocuklar sanatçı tuttuğumu sanacak."

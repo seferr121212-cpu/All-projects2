@@ -25,6 +25,7 @@ var _name_row := HBoxContainer.new()
 var _name_edit := LineEdit.new()
 var _picker := PanelContainer.new()
 var _picker_grid := GridContainer.new()
+var _picker_title := Label.new()
 var _shop := PanelContainer.new()
 var _shop_list := VBoxContainer.new()
 var _shop_header := Label.new()
@@ -49,7 +50,8 @@ func start(who: Npc) -> void:
 	runner.line_shown.connect(_on_line)
 	runner.choices_shown.connect(_on_choices)
 	runner.name_requested.connect(_on_name_requested)
-	runner.photo_picker_requested.connect(_open_picker)
+	runner.photo_picker_requested.connect(_open_picker.bind(false))
+	runner.drawing_picker_requested.connect(_open_picker.bind(true))
 	runner.shop_requested.connect(_open_shop)
 	runner.ended.connect(_close)
 	GameState.set_context(GameState.Context.DIALOGUE)
@@ -182,15 +184,17 @@ func _submit_name(_t: String = "") -> void:
 	_refresh_header()
 
 
-func _open_picker() -> void:
+func _open_picker(drawings: bool) -> void:
 	for child: Node in _picker_grid.get_children():
 		child.queue_free()
-	var entries: Array[Dictionary] = GameState.album.entries
+	_picker_title.text = "UI_PICK_DRAWING" if drawings else "UI_PICK_PHOTO"
+	var book: RefCounted = GameState.drawings if drawings else GameState.album
+	var entries: Array[Dictionary] = book.entries
 	for i: int in range(entries.size() - 1, -1, -1):
 		var entry: Dictionary = entries[i]
 		var card := VBoxContainer.new()
 		var b := TextureButton.new()
-		b.texture_normal = GameState.album.get_thumbnail(entry)
+		b.texture_normal = book.get_thumbnail(entry)
 		b.ignore_texture_size = true
 		b.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_COVERED
 		b.custom_minimum_size = Vector2(224, 126)
@@ -377,11 +381,9 @@ func _build() -> void:
 	_picker.offset_top = 90
 	_picker.offset_bottom = -380
 	var pcol := VBoxContainer.new()
-	var title := Label.new()
-	title.text = "UI_PICK_PHOTO"
-	title.add_theme_font_size_override(&"font_size", 22)
-	title.add_theme_color_override(&"font_color", INK)
-	pcol.add_child(title)
+	_picker_title.add_theme_font_size_override(&"font_size", 22)
+	_picker_title.add_theme_color_override(&"font_color", INK)
+	pcol.add_child(_picker_title)
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_picker_grid.columns = 5

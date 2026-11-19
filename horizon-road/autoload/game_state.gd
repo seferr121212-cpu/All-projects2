@@ -15,7 +15,7 @@ signal notified(text: String)
 
 enum PlayerMode { DRIVING, ON_FOOT, INTERIOR }
 ## Who owns player input right now. Gameplay systems ignore input outside GAMEPLAY.
-enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE, MENU }
+enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE, MENU, SKETCH }
 
 static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
 
@@ -40,6 +40,8 @@ var context: Context = Context.GAMEPLAY
 var lens_level: int = 0
 ## Photo album persists itself under user://photos, independent of save slots.
 var album := PhotoAlbum.new()
+## Sketchbook, also independent of save slots.
+var drawings := DrawingBook.new()
 ## Runtime only (not saved): the active region root, so systems can query terrain.
 var current_region: Region = null
 
@@ -47,6 +49,7 @@ var current_region: Region = null
 func _ready() -> void:
 	InputSetup.register_default_actions()
 	album.load_index()
+	drawings.load_index()
 	if DevCli.is_requested():
 		add_child(DevCli.new())
 

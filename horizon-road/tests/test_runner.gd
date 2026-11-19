@@ -21,6 +21,7 @@ func _ready() -> void:
 	_test_upgrades_and_fuel()
 	_test_rest()
 	_test_full_save()
+	_test_drawing()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 
@@ -168,7 +169,7 @@ func _test_album() -> void:
 
 
 func _test_dialogue_data() -> void:
-	for path: String in ["res://data/npcs/fadime.json"]:
+	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json"]:
 		var data: Dictionary = DialogueRunner.load_data(path)
 		_check(not data.is_empty(), "%s parses" % path)
 		var nodes: Dictionary = data.nodes
@@ -183,7 +184,8 @@ func _test_dialogue_data() -> void:
 					bad_refs.append("%s->%s" % [id, ref])
 			for c: Dictionary in n.get("choices", []):
 				keys.append(c.text)
-		for target: String in (data.photo_reactions as Dictionary).values():
+		var reaction_targets: Array = (data.photo_reactions as Dictionary).values() + (data.get("drawing_reactions", {}) as Dictionary).values()
+		for target: String in reaction_targets:
 			if not nodes.has(target):
 				bad_refs.append("photo_reactions->" + target)
 		_check(bad_refs.is_empty(), "%s: all node references exist %s" % [path.get_file(), bad_refs])
@@ -341,3 +343,47 @@ class _SaveProbe extends Node:
 
 	func from_save(data: Dictionary) -> void:
 		value = int(data.value)
+
+
+func _test_drawing() -> void:
+	var canvas := PaintCanvas.new()
+	add_child(canvas)
+	_check(canvas.coverage() == 0.0, "new canvas is empty")
+	canvas.brush_color = Color(0.8, 0.2, 0.2)
+	canvas.brush_radius = 12.0
+	canvas.begin_stroke(Vector2(100, 100))
+	canvas.continue_stroke(Vector2(700, 300))
+	canvas.end_stroke()
+	var px: Color = canvas.image.get_pixel(400, 200)
+	_check(px.a > 0.9 and px.r > 0.7, "stroke paints along its path (%s)" % px)
+	_check(canvas.coverage() > 0.0 and canvas.strokes == 1, "coverage and stroke count update")
+	var composed: Image = canvas.compose()
+	var paper_px: Color = composed.get_pixel(5, 5)
+	var paper_ok: bool = absf(paper_px.r - PaintCanvas.PAPER.r) < 0.01 and absf(paper_px.b - PaintCanvas.PAPER.b) < 0.01
+	_check(paper_ok and composed.get_pixel(400, 200).r > 0.7, "compose = paper + paint (%s)" % paper_px)
+	canvas.erasing = true
+	canvas.begin_stroke(Vector2(400, 200))
+	canvas.end_stroke()
+	_check(canvas.image.get_pixel(400, 200).a == 0.0, "eraser clears paint")
+	canvas.undo()
+	_check(canvas.image.get_pixel(400, 200).a > 0.9, "undo restores the erased paint")
+	_check(DrawingBook.value_for(0.6, 5, true) > DrawingBook.value_for(0.1, 1, false), "more effort, more value")
+	var book := DrawingBook.new()
+	book.load_index()
+	var before: int = book.entries.size()
+	var entry: Dictionary = book.add_drawing(composed, {"value": 20, "subject_list": [{"id": "SUBJ_TEA_GARDEN", "name_key": "SUBJ_TEA_GARDEN", "category": 0}]})
+	var again := DrawingBook.new()
+	again.load_index()
+	_check(again.entries.size() == before + 1 and again.entries[again.entries.size() - 1].kind == "drawing", "sketchbook persists")
+	# Selling a drawing uses the NPC's drawing reactions.
+	GameState.relationships = {}
+	GameState.counters = {}
+	var runner := DialogueRunner.new(DialogueRunner.load_data("res://data/npcs/fadime.json"), self)
+	runner.choose_photo(entry)
+	_check(runner.current_id == "drawing_love", "drawings get their own reactions")
+	var money: int = GameState.money
+	runner.advance()  # reaction line read -> sell / keep choices
+	runner.choose(0)
+	_check(GameState.money > money and "fadime" in entry.sold_to, "drawing sold to Fadime")
+	again.remove_drawing(again.entries[again.entries.size() - 1])
+	canvas.queue_free()

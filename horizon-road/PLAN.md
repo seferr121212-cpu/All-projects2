@@ -55,7 +55,7 @@ Genel doğrulama araçları:
 - **Bitti:** yükseltme satın alınıp etkisi hissediliyor; uyku zamanı ilerletiyor;
   kaydet-çık-yükle döngüsü tüm durumu koruyor (headless testle doğrulanmış).
 
-## Aşama 5 — Çizim modu
+## Aşama 5 — Çizim modu ✅
 - 2D tuval, fırça/renk, silik referans, PNG kaydı, günlükte Çizimler sekmesi, satış.
 - **Bitti:** çizim kaydedilip günlükte görünüyor ve satılabiliyor.
 
@@ -137,6 +137,19 @@ Genel doğrulama araçları:
   `save_participant` grubuyla kendini kaydeder (karavan konumu, yarım kalan hasat).
 - Test: 73 kontrol; `--workshop`, `--interior`, `--map`, `--continue` geliştirici akışları.
 - Bilinen sorunlar: yükleme her zaman sürücü koltuğunda başlatır; iç mekânın pencerelerinde cam yok.
+
+## Aşama 5 notları
+- B: çizim modu (yürürken ya da araç dururken). O anki görüntü referans olarak dondurulur;
+  dünya duraklar, kaydedince 30 dakika geçer.
+- Araçlar: 12 renk (çizim malzemeleri 1 ile 24), kalem, yumuşak fırça (malzeme 1),
+  suluboya (malzeme 2), silgi, 4 fırça boyu, geri al (Ctrl+Z, 15 adım), temizle,
+  referans kapalı/silik/belirgin.
+- Tuval 960x540; fırça damgaları önceden hazırlanıp C++ `blend_rect` ile basılıyor.
+- Kayıt `user://drawings` (PNG + küçük resim + index.json), kayıt slotlarından bağımsız.
+- Puan yok; değer = doluluk + kullanılan renk + manzarada konu varsa bonus.
+- Fadime ve Recep çizim alır (kendi tepkileriyle); günlükte "Çizimler" sekmesi.
+- Test: 86 kontrol; `--sketch [--stop=draw|open]` geliştirici akışı.
+- Bilinen sorun: gamepad ile çizim yok (fare gerekli).
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

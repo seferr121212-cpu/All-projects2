@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=31 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/region.gd" id="1_region"]
 [ext_resource type="Resource" path="res://data/regions/blacksea_highland.tres" id="2_def"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://scripts/interior/camper_interior.gd" id="26_interior"]
 [ext_resource type="Script" path="res://ui/rest/rest_menu.gd" id="27_rest"]
 [ext_resource type="Script" path="res://ui/map/map_panel.gd" id="28_map"]
+[ext_resource type="Script" path="res://ui/sketch/sketch_mode.gd" id="29_sketch"]
 
 [node name="BlackseaHighland" type="Node3D"]
 script = ExtResource("1_region")
@@ -208,4 +209,8 @@ script = ExtResource("27_rest")
 
 [node name="MapPanel" type="CanvasLayer" parent="."]
 script = ExtResource("28_map")
+travel_path = NodePath("../TravelController")
+
+[node name="SketchMode" type="CanvasLayer" parent="."]
+script = ExtResource("29_sketch")
 travel_path = NodePath("../TravelController")

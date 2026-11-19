@@ -6,7 +6,7 @@ UI_EXIT_VEHICLE,[E] Get out,[E] Araçtan in
 UI_ENTER_VEHICLE,[E] Get in,[E] Araca bin
 UI_SLOW_DOWN_TO_EXIT,Stop to get out,İnmek için dur
 UI_CAPTURE_MOUSE,Click to look around,Etrafa bakmak için tıkla
-UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F camera · J journal · M map · F5 save · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F fotoğraf · J günlük · M harita · F5 kaydet · F3 hata ayıklama"
+UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F camera · J journal · B sketch · M map · F5 save · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F fotoğraf · J günlük · B çizim · M harita · F5 kaydet · F3 hata ayıklama"
 WEATHER_CLEAR,Clear,Açık
 WEATHER_PARTLY_CLOUDY,Partly cloudy,Parçalı bulutlu
 WEATHER_FOG,Fog,Sis
@@ -126,3 +126,26 @@ MAP_CAMPER,Camper,Karavan
 MAP_LEGEND_ROAD,Road,Yol
 MAP_NEXT_REGION,Next: Aegean fishing village (coming soon),Sıradaki: Ege balıkçı köyü (yakında)
 SUBJ_GARAGE,Village garage,Köy tamirhanesi
+UPG_ART_KIT,Art supplies,Çizim malzemeleri
+UPG_ART_KIT_DESC,"More colours and a soft brush; then watercolours.","Daha çok renk ve yumuşak fırça; ardından suluboya."
+SKETCH_SAVED,Drawing added to your sketchbook,Çizim defterine eklendi
+SKETCH_REFERENCE,Reference,Referans
+SKETCH_REF_OFF,off,kapalı
+SKETCH_REF_FAINT,faint,silik
+SKETCH_REF_STRONG,clear,belirgin
+SKETCH_UNDO,Undo,Geri al
+SKETCH_CLEAR,Clear,Temizle
+SKETCH_SAVE,Finish & save,Bitir ve kaydet
+SKETCH_HELP,"Draw with the left mouse button · Ctrl+Z undo · Esc cancel","Sol tıkla çiz · Ctrl+Z geri al · Esc vazgeç"
+SKETCH_PALETTE,Palette,Palet
+SKETCH_VIEW,The view,Manzara
+SKETCH_TOOLS,Tools,Araçlar
+SKETCH_SIZE,Brush size,Fırça boyu
+SKETCH_TOOL_PENCIL,Pencil,Kalem
+SKETCH_TOOL_SOFT,Soft brush,Yumuşak fırça
+SKETCH_TOOL_WATERCOLOR,Watercolour,Suluboya
+SKETCH_TOOL_ERASER,Eraser,Silgi
+JOURNAL_DRAWINGS,Drawings,Çizimler
+JOURNAL_EMPTY_DRAWINGS,"No drawings yet. Press B to open your sketchbook.","Henüz çizim yok. Çizim defterini açmak için B'ye bas."
+JOURNAL_STROKES,Strokes,Fırça darbesi
+UI_PICK_DRAWING,Which drawing will you show?,Hangi çizimi göstereceksin?

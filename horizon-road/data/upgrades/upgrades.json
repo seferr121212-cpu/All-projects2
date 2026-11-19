@@ -1,32 +1,138 @@
 {
 	"upgrades": [
-		{"id": "engine", "name_key": "UPG_ENGINE", "desc_key": "UPG_ENGINE_DESC", "icon": "⚙",
+		{
+			"id": "engine",
+			"name_key": "UPG_ENGINE",
+			"desc_key": "UPG_ENGINE_DESC",
+			"icon": "⚙",
 			"levels": [
-				{"price": 140, "effects": {"speed_mult": 1.12, "accel_mult": 1.15, "fuel_use_mult": 0.95}},
-				{"price": 320, "effects": {"speed_mult": 1.22, "accel_mult": 1.3, "fuel_use_mult": 0.85}}
-			]},
-		{"id": "tyres", "name_key": "UPG_TYRES", "desc_key": "UPG_TYRES_DESC", "icon": "◎",
+				{
+					"price": 140,
+					"effects": {
+						"speed_mult": 1.12,
+						"accel_mult": 1.15,
+						"fuel_use_mult": 0.95
+					}
+				},
+				{
+					"price": 320,
+					"effects": {
+						"speed_mult": 1.22,
+						"accel_mult": 1.3,
+						"fuel_use_mult": 0.85
+					}
+				}
+			]
+		},
+		{
+			"id": "tyres",
+			"name_key": "UPG_TYRES",
+			"desc_key": "UPG_TYRES_DESC",
+			"icon": "◎",
 			"levels": [
-				{"price": 110, "effects": {"offroad_grip": 0.12, "offroad_speed": 0.1}},
-				{"price": 240, "effects": {"offroad_grip": 0.22, "offroad_speed": 0.2}}
-			]},
-		{"id": "lights", "name_key": "UPG_LIGHTS", "desc_key": "UPG_LIGHTS_DESC", "icon": "☀",
+				{
+					"price": 110,
+					"effects": {
+						"offroad_grip": 0.12,
+						"offroad_speed": 0.1
+					}
+				},
+				{
+					"price": 240,
+					"effects": {
+						"offroad_grip": 0.22,
+						"offroad_speed": 0.2
+					}
+				}
+			]
+		},
+		{
+			"id": "lights",
+			"name_key": "UPG_LIGHTS",
+			"desc_key": "UPG_LIGHTS_DESC",
+			"icon": "☀",
 			"levels": [
-				{"price": 70, "effects": {"headlight_mult": 1.5}}
-			]},
-		{"id": "fuel_tank", "name_key": "UPG_FUEL_TANK", "desc_key": "UPG_FUEL_TANK_DESC", "icon": "⛽",
+				{
+					"price": 70,
+					"effects": {
+						"headlight_mult": 1.5
+					}
+				}
+			]
+		},
+		{
+			"id": "fuel_tank",
+			"name_key": "UPG_FUEL_TANK",
+			"desc_key": "UPG_FUEL_TANK_DESC",
+			"icon": "⛽",
 			"levels": [
-				{"price": 90, "effects": {"tank_capacity": 70}}
-			]},
-		{"id": "lens", "name_key": "UPG_LENS", "desc_key": "UPG_LENS_DESC", "icon": "◉",
+				{
+					"price": 90,
+					"effects": {
+						"tank_capacity": 70
+					}
+				}
+			]
+		},
+		{
+			"id": "lens",
+			"name_key": "UPG_LENS",
+			"desc_key": "UPG_LENS_DESC",
+			"icon": "◉",
 			"levels": [
-				{"price": 150, "effects": {"lens_level": 1}},
-				{"price": 380, "effects": {"lens_level": 2}}
-			]},
-		{"id": "comfort", "name_key": "UPG_COMFORT", "desc_key": "UPG_COMFORT_DESC", "icon": "♨",
+				{
+					"price": 150,
+					"effects": {
+						"lens_level": 1
+					}
+				},
+				{
+					"price": 380,
+					"effects": {
+						"lens_level": 2
+					}
+				}
+			]
+		},
+		{
+			"id": "comfort",
+			"name_key": "UPG_COMFORT",
+			"desc_key": "UPG_COMFORT_DESC",
+			"icon": "♨",
 			"levels": [
-				{"price": 80, "effects": {"comfort": 1}},
-				{"price": 200, "effects": {"comfort": 2}}
-			]}
+				{
+					"price": 80,
+					"effects": {
+						"comfort": 1
+					}
+				},
+				{
+					"price": 200,
+					"effects": {
+						"comfort": 2
+					}
+				}
+			]
+		},
+		{
+			"id": "art_kit",
+			"name_key": "UPG_ART_KIT",
+			"desc_key": "UPG_ART_KIT_DESC",
+			"icon": "✎",
+			"levels": [
+				{
+					"price": 60,
+					"effects": {
+						"art_kit": 1
+					}
+				},
+				{
+					"price": 150,
+					"effects": {
+						"art_kit": 2
+					}
+				}
+			]
+		}
 	]
 }

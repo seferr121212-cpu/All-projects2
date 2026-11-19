@@ -38,9 +38,11 @@ func _ready() -> void:
 		await _workshop_test(_args.get("stop", ""))
 	if _args.has("interior"):
 		await _interior_test(_args.get("stop", ""))
+	if _args.has("sketch"):
+		await _sketch_test(_args.get("stop", ""))
 	if _args.has("map"):
 		(get_tree().current_scene.find_child("MapPanel", true, false) as MapPanel).open()
-	if _args.has("journal"):
+	if _args.has("journal") and not _args.has("sketch"):
 		var journal := get_tree().current_scene.find_child("Journal", true, false) as Journal
 		var photo_mode := get_tree().current_scene.find_child("PhotoMode", true, false) as PhotoMode
 		photo_mode.exit()
@@ -397,6 +399,70 @@ func _interior_test(stop: String) -> void:
 	travel.exit_interior()
 	await get_tree().physics_frame
 	print("[DevCli] interior: back outside mode=%s" % GameState.PlayerMode.keys()[GameState.player_mode])
+
+
+## --sketch [--stop=draw] [--tool=watercolor] : paints the view with real strokes, then saves.
+func _sketch_test(stop: String) -> void:
+	var sketch := get_tree().current_scene.find_child("SketchMode", true, false) as SketchMode
+	for i: int in 60:
+		await get_tree().physics_frame
+	await sketch.open()
+	var c: PaintCanvas = sketch.canvas
+	if stop == "open":
+		sketch.reference_index = 2
+		sketch._apply_reference()
+		sketch._select_tool("watercolor")
+		c.brush_color = Color(0.45, 0.65, 0.9)
+		c.brush_radius = 30.0
+		c.begin_stroke(Vector2(40, 60))
+		c.continue_stroke(Vector2(500, 70))
+		c.end_stroke()
+		return
+	if _args.has("tool"):
+		sketch._select_tool(_args["tool"])
+	var stroke := func(color: Color, radius: float, points: Array) -> void:
+		c.brush_color = color
+		c.brush_radius = radius
+		c.begin_stroke(points[0])
+		for p: Vector2 in points.slice(1):
+			c.continue_stroke(p)
+		c.end_stroke()
+	# Sky in broad horizontal washes, lighter towards the horizon.
+	for row: int in 8:
+		var y: float = 20 + row * 26
+		stroke.call(Color(0.45, 0.65, 0.9).lerp(Color(0.95, 0.85, 0.7), row / 8.0), 18.0, [Vector2(0, y), Vector2(960, y + 6)])
+	stroke.call(Color(1.0, 0.85, 0.35), 34.0, [Vector2(720, 90), Vector2(722, 92)])
+	# Mountain ridge.
+	stroke.call(Color(0.45, 0.48, 0.55), 10.0, [Vector2(0, 250), Vector2(140, 150), Vector2(260, 230), Vector2(400, 120), Vector2(560, 240), Vector2(700, 170), Vector2(830, 230), Vector2(960, 160)])
+	for row: int in 4:
+		var y: float = 230 + row * 18
+		stroke.call(Color(0.42, 0.46, 0.52), 14.0, [Vector2(0, y + 30), Vector2(960, y)])
+	# Meadow and forest band.
+	for row: int in 9:
+		var y: float = 300 + row * 28
+		stroke.call(Color(0.35, 0.62, 0.28).lerp(Color(0.5, 0.7, 0.3), row / 9.0), 20.0, [Vector2(0, y), Vector2(960, y - 8)])
+	for i: int in 14:
+		var x: float = 30 + i * 68
+		stroke.call(Color(0.14, 0.34, 0.18), 7.0, [Vector2(x, 330), Vector2(x - 14, 300), Vector2(x, 262), Vector2(x + 14, 300), Vector2(x, 330)])
+	# Winding road and the camper.
+	stroke.call(Color(0.62, 0.48, 0.32), 16.0, [Vector2(480, 540), Vector2(430, 470), Vector2(520, 410), Vector2(470, 350)])
+	stroke.call(Color(0.25, 0.55, 0.55), 12.0, [Vector2(560, 430), Vector2(640, 430)])
+	stroke.call(Color(0.95, 0.92, 0.82), 9.0, [Vector2(562, 412), Vector2(636, 412)])
+	stroke.call(Color(0.15, 0.15, 0.18), 5.0, [Vector2(575, 446), Vector2(576, 447)])
+	stroke.call(Color(0.15, 0.15, 0.18), 5.0, [Vector2(624, 446), Vector2(625, 447)])
+	print("[DevCli] sketch: strokes=%d colours=%d coverage=%.2f subjects=%s" % [c.strokes, c.colors_used.size(), c.coverage(), sketch._subjects.map(func(x: Dictionary) -> String: return x.id)])
+	if stop == "draw":
+		return
+	var entry: Dictionary = sketch.save_drawing()
+	print("[DevCli] sketch: saved value=%d file=%s book=%d" % [entry.value, entry.path, GameState.drawings.entries.size()])
+	if _args.has("journal"):
+		for i: int in 3:
+			await get_tree().process_frame
+		var journal := get_tree().current_scene.find_child("Journal", true, false) as Journal
+		journal.open()
+		journal._tabs.current_tab = 2
+		if _args.has("detail"):
+			journal._show_detail(entry)
 
 
 func _place_walker(travel: TravelController, pos: Vector3) -> void:

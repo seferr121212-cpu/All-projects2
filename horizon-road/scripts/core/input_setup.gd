@@ -33,6 +33,7 @@ static func register_default_actions() -> void:
 	_add("debug_panel", [KEY_F3], [], [])
 	_add("journal", [KEY_J], [JOY_BUTTON_BACK], [])
 	_add("map", [KEY_M], [], [])
+	_add("sketch_mode", [KEY_B], [], [])
 	_add("quicksave", [KEY_F5], [], [])
 	_add("quickload", [KEY_F9], [], [])
 	# Photo mode
