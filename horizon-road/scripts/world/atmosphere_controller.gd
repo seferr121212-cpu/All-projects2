@@ -31,6 +31,7 @@ func _ready() -> void:
 	var world_env := get_node(world_environment_path) as WorldEnvironment
 	environment = _create_environment()
 	world_env.environment = environment
+	_add_vignette()
 	_configure_lights()
 	apply_quality(Settings.quality())
 	_update(0.0)
@@ -53,6 +54,28 @@ func apply_quality(q: Dictionary) -> void:
 ## Current lightning flash strength (0..1); photo mode uses it for "moments".
 func get_flash() -> float:
 	return _flash
+
+
+## A soft vignette over the 3D view (below the HUD), like an old lens.
+func _add_vignette() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 0
+	var rect := ColorRect.new()
+	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var mat := ShaderMaterial.new()
+	var sh := Shader.new()
+	sh.code = """shader_type canvas_item;
+uniform float strength = 0.32;
+void fragment() {
+	vec2 uv = (SCREEN_UV - 0.5) * vec2(1.0, 0.85);
+	float v = smoothstep(0.32, 0.78, length(uv));
+	COLOR = vec4(0.05, 0.03, 0.02, v * strength);
+}"""
+	mat.shader = sh
+	rect.material = mat
+	layer.add_child(rect)
+	add_child(layer)
 
 
 func _create_environment() -> Environment:

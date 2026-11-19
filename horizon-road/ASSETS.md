@@ -9,7 +9,11 @@ engellediği için Aşama 1'deki tüm modeller ve sesler **kodla üretildi**:
 | Rüzgâr, yağmur, cırcır böceği, kuş, gök gürültüsü, motor | `scripts/audio/procedural_audio.gd` | Sentezlenmiş yer tutucu |
 
 Prosedürel varlıklar sanat stiliyle uyumlu, ama gerçek paketler kaliteyi artırır.
-Elle indirip aşağıdaki klasörlere koyman yeterli. Sonra ben bağlarım.
+Kenney'nin sitesi otomatik indirmeyi reddediyor; paketleri tarayıcıdan indirip aşağıdaki
+klasörlere koyman yeterli. Godot'u bir kez açınca (içe aktarma) `data/assets/asset_overrides.json`
+içindeki dosyalar bulunursa ağaç/kaya/çalı/kavak gibi modeller **otomatik** değişir; bulunmazsa
+prosedürel olanlar kullanılır. Dosya adları farklıysa JSON'daki yolları düzenle
+(`scale` ile boyut ayarlanır). `user://` altına konan .glb'ler de çalışma zamanında yüklenir.
 
 ## Önerilen CC0 paketler
 

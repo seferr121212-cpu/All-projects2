@@ -70,6 +70,20 @@ Genel doğrulama araçları:
 - Windows export (export templates gerekir).
 - **Bitti:** Windows .exe başlıyor, ana menüden oyun tamamen oynanabiliyor.
 
+## Aşama 8 — Görsel cila 3, Kapadokya, Doğu Anadolu, ikinci işler, gezici kafe ✅
+- Görsel: yuvarlak, parlak boyalı karavan (pencereler, conta, kapı çizgileri, gece iç ışık),
+  karlı/kayalık uzak dağlar (ayrı shader), çayır yamalı renkleri, iki parçalı renk geçişli
+  çimen, şeffaf kenarlı yollar, daha temiz hava (daha az pus), vinyet.
+- Kapadokya: tüf yamaçlar ve kanyonlar, peri bacası kümeleri (çarpışmalı), şafak balonları
+  (hava uygunsa uçar), kesme taş köy, kavaklar, bağlar; Zeynep Usta + çömlek oyunu.
+- Doğu Anadolu: geniş yayla, Büyük/Küçük Ağrı, dağ gölü, göçer çadırları, arı kovanları,
+  koyun sürüsü; Ferhat Amca + sürüyü ağıla toplama (3B).
+- İkinci işler (dostluk 1. seviyeden sonra): çay demleme, traktör ayarı, ağ onarma.
+- Gezici kafe (yükseltme), bölgeye göre menü, bahşiş, müşteri NPC'leri.
+- Model paketleri için `AssetLibrary` + `data/assets/asset_overrides.json`.
+- **Bitti:** dört bölge arasında seyahat; 136 otomatik kontrol geçiyor; tüm yeni akışlar
+  DevCli ile uçtan uca doğrulandı (`--job=...`, `--cafe`).
+
 ---
 
 ## Alınan kararlar
@@ -180,6 +194,15 @@ Genel doğrulama araçları:
   olarak tüm akışlarla doğrulandı. Windows exe burada çalıştırılamadı (wine yok).
 - Bilinen sorunlar: Windows exe gerçek Windows'ta denenmedi; gamepad ile menü gezintisi kısmen
   (odak var ama tam test edilmedi); FPS gerçek GPU'da ölçülmedi.
+
+## Aşama 8 notları
+- Kenney sitesi otomatik (tarayıcı olmayan) indirmeleri reddediyor; bu engeli aşmaya
+  çalışılmadı. Paketler elle indirilip `assets/models/...` altına konduğunda
+  `asset_overrides.json` üzerinden otomatik kullanılır (çalışma zamanında .glb yükleme test
+  edildi).
+- Uzak mesafe bulanıklığı (DOF) denendi, tüm görüntüyü bulanıklaştırdığı için kaldırıldı.
+- Bilinen sorunlar: kafe müşterileri basit yürür (animasyonsuz); balonlar uzaktan sisle soluk
+  görünebiliyor; Kapadokya'da bazı peri bacaları tüf yamaç kenarına denk gelebiliyor.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

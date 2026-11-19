@@ -49,7 +49,7 @@ func _ready() -> void:
 
 
 func _scatter_spruces() -> void:
-	var variants: Array[Mesh] = [LowPolyMeshes.spruce(1), LowPolyMeshes.spruce(2), LowPolyMeshes.spruce(3)]
+	var variants: Array[Mesh] = AssetLibrary.meshes("spruce", [LowPolyMeshes.spruce(1), LowPolyMeshes.spruce(2), LowPolyMeshes.spruce(3)])
 	var buckets: Array[Dictionary] = [{}, {}, {}]
 	var placed: int = 0
 	var attempts: int = 0
@@ -73,7 +73,7 @@ func _scatter_spruces() -> void:
 
 
 func _scatter_broadleaves() -> void:
-	var mesh: Mesh = LowPolyMeshes.broadleaf()
+	var mesh: Mesh = AssetLibrary.meshes("broadleaf", [LowPolyMeshes.broadleaf()])[0]
 	var bucket: Dictionary = {}
 	var placed: int = 0
 	var attempts: int = 0
@@ -133,7 +133,7 @@ func _scatter_tea_rows() -> void:
 ## meadows and the lake, reeds along the shore.
 func _scatter_understory() -> void:
 	var shrubs: Array[Dictionary] = [{}, {}]
-	var shrub_meshes: Array[Mesh] = [LowPolyMeshes.shrub(50), LowPolyMeshes.shrub(51)]
+	var shrub_meshes: Array[Mesh] = AssetLibrary.meshes("shrub", [LowPolyMeshes.shrub(50), LowPolyMeshes.shrub(51)])
 	var ferns: Dictionary = {}
 	var birches: Dictionary = {}
 	var reeds: Dictionary = {}
@@ -166,7 +166,7 @@ func _scatter_understory() -> void:
 			continue
 		_add(reeds, _ground_transform(p, _rng.randf_range(0.8, 1.2), 0.05, 0.0), _tint(0.1), detail_chunk_size)
 	for i: int in shrubs.size():
-		_build(shrubs[i], shrub_meshes[i], "Shrubs%d" % i, 0.0, true)
+		_build(shrubs[i], shrub_meshes[i % shrub_meshes.size()], "Shrubs%d" % i, 0.0, true)
 	_build(ferns, LowPolyMeshes.fern(), "Ferns", 70.0, false)
 	_build(birches, LowPolyMeshes.birch(), "Birches", 0.0, true)
 	_build(reeds, LowPolyMeshes.reeds(), "Reeds", 120.0, false)
@@ -254,7 +254,7 @@ func _scatter_steppe() -> void:
 				if _terrain.normal_at(p.x, p.y).y < 0.92 or _terrain.height_at(p.x, p.y) > 10.0:
 					continue
 				_add(vines, _ground_transform(p, _rng.randf_range(0.8, 1.1), 0.05, 0.0), _tint(0.08), detail_chunk_size * 2.0)
-	_build(poplars, AnatoliaMeshes.poplar(), "Poplars", 0.0, true)
+	_build(poplars, AssetLibrary.meshes("poplar", [AnatoliaMeshes.poplar()])[0], "Poplars", 0.0, true)
 	for i: int in 2:
 		_build(orchards[i], orchard_meshes[i], "Orchard%d" % i, 0.0, true)
 		_build(bushes[i], bush_meshes[i], "SteppeBush%d" % i, 160.0, false)
@@ -262,8 +262,10 @@ func _scatter_steppe() -> void:
 
 
 func _scatter_rocks() -> void:
-	var variants: Array[Mesh] = [LowPolyMeshes.rock(4), LowPolyMeshes.rock(5)]
-	var buckets: Array[Dictionary] = [{}, {}]
+	var variants: Array[Mesh] = AssetLibrary.meshes("rock", [LowPolyMeshes.rock(4), LowPolyMeshes.rock(5)])
+	var buckets: Array[Dictionary] = []
+	for v: Mesh in variants:
+		buckets.append({})
 	for i: int in int(rock_count * density_scale):
 		var p: Vector2 = _random_point()
 		if not _clear_of_features(p, 4.5, 3.0):
@@ -275,7 +277,7 @@ func _scatter_rocks() -> void:
 		var s: float = _rng.randf_range(0.3, 1.8) * (1.0 + steep * 2.0)
 		var xf := _ground_transform(p, s, 0.3 * s, 0.2)
 		xf.basis = xf.basis.scaled(Vector3(1.0, _rng.randf_range(0.5, 1.0), _rng.randf_range(0.7, 1.3)))
-		_add(buckets[i % 2], xf, _tint(0.1))
+		_add(buckets[i % buckets.size()], xf, _tint(0.1))
 	for i: int in variants.size():
 		_build(buckets[i], variants[i], "Rocks%d" % i, 0.0, true)
 

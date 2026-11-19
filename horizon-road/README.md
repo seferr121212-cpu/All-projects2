@@ -31,11 +31,17 @@ Tuşlar Ayarlar → Kontroller'den değiştirilebilir.
 
 ## Neler var
 
-- İki bölge: **Karadeniz Yaylası** (çay bahçesi, göl, yayla köyü) ve **Ege Balıkçı Köyü**
-  (koy, iskele, zeytinlikler). Yol tabelasından ya da karavandaki harita masasından seyahat.
+- Dört bölge: **Karadeniz Yaylası** (çay bahçesi, göl, yayla köyü), **Ege Balıkçı Köyü**
+  (koy, iskele, zeytinlikler), **Kapadokya Vadileri** (peri bacaları, tüf yamaçlar, şafakta
+  balonlar, bağlar) ve **Doğu Anadolu Yaylası** (Ağrı Dağı, dağ gölü, göçer çadırları, sürüler).
+  Yol tabelasından ya da karavandaki harita masasından seyahat.
 - Gün-gece döngüsü, 6 hava durumu, mevsimler (Karadeniz kışı karlı).
 - Fotoğraf modu (diyafram, pozlama, filtre, puanlama, koleksiyon) ve çizim modu.
-- Esnaflar: Fadime (çay hasadı), Recep (atölye, yükseltmeler, yakıt), Hasan Reis (ağ çekme).
+- Esnaflar ve işler: Fadime (çay hasadı, çay demleme), Recep (yükseltmeler, traktör ayarı),
+  Hasan Reis (ağ çekme, ağ onarma), Zeynep Usta (Avanos çömlekçiliği), Ferhat Amca (sürüyü
+  ağıla toplama). İkinci işler dostluk ilerleyince açılır.
+- **Gezici kafe:** Recep'ten kafe setini al, karavanı park et, arka kapıda kafeyi aç
+  ([E]), gelen yerlilere bölgenin menüsünden servis yap. Hızlı servis bahşiş getirir.
 - Karavan yükseltmeleri ve iç mekân (uyku, çay, harita, günlük).
 - TR / EN, otomatik kayıt, kodla üretilmiş müzik ve ortam sesleri.
 

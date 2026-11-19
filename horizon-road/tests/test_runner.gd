@@ -28,6 +28,7 @@ func _ready() -> void:
 	_test_minigames()
 	_test_herding()
 	_test_cafe()
+	_test_asset_overrides()
 	_test_translation_coverage()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -604,3 +605,26 @@ func _test_cafe() -> void:
 	GameState.upgrades.erase("cafe_kit")
 	cafe.open = false
 	cafe.queue_free()
+
+
+## A .glb dropped in (here written to user://) replaces the procedural mesh.
+func _test_asset_overrides() -> void:
+	var fallback: Array[Mesh] = [LowPolyMeshes.rock(4)]
+	AssetLibrary.clear_cache()
+	_check(AssetLibrary.meshes("no_such_key", fallback)[0] == fallback[0], "missing model pack falls back to procedural mesh")
+	var scene := Node3D.new()
+	var mi := MeshInstance3D.new()
+	mi.mesh = LowPolyMeshes.broadleaf()
+	mi.position = Vector3(0, 0, 0)
+	scene.add_child(mi)
+	mi.owner = scene
+	var doc := GLTFDocument.new()
+	var state := GLTFState.new()
+	doc.append_from_scene(scene, state)
+	var path: String = "user://test_model.glb"
+	var err: Error = doc.write_to_filesystem(state, path)
+	scene.free()
+	var mesh: ArrayMesh = AssetLibrary.load_model(path, 2.0)
+	_check(err == OK and mesh != null and mesh.get_surface_count() > 0, "a dropped-in .glb loads at runtime")
+	_check(mesh != null and mesh.get_aabb().size.y > LowPolyMeshes.broadleaf().get_aabb().size.y * 1.9, "model scale applies")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
