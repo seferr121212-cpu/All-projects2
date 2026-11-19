@@ -5,6 +5,7 @@ extends CanvasLayer
 
 var _panel: PanelContainer
 var _fps: Label
+var _qa_label: Label
 var _time_slider: HSlider
 var _auto_weather: CheckBox
 var _syncing: bool = false
@@ -26,6 +27,18 @@ func _ready() -> void:
 
 	_fps = Label.new()
 	box.add_child(_fps)
+
+	var qa_row := HBoxContainer.new()
+	var qa_button := Button.new()
+	qa_button.text = "DEBUG_QA_REPORT"
+	_qa_label = Label.new()
+	_qa_label.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+	_qa_label.custom_minimum_size = Vector2(320, 0)
+	qa_button.pressed.connect(func() -> void:
+		_qa_label.text = tr(&"DEBUG_QA_SAVED") % GameState.qa.write())
+	qa_row.add_child(qa_button)
+	box.add_child(qa_row)
+	box.add_child(_qa_label)
 
 	box.add_child(_caption(&"DEBUG_TIME"))
 	_time_slider = HSlider.new()
@@ -79,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if not visible:
 		return
-	_fps.text = "FPS %d  ·  %s  ·  %s" % [Engine.get_frames_per_second(), TimeManager.get_clock_string(), WeatherManager.target_id]
+	_fps.text = "FPS %d (p95 %.1f ms)  ·  %s  ·  %s" % [Engine.get_frames_per_second(), GameState.qa.recent_percentile(0.95), TimeManager.get_clock_string(), WeatherManager.target_id]
 	_syncing = true
 	_time_slider.value = TimeManager.time_of_day
 	_syncing = false

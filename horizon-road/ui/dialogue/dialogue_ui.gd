@@ -13,6 +13,10 @@ const CHARS_PER_SEC: float = 45.0
 @export var travel_path: NodePath
 
 var runner: DialogueRunner
+var _blips: Array[AudioStreamWAV] = []
+var _blip_player: AudioStreamPlayer
+var _blip_chars: int = 0
+var _voice_pitch: float = 1.0
 var npc: Npc
 var _travel: TravelController
 var _panel := PanelContainer.new()
@@ -45,6 +49,14 @@ func start(who: Npc) -> void:
 	if not GameState.is_gameplay():
 		return
 	npc = who
+	_voice_pitch = 0.8 + float(String(who.npc_id).hash() % 100) / 100.0 * 0.7
+	if _blips.is_empty():
+		for i: int in 4:
+			_blips.append(ProceduralAudio.blip(40 + i))
+		_blip_player = AudioStreamPlayer.new()
+		_blip_player.bus = AudioManager.BUS_SFX
+		_blip_player.volume_db = -14.0
+		add_child(_blip_player)
 	npc.talking = true
 	runner = DialogueRunner.new(who.data, self)
 	runner.line_shown.connect(_on_line)
@@ -120,6 +132,12 @@ func _process(delta: float) -> void:
 		return
 	var total: int = maxi(_text.get_total_character_count(), 1)
 	_text.visible_ratio = minf(_text.visible_ratio + CHARS_PER_SEC * delta / total, 1.0)
+	var shown: int = int(_text.visible_ratio * total)
+	if shown - _blip_chars >= 3 and _blip_player and not _blips.is_empty():
+		_blip_chars = shown
+		_blip_player.stream = _blips[shown % _blips.size()]
+		_blip_player.pitch_scale = _voice_pitch * (0.92 + 0.16 * float((shown * 7) % 5) / 4.0)
+		_blip_player.play()
 	if _text.visible_ratio >= 1.0:
 		_typing = false
 		_after_typing()
@@ -131,6 +149,7 @@ func _on_line(text: String) -> void:
 	_name_row.visible = false
 	_text.text = text
 	_text.visible_ratio = 0.0
+	_blip_chars = 0
 	_typing = true
 	_hint.text = ""
 

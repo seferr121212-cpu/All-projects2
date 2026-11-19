@@ -28,6 +28,7 @@ const REGIONS: Dictionary = {
 }
 const TRAVEL_FUEL_SHARE: float = 0.6
 
+var qa: QaReport
 var player_name: String = ""
 var money: int = ECONOMY.starting_money
 ## npc id -> relationship points
@@ -70,6 +71,9 @@ func _ready() -> void:
 	album.load_index()
 	drawings.load_index()
 	add_child(QuestLog.new())
+	qa = QaReport.new()
+	qa.name = "QaReport"
+	add_child(qa)
 	if DevCli.is_requested():
 		add_child(DevCli.new())
 

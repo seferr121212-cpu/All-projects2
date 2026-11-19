@@ -197,6 +197,40 @@ static func rustle() -> AudioStreamWAV:
 	return _to_stream(out, false)
 
 
+## Short soft voice blip for dialogue typing; pitch varies per speaker and call.
+static func blip(seed_value: int = 1) -> AudioStreamWAV:
+	var rng := _rng(seed_value)
+	var n: int = int(0.07 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var f: float = rng.randf_range(210.0, 300.0)
+	var phase: float = 0.0
+	var lp: float = 0.0
+	for i: int in n:
+		var k: float = float(i) / n
+		phase += f * (1.0 + 0.2 * (0.5 - k)) / MIX_RATE
+		var saw: float = fposmod(phase, 1.0) * 2.0 - 1.0
+		lp += 0.28 * (saw - lp)
+		out[i] = lp * sin(k * PI) * 0.8
+	return _to_stream(out, false)
+
+
+## One footstep on soft ground (grass / sand): a low thump plus a short rustle.
+static func footstep(seed_value: int = 1) -> AudioStreamWAV:
+	var rng := _rng(seed_value)
+	var n: int = int(0.16 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var lp: float = 0.0
+	for i: int in n:
+		var k: float = float(i) / n
+		var white: float = rng.randf_range(-1.0, 1.0)
+		lp += 0.18 * (white - lp)
+		var thump: float = sin(k * 0.04 * MIX_RATE * (1.0 - 0.6 * k)) * exp(-k * 9.0)
+		out[i] = (lp * 1.4 + thump) * exp(-k * 7.0)
+	return _to_stream(out, false)
+
+
 ## Distant cow moo: a low voice with a formant-like sweep.
 static func moo(seed_value: int = 7) -> AudioStreamWAV:
 	var rng := _rng(seed_value)

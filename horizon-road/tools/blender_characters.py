@@ -134,9 +134,15 @@ def base_body(b, skin, shirt, trousers, shoes, sleeve=None, woman=False, boots=F
         b.limb(jp("forearm", side), jp("forearm", side, 1), 0.048, 0.04, sleeve, bone_name("forearm", side), cap=False)
         cuff = cone(0.046, 0.046, 0.04, 12, loc=(0.255 * side, 0.03, 0.89), name="cuff")
         paint(cuff, S(sleeve, 0.85)); b.add(cuff, bone_name("forearm", side))
-        hd = ico(1.0, 2, loc=(0.258 * side, 0.035, 0.845), scale=(0.032, 0.045, 0.06), name="hand")
+        hd = ico(1.0, 2, loc=(0.258 * side, 0.035, 0.85), scale=(0.034, 0.02, 0.04), name="palm")
         paint(hd, skin); b.add(hd, bone_name("hand", side))
-        th = ico(1.0, 1, loc=(0.245 * side, 0.07, 0.865), scale=(0.015, 0.02, 0.03), name="thumb")
+        for fi in range(4):  # four fingers, slightly curled
+            fx = 0.258 * side + (fi - 1.5) * 0.0105 * side
+            ln = (0.05, 0.058, 0.055, 0.042)[fi]
+            f = branch((fx, 0.035, 0.835), (fx, 0.05, 0.835 - ln), 0.0075, 0.0055, 6, name="finger")
+            paint(f, skin); b.add(f, bone_name("hand", side))
+            tip = ico(0.0058, 1, loc=(fx, 0.05, 0.835 - ln), name="tip"); paint(tip, skin); b.add(tip, bone_name("hand", side))
+        th = branch((0.245 * side, 0.045, 0.855), (0.232 * side, 0.075, 0.83), 0.009, 0.006, 6, name="thumb")
         paint(th, skin); b.add(th, bone_name("hand", side))
     nk = cone(0.055, 0.05, 0.12, 12, loc=(0, 0, 1.43), name="neck")
     paint(nk, skin); b.add(nk, "neck")
@@ -146,6 +152,12 @@ def add_head(b, skin, hair=None):
     mark = len(b.obs)
     tmp = []
     head(tmp, 1.665, skin, hair=hair)
+    # Rounder cheeks, whites of the eyes and eyelids for a friendlier face.
+    for x in (-1, 1):
+        ck = ico(0.04, 2, loc=(0.075 * x, 0.1, 1.64), scale=(1, 0.7, 0.9), name="cheek")
+        paint(ck, tuple(min(1, c * 1.06 + 0.03) for c in skin)); tmp.append(ck)
+        wh = ico(0.034, 2, loc=(0.052 * x, 0.128, 1.683), scale=(1, 0.55, 0.8), name="eyewhite"); paint(wh, (0.97, 0.96, 0.93)); tmp.append(wh)
+        lid = ico(0.036, 2, loc=(0.052 * x, 0.132, 1.706), scale=(1.05, 0.5, 0.32), name="lid"); paint(lid, tuple(c * 0.88 for c in skin)); tmp.append(lid)
     for ob in tmp:
         for v in ob.data.vertices:
             v.co = Vector((v.co.x * 0.93, v.co.y * 0.93, 1.665 + (v.co.z - 1.665) * 0.93))

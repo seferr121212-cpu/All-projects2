@@ -29,6 +29,8 @@ func _ready() -> void:
 		await _drive_test(float(_args["drive"]), float(_args.get("steer", "0")))
 	if _args.has("walk"):
 		await _walk_test(float(_args["walk"]))
+	if _args.has("smoke"):
+		await _smoke_test(float(_args["smoke"]))
 	if _args.has("atdoor"):
 		await _at_door()
 	_apply_camera()
@@ -695,6 +697,61 @@ func _cafe_test(stop: String) -> void:
 	for i: int in 30:
 		await get_tree().process_frame
 	print("[DevCli] cafe: served=%d earned=%d money+%d" % [cafe.served, cafe.earned, GameState.money - money_before])
+
+
+## --smoke[=seconds] : drive, walk, talk to every NPC, enter the camper; prints
+## frame-time stats and a pass/fail line. Run once per region.
+func _smoke_test(seconds: float) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var ui := scene.find_child("DialogueUI", true, false) as DialogueUI
+	var problems: Array[String] = []
+	var t0: int = Time.get_ticks_msec()
+	await _drive_test(maxf(seconds, 2.0), 0.0)
+	for i: int in 600:
+		await get_tree().physics_frame
+		if travel.camper.is_stopped():
+			break
+	_press_once(&"interact")
+	for i: int in 10:
+		await get_tree().physics_frame
+	if GameState.player_mode != GameState.PlayerMode.ON_FOOT:
+		problems.append("could not leave the camper")
+	var npcs: Array[Node] = get_tree().get_nodes_in_group(&"npc")
+	for node: Node in npcs:
+		var npc := node as Npc
+		TimeManager.set_time(12.0)
+		await get_tree().process_frame
+		_place_walker(travel, npc.global_position + npc.global_basis.z * -1.6)
+		ui.start(npc)
+		await _settle()
+		var guard: int = 0
+		while ui.visible and guard < 12:
+			await _advance(ui)
+			guard += 1
+		if ui.visible:
+			ui._close()
+		print("[smoke] npc %s talked ok (%d steps)" % [npc.npc_id, guard])
+	_place_walker(travel, travel.camper.global_transform * Vector3(1.9, 0, 0.4))
+	await get_tree().physics_frame
+	var door: Interactable = travel.get_focused_interactable()
+	if door == null:
+		problems.append("no door prompt next to the camper")
+	else:
+		door.interacted.emit(travel.walker)
+		for i: int in 10:
+			await get_tree().physics_frame
+		if GameState.player_mode != GameState.PlayerMode.INTERIOR:
+			problems.append("interior did not open")
+		else:
+			travel.exit_interior()
+	for i: int in 60:
+		await get_tree().process_frame
+	var qa: QaReport = GameState.qa
+	print("[smoke] region=%s npcs=%d frames=%d p50=%.1fms p95=%.1fms worst=%.0fms wall=%.1fs" % [
+		GameState.current_region_id, npcs.size(), qa._frames.size(), qa.percentile(0.5), qa.percentile(0.95), qa._worst_ms, (Time.get_ticks_msec() - t0) / 1000.0])
+	print("[smoke] %s" % ("PASS" if problems.is_empty() else "FAIL: " + "; ".join(problems)))
+	get_tree().quit()
 
 
 ## --atdoor : step out and stand by the sliding door (it opens).

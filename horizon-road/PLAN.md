@@ -228,3 +228,5 @@ Yeni diyalog eylemleri `give:<n>`, `story:<id>`; QuestLog'a `flag` türü ve hik
 **C. Test:** `--smoke` (tüm bölgeleri gezip hata/süre ölçer), hikâye akış testleri, F3 panelinde
 "QA raporu" (FPS p50/p95, GPU, çizim sayısı, hata sayısı → user://qa_report.txt) — gerçek GPU'da senin
 makinenden geri bildirim için. Windows paketi + kontrol listesi (docs/QA.md).
+- Yapıldı (Aşama 12): 4 hikâye NPC'si (Ayşe/Murat/Selim/Leyla, 3 bölüm + harita parçası + final görevi), diyalog eylemleri give/story/story_piece,
+  konuşma blip'leri + ayak sesleri, parmak/yüz detayı, `QaReport` + F3 "QA raporunu kaydet", `--smoke` (4 bölge PASS), docs/QA.md. Sürüm 0.10.0.

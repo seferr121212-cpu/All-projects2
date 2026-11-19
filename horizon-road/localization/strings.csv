@@ -318,3 +318,5 @@ QUEST_STORY_MURAT,Hear Murat's story to the end,Murat'ın hikâyesini sonuna kad
 QUEST_STORY_SELIM,Hear Selim's story to the end,Selim'in hikâyesini sonuna kadar dinle
 QUEST_STORY_LEYLA,Hear Leyla's story to the end,Leyla'nın hikâyesini sonuna kadar dinle
 QUEST_MAP_PIECES,Collect all four map pieces,Dört harita parçasını topla
+DEBUG_QA_REPORT,Save QA report,QA raporunu kaydet
+DEBUG_QA_SAVED,"Saved: %s","Kaydedildi: %s"

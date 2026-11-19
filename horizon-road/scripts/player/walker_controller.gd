@@ -21,6 +21,9 @@ var _legs: Array[Node3D] = []
 var _arms: Array[Node3D] = []
 var _swing: float = 0.0
 var _rig: CharacterRig
+var _steps: Array[AudioStreamWAV] = []
+var _step_player: AudioStreamPlayer3D
+var _step_time: float = 0.0
 
 
 func _ready() -> void:
@@ -72,6 +75,7 @@ func _physics_process(delta: float) -> void:
 		_visual.position.y = 0.0 if _rig else absf(sin(_bob_time)) * 0.04
 	else:
 		_visual.position.y = lerpf(_visual.position.y, 0.0, 10.0 * delta)
+	_footsteps(horizontal.length(), delta)
 	if _rig:
 		_rig.set_motion(horizontal.length())
 		return
@@ -83,3 +87,23 @@ func _physics_process(delta: float) -> void:
 		var sgn: float = 1.0 if i == 0 else -1.0
 		_legs[i].rotation.x = phase * _swing * sgn
 		_arms[i].rotation.x = -phase * _swing * 0.8 * sgn
+
+
+func _footsteps(speed: float, delta: float) -> void:
+	if speed < 0.5 or not is_on_floor():
+		_step_time = 0.0
+		return
+	if _steps.is_empty():
+		for i: int in 4:
+			_steps.append(ProceduralAudio.footstep(60 + i))
+		_step_player = AudioStreamPlayer3D.new()
+		_step_player.bus = AudioManager.BUS_SFX
+		_step_player.unit_size = 6.0
+		_step_player.volume_db = -12.0
+		add_child(_step_player)
+	_step_time -= delta
+	if _step_time <= 0.0:
+		_step_time = 1.55 / maxf(speed, 1.0)
+		_step_player.stream = _steps[randi() % _steps.size()]
+		_step_player.pitch_scale = randf_range(0.85, 1.15)
+		_step_player.play()

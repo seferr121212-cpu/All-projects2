@@ -26,7 +26,7 @@ func _ready() -> void:
 	for i: int in keys.size():
 		var rig := CharacterRig.build(keys[i], BoxMesh.new())
 		rig.position = Vector3(x, 0, 0)
-		rig.rotation.y = 0.5 if i % 2 == 0 else -0.4
+		rig.rotation.y = 0.4 if i % 2 == 0 else -0.3
 		root.add_child(rig)
 		if rig.anim:
 			rig.anim.play(StringName(anims[i]), 0.0)
@@ -34,7 +34,7 @@ func _ready() -> void:
 			rig.anim.pause()
 		x += 0.9
 	var cam := Camera3D.new()
-	cam.position = Vector3(1.0, 1.5, -2.6)
+	cam.position = Vector3(1.0, 1.55, -1.9)
 	root.add_child(cam)
 	cam.look_at(Vector3(1.0, 1.25, 0))
 	cam.current = true
