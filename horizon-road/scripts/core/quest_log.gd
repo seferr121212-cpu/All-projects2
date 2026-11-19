@@ -29,6 +29,8 @@ static func progress(q: Dictionary) -> Vector2i:
 			return Vector2i(1 if GameState.album.is_discovered(StringName(q.target)) else 0, 1)
 		"job":
 			return Vector2i(mini(GameState.get_counter("job." + String(q.target)), int(q.n)), int(q.n))
+		"flag":
+			return Vector2i(1 if GameState.has_flag(String(q.target)) else 0, 1)
 		"counter":
 			return Vector2i(mini(GameState.get_counter(String(q.target)), int(q.n)), int(q.n))
 		"visited":
@@ -97,4 +99,6 @@ func _run() -> void:
 		if p.x >= p.y:
 			GameState.flags["quest.%s" % q.id] = true
 			GameState.add_money(int(q.reward))
+			if q.id == "map_pieces":
+				GameState.notify(tr(&"STORY_FINALE"))
 			GameState.notify(tr(&"QUEST_DONE") % [tr(StringName("QUEST_%s" % String(q.id).to_upper())), int(q.reward)])

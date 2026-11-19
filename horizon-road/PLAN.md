@@ -219,3 +219,12 @@ Genel doğrulama araçları:
 - Kamper: `tools/blender_camper.py` iç donanım; camlar şeffaf, sağ sürgülü kapı yaklaşınca açılır (`camper_paint` door_open).
 - Cila: peri bacaları düz zemine, balonlar sisten etkilenmez, çiçekli etek.
 - `QuestLog` + data/quests/quests.json: 11 yol görevi, ödül, günlükte "Yol görevleri" sekmesi.
+
+## Aşama 12 — Derinlik, cila, gerçek-donanım testi (v1.0.0-rc)
+**A. Derinlik:** her bölgeye 2. NPC (Ayşe/Murat/Ali... hikâye karakteri, iş yok), 3 bölümlük kişisel hikâye
+(ilişki seviyesi 1/2/3'te açılır, seçimli diyalog, ödül), her hikâyenin sonunda "yol parçası"; 4 parça = final.
+Yeni diyalog eylemleri `give:<n>`, `story:<id>`; QuestLog'a `flag` türü ve hikâye görevleri.
+**B. Cila:** karakterlere parmak/yüz detayı (Blender), inek formu, konuşurken ses blip'leri, ayak sesleri.
+**C. Test:** `--smoke` (tüm bölgeleri gezip hata/süre ölçer), hikâye akış testleri, F3 panelinde
+"QA raporu" (FPS p50/p95, GPU, çizim sayısı, hata sayısı → user://qa_report.txt) — gerçek GPU'da senin
+makinenden geri bildirim için. Windows paketi + kontrol listesi (docs/QA.md).

@@ -1,0 +1,401 @@
+{
+	"id": "murat",
+	"name_key": "NPC_MURAT_NAME",
+	"role_key": "NPC_MURAT_ROLE",
+	"note_key": "NPC_MURAT_NOTE",
+	"personality": "Gruff but kind retired captain, sixties; short sentences; loves tea and silence.",
+	"interests": [
+		"SUBJ_FISHING_BOATS",
+		"MOMENT_SUNSET",
+		"SUBJ_EGE_HOUSE",
+		"SUBJ_NPC_MURAT"
+	],
+	"photo_reactions": {
+		"love": "photo_love",
+		"nice": "photo_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "photo_sold",
+		"kept": "photo_kept"
+	},
+	"drawing_reactions": {
+		"love": "drawing_love",
+		"nice": "drawing_nice",
+		"limit": "photo_limit",
+		"already": "photo_already",
+		"sold": "drawing_sold",
+		"kept": "photo_kept"
+	},
+	"start": "start",
+	"nodes": {
+		"start": {
+			"branches": [
+				{
+					"if": {
+						"not_flag": "murat.met"
+					},
+					"next": "intro"
+				},
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "greet_friend"
+				},
+				{
+					"next": "greet"
+				}
+			]
+		},
+		"intro": {
+			"text": "MURAT_INTRO_1",
+			"next": "intro_who"
+		},
+		"intro_who": {
+			"branches": [
+				{
+					"if": {
+						"player_named": false
+					},
+					"next": "intro_name"
+				},
+				{
+					"next": "intro_end"
+				}
+			]
+		},
+		"intro_name": {
+			"type": "name_input",
+			"text": "MURAT_ASK_NAME",
+			"next": "intro_end"
+		},
+		"intro_end": {
+			"text": "MURAT_INTRO_END",
+			"next": "hub",
+			"actions": [
+				"meet",
+				"relationship:first_meeting"
+			]
+		},
+		"greet": {
+			"text": "MURAT_GREET",
+			"next": "hub"
+		},
+		"greet_friend": {
+			"text": "MURAT_GREET_FRIEND",
+			"next": "hub"
+		},
+		"hub": {
+			"text": "MURAT_HUB",
+			"choices": [
+				{
+					"text": "MURAT_CH_S1",
+					"next": "s1",
+					"if": {
+						"flag": "murat.met",
+						"not_flag": "story.murat1"
+					}
+				},
+				{
+					"text": "MURAT_CH_S2",
+					"next": "s2",
+					"if": {
+						"flag": "story.murat1",
+						"not_flag": "story.murat2",
+						"level_min": 1
+					}
+				},
+				{
+					"text": "MURAT_CH_S3",
+					"next": "s3",
+					"if": {
+						"flag": "story.murat2",
+						"not_flag": "story.murat3",
+						"level_min": 2
+					}
+				},
+				{
+					"text": "MURAT_CH_FUEL",
+					"next": "fuel",
+					"actions": [
+						"refuel"
+					]
+				},
+				{
+					"text": "MURAT_CH_PHOTO",
+					"actions": [
+						"open_photo_picker"
+					],
+					"if": {
+						"has_photos": true
+					}
+				},
+				{
+					"text": "MURAT_CH_DRAWING",
+					"actions": [
+						"open_drawing_picker"
+					],
+					"if": {
+						"has_drawings": true
+					}
+				},
+				{
+					"text": "MURAT_CH_CHAT",
+					"next": "chat"
+				},
+				{
+					"text": "CH_BYE",
+					"next": "bye"
+				}
+			]
+		},
+		"chat": {
+			"branches": [
+				{
+					"if": {
+						"level_min": 2
+					},
+					"next": "chat_3"
+				},
+				{
+					"if": {
+						"level_min": 1
+					},
+					"next": "chat_2"
+				},
+				{
+					"next": "chat_1"
+				}
+			]
+		},
+		"chat_1": {
+			"text": "MURAT_CHAT_1",
+			"next": "hub",
+			"actions": [
+				"relationship:4"
+			]
+		},
+		"chat_2": {
+			"text": "MURAT_CHAT_2",
+			"next": "hub",
+			"actions": [
+				"relationship:4"
+			]
+		},
+		"chat_3": {
+			"text": "MURAT_CHAT_3",
+			"next": "hub"
+		},
+		"bye": {
+			"text": "MURAT_BYE"
+		},
+		"fuel": {
+			"branches": [
+				{
+					"if": {
+						"var_min": {
+							"amount": 1
+						}
+					},
+					"next": "fuel_done"
+				},
+				{
+					"if": {
+						"tank_full": true
+					},
+					"next": "fuel_full"
+				},
+				{
+					"next": "fuel_broke"
+				}
+			]
+		},
+		"fuel_done": {
+			"text": "MURAT_FUEL_DONE",
+			"next": "hub"
+		},
+		"fuel_full": {
+			"text": "MURAT_FUEL_FULL",
+			"next": "hub"
+		},
+		"fuel_broke": {
+			"text": "MURAT_FUEL_BROKE",
+			"next": "hub"
+		},
+		"photo_limit": {
+			"text": "MURAT_PHOTO_LIMIT",
+			"next": "hub"
+		},
+		"photo_already": {
+			"text": "MURAT_PHOTO_ALREADY",
+			"next": "hub"
+		},
+		"photo_sold": {
+			"text": "MURAT_PHOTO_SOLD",
+			"next": "hub"
+		},
+		"drawing_sold": {
+			"text": "MURAT_DRAWING_SOLD",
+			"next": "hub"
+		},
+		"photo_kept": {
+			"text": "MURAT_PHOTO_KEPT",
+			"next": "hub"
+		},
+		"photo_love": {
+			"text": "MURAT_PHOTO_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"photo_nice": {
+			"text": "MURAT_PHOTO_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "photo_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_love": {
+			"text": "MURAT_DRAWING_LOVE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"drawing_nice": {
+			"text": "MURAT_DRAWING_NICE",
+			"choices": [
+				{
+					"text": "CH_SELL",
+					"next": "drawing_sold",
+					"actions": [
+						"sell_photo"
+					]
+				},
+				{
+					"text": "CH_KEEP",
+					"next": "photo_kept"
+				}
+			]
+		},
+		"s1": {
+			"text": "MURAT_CH1_A",
+			"choices": [
+				{
+					"text": "MURAT_CH1_YES",
+					"next": "s1y"
+				},
+				{
+					"text": "MURAT_CH1_NO",
+					"next": "s1n"
+				}
+			]
+		},
+		"s1y": {
+			"text": "MURAT_CH1_Y",
+			"next": "s1e"
+		},
+		"s1n": {
+			"text": "MURAT_CH1_N",
+			"next": "s1e"
+		},
+		"s1e": {
+			"text": "MURAT_CH1_END",
+			"next": "hub",
+			"actions": [
+				"story:murat1",
+				"relationship:12",
+				"give:15"
+			]
+		},
+		"s2": {
+			"text": "MURAT_CH2_A",
+			"choices": [
+				{
+					"text": "MURAT_CH2_YES",
+					"next": "s2y"
+				},
+				{
+					"text": "MURAT_CH2_NO",
+					"next": "s2n"
+				}
+			]
+		},
+		"s2y": {
+			"text": "MURAT_CH2_Y",
+			"next": "s2e"
+		},
+		"s2n": {
+			"text": "MURAT_CH2_N",
+			"next": "s2e"
+		},
+		"s2e": {
+			"text": "MURAT_CH2_END",
+			"next": "hub",
+			"actions": [
+				"story:murat2",
+				"relationship:15",
+				"give:25"
+			]
+		},
+		"s3": {
+			"text": "MURAT_CH3_A",
+			"choices": [
+				{
+					"text": "MURAT_CH3_YES",
+					"next": "s3y"
+				},
+				{
+					"text": "MURAT_CH3_NO",
+					"next": "s3n"
+				}
+			]
+		},
+		"s3y": {
+			"text": "MURAT_CH3_Y",
+			"next": "s3e"
+		},
+		"s3n": {
+			"text": "MURAT_CH3_N",
+			"next": "s3e"
+		},
+		"s3e": {
+			"text": "MURAT_CH3_END",
+			"next": "hub",
+			"actions": [
+				"story:murat3",
+				"relationship:20",
+				"give:50",
+				"story_piece:murat"
+			]
+		}
+	}
+}

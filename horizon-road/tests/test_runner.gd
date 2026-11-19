@@ -30,6 +30,7 @@ func _ready() -> void:
 	_test_cafe()
 	_test_asset_overrides()
 	_test_quests()
+	_test_story()
 	_test_translation_coverage()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -178,7 +179,7 @@ func _test_album() -> void:
 
 
 func _test_dialogue_data() -> void:
-	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json", "res://data/npcs/hasan.json", "res://data/npcs/zeynep.json", "res://data/npcs/ferhat.json"]:
+	for path: String in ["res://data/npcs/fadime.json", "res://data/npcs/recep.json", "res://data/npcs/hasan.json", "res://data/npcs/zeynep.json", "res://data/npcs/ferhat.json", "res://data/npcs/ayse.json", "res://data/npcs/murat.json", "res://data/npcs/selim.json", "res://data/npcs/leyla.json"]:
 		var data: Dictionary = DialogueRunner.load_data(path)
 		_check(not data.is_empty(), "%s parses" % path)
 		var nodes: Dictionary = data.nodes
@@ -609,6 +610,63 @@ func _test_cafe() -> void:
 
 
 ## A .glb dropped in (here written to user://) replaces the procedural mesh.
+func _test_story() -> void:
+	var money0: int = GameState.money
+	var pieces0: int = GameState.get_counter("story.pieces")
+	for npc: String in ["ayse", "murat", "selim", "leyla"]:
+		GameState.set_flag("%s.met" % npc)
+		GameState.relationships[npc] = 0
+		for i: int in 3:
+			GameState.set_flag("story.%s%d" % [npc, i + 1], false)
+		GameState.set_flag("piece." + npc, false)
+		var runner := DialogueRunner.new(DialogueRunner.load_data("res://data/npcs/%s.json" % npc), self)
+		var chosen: Array[Array] = []
+		runner.choices_shown.connect(func(c: Array[Dictionary]) -> void: chosen.append(c.map(func(x: Dictionary) -> String: return x.text)))
+		for chapter: int in 3:
+			GameState.relationships[npc] = [0, 10, 30][chapter]
+			runner.start()
+			var guard: int = 0
+			while runner.current_id != "hub" and guard < 20:
+				runner.advance()
+				guard += 1
+			# The chapter choice only appears once the friendship level allows it.
+			runner.advance()
+			var labels: Array = chosen[chosen.size() - 1]
+			var key: String = "%s_CH_S%d" % [npc.to_upper(), chapter + 1]
+			_check(not (key in labels) or chapter == 0, "%s chapter %d hidden below its level" % [npc, chapter + 1])
+			GameState.relationships[npc] = [25, 60, 120][chapter]
+			runner.start()
+			guard = 0
+			while runner.current_id != "hub" and guard < 20:
+				runner.advance()
+				guard += 1
+			runner.advance()
+			labels = chosen[chosen.size() - 1]
+			var idx: int = labels.find(key)
+			_check(idx >= 0, "%s chapter %d offered at its level" % [npc, chapter + 1])
+			if idx < 0:
+				break
+			runner.choose(idx)
+			guard = 0
+			while runner.current_id != "hub" and runner.current_id != "" and guard < 20:
+				runner.advance()
+				if runner.current_id.begins_with("s%d" % (chapter + 1)) and runner.current_id.length() == 2:
+					runner.choose(0)
+				guard += 1
+		_check(GameState.has_flag("story.%s3" % npc) and GameState.has_flag("piece." + npc), "%s story completes with a map piece" % npc)
+	_check(GameState.get_counter("story.pieces") == pieces0 + 4, "four map pieces collected")
+	_check(GameState.money > money0, "story chapters give gifts")
+	GameState.counters.erase("story.pieces")
+	GameState.counters.erase("story.chapters")
+	for npc: String in ["ayse", "murat", "selim", "leyla"]:
+		GameState.relationships.erase(npc)
+		GameState.flags.erase("%s.met" % npc)
+		GameState.flags.erase("piece." + npc)
+		for i: int in 3:
+			GameState.flags.erase("story.%s%d" % [npc, i + 1])
+	GameState.money = money0
+
+
 func _test_quests() -> void:
 	var qs: Array = QuestLog.load_quests()
 	_check(qs.size() >= 10, "quests load from data")

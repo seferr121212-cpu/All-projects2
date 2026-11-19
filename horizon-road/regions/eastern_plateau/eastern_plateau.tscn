@@ -220,3 +220,12 @@ pasture_radius = 16.0
 walk_speed = 1.0
 herd_seed = 11
 animal = "dog"
+
+[node name="Leyla" parent="." instance=ExtResource("21_npc")]
+transform = Transform3D(-0.4161, 0, -0.9093, 0, 1, 0, 0.9093, 0, -0.4161, 66, 0, 83)
+npc_id = &"leyla"
+dialogue_path = "res://data/npcs/leyla.json"
+subject_id = &"SUBJ_NPC_LEYLA"
+present_from = 6.0
+present_until = 20.5
+model = "villager_woman"

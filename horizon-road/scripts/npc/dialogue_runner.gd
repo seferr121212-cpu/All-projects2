@@ -216,6 +216,16 @@ func _apply_actions(actions: Array) -> void:
 				var activity: Activity = _find_activity(arg)
 				if activity:
 					vars["amount"] = activity.complete()
+			"give":
+				GameState.add_money(int(arg))
+				vars["amount"] = int(arg)
+			"story":
+				# "<id>": marks a story chapter done and counts it towards the finale.
+				GameState.set_flag("story.%s" % arg)
+				GameState.set_counter("story.chapters", GameState.get_counter("story.chapters") + 1)
+			"story_piece":
+				GameState.set_flag("piece.%s" % arg)
+				GameState.set_counter("story.pieces", GameState.get_counter("story.pieces") + 1)
 			"open_photo_picker":
 				photo_picker_requested.emit()
 			"open_drawing_picker":

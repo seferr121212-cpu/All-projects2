@@ -308,3 +308,13 @@ QUEST_SHEPHERD,Bring Ferhat's flock into the pen,Ferhat'ın sürüsünü ağıla
 QUEST_BARISTA,Serve 10 customers at your café,Kafende 10 müşteriye servis yap
 QUEST_HARD_WORKER,Finish 15 jobs along the road,Yol boyunca 15 iş bitir
 QUEST_GRAND_TOUR,Visit all four regions,Dört bölgenin hepsini gez
+SUBJ_NPC_AYSE,Ayşe Öğretmen,Ayşe Öğretmen
+SUBJ_NPC_MURAT,Murat Kaptan,Murat Kaptan
+SUBJ_NPC_SELIM,Selim Pilot,Selim Pilot
+SUBJ_NPC_LEYLA,Leyla Hanım,Leyla Hanım
+STORY_FINALE,"The four map pieces are yours! Hold them together and the quiet road appears: your road.","Dört harita parçası senin! Bir araya getirince sessiz yol belirdi: senin yolun."
+QUEST_STORY_AYSE,Hear Ayşe's story to the end,Ayşe'nin hikâyesini sonuna kadar dinle
+QUEST_STORY_MURAT,Hear Murat's story to the end,Murat'ın hikâyesini sonuna kadar dinle
+QUEST_STORY_SELIM,Hear Selim's story to the end,Selim'in hikâyesini sonuna kadar dinle
+QUEST_STORY_LEYLA,Hear Leyla's story to the end,Leyla'nın hikâyesini sonuna kadar dinle
+QUEST_MAP_PIECES,Collect all four map pieces,Dört harita parçasını topla

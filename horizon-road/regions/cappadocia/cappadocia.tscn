@@ -185,3 +185,12 @@ travel_path = NodePath("../TravelController")
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("30_pause")
+
+[node name="Selim" parent="." instance=ExtResource("21_npc")]
+transform = Transform3D(0.3624, 0, -0.9320, 0, 1, 0, 0.9320, 0, 0.3624, -70, 0, 82)
+npc_id = &"selim"
+dialogue_path = "res://data/npcs/selim.json"
+subject_id = &"SUBJ_NPC_SELIM"
+present_from = 6.0
+present_until = 20.5
+model = "villager_man"

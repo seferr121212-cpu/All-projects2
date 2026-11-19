@@ -230,3 +230,203 @@ FERHAT_PHOTO_SOLD,It goes beside the stove.,Sobanın yanına gider.
 FERHAT_DRAWING_SOLD,It goes on the tent pole.,Çadırın direğine asılır.
 FERHAT_PHOTO_KEPT,Keep it. Some things should travel with you.,Sakla. Bazı şeyler seninle gitmeli.
 CH_GIVE_UP,Let's leave it,Bırakalım
+NPC_AYSE_NAME,Ayşe Öğretmen,Ayşe Öğretmen
+NPC_AYSE_ROLE,Highland schoolteacher,Yayla öğretmeni
+NPC_AYSE_NOTE,Teaches six children in a stone schoolhouse. Keeps a box of letters nobody collects.,Taş okulda altı çocuğa ders verir. Kimsenin almadığı mektuplardan oluşan bir kutusu var.
+AYSE_CH_FUEL,Could I buy some fuel?,Biraz yakıt alabilir miyim?
+AYSE_CH_PHOTO,Look at this photo,Şu fotoğrafa bak
+AYSE_CH_DRAWING,Look at my drawing,Çizimime bak
+AYSE_CH_CHAT,Just chat,Sohbet edelim
+AYSE_FUEL_DONE,"Filled it up: {amount} litres, {price} lira. Safe roads.","Doldurdum: {amount} litre, {price} lira. Yolun açık olsun."
+AYSE_FUEL_FULL,Your tank is already full.,Deponuz zaten dolu.
+AYSE_FUEL_BROKE,Come back when you have a few coins.,Birkaç kuruşun olunca gel.
+AYSE_PHOTO_LIMIT,I've seen enough photos for today.,Bugünlük yeterince fotoğraf gördüm.
+AYSE_PHOTO_ALREADY,I know this one already.,Bunu zaten biliyorum.
+AYSE_PHOTO_SOLD,Take {amount} lira. It will hang on my wall.,{amount} lira al. Duvarıma asarım.
+AYSE_DRAWING_SOLD,Take {amount} lira. You have a good eye.,{amount} lira al. Gözün iyi.
+AYSE_PHOTO_KEPT,"Keep it, it's yours. But I loved it.",Sende kalsın. Ama çok sevdim.
+AYSE_PHOTO_LOVE,This is wonderful! I'd pay well for it.,Harika! İyi para öderim buna.
+AYSE_PHOTO_NICE,Nice shot. I could take it off your hands.,Güzel kare. Ben alabilirim.
+AYSE_DRAWING_LOVE,You drew this? Beautiful. I'd buy it.,Bunu sen mi çizdin? Çok güzel. Alırım.
+AYSE_DRAWING_NICE,A fine drawing. Shall I take it?,Güzel çizim. Alayım mı?
+AYSE_INTRO_1,"Oh! A visitor. The children will want to see the camper at break. I'm Ayşe, the teacher.","Aa! Misafir. Çocuklar teneffüste karavanı görmek isteyecek. Ben Ayşe, öğretmen."
+AYSE_ASK_NAME,"And your name, traveller?",Senin adın nedir yolcu?
+AYSE_INTRO_END,"Welcome up here, {player}. The mist makes everyone a storyteller. Stay and you'll become one too.",Hoş geldin {player}. Sis herkesi hikâyeci yapar burada. Kalırsan sen de olursun.
+AYSE_GREET,"{player}! Come in, mind the chalk dust.","{player}! Gel, tebeşir tozuna dikkat."
+AYSE_GREET_FRIEND,"{player}, the children asked about you again.","{player}, çocuklar yine seni sordu."
+AYSE_HUB,What can I do for you?,Sana ne yapabilirim?
+AYSE_CH_S1,What's in that box of letters?,Şu mektup kutusunda ne var?
+AYSE_CH_S2,Tell me about the road you waited for.,Beklediğin yolu anlat bana.
+AYSE_CH_S3,What will you do with the map?,Haritayla ne yapacaksın?
+AYSE_CHAT_1,The cows come to the window when I read aloud. They are my best audience.,Sesli okurken inekler pencereye gelir. En iyi dinleyicilerim.
+AYSE_CHAT_2,In winter the road closes and the letters pile up. Spring is a flood of paper.,"Kışın yol kapanır, mektuplar birikir. Bahar kâğıt seli olur."
+AYSE_CHAT_3,Some days I think the mist keeps its own post office.,Bazı günler sisin kendi postanesi var sanıyorum.
+AYSE_BYE,Come back before the snow.,Kar yağmadan gel.
+AYSE_CH1_A,"They're my brother's letters. He drove this road with a camper like yours, then stopped writing. Would you take one with you and read it by the sea?","Abimin mektupları. Seninki gibi bir karavanla bu yolları gezdi, sonra yazmayı bıraktı. Birini yanına alıp deniz kıyısında okur musun?"
+AYSE_CH1_YES,Of course. Give it to me.,Tabii. Ver bana.
+AYSE_CH1_NO,Why not read them yourself?,Neden kendin okumuyorsun?
+AYSE_CH1_Y,Thank you. Hands that haven't opened it yet are the right hands.,Sağ ol. Henüz açmamış eller doğru eller.
+AYSE_CH1_N,Because every letter I read ends one. I'd rather keep them unfinished.,Çünkü okuduğum her mektup bir hikâyeyi bitirir. Yarım kalsınlar isterim.
+AYSE_CH1_END,"Here, for fuel. And a first page; the rest comes when we know each other better.","Al, yakıt için. Bir de ilk sayfa; gerisi daha iyi tanışınca."
+AYSE_CH2_A,"He was drawing a map of the quiet roads: tea terraces, bays, stone towns, plateaus. Four regions, one sheet torn in four. He mailed me the first piece and kept the rest.","Sessiz yolların haritasını çiziyordu: çay terasları, koylar, taş kasabalar, platolar. Dört bölge, dört parçaya yırtılmış bir sayfa. İlk parçayı bana postaladı, gerisini kendinde tuttu."
+AYSE_CH2_YES,Maybe the pieces are still out there.,Belki parçalar hâlâ oralardadır.
+AYSE_CH2_NO,Why did he tear it?,Neden yırttı?
+AYSE_CH2_Y,I hoped you'd say that. People remember him along the road.,Bunu söylemeni umuyordum. İnsanlar yol boyunca onu hatırlar.
+AYSE_CH2_N,"He said a map should be earned, not read. That sounds like him.","Harita okunmaz, hak edilir derdi. Tam ona göre."
+AYSE_CH2_END,"Ask the people on the coast, in the stone towns, on the plateau. Someone kept a piece.","Kıyıdakilere, taş kasabadakilere, plato halkına sor. Biri bir parçayı saklamıştır."
+AYSE_CH3_A,Here is my piece. The first fourth of his map. Take it. I've stayed long enough; someone should finish the road he started.,İşte benim parçam. Haritasının ilk dörtte biri. Al. Yeterince kaldım; başladığı yolu biri bitirmeli.
+AYSE_CH3_YES,I'll bring it back when it's whole.,Bütün olunca getiririm.
+AYSE_CH3_NO,Are you sure you want to give it away?,Vermek istediğine emin misin?
+AYSE_CH3_Y,"I'd be glad. And if you cannot, tell the road I tried.","Sevinirim. Getiremezsen yola söyle, ben denedim."
+AYSE_CH3_N,I'm sure. A map in a drawer is only paper.,Eminim. Çekmecedeki harita sadece kâğıt.
+AYSE_CH3_END,"Go well, {player}. The road is already shorter than it was.",Güle güle {player}. Yol az önce olduğundan kısaldı bile.
+NPC_MURAT_NAME,Murat Kaptan,Murat Kaptan
+NPC_MURAT_ROLE,Lighthouse keeper,Fener bekçisi
+NPC_MURAT_NOTE,Keeps the harbour light. Reads the sea like a newspaper and the sky like a letter.,"Liman fenerinin bekçisi. Denizi gazete, gökyüzünü mektup gibi okur."
+MURAT_CH_FUEL,Could I buy some fuel?,Biraz yakıt alabilir miyim?
+MURAT_CH_PHOTO,Look at this photo,Şu fotoğrafa bak
+MURAT_CH_DRAWING,Look at my drawing,Çizimime bak
+MURAT_CH_CHAT,Just chat,Sohbet edelim
+MURAT_FUEL_DONE,"Filled it up: {amount} litres, {price} lira. Safe roads.","Doldurdum: {amount} litre, {price} lira. Yolun açık olsun."
+MURAT_FUEL_FULL,Your tank is already full.,Deponuz zaten dolu.
+MURAT_FUEL_BROKE,Come back when you have a few coins.,Birkaç kuruşun olunca gel.
+MURAT_PHOTO_LIMIT,I've seen enough photos for today.,Bugünlük yeterince fotoğraf gördüm.
+MURAT_PHOTO_ALREADY,I know this one already.,Bunu zaten biliyorum.
+MURAT_PHOTO_SOLD,Take {amount} lira. It will hang on my wall.,{amount} lira al. Duvarıma asarım.
+MURAT_DRAWING_SOLD,Take {amount} lira. You have a good eye.,{amount} lira al. Gözün iyi.
+MURAT_PHOTO_KEPT,"Keep it, it's yours. But I loved it.",Sende kalsın. Ama çok sevdim.
+MURAT_PHOTO_LOVE,This is wonderful! I'd pay well for it.,Harika! İyi para öderim buna.
+MURAT_PHOTO_NICE,Nice shot. I could take it off your hands.,Güzel kare. Ben alabilirim.
+MURAT_DRAWING_LOVE,You drew this? Beautiful. I'd buy it.,Bunu sen mi çizdin? Çok güzel. Alırım.
+MURAT_DRAWING_NICE,A fine drawing. Shall I take it?,Güzel çizim. Alayım mı?
+MURAT_INTRO_1,Hm. A camper. Haven't seen that colour since... never mind. I'm Murat.,Hım. Karavan. O rengi görmeyeli... neyse. Ben Murat.
+MURAT_ASK_NAME,Name?,Adın?
+MURAT_INTRO_END,"{player}. Good. The sea decides who stays, but the light is mine.","{player}. İyi. Kimin kalacağına deniz karar verir, ışık benimdir."
+MURAT_GREET,{player}. Tea's hot.,{player}. Çay sıcak.
+MURAT_GREET_FRIEND,{player}! The sea said you were coming.,{player}! Deniz geleceğini söylemişti.
+MURAT_HUB,Well?,Ee?
+MURAT_CH_S1,Why do you keep the light on all day?,Fener neden gündüz de yanıyor?
+MURAT_CH_S2,Who did you keep it for?,Kimin için yaktın?
+MURAT_CH_S3,What was on the second piece of the map?,Haritanın ikinci parçasında ne vardı?
+MURAT_CHAT_1,Fish don't read lighthouse charts. People do. Both lie sometimes.,Balıklar fener haritası okumaz. İnsanlar okur. İkisi de bazen yalan söyler.
+MURAT_CHAT_2,My knees know the weather before the radio does.,Dizlerim havayı radyodan önce bilir.
+MURAT_CHAT_3,"Thirty years. I've never been bored once. Odd, isn't it.",Otuz yıl. Bir kez sıkılmadım. Garip değil mi.
+MURAT_BYE,Mind the pier.,İskeleye dikkat.
+MURAT_CH1_A,A man came through years ago with a camper like yours. Asked me to keep one light burning until someone returned for a paper. Tonight it's still burning.,Yıllar önce senin gibi karavanlı bir adam geldi. Biri bir kâğıt için dönene kadar bir ışık yansın dedi. Bu gece hâlâ yanıyor.
+MURAT_CH1_YES,Perhaps that someone is me.,Belki o kişi benim.
+MURAT_CH1_NO,Thirty years for a piece of paper?,Bir kâğıt için otuz yıl mı?
+MURAT_CH1_Y,Hm. You have his stubborn jaw. We'll see.,Hım. Onun inatçı çenesi var sende. Bakarız.
+MURAT_CH1_N,Not for the paper. For the promise. They're different things.,Kâğıt için değil. Söz için. Farklı şeyler.
+MURAT_CH1_END,Take this for fuel. A man who listens deserves a full tank.,Yakıt için al. Dinleyen adam dolu depoyu hak eder.
+MURAT_CH2_A,"He was happy. Drew all day on my quay: the bay, the boats, the road behind. Said the Aegean piece should be the brightest. I never saw the other pieces.","Mutluydu. Bütün gün iskelemde çizdi: koyu, tekneleri, arkadaki yolu. Ege parçası en parlak olsun dedi. Diğer parçaları hiç görmedim."
+MURAT_CH2_YES,Then the Aegean piece is the heart of it.,O zaman Ege parçası işin kalbi.
+MURAT_CH2_NO,Did he say where he was going?,Nereye gideceğini söyledi mi?
+MURAT_CH2_Y,"Heart or not, it's yours when you're ready.","Kalp olsun olmasın, hazır olunca senin."
+MURAT_CH2_N,Inland. Towards stone and balloons. He laughed when he said balloons.,"İçeriye. Taşa, balonlara doğru. Balon derken güldü."
+MURAT_CH2_END,Look for a potter. He said a potter would understand clay and maps.,Bir çömlekçi ara. Çömlekçi kili de haritayı da anlar dedi.
+MURAT_CH3_A,"Here. The second piece, bright as the bay. Thirty years of light, finally for someone.","Al. İkinci parça, koy kadar parlak. Otuz yıllık ışık, sonunda birine."
+MURAT_CH3_YES,I'll keep your light burning in my head.,Işığını kafamda yanık tutarım.
+MURAT_CH3_NO,Won't you miss the waiting?,Beklemeyi özlemeyecek misin?
+MURAT_CH3_Y,"Hm. Keep it burning somewhere good, then.",Hım. O zaman iyi bir yerde yansın.
+MURAT_CH3_N,I'll miss it. And I'll love not missing it. Both true.,Özlerim. Özlememeyi de severim. İkisi de doğru.
+MURAT_CH3_END,"Go. And {player}, thank you. Quietly.","Git. Bir de {player}, sağ ol. Sessizce."
+NPC_SELIM_NAME,Selim Pilot,Selim Pilot
+NPC_SELIM_ROLE,Balloon pilot,Balon pilotu
+NPC_SELIM_NOTE,"Flies at dawn, repairs envelopes by noon, tells stories by night.","Şafakta uçar, öğlen balon diker, geceleri hikâye anlatır."
+SELIM_CH_FUEL,Could I buy some fuel?,Biraz yakıt alabilir miyim?
+SELIM_CH_PHOTO,Look at this photo,Şu fotoğrafa bak
+SELIM_CH_DRAWING,Look at my drawing,Çizimime bak
+SELIM_CH_CHAT,Just chat,Sohbet edelim
+SELIM_FUEL_DONE,"Filled it up: {amount} litres, {price} lira. Safe roads.","Doldurdum: {amount} litre, {price} lira. Yolun açık olsun."
+SELIM_FUEL_FULL,Your tank is already full.,Deponuz zaten dolu.
+SELIM_FUEL_BROKE,Come back when you have a few coins.,Birkaç kuruşun olunca gel.
+SELIM_PHOTO_LIMIT,I've seen enough photos for today.,Bugünlük yeterince fotoğraf gördüm.
+SELIM_PHOTO_ALREADY,I know this one already.,Bunu zaten biliyorum.
+SELIM_PHOTO_SOLD,Take {amount} lira. It will hang on my wall.,{amount} lira al. Duvarıma asarım.
+SELIM_DRAWING_SOLD,Take {amount} lira. You have a good eye.,{amount} lira al. Gözün iyi.
+SELIM_PHOTO_KEPT,"Keep it, it's yours. But I loved it.",Sende kalsın. Ama çok sevdim.
+SELIM_PHOTO_LOVE,This is wonderful! I'd pay well for it.,Harika! İyi para öderim buna.
+SELIM_PHOTO_NICE,Nice shot. I could take it off your hands.,Güzel kare. Ben alabilirim.
+SELIM_DRAWING_LOVE,You drew this? Beautiful. I'd buy it.,Bunu sen mi çizdin? Çok güzel. Alırım.
+SELIM_DRAWING_NICE,A fine drawing. Shall I take it?,Güzel çizim. Alayım mı?
+SELIM_INTRO_1,"Ha! A camper! Fits perfectly under my shadow. I'm Selim, I fly the red one.","Ha! Karavan! Gölgemin altına tam sığar. Ben Selim, kırmızıyı ben uçururum."
+SELIM_ASK_NAME,"And you are, my high-flying friend?",Sen kimsin yüksekten uçan dostum?
+SELIM_INTRO_END,"{player}! Remember: in the sky, everything is downhill from the sun.",{player}! Unutma: gökyüzünde her şey güneşten aşağıya doğru.
+SELIM_GREET,"{player}! Up early, or just late?","{player}! Erken mi kalktın, geç mi yattın?"
+SELIM_GREET_FRIEND,"{player}, my favourite ground-dweller!","{player}, en sevdiğim yer sakini!"
+SELIM_HUB,"What do you need, friend?",Ne lazım dostum?
+SELIM_CH_S1,Do you ever fly alone?,Hiç yalnız uçuyor musun?
+SELIM_CH_S2,Who gave you the third piece?,Üçüncü parçayı sana kim verdi?
+SELIM_CH_S3,Can I really have the third piece?,Üçüncü parçayı gerçekten alabilir miyim?
+SELIM_CHAT_1,The trick to ballooning is patience and propane. Mostly propane.,Balonun sırrı sabır ve propan. Çoğunlukla propan.
+SELIM_CHAT_2,At dawn the valley looks like the world is still being drawn.,"Şafakta vadi, dünya hâlâ çiziliyormuş gibi görünür."
+SELIM_CHAT_3,Fifteen years and I still gasp when the sun hits the first chimney.,"On beş yıl oldu, güneş ilk bacaya vurunca hâlâ nefesim kesilir."
+SELIM_BYE,Fly safe!,Güvenli uçuşlar!
+SELIM_CH1_A,There's a seat in my basket I never sell. A man who drew maps flew with me once. Said he'd return for the seat.,Sepetimde hiç satmadığım bir koltuk var. Harita çizen bir adam bir kez benimle uçtu. Koltuk için dönerim dedi.
+SELIM_CH1_YES,Then I'll sit in it one day.,O zaman bir gün ben otururum.
+SELIM_CH1_NO,Why not sell it? Customers queue for hours.,Neden satmıyorsun? Müşteriler saatlerce sıra bekliyor.
+SELIM_CH1_Y,Ha! Deal. Save the date: when the map is whole.,Ha! Anlaştık. Tarihi not al: harita bütün olunca.
+SELIM_CH1_N,"Because some seats are promises. You can't sell a promise, only keep it.","Çünkü bazı koltuklar sözdür. Söz satılmaz, tutulur."
+SELIM_CH1_END,"Here, for the road. And a free balloon ride in spirit.","Al, yol için. Bir de ruhen bedava balon turu."
+SELIM_CH2_A,"He drew the whole valley from above. Eight hours. Then he cut his sheet in four, like a tea loaf. Gave Zeynep the clay stamp for the corner.",Bütün vadiyi yukarıdan çizdi. Sekiz saat. Sonra kâğıdı çay somunu gibi dörde böldü. Köşe için Zeynep'e çamur mührünü verdi.
+SELIM_CH2_YES,A stamp. So the map has a signature.,Bir mühür. Yani haritanın imzası var.
+SELIM_CH2_NO,Why would anyone cut a map?,Haritayı kim keser ki?
+SELIM_CH2_Y,"Exactly. Go see Zeynep; she keeps the stamp, and the story.",Aynen. Zeynep'e git; mührü de hikâyeyi de o saklıyor.
+SELIM_CH2_N,So no one traveller gets it all. He wanted the road to be shared.,Hiçbir yolcu hepsini alamasın diye. Yol paylaşılsın istedi.
+SELIM_CH2_END,Ask her about the sketch with the sunrise on it. She knows.,Üstünde gün doğumu olan çizimi sor. O bilir.
+SELIM_CH3_A,"This piece is the loudest of the four. Drawn at dawn, he said. Hold it up to the light and you'll see the whole valley.","Bu parça dördün en gürültülüsü. Şafakta çizilmiş dedi. Işığa tut, bütün vadiyi göreceksin."
+SELIM_CH3_YES,I'll hold it up at sunrise.,Gün doğumunda ışığa tutarım.
+SELIM_CH3_NO,"Isn't it your piece, though?",Ama bu senin parçan değil mi?
+SELIM_CH3_Y,Do. Tell the sun I said hello.,Tut. Güneşe selamımı söyle.
+SELIM_CH3_N,It was never mine. I just kept it dry. That's a pilot's whole job.,Hiç benim olmadı. Sadece kuru tuttum. Pilotun bütün işi bu.
+SELIM_CH3_END,"Up you go, {player}. One more piece and the sky is whole.","Hadi {player}. Bir parça kaldı, gökyüzü tamam."
+NPC_LEYLA_NAME,Leyla Hanım,Leyla Hanım
+NPC_LEYLA_ROLE,Beekeeper of the plateau,Plato arıcısı
+NPC_LEYLA_NOTE,Keeps forty hives at two thousand metres. Knows every flower by its honey.,İki bin metrede kırk kovan tutar. Her çiçeği balından tanır.
+LEYLA_CH_FUEL,Could I buy some fuel?,Biraz yakıt alabilir miyim?
+LEYLA_CH_PHOTO,Look at this photo,Şu fotoğrafa bak
+LEYLA_CH_DRAWING,Look at my drawing,Çizimime bak
+LEYLA_CH_CHAT,Just chat,Sohbet edelim
+LEYLA_FUEL_DONE,"Filled it up: {amount} litres, {price} lira. Safe roads.","Doldurdum: {amount} litre, {price} lira. Yolun açık olsun."
+LEYLA_FUEL_FULL,Your tank is already full.,Deponuz zaten dolu.
+LEYLA_FUEL_BROKE,Come back when you have a few coins.,Birkaç kuruşun olunca gel.
+LEYLA_PHOTO_LIMIT,I've seen enough photos for today.,Bugünlük yeterince fotoğraf gördüm.
+LEYLA_PHOTO_ALREADY,I know this one already.,Bunu zaten biliyorum.
+LEYLA_PHOTO_SOLD,Take {amount} lira. It will hang on my wall.,{amount} lira al. Duvarıma asarım.
+LEYLA_DRAWING_SOLD,Take {amount} lira. You have a good eye.,{amount} lira al. Gözün iyi.
+LEYLA_PHOTO_KEPT,"Keep it, it's yours. But I loved it.",Sende kalsın. Ama çok sevdim.
+LEYLA_PHOTO_LOVE,This is wonderful! I'd pay well for it.,Harika! İyi para öderim buna.
+LEYLA_PHOTO_NICE,Nice shot. I could take it off your hands.,Güzel kare. Ben alabilirim.
+LEYLA_DRAWING_LOVE,You drew this? Beautiful. I'd buy it.,Bunu sen mi çizdin? Çok güzel. Alırım.
+LEYLA_DRAWING_NICE,A fine drawing. Shall I take it?,Güzel çizim. Alayım mı?
+LEYLA_INTRO_1,"Slowly, slowly, they don't like quick footsteps. I'm Leyla. Welcome to my hives.","Yavaş yavaş, hızlı adım sevmezler. Ben Leyla. Kovanlarıma hoş geldin."
+LEYLA_ASK_NAME,And what shall the bees call you?,Arılar sana ne desin?
+LEYLA_INTRO_END,"{player}. A good name. The plateau is hard but honest, like honey.","{player}. Güzel isim. Plato sert ama dürüst, bal gibi."
+LEYLA_GREET,"{player}, come gently.","{player}, yavaş gel."
+LEYLA_GREET_FRIEND,"{player}, the bees have learned your step.","{player}, arılar adımını öğrendi."
+LEYLA_HUB,What brings you to the hives?,Kovanlara ne için geldin?
+LEYLA_CH_S1,Do the bees remember travellers?,Arılar yolcuları hatırlar mı?
+LEYLA_CH_S2,What did he leave in the hive?,Kovanda ne bıraktı?
+LEYLA_CH_S3,May I take the last piece?,Son parçayı alabilir miyim?
+LEYLA_CHAT_1,A bee visits two million flowers for one jar. Remember that when you are tired.,Bir kavanoz için bir arı iki milyon çiçeği gezer. Yorulunca bunu hatırla.
+LEYLA_CHAT_2,"In the plateau, silence is a neighbour. You learn to bring it bread.",Platoda sessizlik komşudur. Ona ekmek götürmeyi öğrenirsin.
+LEYLA_CHAT_3,"Honey keeps a hundred years. People, fewer. That's why we share it.",Bal yüz yıl dayanır. İnsan daha az. O yüzden paylaşırız.
+LEYLA_BYE,Go gently. Come back with the first snow.,Yavaş git. İlk karla gel.
+LEYLA_CH1_A,"Years ago a man left a jar of honey and a roll of paper with me. 'For whoever carries the other three,' he said. The bees sat on the jar all winter.",Yıllar önce bir adam bana bir kavanoz bal ve bir kâğıt rulosu bıraktı. 'Diğer üçünü taşıyana' dedi. Arılar bütün kış kavanozun üstünde oturdu.
+LEYLA_CH1_YES,Maybe I'm carrying them.,Belki ben taşıyorum.
+LEYLA_CH1_NO,How do you know I'm the right one?,Doğru kişi olduğumu nereden biliyorsun?
+LEYLA_CH1_Y,Bees don't lie about who is a friend. Let me see your hands.,Arılar kimin dost olduğu konusunda yalan söylemez. Ellerini göster.
+LEYLA_CH1_N,I don't. The bees do. They landed on your sleeve; they never do that.,Bilmem. Arılar bilir. Koluna kondular; asla yapmazlar.
+LEYLA_CH1_END,For your trouble: a little honey money. The jar is for later.,Zahmetin için biraz bal parası. Kavanoz sonra için.
+LEYLA_CH2_A,"He asked me to hide the last piece where nobody would look: in the one jar I never open. 'When three pieces meet, open it,' he said.",Son parçayı kimsenin bakmayacağı yere saklamamı istedi: hiç açmadığım kavanoza. 'Üç parça buluşunca aç' dedi.
+LEYLA_CH2_YES,Then the three are nearly together.,O zaman üçü neredeyse bir arada.
+LEYLA_CH2_NO,Wasn't that risky? Jars break.,Riskli değil miydi? Kavanoz kırılır.
+LEYLA_CH2_Y,Nearly. The fourth piece waits in a jar of its own.,Neredeyse. Dördüncü parça kendi kavanozunda bekliyor.
+LEYLA_CH2_N,Jars break. Honey doesn't forget. That's why I trusted both.,Kavanoz kırılır. Bal unutmaz. İkisine de o yüzden güvendim.
+LEYLA_CH2_END,Come when you hold three. I'll open it.,Üçü elinde olunca gel. Ben açarım.
+LEYLA_CH3_A,"You carry three pieces now. I can feel it, the bees hum differently. Here: the last piece. Open it on a hill at sunrise.","Artık üç parça taşıyorsun. Hissediyorum, arılar farklı vızıldıyor. Al: son parça. Bir tepede gün doğarken aç."
+LEYLA_CH3_YES,I'll open it at dawn.,Şafakta açarım.
+LEYLA_CH3_NO,What if it's blank?,Ya boşsa?
+LEYLA_CH3_Y,Good. Take the jar too; the honey is yours.,Güzel. Kavanozu da al; bal senin.
+LEYLA_CH3_N,Then you'll draw it yourself. That's what he did. A map starts blank.,O zaman kendin çizersin. O da öyle yaptı. Harita boş başlar.
+LEYLA_CH3_END,"The road is yours, {player}. Go gently.",Yol senin {player}. Yavaş git.
