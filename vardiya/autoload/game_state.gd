@@ -23,6 +23,12 @@ var counters: Dictionary = {}
 ## Ordered list of {"id", "option", "chapter", "timed_out"}
 var decisions: Array = []
 var journal: Array = []
+## Exploration items the player has examined (globally unique ids).
+var found: Array = []
+## chapter_id -> Array of node ids entered (drives the flowchart).
+var visited: Dictionary = {}
+## Current 3D location: {"scene", "spawn", "player"}.
+var location: Dictionary = {}
 var current_chapter := ""
 var current_node := ""
 var play_time_sec := 0.0
@@ -66,6 +72,9 @@ func reset() -> void:
 	counters.clear()
 	decisions.clear()
 	journal.clear()
+	found.clear()
+	visited.clear()
+	location = {}
 	current_chapter = ""
 	current_node = ""
 	play_time_sec = 0.0
@@ -184,6 +193,28 @@ func add_journal(key: String) -> void:
 		state_changed.emit()
 
 
+func add_found(item_id: String) -> void:
+	if not item_id in found:
+		found.append(item_id)
+		state_changed.emit()
+
+
+func has_found(item_id: String) -> bool:
+	return item_id in found
+
+
+func mark_visited(chapter_id: String, node_id: String) -> void:
+	if not visited.has(chapter_id):
+		visited[chapter_id] = []
+	var list: Array = visited[chapter_id]
+	if not node_id in list:
+		list.append(node_id)
+
+
+func was_visited(chapter_id: String, node_id: String) -> bool:
+	return node_id in visited.get(chapter_id, [])
+
+
 # --- Serialization ----------------------------------------------------------
 
 func to_dict() -> Dictionary:
@@ -193,6 +224,9 @@ func to_dict() -> Dictionary:
 		"counters": counters.duplicate(true),
 		"decisions": decisions.duplicate(true),
 		"journal": journal.duplicate(),
+		"found": found.duplicate(),
+		"visited": visited.duplicate(true),
+		"location": location.duplicate(),
 		"current_chapter": current_chapter,
 		"current_node": current_node,
 		"play_time_sec": play_time_sec,
@@ -222,6 +256,15 @@ func from_dict(d: Dictionary) -> void:
 		})
 	for key in d.get("journal", []):
 		journal.append(str(key))
+	for key in d.get("found", []):
+		found.append(str(key))
+	for ch: String in d.get("visited", {}):
+		var ids: Array = []
+		for id in d["visited"][ch]:
+			ids.append(str(id))
+		visited[ch] = ids
+	for key: String in d.get("location", {}):
+		location[key] = str(d["location"][key])
 	current_chapter = str(d.get("current_chapter", ""))
 	current_node = str(d.get("current_node", ""))
 	play_time_sec = float(d.get("play_time_sec", 0.0))

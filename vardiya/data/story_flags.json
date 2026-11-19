@@ -1,13 +1,67 @@
 {
 	"_doc": "Declared story flags and their defaults. Validator rejects undeclared flags.",
-	"strike_supported": {"default": false, "doc": "Kemal/Defne publicly backed the strike (ch2)."},
-	"gate_opened": {"default": false, "doc": "Factory gate opened during the strike (ch2)."},
-	"cargo_owner_known": {"default": false, "doc": "Riza learned whose cargo he carries (ch3)."},
-	"cargo_delivered": {"default": false, "doc": "Riza delivered the cargo (ch3)."},
-	"secret_revealed": {"default": false, "doc": "A character confessed their own secret (ch6)."},
-	"informer": {"default": "", "doc": "Who informed on someone: '', 'kemal', 'defne', 'riza' (ch6)."},
-	"fire_started": {"default": false, "doc": "The night-shift fire broke out (ch5)."},
-	"harm_done": {"default": false, "doc": "A character knowingly harmed another."},
-	"final_silence": {"default": false, "doc": "The family chose silence at the final table (ch8)."},
-	"breakfast_truth": {"default": false, "doc": "Test chapter: Kemal told Defne the truth."}
+	"strike_supported": {
+		"default": false,
+		"doc": "Kemal/Defne publicly backed the strike (ch2)."
+	},
+	"gate_opened": {
+		"default": false,
+		"doc": "Factory gate opened during the strike (ch2)."
+	},
+	"cargo_owner_known": {
+		"default": false,
+		"doc": "Riza learned whose cargo he carries (ch3)."
+	},
+	"cargo_delivered": {
+		"default": false,
+		"doc": "Riza delivered the cargo (ch3)."
+	},
+	"secret_revealed": {
+		"default": false,
+		"doc": "A character confessed their own secret (ch6)."
+	},
+	"informer": {
+		"default": "",
+		"doc": "Who informed on someone: '', 'kemal', 'defne', 'riza' (ch6)."
+	},
+	"fire_started": {
+		"default": false,
+		"doc": "The night-shift fire broke out (ch5)."
+	},
+	"harm_done": {
+		"default": false,
+		"doc": "A character knowingly harmed another."
+	},
+	"final_silence": {
+		"default": false,
+		"doc": "The family chose silence at the final table (ch8)."
+	},
+	"breakfast_truth": {
+		"default": false,
+		"doc": "Test chapter: Kemal told Defne the truth."
+	},
+	"selim_warned": {
+		"default": false,
+		"doc": "Kemal warned Selim about the layoff list (ch1)."
+	},
+	"fault_reported": {
+		"default": false,
+		"doc": "Kemal officially reported the hidden robot fault (ch1)."
+	},
+	"fault_evidence": {
+		"default": false,
+		"doc": "The report came with the suppressed error log (ch1)."
+	},
+	"fault_fixed_secretly": {
+		"default": false,
+		"doc": "Kemal patched the fault off the books (ch1)."
+	},
+	"fault_hidden": {
+		"default": false,
+		"doc": "Nobody reported the fault; it stays in the line (ch1 -> ch5 fire risk)."
+	},
+	"kemal_injured": {
+		"default": false,
+		"doc": "Kemal failed the robot-arm QTE and hurt his arm (ch1)."
+	}
 }

@@ -4,7 +4,7 @@ extends Node
 ##
 ## Condition leaf: {"<subject>": arg, "<op>": value}
 ##   subjects: flag, counter, decision, status, mood, trust ([a, b]),
-##             avg_trust, alive_count, dead_count
+##             avg_trust, alive_count, dead_count, found (exploration item)
 ##   ops: eq, ne, gt, gte, lt, lte, in   (none -> truthiness)
 ## Combinators: {"all": [...]}, {"any": [...]}, {"not": {...}}; [] = all.
 ##
@@ -16,8 +16,10 @@ signal decision_made(decision_id: String, option_id: String, timed_out: bool)
 const ENDINGS_PATH := "res://data/endings.json"
 const SUBJECTS: PackedStringArray = [
 	"flag", "counter", "decision", "status", "mood", "trust",
-	"avg_trust", "alive_count", "dead_count",
+	"avg_trust", "alive_count", "dead_count", "found",
 ]
+## Node types shown as boxes in the flowchart.
+const FLOW_POINTS: PackedStringArray = ["choice", "qte"]
 const OPS: PackedStringArray = ["eq", "ne", "gt", "gte", "lt", "lte", "in"]
 
 ## Ending rules sorted by priority, and ending_id -> {title, description}.
@@ -96,6 +98,8 @@ func _subject_value(subject: String, arg: Variant) -> Variant:
 			return GameState.alive_count()
 		"dead_count":
 			return GameState.dead_count()
+		"found":
+			return GameState.has_found(str(arg))
 	return null
 
 
@@ -256,7 +260,100 @@ static func _next_ids(n: Dictionary) -> Array:
 		out.append(str(c["next"]))
 	if n.has("else"):
 		out.append(str(n["else"]))
+	for item: Dictionary in n.get("items", []):
+		if item.has("next"):
+			out.append(str(item["next"]))
+	for key in ["success", "fail"]:
+		if n.has(key) and n[key].has("next"):
+			out.append(str(n[key]["next"]))
 	return out
+
+
+## Outcome branches of a flowchart point: [{id, text, next}].
+static func point_options(n: Dictionary) -> Array:
+	var out: Array = []
+	if n.get("type", "") == "qte":
+		out.append({"id": "success", "text": "flow.qte_success", "next": str(n["success"]["next"])})
+		out.append({"id": "fail", "text": "flow.qte_fail", "next": str(n["fail"]["next"])})
+		return out
+	for o: Dictionary in n.get("options", []):
+		out.append({"id": str(o["id"]), "text": str(o.get("text", "")), "next": str(o["next"])})
+	var timeout: Dictionary = n.get("timeout", {})
+	if not timeout.is_empty():
+		out.append({"id": str(timeout.get("id", "silence")), "text": str(timeout.get("text", "dialogue.silence")),
+			"next": str(timeout["next"])})
+	return out
+
+
+## Graph of decision points for the end-of-chapter flowchart.
+## Points: start, every choice / qte node, every end node. Each option edge
+## follows plain nodes until it reaches the next point(s).
+## Returns {"points": [{id, kind, label, major, layer, visited,
+##           options: [{id, text, chosen, targets: [point ids]}]}], "layers": int}
+func build_flowchart(chapter: Dictionary) -> Dictionary:
+	var nodes: Dictionary = chapter.get("nodes", {})
+	var chapter_id: String = chapter.get("id", "")
+	var start: String = chapter.get("start", "")
+	var points: Dictionary = {"__start": {"id": "__start", "kind": "start", "label": str(chapter.get("title", "")),
+		"major": false, "visited": true, "options": [{"id": "start", "text": "", "chosen": true,
+		"targets": _point_targets(nodes, start)}]}}
+	for id: String in nodes:
+		var n: Dictionary = nodes[id]
+		var t: String = n.get("type", "")
+		if t in FLOW_POINTS:
+			var did: String = n.get("decision_id", id)
+			var entry := _decision_entry(did, chapter_id)
+			var opts: Array = []
+			for o: Dictionary in point_options(n):
+				opts.append({"id": o["id"], "text": o["text"], "targets": _point_targets(nodes, o["next"]),
+					"chosen": not entry.is_empty() and entry["option"] == o["id"]})
+			points[id] = {"id": id, "kind": t, "label": str(n.get("prompt", "")), "major": bool(n.get("major", false)),
+				"visited": GameState.was_visited(chapter_id, id), "options": opts}
+		elif t == "end":
+			points[id] = {"id": id, "kind": "end", "label": "flow.end", "major": false,
+				"visited": GameState.was_visited(chapter_id, id), "options": []}
+	# Longest-path layering from the start (bounded, tolerates cycles).
+	var layer := {"__start": 0}
+	for _i in points.size():
+		var changed := false
+		for pid: String in points:
+			if not layer.has(pid):
+				continue
+			for o: Dictionary in points[pid]["options"]:
+				for t: String in o["targets"]:
+					if points.has(t) and int(layer.get(t, -1)) < int(layer[pid]) + 1:
+						layer[t] = int(layer[pid]) + 1
+						changed = true
+		if not changed:
+			break
+	var out: Array = []
+	var max_layer := 0
+	for pid: String in points:
+		var p: Dictionary = points[pid]
+		p["layer"] = int(layer.get(pid, 0))
+		max_layer = maxi(max_layer, p["layer"])
+		out.append(p)
+	return {"points": out, "layers": max_layer + 1}
+
+
+func _point_targets(nodes: Dictionary, from_id: String) -> Array:
+	var targets: Array = []
+	var seen := {}
+	var stack: Array = [from_id]
+	while not stack.is_empty():
+		var id: String = stack.pop_back()
+		if seen.has(id) or not nodes.has(id):
+			continue
+		seen[id] = true
+		var n: Dictionary = nodes[id]
+		var t: String = n.get("type", "")
+		if t in FLOW_POINTS or t == "end":
+			if not id in targets:
+				targets.append(id)
+			continue
+		for nxt in _next_ids(n):
+			stack.append(nxt)
+	return targets
 
 
 # --- Endings -----------------------------------------------------------------
