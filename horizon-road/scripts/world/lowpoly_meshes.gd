@@ -144,6 +144,70 @@ static func tea_bush(seed_value: int = 3) -> ArrayMesh:
 	return b.commit(foliage_material(0.03, 1.0, 0.25))
 
 
+## Low rounded shrub (rhododendron/hazel) for forest edges.
+static func shrub(seed_value: int = 50) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var leaf := Color(0.2, 0.38, 0.16)
+	for i: int in 4:
+		var p := Vector3(b.rng.randf_range(-0.5, 0.5), 0.0, b.rng.randf_range(-0.5, 0.5))
+		var r: float = b.rng.randf_range(0.4, 0.65)
+		b.add(_sphere(r, r * 1.5, 6, 3), _at(p + Vector3(0, r * 0.6, 0)), leaf.lightened(b.rng.randf_range(-0.05, 0.1)), 0.1, 0.12)
+	return b.commit(foliage_material(0.05, 1.4, 0.3))
+
+
+## Fern: arching fronds fanned out, double-sided.
+static func fern(seed_value: int = 60) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var green := Color(0.3, 0.5, 0.18)
+	var fronds: int = 7
+	for i: int in fronds:
+		var a: float = TAU * i / fronds + b.rng.randf_range(-0.2, 0.2)
+		var dir := Vector3(cos(a), 0.0, sin(a))
+		var side: Vector3 = dir.cross(Vector3.UP) * 0.09
+		var length: float = b.rng.randf_range(0.45, 0.7)
+		var mid: Vector3 = dir * length * 0.5 + Vector3(0, 0.38, 0)
+		var tip: Vector3 = dir * length + Vector3(0, 0.15, 0)
+		var col: Color = green.lightened(b.rng.randf_range(-0.05, 0.1))
+		for pair: Array in [[Vector3.ZERO, mid], [mid, tip]]:
+			var p0: Vector3 = pair[0]
+			var p1: Vector3 = pair[1]
+			b.tri(p0 - side * 0.3, p1, p0 + side * 0.3, col, Vector3.UP)
+			b.tri(p0 + side * 0.3, p1, p0 - side * 0.3, col, Vector3.UP)
+			b.tri(p1 - side, p1 + dir * 0.02, p1 + side, col, Vector3.UP)
+			b.tri(p1 + side, p1 + dir * 0.02, p1 - side, col, Vector3.UP)
+	return b.commit(foliage_material(0.08, 0.7, 0.45))
+
+
+## Birch: slim white trunk with dark marks, small airy canopy.
+static func birch(seed_value: int = 70) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	b.add(_cone(0.13, 0.08, 4.5, 6), _at(Vector3(0, 2.25, 0)), Color(0.9, 0.88, 0.82))
+	for y: float in [0.8, 1.7, 2.6, 3.4]:
+		b.add(_box(Vector3(0.2, 0.05, 0.2)), _at(Vector3(0, y, 0), b.rng.randf() * TAU), Color(0.2, 0.18, 0.16))
+	var leaf := Color(0.45, 0.62, 0.22)
+	for i: int in 4:
+		var p := Vector3(b.rng.randf_range(-0.6, 0.6), b.rng.randf_range(3.8, 5.0), b.rng.randf_range(-0.6, 0.6))
+		b.add(_sphere(0.8, 1.6, 6, 3), _at(p), leaf.lightened(b.rng.randf_range(-0.05, 0.08)), 0.18, 0.12)
+	return b.commit(foliage_material(0.12, 6.0, 0.4))
+
+
+## Lake reeds with cattail heads.
+static func reeds(seed_value: int = 80) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	for i: int in 9:
+		var base := Vector3(b.rng.randf_range(-0.35, 0.35), 0.0, b.rng.randf_range(-0.35, 0.35))
+		var h: float = b.rng.randf_range(1.0, 1.7)
+		var lean := Vector3(b.rng.randf_range(-0.12, 0.12), 0, b.rng.randf_range(-0.12, 0.12))
+		var top: Vector3 = base + lean + Vector3(0, h, 0)
+		var w := Vector3(0.025, 0, 0)
+		var c := Color(0.42, 0.52, 0.24).lerp(Color(0.6, 0.55, 0.3), b.rng.randf())
+		b.tri(base - w, top, base + w, c, Vector3.UP)
+		b.tri(base + w, top, base - w, c, Vector3.UP)
+		if i % 3 == 0:
+			b.add(_cone(0.035, 0.035, 0.2, 5), _at(top - lean * 0.1 - Vector3(0, 0.12, 0)), Color(0.4, 0.26, 0.15))
+	return b.commit(foliage_material(0.15, 1.6, 0.4))
+
+
 static func rock(seed_value: int = 4) -> ArrayMesh:
 	var b := Builder.new(seed_value)
 	b.add(_sphere(1.0, 1.3, 6, 3), _at(Vector3(0, 0.25, 0)), Color(0.45, 0.44, 0.41), 0.22, 0.08)
@@ -267,8 +331,11 @@ static func villager_woman(seed_value: int = 21) -> ArrayMesh:
 	for x: float in [-0.27, 0.27]:
 		b.add(_cone(0.07, 0.06, 0.5, 6), Transform3D(Basis(Vector3.FORWARD, x * 0.6), Vector3(x, 1.12, -0.03)), cardigan)
 		b.add(_sphere(0.06, 0.1, 6, 3), _at(Vector3(x * 1.08, 0.86, -0.06)), skin)
-	b.add(_sphere(0.13, 0.27, 8, 4), _at(Vector3(0, 1.52, 0)), skin)
-	b.add(_sphere(0.16, 0.3, 8, 4), _at(Vector3(0, 1.56, 0.03)), scarf, 0.0, 0.08)
+	b.add(_sphere(0.13, 0.27, 10, 5), _at(Vector3(0, 1.52, 0)), skin)
+	_face(b, Vector3(0, 1.52, 0), 0.13, Color(0.35, 0.28, 0.22))
+	# Yazma tied over the hair, leaving the face open.
+	b.add(_sphere(0.15, 0.24, 10, 4), _at(Vector3(0, 1.6, 0.045)), scarf, 0.0, 0.08)
+	b.add(_box(Vector3(0.3, 0.035, 0.05)), _at(Vector3(0, 1.62, -0.08)), Color(0.85, 0.25, 0.2))
 	b.add(_cone(0.12, 0.02, 0.22, 6), Transform3D(Basis(Vector3.RIGHT, -0.4), Vector3(0, 1.4, 0.13)), scarf.darkened(0.1))
 	# Küfe: tapered wicker basket strapped to the back.
 	b.add(_cone(0.2, 0.26, 0.55, 8), _at(Vector3(0, 1.2, 0.3)), Color(0.62, 0.48, 0.28), 0.0, 0.1)
@@ -353,11 +420,27 @@ static func camper_body() -> ArrayMesh:
 	b.tri(g0, g3, g2, glass)
 	b.tri(g0, g1, g3, glass)
 	# Side windows (both sides) and rear window.
+	var curtain := Color(0.88, 0.55, 0.28)
 	for side: float in [-1.0, 1.0]:
 		for z: float in [-1.15, 0.25, 1.45]:
-			var wsize := Vector3(0.04, 0.6, 0.95 if z > -1.0 else 0.7)
-			b.add(_box(wsize), _at(Vector3(side * (hw + 0.01), 2.08, z)), glass)
+			var wlen: float = 0.95 if z > -1.0 else 0.7
+			b.add(_box(Vector3(0.04, 0.6, wlen)), _at(Vector3(side * (hw + 0.01), 2.08, z)), glass)
+			if z > -1.0:
+				# Half-drawn curtains in the living area make the van feel lived in.
+				b.add(_box(Vector3(0.04, 0.26, wlen * 0.92)), _at(Vector3(side * (hw + 0.016), 1.93, z)), curtain)
+				b.add(_box(Vector3(0.04, 0.6, 0.14)), _at(Vector3(side * (hw + 0.017), 2.08, z - wlen * 0.42)), curtain.darkened(0.08))
+		# Door seams, side mirror, mudflap.
+		for z: float in [-1.55, -0.55]:
+			b.add(_box(Vector3(0.02, 1.9, 0.025)), _at(Vector3(side * (width * 0.5 + 0.005), 1.45, z)), cream.darkened(0.35))
+		b.add(_box(Vector3(0.22, 0.04, 0.04)), _at(Vector3(side * (hw + 0.1), 1.72, -1.95)), trim)
+		b.add(_box(Vector3(0.05, 0.2, 0.14)), _at(Vector3(side * (hw + 0.22), 1.72, -1.95)), Color(0.8, 0.82, 0.85))
+		b.add(_box(Vector3(0.3, 0.32, 0.02)), _at(Vector3(side * 0.88, 0.3, 2.05)), Color(0.12, 0.12, 0.13))
 	b.add(_box(Vector3(1.4, 0.55, 0.04)), _at(Vector3(0, 2.08, length * 0.5 + 0.02)), glass)
+	b.add(_box(Vector3(1.4, 0.2, 0.04)), _at(Vector3(0, 1.93, length * 0.5 + 0.026)), curtain)
+	# Roof vent and a round front badge.
+	b.add(_box(Vector3(0.5, 0.12, 0.5)), _at(Vector3(0, 2.53, -0.9)), Color(0.85, 0.85, 0.83))
+	b.add(_cone(0.17, 0.17, 0.03, 12), Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(0, 1.15, front_z - 0.015)), Color(0.85, 0.86, 0.88))
+	b.add(_box(Vector3(width - 0.3, 0.05, 0.03)), _at(Vector3(0, 0.82, front_z - 0.012)), Color(0.85, 0.86, 0.88))
 	# Roof rack + spare tyre + side stripe.
 	b.add(_box(Vector3(width - 0.3, 0.06, 2.6)), _at(Vector3(0, 2.55, 0.6)), trim)
 	for z: float in [-0.6, 0.6, 1.8]:
@@ -386,14 +469,37 @@ static func wheel() -> ArrayMesh:
 	return b.commit(vertex_color_material(0.7))
 
 
-## Traveller on foot: rain jacket, backpack. ~1.75 m tall, origin at feet.
+## Traveller on foot: rain jacket, backpack, cap. ~1.75 m tall, origin at feet, faces -Z.
 static func traveller() -> ArrayMesh:
 	var b := Builder.new(13)
 	var jacket := Color(0.9, 0.48, 0.18)
-	b.add(_box(Vector3(0.18, 0.85, 0.2)), _at(Vector3(-0.11, 0.42, 0)), Color(0.22, 0.25, 0.32))
-	b.add(_box(Vector3(0.18, 0.85, 0.2)), _at(Vector3(0.11, 0.42, 0)), Color(0.22, 0.25, 0.32))
-	b.add(_sphere(0.27, 0.75, 8, 4), _at(Vector3(0, 1.17, 0)), jacket)
-	b.add(_box(Vector3(0.36, 0.45, 0.2)), _at(Vector3(0, 1.2, 0.2)), Color(0.32, 0.4, 0.3))
-	b.add(_sphere(0.14, 0.28, 8, 4), _at(Vector3(0, 1.62, 0)), Color(0.87, 0.7, 0.56))
-	b.add(_sphere(0.15, 0.16, 8, 3), _at(Vector3(0, 1.72, 0)), Color(0.75, 0.2, 0.15))
+	var trousers := Color(0.22, 0.25, 0.32)
+	var skin := Color(0.87, 0.7, 0.56)
+	for x: float in [-0.11, 0.11]:
+		b.add(_box(Vector3(0.17, 0.12, 0.28)), _at(Vector3(x, 0.06, -0.03)), Color(0.32, 0.22, 0.14))
+		b.add(_box(Vector3(0.16, 0.78, 0.18)), _at(Vector3(x, 0.5, 0)), trousers)
+	b.add(_box(Vector3(0.46, 0.62, 0.28)), _at(Vector3(0, 1.17, 0)), jacket, 0.02, 0.04)
+	b.add(_box(Vector3(0.5, 0.08, 0.3)), _at(Vector3(0, 0.88, 0)), jacket.darkened(0.15))
+	b.add(_box(Vector3(0.04, 0.5, 0.02)), _at(Vector3(0, 1.17, -0.15)), Color(0.75, 0.75, 0.72))
+	for x: float in [-0.29, 0.29]:
+		b.add(_box(Vector3(0.12, 0.56, 0.14)), Transform3D(Basis(Vector3.FORWARD, x * 0.25), Vector3(x, 1.12, 0)), jacket)
+		b.add(_sphere(0.055, 0.1, 6, 3), _at(Vector3(x * 1.08, 0.82, 0)), skin)
+	b.add(_box(Vector3(0.36, 0.48, 0.2)), _at(Vector3(0, 1.2, 0.24)), Color(0.32, 0.4, 0.3), 0.02)
+	b.add(_box(Vector3(0.3, 0.12, 0.08)), _at(Vector3(0, 1.0, 0.36)), Color(0.28, 0.35, 0.26))
+	b.add(_cone(0.06, 0.06, 0.1, 6), _at(Vector3(0, 1.52, 0)), skin)
+	b.add(_sphere(0.14, 0.3, 10, 5), _at(Vector3(0, 1.66, 0)), skin)
+	_face(b, Vector3(0, 1.66, 0), 0.14, Color(0.3, 0.2, 0.12))
+	b.add(_sphere(0.15, 0.17, 10, 4), _at(Vector3(0, 1.75, 0.01)), Color(0.75, 0.2, 0.15))
+	b.add(_box(Vector3(0.22, 0.03, 0.12)), Transform3D(Basis(Vector3.RIGHT, 0.12), Vector3(0, 1.73, -0.17)), Color(0.65, 0.17, 0.13))
+	b.add(_box(Vector3(0.26, 0.08, 0.1)), _at(Vector3(0, 1.66, 0.11)), Color(0.3, 0.2, 0.12))
 	return b.commit(vertex_color_material(0.8))
+
+
+## Simple friendly face on a head sphere facing -Z: eyes, brows, nose.
+static func _face(b: Builder, center: Vector3, radius: float, brow: Color) -> void:
+	var front: float = -radius * 0.9
+	for x: float in [-0.045, 0.045]:
+		b.add(_sphere(0.017, 0.03, 6, 3), _at(center + Vector3(x, 0.01, front)), Color(0.08, 0.06, 0.05))
+		b.add(_box(Vector3(0.045, 0.012, 0.012)), _at(center + Vector3(x, 0.045, front + 0.01)), brow)
+	b.add(_cone(0.018, 0.0, 0.04, 4), Transform3D(Basis(Vector3.RIGHT, -PI * 0.5), center + Vector3(0, -0.02, front - 0.015)), Color(0.82, 0.6, 0.47))
+	b.add(_box(Vector3(0.04, 0.008, 0.01)), _at(center + Vector3(0, -0.06, front + 0.02)), Color(0.6, 0.32, 0.28))

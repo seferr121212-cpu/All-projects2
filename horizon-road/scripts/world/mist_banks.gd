@@ -49,8 +49,13 @@ func _process(delta: float) -> void:
 	# Morning mist peaks just after dawn and fades by late morning.
 	var morning: float = smoothstep(3.5, 6.5, hour) * (1.0 - smoothstep(8.0, 11.0, hour))
 	var evening: float = smoothstep(19.5, 22.0, hour) * 0.5 + (1.0 - smoothstep(0.0, 3.5, hour)) * 0.5
-	var mist: float = clampf(WeatherManager.current.mist + morning * 0.6 + evening * 0.25, 0.0, 1.0)
+	# Light weather leaves no midday mist; it only lingers in damp, foggy weather.
+	var weather_mist: float = smoothstep(0.25, 1.0, WeatherManager.current.mist)
+	var mist: float = clampf(weather_mist + morning * 0.6 + evening * 0.25, 0.0, 1.0)
 	_material.density = mist * max_density
+	# A little self-glow so mist reads as bright haze, not dark smoke, from above.
+	var day: float = 1.0 - TimeManager.get_night_factor()
+	_material.emission = Color(0.55, 0.58, 0.62) * (0.08 + 0.35 * day)
 	_drift += delta * (0.3 + WeatherManager.current.wind)
 	for i: int in _volumes.size():
 		_volumes[i].rotation.y = sin(_drift * 0.01 + i) * 0.15

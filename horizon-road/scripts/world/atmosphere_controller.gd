@@ -18,6 +18,7 @@ var sky_material := ShaderMaterial.new()
 var _sun: DirectionalLight3D
 var _moon: DirectionalLight3D
 var _flash: float = 0.0
+var _cloud_offset := Vector2.ZERO
 var _next_flash_in: float = 6.0
 var _rng := RandomNumberGenerator.new()
 
@@ -76,6 +77,12 @@ func _create_environment() -> Environment:
 	env.ssao_radius = 1.6
 	env.ssao_intensity = 1.6
 	env.ssao_light_affect = 0.15
+
+	# Screen-space indirect light: soft colour bleed from sunlit grass onto walls.
+	env.ssil_enabled = true
+	env.ssil_radius = 4.0
+	env.ssil_intensity = 0.9
+	env.ssil_sharpness = 0.9
 
 	env.glow_enabled = true
 	env.glow_intensity = 0.55
@@ -201,6 +208,12 @@ func _update(delta: float) -> void:
 	environment.tonemap_exposure = lerpf(1.0, 1.35, night) * lerpf(1.0, 1.12, overcast)
 
 	RenderingServer.global_shader_parameter_set(&"night_lights", smoothstep(0.25, 0.8, night))
+	# Cloud shadows only read when there is direct sun and broken (not full) cover.
+	_cloud_offset += Vector2(0.6, 0.25) * (0.004 + w.wind * 0.012) * delta
+	var broken: float = 1.0 - smoothstep(0.75, 0.95, w.cloud_coverage)
+	RenderingServer.global_shader_parameter_set(&"cloud_shadow_strength", 0.9 * broken * sun_up * w.sun_strength)
+	RenderingServer.global_shader_parameter_set(&"cloud_coverage", w.cloud_coverage)
+	RenderingServer.global_shader_parameter_set(&"cloud_shadow_offset", _cloud_offset)
 
 
 func _update_lightning(delta: float, w: WeatherProfile) -> void:

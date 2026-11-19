@@ -10,6 +10,9 @@ enum Surface { GRASS, ROAD, MUD, ROCK, SNOW }
 const TERRAIN_SHADER: Shader = preload("res://assets/shaders/terrain.gdshader")
 const ROAD_SHADER: Shader = preload("res://assets/shaders/road.gdshader")
 const WATER_SHADER: Shader = preload("res://assets/shaders/water.gdshader")
+## 0 = fully faceted, 1 = fully smooth. Mid values keep the low-poly look calm.
+const NORMAL_SOFTNESS: float = 0.55
+const COLOR_SOFTNESS: float = 0.5
 
 @export var terrain_seed: int = 1907
 @export var size: float = 720.0
@@ -325,7 +328,7 @@ func _classify_surfaces() -> void:
 				s = Surface.ROCK
 			elif heights[i] > 95.0:
 				s = Surface.SNOW
-			elif _noise_mask.get_noise_2d(x * 2.3 + 500.0, z * 2.3) > 0.42 and slope < 0.06:
+			elif _noise_mask.get_noise_2d(x * 2.3 + 500.0, z * 2.3) > 0.6 and slope < 0.05:
 				s = Surface.MUD
 			elif Vector2(x, z).distance_to(lake_center) < lake_radius * 1.12:
 				s = Surface.MUD
@@ -349,8 +352,16 @@ func _vertex_color(ix: int, iz: int) -> Color:
 	var lush := Color(0.26, 0.45, 0.15)
 	var dry := Color(0.47, 0.53, 0.22)
 	var c: Color = lush.lerp(dry, meadow_var * 0.55)
+	# Broad hue drift: cooler blue-green and warmer yellow-green meadows.
+	var hue_var: float = _noise_hills.get_noise_2d(x * 0.5 + 900.0, z * 0.5)
+	c = c.lerp(Color(0.2, 0.42, 0.24), clampf(hue_var, 0.0, 1.0) * 0.5)
+	c = c.lerp(Color(0.5, 0.52, 0.2), clampf(-hue_var, 0.0, 1.0) * 0.35)
+	# Curvature shading: hollows stay darker and lusher, crests catch the light.
+	var curvature: float = _curvature(ix, iz)
+	c = c.darkened(clampf(curvature * 0.06, 0.0, 0.2))
+	c = c.lerp(Color(0.4, 0.55, 0.22), clampf(-curvature * 0.04, 0.0, 0.15))
 	var forest: float = forest_mask(x, z)
-	c = c.lerp(Color(0.17, 0.27, 0.12), forest * 0.75)
+	c = c.lerp(Color(0.15, 0.3, 0.12), forest * 0.6)
 	if in_tea_garden(x, z):
 		c = c.lerp(Color(0.38, 0.3, 0.2), 0.55)
 	match surfaces[i]:
@@ -359,13 +370,24 @@ func _vertex_color(ix: int, iz: int) -> Color:
 		Surface.SNOW:
 			c = Color(0.85, 0.88, 0.92)
 		Surface.MUD:
-			c = c.lerp(Color(0.38, 0.33, 0.22), 0.42)
+			c = c.lerp(Color(0.3, 0.36, 0.2), 0.45)
 	var road_d: float = road_distance[i]
 	if road_d < road_half_width + 1.5:
 		c = c.lerp(Color(0.4, 0.4, 0.24), 0.45 * (1.0 - smoothstep(road_half_width, road_half_width + 1.5, road_d)))
-	if h < water_level + 0.15:
+	# Lake bed colour only inside the basin (low meadows elsewhere stay green).
+	if h < water_level + 0.15 and Vector2(x, z).distance_to(lake_center) < lake_radius * 1.25:
 		c = Color(0.33, 0.33, 0.24)
 	return c
+
+
+## Positive in hollows, negative on crests (discrete Laplacian, metres).
+func _curvature(ix: int, iz: int) -> float:
+	var h: float = heights[iz * resolution + ix]
+	var l: float = heights[iz * resolution + maxi(ix - 1, 0)]
+	var r: float = heights[iz * resolution + mini(ix + 1, resolution - 1)]
+	var d: float = heights[maxi(iz - 1, 0) * resolution + ix]
+	var u: float = heights[mini(iz + 1, resolution - 1) * resolution + ix]
+	return (l + r + d + u) * 0.25 - h
 
 
 # --- Mesh & collision ------------------------------------------------------
@@ -378,6 +400,11 @@ func _build_chunks() -> void:
 	for iz: int in resolution:
 		for ix: int in resolution:
 			colors[iz * resolution + ix] = _vertex_color(ix, iz)
+	var smooth_normals := PackedVector3Array()
+	smooth_normals.resize(resolution * resolution)
+	for iz: int in resolution:
+		for ix: int in resolution:
+			smooth_normals[iz * resolution + ix] = _grid_normal(ix, iz)
 	var cells: int = resolution - 1
 	for cz0: int in range(0, cells, chunk_cells):
 		for cx0: int in range(0, cells, chunk_cells):
@@ -394,8 +421,12 @@ func _build_chunks() -> void:
 					var c10: Color = colors[iz * resolution + ix + 1]
 					var c01: Color = colors[(iz + 1) * resolution + ix]
 					var c11: Color = colors[(iz + 1) * resolution + ix + 1]
-					_face(verts, normals, cols, p00, p10, p11, (c00 + c10 + c11) / 3.0)
-					_face(verts, normals, cols, p00, p11, p01, (c00 + c11 + c01) / 3.0)
+					var n00: Vector3 = smooth_normals[iz * resolution + ix]
+					var n10: Vector3 = smooth_normals[iz * resolution + ix + 1]
+					var n01: Vector3 = smooth_normals[(iz + 1) * resolution + ix]
+					var n11: Vector3 = smooth_normals[(iz + 1) * resolution + ix + 1]
+					_soft_face(verts, normals, cols, [p00, p10, p11], [n00, n10, n11], [c00, c10, c11])
+					_soft_face(verts, normals, cols, [p00, p11, p01], [n00, n11, n01], [c00, c11, c01])
 			var arrays: Array = []
 			arrays.resize(Mesh.ARRAY_MAX)
 			arrays[Mesh.ARRAY_VERTEX] = verts
@@ -424,6 +455,20 @@ func _face(verts: PackedVector3Array, normals: PackedVector3Array, cols: PackedC
 	for k: int in 3:
 		normals.append(n)
 		cols.append(lin)
+
+
+## Half-faceted face: keeps the low-poly read but softens hard stripes by
+## blending the face normal with smooth vertex normals and the face colour
+## with per-vertex colours.
+func _soft_face(verts: PackedVector3Array, normals: PackedVector3Array, cols: PackedColorArray,
+		p: Array, vn: Array, vc: Array) -> void:
+	var a: Vector3 = p[0]
+	var face_n: Vector3 = ((p[2] as Vector3) - a).cross((p[1] as Vector3) - a).normalized()
+	var face_c: Color = ((vc[0] as Color) + (vc[1] as Color) + (vc[2] as Color)) / 3.0
+	for k: int in 3:
+		verts.append(p[k])
+		normals.append(face_n.lerp(vn[k], NORMAL_SOFTNESS).normalized())
+		cols.append(face_c.lerp(vc[k], COLOR_SOFTNESS).srgb_to_linear())
 
 
 func _build_collision() -> void:

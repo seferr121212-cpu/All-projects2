@@ -3,6 +3,7 @@ shader_type spatial;
 // edges. UV.x runs across the road (0..1), UV.y along it in metres.
 
 #include "res://assets/shaders/common_noise.gdshaderinc"
+#include "res://assets/shaders/cloud_shadow.gdshaderinc"
 
 global uniform float wetness;
 global uniform float snow_cover;
@@ -34,6 +35,7 @@ void fragment() {
 	float snow = snow_cover * (0.75 - tracks * 0.35);
 	c = mix(c, vec3(0.86, 0.88, 0.93), snow);
 
+	c = apply_cloud_shadow(c, world_pos);
 	ALBEDO = c;
 	ROUGHNESS = mix(mix(0.95, 0.5, wetness), 0.05, puddle);
 	SPECULAR = mix(0.25, 0.6, wetness);

@@ -33,7 +33,7 @@ Genel doğrulama araçları:
 - **Bitti:** çekilen fotoğraf `user://photos/` altında PNG olarak oluşuyor, puanı ve
   hedefleri ile albümde görünüyor; yeniden başlatınca kayıtlı.
 
-## Aşama 2.5 — Görsel cila (kullanıcı isteği)
+## Aşama 2.5 — Görsel cila (kullanıcı isteği) — 1. tur ✅
 - Arazi: doku/renk geçişleri, düz üçgen lekelerini yumuşatma, yol kenarı geçişleri.
 - Bitki: daha fazla ağaç/çalı varyasyonu, yumuşak silüet, yakında yoğun çimen.
 - Su: yansıma, kıyı köpüğü; ışık: SDFGI/SSIL (kalite ayarına bağlı), sıcak gölgeler.
@@ -111,6 +111,16 @@ Genel doğrulama araçları:
 - Test: `godot --path . -- --story` tüm döngüyü oynar (`--stop=intro|name|hub|harvest|deliver|picker|photo`).
 - Bilinen sorunlar: karakterlerin yüz detayı yok (görsel cilada); çay çalıları çarpışmasız
   (oyuncu üstlerinden geçer); satılan fotoğraf işareti albümde kalır, eski kayıt yüklense de geri gelmez.
+
+## Görsel cila 1. tur notları
+- Yapılan: hareketli bulut gölgeleri (serin tonlu), arazide eğrilik gölgelendirmesi + ton
+  çeşitliliği + yarı yumuşak normaller + yakın plan çimen dokusu, SSIL, su (Fresnel + kıyı
+  köpüğü), çalı/eğrelti/huş/sazlık, 90k çimen, karakter yüzleri ve kolları, karavan detayları.
+- Düzeltilen hatalar: göl seviyesinin altındaki çayırların "göl dibi" rengine boyanması,
+  öğlen bile duran koyu vadi sisi.
+- Karşılaştırmalar: `docs/screenshots/polish_*.jpg`.
+- 2. tur adayları: hacimli bulutlar, SDFGI (yüksek kalite ayarı), karakter animasyonu,
+  daha yuvarlak karavan modeli, gerçek CC0 model paketleri (ASSETS.md).
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

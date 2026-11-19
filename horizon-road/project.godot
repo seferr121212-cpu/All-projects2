@@ -64,3 +64,15 @@ night_lights={
 "type": "float",
 "value": 0.0
 }
+cloud_shadow_strength={
+"type": "float",
+"value": 0.0
+}
+cloud_coverage={
+"type": "float",
+"value": 0.3
+}
+cloud_shadow_offset={
+"type": "vec2",
+"value": Vector2(0, 0)
+}

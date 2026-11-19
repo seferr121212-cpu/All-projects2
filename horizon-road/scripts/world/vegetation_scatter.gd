@@ -12,7 +12,11 @@ extends Node3D
 @export var spruce_count: int = 3200
 @export var broadleaf_count: int = 450
 @export var rock_count: int = 700
-@export var grass_count: int = 60000
+@export var grass_count: int = 90000
+@export var shrub_count: int = 900
+@export var fern_count: int = 2600
+@export var birch_count: int = 220
+@export var reed_count: int = 320
 @export var flower_count: int = 6000
 @export_range(0.25, 1.0) var density_scale: float = 1.0
 
@@ -29,6 +33,7 @@ func _ready() -> void:
 	_scatter_spruces()
 	_scatter_broadleaves()
 	_scatter_tea_rows()
+	_scatter_understory()
 	_scatter_rocks()
 	_scatter_grass()
 	_scatter_flowers()
@@ -114,6 +119,49 @@ func _scatter_tea_rows() -> void:
 			_add(bucket, xf, _tint(0.08))
 			tea_positions.append(xf.origin + Vector3(0, 0.85 * s, 0))
 	_build(bucket, mesh, "TeaRows", 220.0, true)
+
+
+## Shrubs at forest edges, ferns on the forest floor, birches near open
+## meadows and the lake, reeds along the shore.
+func _scatter_understory() -> void:
+	var shrubs: Array[Dictionary] = [{}, {}]
+	var shrub_meshes: Array[Mesh] = [LowPolyMeshes.shrub(50), LowPolyMeshes.shrub(51)]
+	var ferns: Dictionary = {}
+	var birches: Dictionary = {}
+	var reeds: Dictionary = {}
+	var n_shrub: int = 0
+	var n_fern: int = 0
+	var n_birch: int = 0
+	for i: int in int((shrub_count + fern_count + birch_count) * 6 * density_scale):
+		var p: Vector2 = _random_point()
+		if not _clear_of_features(p, 3.0, 2.0):
+			continue
+		if _terrain.normal_at(p.x, p.y).y < 0.7:
+			continue
+		var forest: float = _terrain.forest_mask(p.x, p.y)
+		if forest > 0.55 and n_fern < fern_count * density_scale:
+			_add(ferns, _ground_transform(p, _rng.randf_range(0.8, 1.4), 0.03, 0.1), _tint(0.12), detail_chunk_size)
+			n_fern += 1
+		elif forest > 0.12 and forest < 0.6 and n_shrub < shrub_count * density_scale:
+			_add(shrubs[n_shrub % 2], _ground_transform(p, _rng.randf_range(0.7, 1.5), 0.15, 0.05), _tint(0.12))
+			n_shrub += 1
+		elif forest > 0.02 and forest < 0.35 and n_birch < birch_count * density_scale and _rng.randf() < 0.3:
+			_add(birches, _ground_transform(p, _rng.randf_range(0.8, 1.25), 0.2, 0.05), _tint(0.08))
+			n_birch += 1
+	# Reeds in a ring hugging the lake shore.
+	var c: Vector2 = _terrain.lake_center
+	for i: int in int(reed_count * density_scale):
+		var a: float = _rng.randf() * TAU
+		var d: float = _terrain.lake_radius * _rng.randf_range(0.9, 1.08)
+		var p: Vector2 = c + Vector2(cos(a), sin(a)) * d
+		if _terrain.distance_to_road(p.x, p.y) < 6.0:
+			continue
+		_add(reeds, _ground_transform(p, _rng.randf_range(0.8, 1.2), 0.05, 0.0), _tint(0.1), detail_chunk_size)
+	for i: int in shrubs.size():
+		_build(shrubs[i], shrub_meshes[i], "Shrubs%d" % i, 0.0, true)
+	_build(ferns, LowPolyMeshes.fern(), "Ferns", 70.0, false)
+	_build(birches, LowPolyMeshes.birch(), "Birches", 0.0, true)
+	_build(reeds, LowPolyMeshes.reeds(), "Reeds", 120.0, false)
 
 
 func _scatter_rocks() -> void:
