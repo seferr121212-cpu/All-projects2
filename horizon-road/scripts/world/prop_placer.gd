@@ -17,7 +17,7 @@ func _ready() -> void:
 	var mesh: Mesh
 	match kind:
 		"tent":
-			mesh = AnatoliaMeshes.nomad_tent()
+			mesh = AssetLibrary.meshes("nomad_tent", [AnatoliaMeshes.nomad_tent()])[0]
 		"beehive":
 			mesh = null
 		"pottery":

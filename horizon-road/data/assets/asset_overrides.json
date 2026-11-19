@@ -132,5 +132,144 @@
 			"scale": 1.0,
 			"material": "vertex:0.7"
 		}
+	],
+	"house_yayla": [
+		{
+			"path": "res://assets/models/blender/house_yayla_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.8"
+		},
+		{
+			"path": "res://assets/models/blender/house_yayla_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.8"
+		}
+	],
+	"house_yayla_win": [
+		{
+			"path": "res://assets/models/blender/house_yayla_1_win.glb",
+			"scale": 1.0
+		},
+		{
+			"path": "res://assets/models/blender/house_yayla_2_win.glb",
+			"scale": 1.0
+		}
+	],
+	"house_ege": [
+		{
+			"path": "res://assets/models/blender/house_ege_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		},
+		{
+			"path": "res://assets/models/blender/house_ege_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.75"
+		}
+	],
+	"house_ege_win": [
+		{
+			"path": "res://assets/models/blender/house_ege_1_win.glb",
+			"scale": 1.0
+		},
+		{
+			"path": "res://assets/models/blender/house_ege_2_win.glb",
+			"scale": 1.0
+		}
+	],
+	"house_tuff": [
+		{
+			"path": "res://assets/models/blender/house_tuff_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.9"
+		},
+		{
+			"path": "res://assets/models/blender/house_tuff_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.9"
+		}
+	],
+	"house_tuff_win": [
+		{
+			"path": "res://assets/models/blender/house_tuff_1_win.glb",
+			"scale": 1.0
+		},
+		{
+			"path": "res://assets/models/blender/house_tuff_2_win.glb",
+			"scale": 1.0
+		}
+	],
+	"house_plateau": [
+		{
+			"path": "res://assets/models/blender/house_plateau_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		},
+		{
+			"path": "res://assets/models/blender/house_plateau_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		}
+	],
+	"house_plateau_win": [
+		{
+			"path": "res://assets/models/blender/house_plateau_1_win.glb",
+			"scale": 1.0
+		},
+		{
+			"path": "res://assets/models/blender/house_plateau_2_win.glb",
+			"scale": 1.0
+		}
+	],
+	"fairy_chimney": [
+		{
+			"path": "res://assets/models/blender/fairy_chimney_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		},
+		{
+			"path": "res://assets/models/blender/fairy_chimney_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		},
+		{
+			"path": "res://assets/models/blender/fairy_chimney_3.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		},
+		{
+			"path": "res://assets/models/blender/fairy_chimney_4.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		}
+	],
+	"nomad_tent": [
+		{
+			"path": "res://assets/models/blender/nomad_tent_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.95"
+		}
+	],
+	"boat": [
+		{
+			"path": "res://assets/models/blender/boat_1.glb",
+			"scale": 1.0,
+			"material": "vertex:0.65"
+		},
+		{
+			"path": "res://assets/models/blender/boat_2.glb",
+			"scale": 1.0,
+			"material": "vertex:0.65"
+		},
+		{
+			"path": "res://assets/models/blender/boat_3.glb",
+			"scale": 1.0,
+			"material": "vertex:0.65"
+		},
+		{
+			"path": "res://assets/models/blender/boat_4.glb",
+			"scale": 1.0,
+			"material": "vertex:0.65"
+		}
 	]
 }

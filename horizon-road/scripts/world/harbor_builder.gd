@@ -27,10 +27,11 @@ func _ready() -> void:
 	body.add_child(col)
 	add_child(body)
 	var hulls: Array[Color] = [Color(0.2, 0.45, 0.75), Color(0.8, 0.25, 0.2), Color(0.25, 0.6, 0.45), Color(0.95, 0.75, 0.25)]
+	var boat_models: Array[Mesh] = AssetLibrary.meshes("boat", [])
 	for i: int in boat_spots.size():
 		var spot: Vector3 = boat_spots[i]
 		var boat := MeshInstance3D.new()
-		boat.mesh = LowPolyMeshes.boat(200 + i, hulls[i % hulls.size()])
+		boat.mesh = boat_models[i % boat_models.size()] if not boat_models.is_empty() else LowPolyMeshes.boat(200 + i, hulls[i % hulls.size()])
 		boat.position = Vector3(spot.x, -0.25, spot.y)
 		boat.rotation.y = deg_to_rad(spot.z)
 		add_child(boat)
@@ -38,7 +39,7 @@ func _ready() -> void:
 		_rest_y.append(boat.position.y)
 	# A boat hauled up on the sand and nets drying beside it.
 	var beached := MeshInstance3D.new()
-	beached.mesh = LowPolyMeshes.boat(250, Color(0.85, 0.85, 0.82))
+	beached.mesh = boat_models[1 % boat_models.size()] if not boat_models.is_empty() else LowPolyMeshes.boat(250, Color(0.85, 0.85, 0.82))
 	beached.position = Vector3(-14, 0.15, -6)
 	beached.rotation = Vector3(0.0, deg_to_rad(70), deg_to_rad(8))
 	add_child(beached)

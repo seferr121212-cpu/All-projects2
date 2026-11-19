@@ -13,9 +13,10 @@ func _ready() -> void:
 	var terrain := get_node(terrain_path) as HighlandTerrain
 	var rng := RandomNumberGenerator.new()
 	rng.seed = field_seed
-	var variants: Array[ArrayMesh] = []
+	var variants: Array[Mesh] = []
 	for i: int in 8:
 		variants.append(AnatoliaMeshes.fairy_chimney(field_seed * 10 + i, i % 3 == 0))
+	variants = AssetLibrary.meshes("fairy_chimney", variants)
 	for ci: int in clusters.size():
 		var c: Vector4 = clusters[ci]
 		var placed: Array[Vector2] = []
@@ -46,7 +47,7 @@ func _ready() -> void:
 		subject.global_position = Vector3(c.x, terrain.height_at(c.x, c.y) + 7.0, c.y)
 
 
-func _place(terrain: HighlandTerrain, p: Vector2, mesh: ArrayMesh, rng: RandomNumberGenerator) -> void:
+func _place(terrain: HighlandTerrain, p: Vector2, mesh: Mesh, rng: RandomNumberGenerator) -> void:
 	var body := StaticBody3D.new()
 	add_child(body)
 	var s: float = rng.randf_range(0.8, 1.25)

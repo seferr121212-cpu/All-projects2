@@ -43,6 +43,11 @@ func _ready() -> void:
 			meshes = LowPolyMeshes.ege_house(i, i % 3 != 1, blues[i % blues.size()])
 		else:
 			meshes = LowPolyMeshes.yayla_house(i, woods[i % woods.size()], roofs[i % roofs.size()])
+		var models: Array[Mesh] = AssetLibrary.meshes("house_" + style, [])
+		var glass: Array[Mesh] = AssetLibrary.meshes("house_" + style + "_win", [])
+		if not models.is_empty() and glass.size() == models.size():
+			var m: Mesh = models[i % models.size()]
+			meshes = {"body": m, "windows": glass[i % glass.size()], "size": m.get_aabb().size}
 		var house := StaticBody3D.new()
 		house.name = "House%d" % i
 		add_child(house)
