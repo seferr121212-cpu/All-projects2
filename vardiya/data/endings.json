@@ -1,0 +1,35 @@
+{
+	"_doc": "Rules are evaluated in ascending priority; the first matching rule decides the ending. Exactly one rule is the fallback. Edit thresholds here, not in code.",
+	"endings": [
+		{"id": "r_all_dead", "ending": "bitter_reckoning", "priority": 10,
+			"condition": {"alive_count": true, "eq": 0}},
+		{"id": "r_betrayal", "ending": "betrayal", "priority": 20,
+			"condition": {"flag": "informer", "ne": ""}},
+		{"id": "r_secret", "ending": "secret", "priority": 30,
+			"condition": {"all": [
+				{"alive_count": true, "eq": 3},
+				{"flag": "final_silence", "eq": true},
+				{"counter": "silence", "gte": 6}
+			]}},
+		{"id": "r_solidarity", "ending": "solidarity", "priority": 40,
+			"condition": {"all": [
+				{"avg_trust": true, "gte": 2},
+				{"alive_count": true, "gte": 2}
+			]}},
+		{"id": "r_bitter_price", "ending": "bitter_reckoning", "priority": 50,
+			"condition": {"any": [
+				{"alive_count": true, "lte": 2},
+				{"flag": "harm_done", "eq": true}
+			]}},
+		{"id": "r_separation", "ending": "separation", "priority": 60,
+			"condition": {"avg_trust": true, "lte": 1}},
+		{"id": "r_fallback", "ending": "separation", "priority": 99, "fallback": true, "condition": {}}
+	],
+	"ending_info": {
+		"solidarity": {"title": "ending.solidarity.title", "description": "ending.solidarity.desc"},
+		"separation": {"title": "ending.separation.title", "description": "ending.separation.desc"},
+		"bitter_reckoning": {"title": "ending.bitter_reckoning.title", "description": "ending.bitter_reckoning.desc"},
+		"betrayal": {"title": "ending.betrayal.title", "description": "ending.betrayal.desc"},
+		"secret": {"title": "ending.secret.title", "description": "ending.secret.desc"}
+	}
+}

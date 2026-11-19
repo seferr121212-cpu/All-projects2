@@ -1,0 +1,43 @@
+{
+	"_doc": "NexDrive console package manifest DRAFT. Field names are assumptions until the NexDrive shell spec is available. The game runs standalone without the shell.",
+	"manifest_version": 1,
+	"id": "studio.nexdrive.vardiya",
+	"name": {"tr": "VARDİYA", "en": "VARDİYA"},
+	"card_label": "VARDİYA · HİKÂYE",
+	"genre": {"tr": "Hikâye", "en": "Story"},
+	"developer": "NexDrive Game Studio",
+	"version": "0.2.0",
+	"build": "stage2-prototype",
+	"languages": {"text": ["tr", "en"], "voice": [], "subtitles": ["tr", "en"], "default": "tr"},
+	"launch": {
+		"command": "./vardiya.x86_64",
+		"args": ["--fullscreen"],
+		"working_dir": ".",
+		"env": {}
+	},
+	"images": {
+		"cover": "cover.png",
+		"cover_size": [600, 900],
+		"banner": "banner.png",
+		"banner_size": [1920, 620],
+		"icon": "icon.png"
+	},
+	"save": {
+		"path": "$XDG_DATA_HOME/vardiya",
+		"files": ["saves/slot_0.json", "saves/slot_1.json", "saves/slot_2.json", "settings.json"],
+		"slots": 3,
+		"quota_mb": 16,
+		"cloud_sync": false
+	},
+	"input": {"gamepad": "full", "keyboard_mouse": "full", "gamepad_only_completable": true},
+	"targets": {
+		"resolution": "1920x1080",
+		"fps_min": 30,
+		"fps_goal": 60,
+		"renderer": "gl_compatibility",
+		"ram_budget_mb": 4096,
+		"install_budget_mb": 3072
+	},
+	"age_rating": "TBD",
+	"content_descriptors": ["death", "workplace accident", "fire"]
+}

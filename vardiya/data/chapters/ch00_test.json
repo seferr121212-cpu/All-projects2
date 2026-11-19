@@ -1,0 +1,106 @@
+{
+	"id": "ch00_test",
+	"version": 1,
+	"title": "ch00.title",
+	"characters": ["kemal", "defne", "riza"],
+	"start": "loc_kitchen",
+	"nodes": {
+		"loc_kitchen": {"type": "location", "location": "loc.ch00.kitchen", "next": "l01"},
+		"l01": {"type": "line", "speaker": "narrator", "text": "ch00.l01", "next": "l02"},
+		"l02": {"type": "line", "speaker": "defne", "text": "ch00.l02", "next": "l03"},
+		"l03": {"type": "line", "speaker": "kemal", "text": "ch00.l03", "next": "l04"},
+		"l04": {"type": "line", "speaker": "defne", "text": "ch00.l04", "next": "c01"},
+
+		"c01": {
+			"type": "choice",
+			"decision_id": "b0_kahvalti",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch00.c01.prompt",
+			"options": [
+				{"id": "truth", "text": "ch00.c01.truth", "next": "r01_truth", "effects": [
+					{"trust": ["defne", "kemal"], "delta": 1},
+					{"mood": "kemal", "value": "anxious"},
+					{"set_flag": "breakfast_truth", "value": true},
+					{"journal": "journal.ch00.automation"}
+				]},
+				{"id": "reassure", "text": "ch00.c01.reassure", "next": "r01_reassure", "effects": [
+					{"mood": "defne", "value": "hopeful"}
+				]},
+				{"id": "deflect", "text": "ch00.c01.deflect", "next": "r01_deflect", "effects": [
+					{"trust": ["defne", "kemal"], "delta": -1},
+					{"mood": "defne", "value": "angry"}
+				]}
+			],
+			"timeout": {"id": "silence", "text": "dialogue.silence", "next": "r01_silence", "effects": [
+				{"trust": ["defne", "kemal"], "delta": -1}
+			]}
+		},
+
+		"r01_truth": {"type": "line", "speaker": "defne", "text": "ch00.r01_truth", "next": "l05"},
+		"r01_reassure": {"type": "line", "speaker": "defne", "text": "ch00.r01_reassure", "next": "l05"},
+		"r01_deflect": {"type": "line", "speaker": "defne", "text": "ch00.r01_deflect", "next": "l05"},
+		"r01_silence": {"type": "line", "speaker": "narrator", "text": "ch00.r01_silence", "next": "l05"},
+
+		"l05": {"type": "line", "speaker": "narrator", "text": "ch00.l05", "next": "chk1"},
+		"chk1": {"type": "checkpoint", "next": "l06"},
+		"l06": {"type": "line", "speaker": "riza", "text": "ch00.l06", "next": "l07",
+			"variants": [
+				{"if": {"status": "kemal", "ne": "alive"}, "text": "ch00.l06_no_kemal"}
+			]},
+		"l07": {"type": "line", "speaker": "defne", "text": "ch00.l07", "next": "c02",
+			"variants": [
+				{"if": {"mood": "defne", "eq": "angry"}, "text": "ch00.l07_angry"}
+			]},
+
+		"c02": {
+			"type": "choice",
+			"decision_id": "b0_riza_yolculuk",
+			"major": true,
+			"timer": 8,
+			"prompt": "ch00.c02.prompt",
+			"options": [
+				{"id": "ride", "text": "ch00.c02.ride", "next": "r02_ride", "effects": [
+					{"trust_mutual": ["kemal", "riza"], "delta": 1},
+					{"journal": "journal.ch00.containers"}
+				]},
+				{"id": "bus", "text": "ch00.c02.bus", "next": "r02_bus", "effects": [
+					{"trust": ["riza", "kemal"], "delta": -1}
+				]},
+				{"id": "ask", "text": "ch00.c02.ask", "next": "r02_ask", "effects": [
+					{"trust": ["kemal", "riza"], "delta": 1}
+				]},
+				{"id": "defne_ride", "text": "ch00.c02.defne_ride", "next": "r02_defne",
+					"if": {"decision": "b0_kahvalti", "in": ["truth", "reassure"]},
+					"effects": [
+						{"trust_mutual": ["defne", "riza"], "delta": 1},
+						{"trust": ["defne", "kemal"], "delta": 1}
+					]}
+			],
+			"timeout": {"id": "silence", "text": "dialogue.silence", "next": "r02_silence", "effects": [
+				{"trust": ["riza", "kemal"], "delta": -1}
+			]}
+		},
+
+		"r02_ride": {"type": "line", "speaker": "riza", "text": "ch00.r02_ride", "next": "r02_ride_b"},
+		"r02_ride_b": {"type": "line", "speaker": "kemal", "text": "ch00.r02_ride_b", "next": "mood_check"},
+		"r02_bus": {"type": "line", "speaker": "riza", "text": "ch00.r02_bus", "next": "mood_check"},
+		"r02_ask": {"type": "line", "speaker": "riza", "text": "ch00.r02_ask", "next": "mood_check"},
+		"r02_defne": {"type": "line", "speaker": "defne", "text": "ch00.r02_defne", "next": "r02_defne_b"},
+		"r02_defne_b": {"type": "line", "speaker": "riza", "text": "ch00.r02_defne_b", "next": "mood_check"},
+		"r02_silence": {"type": "line", "speaker": "narrator", "text": "ch00.r02_silence", "next": "mood_check"},
+
+		"mood_check": {
+			"type": "branch",
+			"cases": [
+				{"if": {"avg_trust": true, "gte": 0.3}, "next": "l09_warm"},
+				{"if": {"avg_trust": true, "lte": -0.3}, "next": "l09_cold"}
+			],
+			"else": "l09_neutral"
+		},
+		"l09_warm": {"type": "line", "speaker": "narrator", "text": "ch00.l09_warm", "next": "end"},
+		"l09_cold": {"type": "line", "speaker": "narrator", "text": "ch00.l09_cold", "next": "end"},
+		"l09_neutral": {"type": "line", "speaker": "narrator", "text": "ch00.l09_neutral", "next": "end"},
+		"end": {"type": "end", "next_chapter": null}
+	}
+}

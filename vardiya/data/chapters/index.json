@@ -1,0 +1,6 @@
+{
+	"_doc": "Chapter play order. Stage 2 ships only the test chapter; ch01-ch08 are added in stages 3-4.",
+	"chapters": [
+		{"id": "ch00_test", "title": "ch00.title", "characters": ["kemal", "defne", "riza"]}
+	]
+}
