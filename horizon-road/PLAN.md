@@ -213,3 +213,9 @@ Genel doğrulama araçları:
 - `tools/blender_characters.py`: iskeletli karakterler (kadın, köylü, çoban/kepenek, balıkçı, gezgin), animasyonlar idle/walk/work/talk.
 - `CharacterRig` (scripts/core/character_rig.gd): NPC, kafe müşterileri ve yürüyen oyuncu bunu kullanır; rig yoksa statik meshe düşer.
 - Oranlar: bel/göğüs profilli gövde, omuz, el/başparmak; kıyafet: yelek, önlük, çiçekli etek, oya, kepenek, çizgili kazak, sırt çantası.
+
+## Aşama 11 — Hayvanlar, kamper, cila, yol görevleri (v0.9.0)
+- `tools/blender_animals.py`: iskeletli inek/koyun/kedi/köpek (idle/walk/work=otlama); GrazingHerd ve sürü işi kullanır; köylere köpekler.
+- Kamper: `tools/blender_camper.py` iç donanım; camlar şeffaf, sağ sürgülü kapı yaklaşınca açılır (`camper_paint` door_open).
+- Cila: peri bacaları düz zemine, balonlar sisten etkilenmez, çiçekli etek.
+- `QuestLog` + data/quests/quests.json: 11 yol görevi, ödül, günlükte "Yol görevleri" sekmesi.
