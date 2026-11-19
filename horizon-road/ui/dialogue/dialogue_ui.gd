@@ -25,6 +25,9 @@ var _name_row := HBoxContainer.new()
 var _name_edit := LineEdit.new()
 var _picker := PanelContainer.new()
 var _picker_grid := GridContainer.new()
+var _shop := PanelContainer.new()
+var _shop_list := VBoxContainer.new()
+var _shop_header := Label.new()
 var _typing: bool = false
 var _waiting_advance: bool = false
 
@@ -47,6 +50,7 @@ func start(who: Npc) -> void:
 	runner.choices_shown.connect(_on_choices)
 	runner.name_requested.connect(_on_name_requested)
 	runner.photo_picker_requested.connect(_open_picker)
+	runner.shop_requested.connect(_open_shop)
 	runner.ended.connect(_close)
 	GameState.set_context(GameState.Context.DIALOGUE)
 	if _travel:
@@ -76,6 +80,11 @@ func is_open() -> bool:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
+		return
+	if _shop.visible:
+		if event.is_action_pressed(&"pause"):
+			_close_shop()
+			get_viewport().set_input_as_handled()
 		return
 	if _picker.visible:
 		if event.is_action_pressed(&"pause"):
@@ -199,9 +208,75 @@ func _open_picker() -> void:
 	_picker.visible = true
 
 
+# --- Upgrade shop -------------------------------------------------------------
+
+func _open_shop() -> void:
+	_fill_shop()
+	_shop.visible = true
+
+
+func _close_shop() -> void:
+	_shop.visible = false
+	runner.close_shop()
+
+
+func _fill_shop() -> void:
+	for c: Node in _shop_list.get_children():
+		_shop_list.remove_child(c)
+		c.queue_free()
+	var level: int = GameState.get_relationship_level(npc.npc_id)
+	var discount: int = roundi(GameState.ECONOMY.friend_discount_per_level * level * 100.0)
+	_shop_header.text = "%s   ·   %d ₺%s" % [tr(&"UI_SHOP_TITLE"), GameState.money,
+			("   ·   " + tr(&"UI_FRIEND_DISCOUNT") % discount) if discount > 0 else ""]
+	for u: Dictionary in UpgradeCatalog.all():
+		var id: String = u.id
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override(&"separation", 14)
+		var icon := Label.new()
+		icon.text = u.get("icon", "•")
+		icon.add_theme_font_size_override(&"font_size", 26)
+		icon.add_theme_color_override(&"font_color", ACCENT)
+		icon.custom_minimum_size = Vector2(36, 0)
+		row.add_child(icon)
+		var info := VBoxContainer.new()
+		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var cur: int = GameState.get_upgrade_level(id)
+		var maxl: int = UpgradeCatalog.max_level(id)
+		var title := Label.new()
+		title.text = "%s   %s" % [tr(StringName(u.name_key)), "●".repeat(cur) + "○".repeat(maxl - cur)]
+		title.add_theme_font_size_override(&"font_size", 19)
+		title.add_theme_color_override(&"font_color", INK)
+		info.add_child(title)
+		var desc := Label.new()
+		desc.text = tr(StringName(u.desc_key))
+		desc.add_theme_color_override(&"font_color", INK_SOFT)
+		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		info.add_child(desc)
+		row.add_child(info)
+		var buy := Button.new()
+		var price: int = GameState.upgrade_price(id, npc.npc_id)
+		buy.custom_minimum_size = Vector2(170, 0)
+		_style_choice(buy)
+		if price < 0:
+			buy.text = tr(&"UI_MAXED")
+			buy.disabled = true
+		else:
+			buy.text = tr(&"UI_BUY") % price
+			buy.disabled = price > GameState.money
+			buy.pressed.connect(func() -> void:
+				if GameState.buy_upgrade(id, npc.npc_id):
+					GameState.notify(tr(&"UI_UPGRADE_FITTED") % tr(StringName(u.name_key)))
+					GameState.add_relationship(npc.npc_id, 3)
+				_fill_shop())
+		row.add_child(buy)
+		_shop_list.add_child(row)
+		_shop_list.add_child(HSeparator.new())
+
+
 func _close() -> void:
 	visible = false
 	_picker.visible = false
+	_shop.visible = false
 	if npc:
 		npc.talking = false
 	GameState.set_context(GameState.Context.GAMEPLAY)
@@ -325,6 +400,32 @@ func _build() -> void:
 	_picker.visible = false
 	add_child(_picker)
 
+	var sstyle := style.duplicate() as StyleBoxFlat
+	_shop.add_theme_stylebox_override(&"panel", sstyle)
+	_shop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_shop.offset_left = 300
+	_shop.offset_right = -300
+	_shop.offset_top = 70
+	_shop.offset_bottom = -70
+	var scol := VBoxContainer.new()
+	scol.add_theme_constant_override(&"separation", 10)
+	_shop_header.add_theme_font_size_override(&"font_size", 24)
+	_shop_header.add_theme_color_override(&"font_color", ACCENT)
+	scol.add_child(_shop_header)
+	var sscroll := ScrollContainer.new()
+	sscroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_shop_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sscroll.add_child(_shop_list)
+	scol.add_child(sscroll)
+	var close := Button.new()
+	close.text = "UI_CLOSE"
+	_style_choice(close)
+	close.pressed.connect(_close_shop)
+	scol.add_child(close)
+	_shop.add_child(scol)
+	_shop.visible = false
+	add_child(_shop)
+
 
 func _style_choice(b: Button) -> void:
 	var normal := StyleBoxFlat.new()
@@ -340,6 +441,10 @@ func _style_choice(b: Button) -> void:
 	b.add_theme_stylebox_override(&"hover", hover)
 	b.add_theme_stylebox_override(&"focus", hover)
 	b.add_theme_stylebox_override(&"pressed", hover)
+	var disabled := normal.duplicate() as StyleBoxFlat
+	disabled.bg_color = Color(0.86, 0.83, 0.78)
+	b.add_theme_stylebox_override(&"disabled", disabled)
+	b.add_theme_color_override(&"font_disabled_color", INK_SOFT)
 	b.add_theme_color_override(&"font_color", INK)
 	b.add_theme_color_override(&"font_hover_color", INK)
 	b.add_theme_color_override(&"font_focus_color", INK)

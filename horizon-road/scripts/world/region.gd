@@ -25,6 +25,7 @@ func _ready() -> void:
 		spawn.origin.y = terrain.height_at(spawn.origin.x, spawn.origin.z) + 0.3
 		camper.global_transform = spawn
 	region_ready.emit()
+	SaveManager.continue_if_possible.call_deferred()
 
 
 func get_surface_at(world_pos: Vector3) -> HighlandTerrain.Surface:

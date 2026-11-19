@@ -14,6 +14,7 @@ signal line_shown(text: String)
 signal choices_shown(choices: Array[Dictionary])
 signal name_requested(text: String)
 signal photo_picker_requested
+signal shop_requested
 signal ended
 
 static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
@@ -68,7 +69,7 @@ func choose(index: int) -> void:
 		return  # an action ended or redirected the conversation
 	if choice.has("next"):
 		_enter(choice.next)
-	elif not "open_photo_picker" in choice.get("actions", []):
+	elif not ("open_photo_picker" in choice.get("actions", []) or "open_shop" in choice.get("actions", [])):
 		_end()
 
 
@@ -104,6 +105,11 @@ func cancel_photo() -> void:
 	_enter("hub")
 
 
+## Shop closed: continue with the NPC's "anything else?" line if it has one.
+func close_shop() -> void:
+	_enter("shop_closed" if data.nodes.has("shop_closed") else "hub")
+
+
 func photo_price(entry: Dictionary) -> int:
 	var mult: float = ECONOMY.photo_interest_multiplier if _photo_matches_interests(entry) else ECONOMY.photo_other_multiplier
 	mult *= 1.0 + ECONOMY.photo_friend_bonus_per_level * GameState.get_relationship_level(npc_id)
@@ -128,6 +134,12 @@ func check(condition: Dictionary) -> bool:
 	if condition.has("level_max") and level > int(condition.level_max):
 		return false
 	if condition.has("has_photos") and GameState.album.entries.is_empty() == bool(condition.has_photos):
+		return false
+	if condition.has("var_min"):
+		for key: Variant in condition.var_min:
+			if float(vars.get(key, 0)) < float(condition.var_min[key]):
+				return false
+	if condition.has("tank_full") and (GameState.fuel >= GameState.get_tank_capacity() - 0.5) != bool(condition.tank_full):
 		return false
 	return true
 
@@ -195,6 +207,12 @@ func _apply_actions(actions: Array) -> void:
 				photo_picker_requested.emit()
 			"sell_photo":
 				_sell_pending_photo()
+			"open_shop":
+				shop_requested.emit()
+			"refuel":
+				var before: int = GameState.money
+				vars["amount"] = int(GameState.refuel())
+				vars["price"] = before - GameState.money
 			_:
 				push_warning("Unknown dialogue action '%s'" % raw)
 

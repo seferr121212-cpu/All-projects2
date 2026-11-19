@@ -148,6 +148,23 @@ static func shutter() -> AudioStreamWAV:
 	return _to_stream(out, false)
 
 
+## Kettle coming to the boil: rising hiss with a soft whistle at the end.
+static func kettle() -> AudioStreamWAV:
+	var rng := _rng(9)
+	var n: int = int(2.2 * MIX_RATE)
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var lp: float = 0.0
+	var phase: float = 0.0
+	for i: int in n:
+		var k: float = float(i) / n
+		lp += 0.2 * (rng.randf_range(-1.0, 1.0) - lp)
+		phase += TAU * (1800.0 + 300.0 * k) / MIX_RATE
+		var whistle: float = sin(phase) * smoothstep(0.6, 0.85, k) * 0.35
+		out[i] = (lp * (0.2 + k * 0.6) + whistle) * (1.0 - smoothstep(0.92, 1.0, k))
+	return _to_stream(out, false)
+
+
 ## Leaves being snapped off a bush: soft filtered crackle.
 static func rustle() -> AudioStreamWAV:
 	var rng := _rng(8)

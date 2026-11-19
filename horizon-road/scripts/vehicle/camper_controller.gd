@@ -63,7 +63,7 @@ func _exit_tree() -> void:
 func _physics_process(delta: float) -> void:
 	_read_input()
 	_update_surface()
-	var handling: Vector3 = SURFACE_HANDLING.get(surface, Vector3.ONE)
+	var handling: Vector3 = _effective_handling()
 	_update_speed(delta, handling)
 	_update_steering(delta)
 
@@ -86,6 +86,21 @@ func _physics_process(delta: float) -> void:
 	_update_visual(delta)
 	_update_audio()
 	_update_headlights()
+	_consume_fuel(delta)
+
+
+func to_save() -> Dictionary:
+	var t: Transform3D = global_transform
+	return {"pos": [t.origin.x, t.origin.y, t.origin.z], "yaw": global_rotation.y}
+
+
+func from_save(data: Dictionary) -> void:
+	if not data.has("pos"):
+		return
+	var p: Array = data.pos
+	global_transform = Transform3D(Basis(Vector3.UP, float(data.get("yaw", 0.0))), Vector3(p[0], p[1] + 0.3, p[2]))
+	velocity = Vector3.ZERO
+	speed = 0.0
 
 
 func get_speed_kmh() -> float:
@@ -116,6 +131,27 @@ func _update_surface() -> void:
 	var region: Region = GameState.current_region
 	if region:
 		surface = region.get_surface_at(global_position)
+
+
+## Surface handling with upgrades applied; an empty tank only slows the van.
+func _effective_handling() -> Vector3:
+	var h: Vector3 = SURFACE_HANDLING.get(surface, Vector3.ONE)
+	if surface != HighlandTerrain.Surface.ROAD:
+		h.x = minf(h.x + GameState.upgrade_effect("tyres", "offroad_speed", 0.0), 1.0)
+		h.z = minf(h.z + GameState.upgrade_effect("tyres", "offroad_grip", 0.0), 1.0)
+	h.x *= GameState.upgrade_effect("engine", "speed_mult", 1.0)
+	h.y *= GameState.upgrade_effect("engine", "accel_mult", 1.0)
+	if GameState.fuel <= 0.0:
+		h.x *= GameState.ECONOMY.empty_tank_speed
+	return h
+
+
+func _consume_fuel(delta: float) -> void:
+	if not active or absf(speed) < 0.3:
+		return
+	var km: float = absf(speed) * delta / 1000.0
+	var load: float = 0.4 + 0.6 * throttle_input
+	GameState.use_fuel(km * GameState.ECONOMY.fuel_per_km * load * GameState.upgrade_effect("engine", "fuel_use_mult", 1.0))
 
 
 func _update_speed(delta: float, handling: Vector3) -> void:
@@ -193,8 +229,11 @@ func _update_headlights() -> void:
 
 func _set_headlights(on: bool) -> void:
 	headlights_on = on
+	var boost: float = GameState.upgrade_effect("lights", "headlight_mult", 1.0)
 	for light: SpotLight3D in _headlights:
 		light.visible = on
+		light.light_energy = 14.0 * boost
+		light.spot_range = 42.0 * boost
 	_lens_material.emission_energy_multiplier = 4.0 if on else 0.0
 	headlights_toggled.emit(on)
 

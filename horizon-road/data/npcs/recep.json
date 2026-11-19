@@ -1,0 +1,64 @@
+{
+	"id": "recep",
+	"name_key": "NPC_RECEP_NAME",
+	"role_key": "NPC_RECEP_ROLE",
+	"note_key": "NPC_RECEP_NOTE",
+	"personality": "Gruff, kind village mechanic in his sixties. Teases the camper ('this old tortoise'), drove trucks across Turkey when young, quietly generous with friends.",
+	"interests": ["SUBJ_OUR_CAMPER", "SUBJ_YAYLA_VILLAGE", "SUBJ_MOUNTAIN_RANGE", "SUBJ_YAYLA_HOUSE"],
+	"photo_reactions": {"love": "photo_love", "nice": "photo_nice", "limit": "photo_limit", "already": "photo_already", "sold": "photo_sold", "kept": "photo_kept"},
+	"start": "start",
+	"nodes": {
+		"start": {"branches": [
+			{"if": {"not_flag": "recep.met"}, "next": "intro"},
+			{"if": {"level_min": 2}, "next": "greet_friend"},
+			{"next": "greet"}
+		]},
+		"intro": {"text": "RECEP_INTRO_1", "next": "intro_2"},
+		"intro_2": {"text": "RECEP_INTRO_2", "next": "hub", "actions": ["meet", "relationship:first_meeting"]},
+		"greet": {"text": "RECEP_GREET", "next": "hub"},
+		"greet_friend": {"text": "RECEP_GREET_FRIEND", "next": "hub"},
+
+		"hub": {"text": "RECEP_HUB", "choices": [
+			{"text": "RECEP_CH_SHOP", "actions": ["open_shop"]},
+			{"text": "RECEP_CH_FUEL", "next": "fuel", "actions": ["refuel"]},
+			{"text": "RECEP_CH_CHAT", "next": "chat"},
+			{"text": "RECEP_CH_PHOTO", "actions": ["open_photo_picker"], "if": {"has_photos": true}},
+			{"text": "CH_BYE", "next": "bye"}
+		]},
+
+		"fuel": {"branches": [
+			{"if": {"var_min": {"amount": 1}}, "next": "fuel_done"},
+			{"if": {"tank_full": true}, "next": "fuel_full"},
+			{"next": "fuel_broke"}
+		]},
+		"fuel_done": {"text": "RECEP_FUEL_DONE", "next": "hub"},
+		"fuel_full": {"text": "RECEP_FUEL_FULL", "next": "hub"},
+		"fuel_broke": {"text": "RECEP_FUEL_BROKE", "next": "hub"},
+
+		"shop_closed": {"text": "RECEP_SHOP_DONE", "next": "hub"},
+
+		"chat": {"branches": [
+			{"if": {"level_min": 2}, "next": "chat_3"},
+			{"if": {"level_min": 1}, "next": "chat_2"},
+			{"next": "chat_1"}
+		]},
+		"chat_1": {"text": "RECEP_CHAT_1", "next": "hub", "actions": ["relationship:2"]},
+		"chat_2": {"text": "RECEP_CHAT_2", "next": "hub", "actions": ["relationship:2"]},
+		"chat_3": {"text": "RECEP_CHAT_3", "next": "hub"},
+
+		"photo_love": {"text": "RECEP_PHOTO_LOVE", "choices": [
+			{"text": "CH_SELL", "next": "photo_sold", "actions": ["sell_photo"]},
+			{"text": "CH_KEEP", "next": "photo_kept"}
+		]},
+		"photo_nice": {"text": "RECEP_PHOTO_NICE", "choices": [
+			{"text": "CH_SELL", "next": "photo_sold", "actions": ["sell_photo"]},
+			{"text": "CH_KEEP", "next": "photo_kept"}
+		]},
+		"photo_limit": {"text": "RECEP_PHOTO_LIMIT", "next": "hub"},
+		"photo_already": {"text": "RECEP_PHOTO_ALREADY", "next": "hub"},
+		"photo_sold": {"text": "RECEP_PHOTO_SOLD", "next": "hub"},
+		"photo_kept": {"text": "RECEP_PHOTO_KEPT", "next": "hub"},
+
+		"bye": {"text": "RECEP_BYE"}
+	}
+}

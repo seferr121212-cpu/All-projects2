@@ -11,6 +11,8 @@ extends Node3D
 @export var present_from: float = 6.0
 @export var present_until: float = 21.0
 @export var snap_to_ground: bool = true
+## Which body to build: "villager_woman" or "villager_man".
+@export var model: String = "villager_woman"
 
 var data: Dictionary
 var talking: bool = false
@@ -26,7 +28,7 @@ func _ready() -> void:
 	add_to_group(&"npc")
 	data = DialogueRunner.load_data(dialogue_path)
 	var mi := MeshInstance3D.new()
-	mi.mesh = LowPolyMeshes.villager_woman()
+	mi.mesh = LowPolyMeshes.villager_man() if model == "villager_man" else LowPolyMeshes.villager_woman()
 	_visual.add_child(mi)
 	_interact.prompt_key = "UI_TALK"
 	_interact.position = Vector3(0, 1.0, 0)

@@ -18,6 +18,9 @@ func _ready() -> void:
 	_test_dialogue_data()
 	_test_dialogue_flow()
 	_test_relationships()
+	_test_upgrades_and_fuel()
+	_test_rest()
+	_test_full_save()
 	print("[tests] %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 
@@ -258,3 +261,83 @@ func _test_relationships() -> void:
 	_check(GameState.get_relationship_level(&"x") == 3, "close friend at 100")
 	GameState.add_relationship(&"x", -500)
 	_check(GameState.get_relationship(&"x") == 0, "points never negative")
+
+
+func _test_upgrades_and_fuel() -> void:
+	GameState.upgrades = {}
+	GameState.relationships = {}
+	GameState.money = 1000
+	_check(UpgradeCatalog.all().size() >= 6, "upgrade catalog loads")
+	var price: int = GameState.upgrade_price("engine")
+	_check(price == int(UpgradeCatalog.find("engine").levels[0].price), "first engine level price")
+	_check(GameState.buy_upgrade("engine") and GameState.get_upgrade_level("engine") == 1, "buy engine level 1")
+	_check(GameState.upgrade_effect("engine", "speed_mult", 1.0) > 1.0, "engine raises top speed")
+	_check(GameState.money == 1000 - price, "upgrade charged")
+	GameState.add_relationship(&"recep", 60)
+	var friend_price: int = GameState.upgrade_price("engine", &"recep")
+	_check(friend_price < GameState.upgrade_price("engine"), "friend discount applies")
+	GameState.buy_upgrade("engine")
+	_check(GameState.upgrade_price("engine") == -1 and not GameState.buy_upgrade("engine"), "maxed upgrade can't be bought")
+	GameState.money = 0
+	_check(not GameState.buy_upgrade("tyres"), "can't buy without money")
+	GameState.buy_upgrade("lens")
+	GameState.money = 500
+	GameState.buy_upgrade("lens")
+	_check(GameState.lens_level == 1, "lens upgrade sets lens level")
+	var base_cap: float = GameState.get_tank_capacity()
+	GameState.buy_upgrade("fuel_tank")
+	_check(GameState.get_tank_capacity() > base_cap, "bigger tank")
+	GameState.fuel = 10.0
+	GameState.use_fuel(25.0)
+	_check(GameState.fuel == 0.0, "fuel never negative")
+	GameState.money = 30
+	var liters: float = GameState.refuel()
+	_check(liters == floorf(30.0 / GameState.ECONOMY.fuel_price_per_liter) and GameState.money >= 0, "refuel limited by wallet (%.0f l)" % liters)
+	GameState.money = 1000
+	GameState.refuel()
+	_check(is_equal_approx(GameState.fuel, GameState.get_tank_capacity()), "refuel fills the tank")
+
+
+func _test_rest() -> void:
+	_check(is_equal_approx(RestMenu.hours_until(22.0, 7.0), 9.0), "22:00 -> 07:00 is 9 h")
+	_check(is_equal_approx(RestMenu.hours_until(5.0, 7.0), 2.0), "05:00 -> 07:00 is 2 h")
+	_check(is_equal_approx(RestMenu.hours_until(7.0, 7.0), 24.0), "07:00 -> next 07:00")
+	TimeManager.day = 3
+	TimeManager.set_time(23.0)
+	RestMenu.apply_rest(RestMenu.hours_until(23.0, 7.0))
+	_check(TimeManager.day == 4 and is_equal_approx(TimeManager.time_of_day, 7.0), "sleeping overnight wakes next day at 07:00")
+	_check(SaveManager.has_save(SaveManager.AUTOSAVE_SLOT), "resting autosaves")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://saves/autosave.json"))
+
+
+func _test_full_save() -> void:
+	var participant := _SaveProbe.new()
+	add_child(participant)
+	participant.value = 42
+	GameState.upgrades = {"tyres": 1}
+	GameState.fuel = 12.5
+	_check(SaveManager.save_game("full_test"), "full save")
+	participant.value = 0
+	GameState.upgrades = {}
+	GameState.fuel = 0.0
+	SaveManager.load_game("full_test")
+	_check(participant.value == 42, "scene participants restored")
+	_check(GameState.get_upgrade_level("tyres") == 1 and is_equal_approx(GameState.fuel, 12.5), "upgrades and fuel restored")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://saves/full_test.json"))
+	participant.queue_free()
+
+
+class _SaveProbe extends Node:
+	var value: int = 0
+
+	func _ready() -> void:
+		add_to_group(&"save_participant")
+
+	func save_key() -> String:
+		return "probe"
+
+	func to_save() -> Dictionary:
+		return {"value": value}
+
+	func from_save(data: Dictionary) -> void:
+		value = int(data.value)

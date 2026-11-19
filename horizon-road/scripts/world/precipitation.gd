@@ -22,8 +22,10 @@ func _process(_delta: float) -> void:
 	if camera:
 		global_position = camera.global_position
 	var w: WeatherProfile = WeatherManager.current
-	_set_intensity(_rain, w.rain)
-	_set_intensity(_snow, w.snow)
+	# Inside the camper you hear the rain on the roof but it doesn't fall indoors.
+	var indoors: bool = GameState.player_mode == GameState.PlayerMode.INTERIOR
+	_set_intensity(_rain, 0.0 if indoors else w.rain)
+	_set_intensity(_snow, 0.0 if indoors else w.snow)
 	var wind_push: float = w.wind * 6.0
 	(_rain.process_material as ParticleProcessMaterial).gravity = Vector3(wind_push, -30.0, wind_push * 0.4)
 	(_snow.process_material as ParticleProcessMaterial).gravity = Vector3(wind_push * 0.5, -1.2, wind_push * 0.2)

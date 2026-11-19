@@ -343,6 +343,53 @@ static func villager_woman(seed_value: int = 21) -> ArrayMesh:
 	return b.commit(vertex_color_material(0.85))
 
 
+## Village mechanic: blue overalls, flat cap, moustache, rag in pocket. ~1.75 m, faces -Z.
+static func villager_man(seed_value: int = 22) -> ArrayMesh:
+	var b := Builder.new(seed_value)
+	var overalls := Color(0.2, 0.32, 0.52)
+	var skin := Color(0.8, 0.6, 0.46)
+	for x: float in [-0.12, 0.12]:
+		b.add(_box(Vector3(0.18, 0.12, 0.3)), _at(Vector3(x, 0.06, -0.03)), Color(0.2, 0.15, 0.1))
+		b.add(_box(Vector3(0.18, 0.8, 0.2)), _at(Vector3(x, 0.52, 0)), overalls)
+	b.add(_box(Vector3(0.5, 0.66, 0.3)), _at(Vector3(0, 1.2, 0)), overalls, 0.02, 0.04)
+	b.add(_box(Vector3(0.12, 0.1, 0.04)), _at(Vector3(0.12, 1.12, -0.16)), Color(0.85, 0.3, 0.2))
+	for x: float in [-0.31, 0.31]:
+		b.add(_box(Vector3(0.12, 0.58, 0.14)), Transform3D(Basis(Vector3.FORWARD, x * 0.2), Vector3(x, 1.15, 0)), overalls.lightened(0.05))
+		b.add(_sphere(0.06, 0.11, 6, 3), _at(Vector3(x * 1.06, 0.84, 0)), skin)
+	b.add(_cone(0.065, 0.065, 0.1, 6), _at(Vector3(0, 1.57, 0)), skin)
+	b.add(_sphere(0.145, 0.3, 10, 5), _at(Vector3(0, 1.71, 0)), skin)
+	_face(b, Vector3(0, 1.71, 0), 0.145, Color(0.2, 0.18, 0.16))
+	b.add(_box(Vector3(0.12, 0.025, 0.03)), _at(Vector3(0, 1.66, -0.14)), Color(0.25, 0.22, 0.2))
+	b.add(_sphere(0.16, 0.12, 10, 3), _at(Vector3(0, 1.82, 0.0)), Color(0.35, 0.3, 0.25))
+	b.add(_box(Vector3(0.24, 0.025, 0.12)), _at(Vector3(0, 1.8, -0.15)), Color(0.3, 0.26, 0.22))
+	return b.commit(vertex_color_material(0.8))
+
+
+## Village garage: open shed with workbench, tyres, tool wall and a fuel pump.
+static func garage() -> ArrayMesh:
+	var b := Builder.new(43)
+	var wall := Color(0.62, 0.58, 0.52)
+	var tin := Color(0.45, 0.5, 0.55)
+	b.add(_box(Vector3(6.0, 3.0, 0.2)), _at(Vector3(0, 1.5, 2.4)), wall, 0.0, 0.04)
+	for x: float in [-3.0, 3.0]:
+		b.add(_box(Vector3(0.2, 3.0, 5.0)), _at(Vector3(x, 1.5, 0)), wall, 0.0, 0.04)
+	b.add(_box(Vector3(6.6, 0.12, 5.6)), Transform3D(Basis(Vector3.RIGHT, -0.1), Vector3(0, 3.15, 0)), tin, 0.0, 0.05)
+	b.add(_box(Vector3(2.2, 0.08, 0.7)), _at(Vector3(-1.4, 0.9, 1.9)), Color(0.45, 0.32, 0.2))
+	for x: float in [-2.4, -0.4]:
+		b.add(_box(Vector3(0.08, 0.9, 0.6)), _at(Vector3(x, 0.45, 1.9)), Color(0.4, 0.28, 0.18))
+	b.add(_box(Vector3(2.0, 1.0, 0.04)), _at(Vector3(-1.4, 1.8, 2.28)), Color(0.35, 0.3, 0.26))
+	for i: int in 4:
+		b.add(_cone(0.04, 0.04, 0.3, 4), Transform3D(Basis(Vector3.FORWARD, 0.5 * i), Vector3(-2.1 + i * 0.4, 1.8, 2.24)), Color(0.75, 0.75, 0.78))
+	for i: int in 3:
+		b.add(_cone(0.42, 0.42, 0.28, 10), _at(Vector3(2.2, 0.15 + i * 0.29, 1.6)), Color(0.12, 0.12, 0.13))
+	# Fuel pump outside the shed.
+	b.add(_box(Vector3(0.6, 1.5, 0.45)), _at(Vector3(4.2, 0.75, -1.5)), Color(0.82, 0.22, 0.18))
+	b.add(_box(Vector3(0.5, 0.35, 0.05)), _at(Vector3(4.2, 1.15, -1.75)), Color(0.95, 0.92, 0.85))
+	b.add(_sphere(0.22, 0.3, 8, 3), _at(Vector3(4.2, 1.65, -1.5)), Color(0.95, 0.95, 0.9))
+	b.add(_box(Vector3(0.06, 0.6, 0.06)), _at(Vector3(4.55, 0.9, -1.5)), Color(0.15, 0.15, 0.15))
+	return b.commit(vertex_color_material(0.8))
+
+
 ## Fresh tea shoot cluster (harvest target). Golden shoots are rarer bonuses.
 static func tea_shoot(golden: bool) -> ArrayMesh:
 	var b := Builder.new(31)

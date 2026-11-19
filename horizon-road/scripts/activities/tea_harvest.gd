@@ -22,6 +22,7 @@ var _golden_mesh: Mesh
 
 func _ready() -> void:
 	super._ready()
+	add_to_group(&"save_participant")
 	activity_id = &"tea_harvest"
 	_rng.randomize()
 	_plain_mesh = LowPolyMeshes.tea_shoot(false)
@@ -41,7 +42,8 @@ func begin() -> void:
 	GameState.set_flag("%s.harvesting" % npc_id)
 	GameState.set_flag("%s.harvest_full" % npc_id, false)
 	_spawn_shoots()
-	GameState.notify(tr(&"ACT_TEA_STARTED"))
+	if not SaveManager.is_loading:
+		GameState.notify(tr(&"ACT_TEA_STARTED"))
 
 
 func complete() -> int:
@@ -60,6 +62,25 @@ func complete() -> int:
 	active = false
 	finished.emit(pay)
 	return pay
+
+
+func save_key() -> String:
+	return "tea_harvest"
+
+
+func to_save() -> Dictionary:
+	return {"active": active, "picked": picked, "golden": golden_picked}
+
+
+func from_save(data: Dictionary) -> void:
+	_clear_shoots()
+	active = false
+	if data.get("active", false):
+		begin()
+		picked = int(data.get("picked", 0))
+		golden_picked = int(data.get("golden", 0))
+		if picked >= ECONOMY.tea_target_bunches:
+			GameState.set_flag("%s.harvest_full" % npc_id)
 
 
 func get_status_text() -> String:

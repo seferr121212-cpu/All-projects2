@@ -576,6 +576,30 @@ func _build_backdrop() -> void:
 	add_child(mi)
 
 
+## Top-down painted map of the region for the map screen.
+func render_map_image(px: int) -> Image:
+	var img := Image.create(px, px, false, Image.FORMAT_RGB8)
+	for py: int in px:
+		for pxx: int in px:
+			var x: float = -_half + (pxx + 0.5) / px * size
+			var z: float = -_half + (py + 0.5) / px * size
+			var i: int = _nearest_index(x, z)
+			var gx: int = i % resolution
+			var gz: int = i / resolution
+			var c: Color = _vertex_color(gx, gz)
+			# Paper-map look: lighter, slightly desaturated, with hill shading.
+			var n: Vector3 = _grid_normal(gx, gz)
+			c = c.lerp(Color(0.93, 0.9, 0.8), 0.35) * (0.85 + 0.25 * clampf(n.dot(Vector3(-0.5, 0.8, -0.3).normalized()), 0.0, 1.0))
+			if forest_mask(x, z) > 0.5:
+				c = c.darkened(0.15)
+			if road_distance[i] < road_half_width + 0.8:
+				c = Color(0.62, 0.45, 0.3)
+			if is_in_lake(x, z) and heights[i] < water_level:
+				c = Color(0.45, 0.62, 0.72)
+			img.set_pixel(pxx, py, c)
+	return img
+
+
 func _nearest_index(x: float, z: float) -> int:
 	var ix: int = clampi(roundi((x + _half) / cell), 0, resolution - 1)
 	var iz: int = clampi(roundi((z + _half) / cell), 0, resolution - 1)

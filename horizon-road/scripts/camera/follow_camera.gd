@@ -3,7 +3,7 @@ extends Node3D
 ## Third-person orbit camera with an optional cockpit view. Recenters
 ## behind the van while driving if the player isn't steering the camera.
 
-enum Mode { THIRD_PERSON, COCKPIT }
+enum Mode { THIRD_PERSON, COCKPIT, FIRST_PERSON }
 
 @export var mouse_sensitivity: float = 0.0025
 @export var stick_sensitivity: float = 2.6
@@ -45,8 +45,14 @@ func set_target(node: Node3D, is_vehicle: bool) -> void:
 	yaw = node.global_rotation.y
 
 
+## Eye-level view for tight spaces (camper interior).
+func set_first_person(on: bool) -> void:
+	mode = Mode.FIRST_PERSON if on else Mode.THIRD_PERSON
+	pitch = 0.0 if on else -0.18
+
+
 func toggle_mode() -> void:
-	if not follow_vehicle:
+	if not follow_vehicle or mode == Mode.FIRST_PERSON:
 		return
 	mode = Mode.COCKPIT if mode == Mode.THIRD_PERSON else Mode.THIRD_PERSON
 	pitch = -0.05 if mode == Mode.COCKPIT else -0.18
@@ -73,6 +79,11 @@ func _process(delta: float) -> void:
 
 	if mode == Mode.COCKPIT:
 		_process_cockpit(delta)
+	elif mode == Mode.FIRST_PERSON:
+		global_position = target.global_position + Vector3(0, 1.58, 0)
+		rotation = Vector3(pitch, yaw, 0.0)
+		_spring.spring_length = 0.0
+		camera.fov = lerpf(camera.fov, 70.0, 1.0 - exp(-4.0 * delta))
 	else:
 		_process_third_person(delta)
 

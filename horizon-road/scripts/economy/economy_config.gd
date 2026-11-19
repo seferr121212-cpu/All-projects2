@@ -28,3 +28,19 @@ extends Resource
 ## Extra price per relationship level above stranger (friends pay better).
 @export var photo_friend_bonus_per_level: float = 0.1
 @export var photo_sales_per_day: int = 1
+
+@export_group("Fuel & upgrades")
+@export var base_tank_capacity: float = 45.0
+## Litres per kilometre at full throttle on the road.
+@export var fuel_per_km: float = 2.0
+@export var fuel_price_per_liter: float = 1.5
+## Top speed fraction when the tank is empty (no penalty, just slow).
+@export var empty_tank_speed: float = 0.35
+## Upgrade discount per relationship level with the seller.
+@export var friend_discount_per_level: float = 0.05
+
+@export_group("Rest")
+@export var wake_hour: float = 7.0
+@export var nap_hours: float = 3.0
+## Seconds between automatic saves while playing.
+@export var autosave_interval: float = 240.0

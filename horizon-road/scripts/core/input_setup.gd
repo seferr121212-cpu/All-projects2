@@ -32,6 +32,9 @@ static func register_default_actions() -> void:
 	_add("pause", [KEY_ESCAPE], [JOY_BUTTON_START], [])
 	_add("debug_panel", [KEY_F3], [], [])
 	_add("journal", [KEY_J], [JOY_BUTTON_BACK], [])
+	_add("map", [KEY_M], [], [])
+	_add("quicksave", [KEY_F5], [], [])
+	_add("quickload", [KEY_F9], [], [])
 	# Photo mode
 	_add("photo_mode", [KEY_F], [JOY_BUTTON_DPAD_DOWN], [])
 	_add("photo_shoot", [KEY_ENTER], [JOY_BUTTON_A], [], [MOUSE_BUTTON_LEFT])

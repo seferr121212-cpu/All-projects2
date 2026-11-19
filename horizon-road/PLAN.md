@@ -48,7 +48,7 @@ Genel doğrulama araçları:
 - **Bitti:** oyuncu NPC ile konuşup aktiviteyi bitiriyor, para kazanıyor, ilişki
   seviyesi artıyor; diyaloglar her iki dilde çalışıyor.
 
-## Aşama 4 — Yükseltmeler + karavan içi + kayıt
+## Aşama 4 — Yükseltmeler + karavan içi + kayıt ✅
 - Yükseltme verisi + mağaza UI (tamirci), yakıt.
 - Karavan iç mekanı: yatak (uyku), harita masası, günlük defteri.
 - SaveManager tam: otomatik + elle kayıt/yükleme.
@@ -121,6 +121,22 @@ Genel doğrulama araçları:
 - Karşılaştırmalar: `docs/screenshots/polish_*.jpg`.
 - 2. tur adayları: hacimli bulutlar, SDFGI (yüksek kalite ayarı), karakter animasyonu,
   daha yuvarlak karavan modeli, gerçek CC0 model paketleri (ASSETS.md).
+
+## Aşama 4 notları
+- Yükseltmeler `data/upgrades/upgrades.json`: motor (2), arazi lastiği (2), farlar, yakıt deposu,
+  lens (2, fotoğraf yakınlaştırması), konfor (2, iç mekâna kilim/bitki/ışık zinciri).
+- Tamirci Recep Aydın (köy girişindeki atölye, 07:00–19:30): dükkân, yakıt, sohbet, fotoğraf alımı.
+  Dostluk seviyesi başına %5 indirim.
+- Yakıt: 45 L (büyük depo 70 L), ~2 L/km; depo boşsa araç durmaz, %35 hızla gider.
+- Karavan içi: yan kapıdan girilir, birinci şahıs. Yatak (sabaha kadar uyu / 3 saat kestir,
+  ardından otomatik kayıt), çaydanlık, harita masası, günlük. Oda karavanın gerçek konumunda
+  kurulur; pencerelerden gerçek dünya ve hava görünür, içeride yağmur yağmaz.
+- Harita: M tuşu veya harita masası; araziden çizilir, tanışılan esnaflar işaretlenir.
+- Kayıt: `user://saves/*.json` (sürüm 2). Otomatik kayıt 4 dakikada bir, uyuyunca ve oyundan
+  çıkarken; F5/F9 hızlı kayıt/yükleme; açılışta otomatik kayıttan devam. Sahne nesneleri
+  `save_participant` grubuyla kendini kaydeder (karavan konumu, yarım kalan hasat).
+- Test: 73 kontrol; `--workshop`, `--interior`, `--map`, `--continue` geliştirici akışları.
+- Bilinen sorunlar: yükleme her zaman sürücü koltuğunda başlatır; iç mekânın pencerelerinde cam yok.
 
 ## Notlar / varsayımlar
 - Proje mevcut `All-projects2` git deposunun içinde `horizon-road/` alt klasöründe;

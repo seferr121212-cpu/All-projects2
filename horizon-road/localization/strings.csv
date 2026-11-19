@@ -6,7 +6,7 @@ UI_EXIT_VEHICLE,[E] Get out,[E] Araçtan in
 UI_ENTER_VEHICLE,[E] Get in,[E] Araca bin
 UI_SLOW_DOWN_TO_EXIT,Stop to get out,İnmek için dur
 UI_CAPTURE_MOUSE,Click to look around,Etrafa bakmak için tıkla
-UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F camera · J journal · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F fotoğraf · J günlük · F3 hata ayıklama"
+UI_CONTROLS_HINT,"WASD drive · Mouse look · C camera · L lights · E get out · F camera · J journal · M map · F5 save · F3 debug","WASD sür · Fare bak · C kamera · L farlar · E in · F fotoğraf · J günlük · M harita · F5 kaydet · F3 hata ayıklama"
 WEATHER_CLEAR,Clear,Açık
 WEATHER_PARTLY_CLOUDY,Partly cloudy,Parçalı bulutlu
 WEATHER_FOG,Fog,Sis
@@ -85,3 +85,44 @@ MOMENT_STARRY_NIGHT,Starry night,Yıldızlı gece
 MOMENT_LIGHTNING,Lightning,Şimşek
 MOMENT_RAIN,Rainy day,Yağmurlu gün
 MOMENT_FIRST_SNOW,First snow,İlk kar
+UPG_ENGINE,Engine tune-up,Motor bakımı
+UPG_ENGINE_DESC,"Faster climbs and a higher top speed, slightly better mileage.","Yokuşlarda daha güçlü, daha yüksek azami hız, biraz daha az yakıt."
+UPG_TYRES,All-terrain tyres,Arazi lastikleri
+UPG_TYRES_DESC,"More grip and speed on grass, mud and rock.","Çimen, çamur ve kayada daha fazla tutuş ve hız."
+UPG_LIGHTS,Bright headlights,Güçlü farlar
+UPG_LIGHTS_DESC,Headlights reach further on dark nights and in fog.,Farlar karanlık gecelerde ve siste daha uzağa ulaşır.
+UPG_FUEL_TANK,Bigger fuel tank,Büyük yakıt deposu
+UPG_FUEL_TANK_DESC,Drive further between fill-ups.,Dolumlar arasında daha uzağa gidersin.
+UPG_LENS,Camera lens,Fotoğraf lensi
+UPG_LENS_DESC,"A longer lens for zooming in on distant subjects.","Uzaktaki konulara yaklaşmak için daha uzun bir lens."
+UPG_COMFORT,Cosy interior,Rahat iç mekân
+UPG_COMFORT_DESC,"Rug, plants and warm string lights inside the camper.","Karavanın içine kilim, saksı çiçekleri ve sıcak ışık zinciri."
+UI_SHOP_TITLE,Workshop,Atölye
+UI_BUY,Buy %d ₺,Satın al %d ₺
+UI_MAXED,Fully upgraded,Tamamlandı
+UI_CLOSE,Close,Kapat
+UI_UPGRADE_FITTED,Fitted: %s,Takıldı: %s
+UI_NOT_ENOUGH_MONEY,Not enough money,Yeterli para yok
+UI_FRIEND_DISCOUNT,Friend discount -%d%%,Dost indirimi -%d%%
+UI_FUEL,Fuel,Yakıt
+UI_FUEL_EMPTY,Tank empty — driving slowly,Depo boş — yavaş gidiyorsun
+UI_ENTER_CAMPER,[E] Go inside,[E] İçeri gir
+UI_GO_OUTSIDE,[E] Go outside,[E] Dışarı çık
+UI_SLEEP,[E] Rest,[E] Dinlen
+UI_MAP,[E] Map,[E] Harita
+UI_JOURNAL_OPEN,[E] Journal,[E] Günlük
+UI_BREW_TEA,[E] Brew tea,[E] Çay demle
+UI_TEA_BREWED,"Fresh tea, steaming in the glass.","Taze çay, ince belli bardakta tütüyor."
+REST_TITLE,How long would you like to rest?,Ne kadar dinlenmek istersin?
+REST_UNTIL_MORNING,Sleep until morning (07:00),Sabaha kadar uyu (07:00)
+REST_NAP,Take a nap (3 hours),Biraz kestir (3 saat)
+REST_GOOD_MORNING,"Good morning, %s!","Günaydın %s!"
+REST_RESTED,You feel rested.,Dinlendin.
+UI_SAVED,Game saved,Oyun kaydedildi
+UI_LOADED,Game loaded,Oyun yüklendi
+MAP_TITLE,Map,Harita
+MAP_YOU,You,Sen
+MAP_CAMPER,Camper,Karavan
+MAP_LEGEND_ROAD,Road,Yol
+MAP_NEXT_REGION,Next: Aegean fishing village (coming soon),Sıradaki: Ege balıkçı köyü (yakında)
+SUBJ_GARAGE,Village garage,Köy tamirhanesi

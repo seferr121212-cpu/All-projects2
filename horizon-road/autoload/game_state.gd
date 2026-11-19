@@ -8,12 +8,14 @@ signal region_changed(region_id: StringName)
 signal context_changed(context: Context)
 signal relationship_changed(npc_id: StringName, points: int, level: int)
 signal flags_changed
+signal upgrades_changed
+signal fuel_changed(liters: float)
 ## Short on-screen message for the HUD (already translated text).
 signal notified(text: String)
 
-enum PlayerMode { DRIVING, ON_FOOT }
+enum PlayerMode { DRIVING, ON_FOOT, INTERIOR }
 ## Who owns player input right now. Gameplay systems ignore input outside GAMEPLAY.
-enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE }
+enum Context { GAMEPLAY, PHOTO, JOURNAL, DIALOGUE, MENU }
 
 static var ECONOMY: EconomyConfig = load("res://data/economy/economy_config.tres")
 
@@ -23,6 +25,9 @@ var money: int = ECONOMY.starting_money
 var relationships: Dictionary = {}
 ## Story/world flags, e.g. "fadime.met". Namespaced by NPC or system.
 var flags: Dictionary = {}
+## upgrade id -> level (0 = stock)
+var upgrades: Dictionary = {}
+var fuel: float = ECONOMY.base_tank_capacity
 ## People met: npc id -> {name_key, role_key, note_key, region}
 var people: Dictionary = {}
 ## Small numeric counters, e.g. "fadime.harvests" or "photo_sales.day".
@@ -97,6 +102,59 @@ func get_relationship_level(npc_id: StringName) -> int:
 	return level
 
 
+# --- Upgrades & fuel ---------------------------------------------------------
+
+func get_upgrade_level(id: String) -> int:
+	return int(upgrades.get(id, 0))
+
+
+func upgrade_effect(id: String, key: String, default: float) -> float:
+	return UpgradeCatalog.effect(id, get_upgrade_level(id), key, default)
+
+
+## Price after the friendship discount of the seller (if any).
+func upgrade_price(id: String, seller: StringName = &"") -> int:
+	var base: int = UpgradeCatalog.next_price(id, get_upgrade_level(id))
+	if base < 0:
+		return -1
+	var discount: float = 0.0
+	if seller != &"":
+		discount = ECONOMY.friend_discount_per_level * get_relationship_level(seller)
+	return roundi(base * (1.0 - discount))
+
+
+func buy_upgrade(id: String, seller: StringName = &"") -> bool:
+	var price: int = upgrade_price(id, seller)
+	if price < 0 or not spend_money(price):
+		return false
+	upgrades[id] = get_upgrade_level(id) + 1
+	lens_level = int(upgrade_effect("lens", "lens_level", 0.0))
+	upgrades_changed.emit()
+	return true
+
+
+func get_tank_capacity() -> float:
+	return upgrade_effect("fuel_tank", "tank_capacity", ECONOMY.base_tank_capacity)
+
+
+func use_fuel(liters: float) -> void:
+	fuel = maxf(fuel - liters, 0.0)
+	fuel_changed.emit(fuel)
+
+
+## Fills up as far as the wallet allows. Returns liters bought.
+func refuel() -> float:
+	var missing: float = get_tank_capacity() - fuel
+	var affordable: float = money / ECONOMY.fuel_price_per_liter
+	var liters: float = floorf(minf(missing, affordable))
+	if liters <= 0.0:
+		return 0.0
+	spend_money(ceili(liters * ECONOMY.fuel_price_per_liter))
+	fuel += liters
+	fuel_changed.emit(fuel)
+	return liters
+
+
 func register_person(npc_id: StringName, name_key: String, role_key: String, note_key: String) -> void:
 	people[String(npc_id)] = {"name_key": name_key, "role_key": role_key, "note_key": note_key, "region": String(current_region_id)}
 
@@ -148,6 +206,8 @@ func to_dict() -> Dictionary:
 		"flags": flags,
 		"counters": counters,
 		"people": people,
+		"upgrades": upgrades,
+		"fuel": fuel,
 	}
 
 
@@ -160,5 +220,10 @@ func from_dict(data: Dictionary) -> void:
 	flags = data.get("flags", {})
 	counters = data.get("counters", {})
 	people = data.get("people", {})
+	upgrades = data.get("upgrades", {})
+	lens_level = int(upgrade_effect("lens", "lens_level", 0.0))
+	fuel = float(data.get("fuel", get_tank_capacity()))
+	upgrades_changed.emit()
+	fuel_changed.emit(fuel)
 	flags_changed.emit()
 	money_changed.emit(money)

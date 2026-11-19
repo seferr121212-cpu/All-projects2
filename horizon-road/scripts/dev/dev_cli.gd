@@ -34,6 +34,12 @@ func _ready() -> void:
 		await _photo_test()
 	if _args.has("story"):
 		await _story_test(_args.get("stop", ""))
+	if _args.has("workshop"):
+		await _workshop_test(_args.get("stop", ""))
+	if _args.has("interior"):
+		await _interior_test(_args.get("stop", ""))
+	if _args.has("map"):
+		(get_tree().current_scene.find_child("MapPanel", true, false) as MapPanel).open()
 	if _args.has("journal"):
 		var journal := get_tree().current_scene.find_child("Journal", true, false) as Journal
 		var photo_mode := get_tree().current_scene.find_child("PhotoMode", true, false) as PhotoMode
@@ -68,6 +74,13 @@ func _apply_world_settings() -> void:
 		WeatherManager.set_weather(StringName(_args["weather"]), 0.0)
 	if _args.has("locale"):
 		Localization.set_locale(_args["locale"])
+	if _args.has("money"):
+		GameState.money = int(_args["money"])
+	if _args.has("upgrades"):
+		for pair: String in _args["upgrades"].split(","):
+			var kv: PackedStringArray = pair.split(":")
+			GameState.upgrades[kv[0]] = int(kv[1])
+		GameState.upgrades_changed.emit()
 	if _args.has("camper"):
 		# --camper=x,z,heading_degrees
 		var v: PackedFloat64Array = _args["camper"].split_floats(",")
@@ -146,6 +159,7 @@ func _probe() -> void:
 	var query := PhysicsRayQueryParameters3D.create(cam.global_position, cam.global_position + cam.global_basis.z * 9.0)
 	var hit: Dictionary = cam.get_world_3d().direct_space_state.intersect_ray(query)
 	print("[DevCli] probe ray: ", hit.get("collider"), " ", hit.get("position"))
+	print("[DevCli] probe state: day=%d time=%s money=%d fuel=%.1f upgrades=%s" % [TimeManager.day, TimeManager.get_clock_string(), GameState.money, GameState.fuel, GameState.upgrades])
 	var camper := get_tree().current_scene.find_child("Camper", true, false) as CamperController
 	print("[DevCli] probe camper: headlights=%s night=%.2f surface=%s" % [camper.headlights_on, TimeManager.get_night_factor(), HighlandTerrain.Surface.keys()[camper.surface]])
 
@@ -297,6 +311,92 @@ func _story_test(stop: String) -> void:
 	GameState.relationships = {}
 	SaveManager.load_game("story_test")
 	print("[DevCli] story: after reload money=%d rel=%d name=%s" % [GameState.money, GameState.get_relationship(&"fadime"), GameState.player_name])
+
+
+## --workshop [--stop=hub|shop] : meet Recep, buy tyres, fill up.
+func _workshop_test(stop: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	var ui := scene.find_child("DialogueUI", true, false) as DialogueUI
+	var recep := scene.find_child("Recep", true, false) as Npc
+	var region: Region = GameState.current_region
+	var park := Vector3(-134.0, 0.0, -44.0)
+	travel.camper.global_transform = Transform3D(Basis(Vector3.UP, deg_to_rad(10)), Vector3(park.x, region.get_ground_height(park.x, park.z) + 0.5, park.z))
+	GameState.fuel = 6.0
+	for i: int in 20:
+		await get_tree().physics_frame
+	_press_once(&"interact")
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, recep.global_position + recep.global_basis.z * -1.7)
+	await get_tree().physics_frame
+	var focus: Interactable = travel.get_focused_interactable()
+	print("[DevCli] workshop: focused=%s" % (focus.get_parent().name if focus else "none"))
+	_press_once(&"interact")
+	await _settle()
+	await _advance(ui)                      # intro_1 -> intro_2
+	await _advance(ui)                      # intro_2 -> hub line
+	if stop == "hub":
+		return
+	await _choose(ui, "RECEP_CH_SHOP")
+	print("[DevCli] workshop: shop visible=%s money=%d" % [ui._shop.visible, GameState.money])
+	if stop == "shop":
+		return
+	var before: int = GameState.money
+	var bought: bool = GameState.buy_upgrade("tyres", recep.npc_id)
+	print("[DevCli] workshop: bought tyres=%s paid=%d level=%d" % [bought, before - GameState.money, GameState.get_upgrade_level("tyres")])
+	ui._close_shop()
+	await _settle()
+	await _advance(ui)                      # shop_closed -> hub
+	var fuel_before: float = GameState.fuel
+	await _choose(ui, "RECEP_CH_FUEL")
+	print("[DevCli] workshop: refuel node=%s fuel %.1f -> %.1f price=%s" % [ui.runner.current_id, fuel_before, GameState.fuel, ui.runner.vars.get("price")])
+	await _advance(ui)
+	await _choose(ui, "CH_BYE")
+	await _advance(ui)
+	print("[DevCli] workshop: done context=%s" % GameState.Context.keys()[GameState.context])
+
+
+## --interior [--stop=inside|rest] : go inside, use bed/kettle, sleep till morning.
+func _interior_test(stop: String) -> void:
+	var scene: Node = get_tree().current_scene
+	var travel := scene.find_child("TravelController", true, false) as TravelController
+	for i: int in 120:
+		await get_tree().physics_frame
+		if i > 10 and travel.camper.is_stopped():
+			break
+	_press_once(&"interact")                # get out of the van
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, travel.camper.global_transform * Vector3(1.9, 0, 0.4))
+	await get_tree().physics_frame
+	var door: Interactable = travel.get_focused_interactable()
+	print("[DevCli] interior: door prompt=%s" % (door.prompt_key if door else "none"))
+	if door:
+		door.interacted.emit(travel.walker)
+	for i: int in 5:
+		await get_tree().physics_frame
+	print("[DevCli] interior: mode=%s inside_floor=%.2f" % [GameState.PlayerMode.keys()[GameState.player_mode], travel.walker.global_position.y - travel.camper.global_position.y])
+	var prompts: Array = []
+	for node: Node in get_tree().get_nodes_in_group(&"interactable"):
+		var it := node as Interactable
+		if it.is_inside_tree() and travel.interior.is_ancestor_of(it):
+			prompts.append(it.prompt_key)
+	print("[DevCli] interior: interactables=%s" % [prompts])
+	if _args.has("look"):
+		travel.follow_camera.yaw = travel.camper.global_rotation.y + deg_to_rad(float(_args["look"]))
+		travel.follow_camera.pitch = deg_to_rad(float(_args.get("lookpitch", "-12")))
+	if stop == "inside":
+		return
+	var day: int = TimeManager.day
+	RestMenu.apply_rest(RestMenu.hours_until(TimeManager.time_of_day, 7.0))
+	print("[DevCli] interior: slept day %d -> %d at %s" % [day, TimeManager.day, TimeManager.get_clock_string()])
+	if stop == "rest":
+		(scene.find_child("RestMenu", true, false) as RestMenu).open()
+		return
+	travel.exit_interior()
+	await get_tree().physics_frame
+	print("[DevCli] interior: back outside mode=%s" % GameState.PlayerMode.keys()[GameState.player_mode])
 
 
 func _place_walker(travel: TravelController, pos: Vector3) -> void:

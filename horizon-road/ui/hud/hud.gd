@@ -12,6 +12,7 @@ var _hint: Label
 var _controls: Label
 var _controls_timer: float = 14.0
 var _money: Label
+var _fuel: ProgressBar
 var _status: Label
 var _toast: Label
 var _toast_timer: float = 0.0
@@ -32,6 +33,19 @@ func _ready() -> void:
 	_money = _label(22, HORIZONTAL_ALIGNMENT_RIGHT)
 	_money.add_theme_color_override(&"font_color", Color(1.0, 0.92, 0.7, 0.95))
 	corner.add_child(_money)
+	_fuel = ProgressBar.new()
+	_fuel.custom_minimum_size = Vector2(150, 8)
+	_fuel.show_percentage = false
+	_fuel.size_flags_horizontal = Control.SIZE_SHRINK_END
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color(0, 0, 0, 0.35)
+	bg.set_corner_radius_all(4)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = Color(1.0, 0.85, 0.55, 0.9)
+	fill.set_corner_radius_all(4)
+	_fuel.add_theme_stylebox_override(&"background", bg)
+	_fuel.add_theme_stylebox_override(&"fill", fill)
+	corner.add_child(_fuel)
 	_shown_money = GameState.money
 
 	_status = _label(19, HORIZONTAL_ALIGNMENT_LEFT)
@@ -70,7 +84,13 @@ func _process(delta: float) -> void:
 	_hint.text = _context_hint()
 	_shown_money = move_toward(_shown_money, GameState.money, maxf(absf(GameState.money - _shown_money) * 4.0, 20.0) * delta)
 	_money.text = "%d ₺" % roundi(_shown_money)
+	_fuel.max_value = GameState.get_tank_capacity()
+	_fuel.value = GameState.fuel
+	_fuel.tooltip_text = tr(&"UI_FUEL")
+	_fuel.modulate = Color(1, 0.55, 0.45) if GameState.fuel < GameState.get_tank_capacity() * 0.15 else Color.WHITE
 	var status: PackedStringArray = []
+	if GameState.fuel <= 0.0 and GameState.player_mode == GameState.PlayerMode.DRIVING:
+		status.append(tr(&"UI_FUEL_EMPTY"))
 	for node: Node in get_tree().get_nodes_in_group(&"activity"):
 		var text: String = (node as Activity).get_status_text()
 		if text != "":

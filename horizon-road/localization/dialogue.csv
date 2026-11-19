@@ -58,3 +58,31 @@ ACT_TEA_FULL,Basket full! Take it to Fadime.,Sepet doldu! Fadime'ye götür.
 ACT_TEA_GOLDEN,A golden shoot! Bonus,Altın filiz! Bonus
 ACT_TEA_STARTED,Pick the light green shoots in the tea rows.,Çay sıralarındaki açık yeşil filizleri topla.
 SUBJ_NPC_FADIME,Fadime,Fadime
+NPC_RECEP_NAME,Recep Aydın,Recep Aydın
+NPC_RECEP_ROLE,Mechanic,Tamirci
+NPC_RECEP_NOTE,"Keeps every engine in the village running. Drove trucks all over Turkey when he was young.","Köyün bütün motorlarına o bakıyor. Gençken kamyonla bütün Türkiye'yi dolaşmış."
+RECEP_INTRO_1,"Welcome! They call me Recep. I look after every engine in this village.","Hoş geldin! Bana Recep derler. Bu köyün motor işlerine ben bakarım."
+RECEP_INTRO_2,"That camper yours? Old, but sturdy. Don't skip its maintenance, alright?","O karavan senin mi? Eski ama sağlam. Bakımını ihmal etme, tamam mı?"
+RECEP_GREET,"{player}! How's the old tortoise running?","{player}! Bizim tosbağa nasıl gidiyor?"
+RECEP_GREET_FRIEND,"Ah, {player}, come in, come in. The kettle's on.","Gel {player}, gel. Çaydanlık ocakta."
+RECEP_HUB,What do you need?,Ne lazım?
+RECEP_CH_SHOP,I'd like some work done on the camper.,Karavana bir şeyler yaptırmak istiyorum.
+RECEP_CH_FUEL,Could you fill up the tank?,Depoyu doldurur musun?
+RECEP_CH_CHAT,How's life treating you?,Nasıl gidiyor usta?
+RECEP_CH_PHOTO,I took a photo you might like.,Beğeneceğin bir fotoğraf çektim.
+RECEP_FUEL_DONE,"Done. {amount} litres, {price} lira.","Tamamdır. {amount} litre, {price} lira."
+RECEP_FUEL_FULL,"The tank's already full, friend.","Depo zaten dolu be kardeşim."
+RECEP_FUEL_BROKE,"Your pockets are empty! Go help Fadime with the tea, then come back.","Cebin boş! Git Fadime'ye çayda yardım et, sonra gel."
+RECEP_SHOP_DONE,Anything else?,Başka bir şey?
+RECEP_CHAT_1,"The highland roads are rough. After rain, watch out for mud. Good tyres are a must.","Yaylada yollar bozuktur. Yağmurdan sonra çamura dikkat et. İyi lastik şart."
+RECEP_CHAT_2,"When I was young I drove a truck all over Turkey. Don't die before you've seen Cappadocia, I say.","Gençken kamyonla bütün Türkiye'yi dolaştım. Kapadokya'yı görmeden ölme derim."
+RECEP_CHAT_3,"You're one of us now. You get the master's discount in my shop, just so you know.","Sen artık bizden birisin. Dükkânda sana usta indirimi var, bilesin."
+RECEP_PHOTO_LOVE,"Hah! Look at that old tortoise, she looks proud. I'll pin this up in the shop. {amount} lira?","Hah! Şu tosbağaya bak, gururlu duruyor. Bunu dükkâna asarım. {amount} lira olur mu?"
+RECEP_PHOTO_NICE,"Not bad... I'd give you {amount} lira for it.","Fena değil... {amount} lira veririm buna."
+RECEP_PHOTO_LIMIT,"One a day, my walls aren't that big!","Günde bir tane, duvarlarım o kadar büyük değil!"
+RECEP_PHOTO_ALREADY,"I've got that one already, it's by the workbench.","O bende var zaten, tezgâhın yanında asılı."
+RECEP_PHOTO_SOLD,"Good. Customers will ask who took it.","Güzel. Müşteriler kim çekti diye soracak."
+RECEP_PHOTO_KEPT,"Fair enough, keep it.","Peki, sende kalsın."
+RECEP_BYE,"Drive safe. And mind the potholes!","Dikkatli sür. Çukurlara da dikkat!"
+UI_TANK_FULL,Tank full,Depo dolu
+SUBJ_NPC_RECEP,Recep,Recep

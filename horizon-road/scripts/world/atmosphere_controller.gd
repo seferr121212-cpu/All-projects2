@@ -189,6 +189,9 @@ func _update(delta: float) -> void:
 
 	# Ambient & fog
 	environment.ambient_light_energy = lerpf(1.0, 3.2, night) * lerpf(1.0, 1.15, overcast)
+	if GameState.player_mode == GameState.PlayerMode.INTERIOR:
+		# Indoors the open sky shouldn't light every corner; lamps and windows do.
+		environment.ambient_light_energy *= lerpf(0.45, 0.25, night)
 	environment.ambient_light_sky_contribution = lerpf(1.0, 0.55, night)
 	environment.ambient_light_color = palette.night_ambient
 	environment.fog_light_color = fog_col
