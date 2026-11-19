@@ -64,6 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
+	var near_door: bool = GameState.player_mode == GameState.PlayerMode.ON_FOOT and walker.global_position.distance_to(camper.global_transform * Vector3(1.2, 0.0, -0.2)) < 3.0
+	camper.door_target = 1.0 if near_door or GameState.player_mode == GameState.PlayerMode.INTERIOR else 0.0
 	walker.camera_yaw = follow_camera.yaw
 
 

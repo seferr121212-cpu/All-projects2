@@ -29,6 +29,8 @@ func _ready() -> void:
 		await _drive_test(float(_args["drive"]), float(_args.get("steer", "0")))
 	if _args.has("walk"):
 		await _walk_test(float(_args["walk"]))
+	if _args.has("atdoor"):
+		await _at_door()
 	_apply_camera()
 	if _args.has("photo"):
 		await _photo_test()
@@ -691,6 +693,19 @@ func _cafe_test(stop: String) -> void:
 	for i: int in 30:
 		await get_tree().process_frame
 	print("[DevCli] cafe: served=%d earned=%d money+%d" % [cafe.served, cafe.earned, GameState.money - money_before])
+
+
+## --atdoor : step out and stand by the sliding door (it opens).
+func _at_door() -> void:
+	var travel := get_tree().current_scene.find_child("TravelController", true, false) as TravelController
+	for i: int in 30:
+		await get_tree().physics_frame
+	_press_once(&"interact")
+	for i: int in 5:
+		await get_tree().physics_frame
+	_place_walker(travel, travel.camper.global_transform * Vector3(2.6, 0, 1.6))
+	for i: int in 90:
+		await get_tree().physics_frame
 
 
 func _place_walker(travel: TravelController, pos: Vector3) -> void:

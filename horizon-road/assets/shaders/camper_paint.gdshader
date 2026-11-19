@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode cull_disabled, depth_prepass_alpha;
 // Two-tone glossy paint for the camper's rounded body. Windows, seams and
 // wheel wells are painted procedurally from the local position so they
 // follow the curved shell exactly; at night the living-area windows glow.
@@ -13,6 +14,9 @@ uniform vec3 glass_color : source_color = vec3(0.07, 0.09, 0.12);
 uniform vec3 curtain_color : source_color = vec3(0.9, 0.55, 0.26);
 uniform float split_y = 1.42;
 uniform float interior_glow = 0.0;
+// 0 = closed, 1 = sliding door fully open (the panel itself sets is_door = 1).
+instance uniform float door_open = 0.0;
+instance uniform float is_door = 0.0;
 
 varying vec3 lp;
 varying vec3 ln;
@@ -29,6 +33,10 @@ void vertex() {
 
 void fragment() {
 	float aa = 0.012;
+	// Doorway on the right (+x) side, cut out while the panel slides away.
+	if (is_door < 0.5 && door_open > 0.02 && lp.x > 0.5 && lp.z > -0.88 && lp.z < 0.48 && lp.y > 0.45 && lp.y < 2.1) {
+		discard;
+	}
 	vec3 col = mix(lower_color, upper_color, smoothstep(split_y - 0.01, split_y + 0.01, lp.y));
 	// Chrome belt line between the two colours.
 	float belt = 1.0 - smoothstep(0.025, 0.035, abs(lp.y - split_y));
@@ -75,7 +83,14 @@ void fragment() {
 	float snow = snow_cover * smoothstep(0.6, 0.9, ln.y);
 	col = mix(col, vec3(0.9, 0.92, 0.96), snow);
 
+	// Inside walls: cream panelling instead of paint.
+	if (!FRONT_FACING) {
+		col = mix(vec3(0.82, 0.76, 0.64), vec3(0.62, 0.48, 0.34), step(lp.y, 1.0));
+		metal = 0.0;
+	}
 	ALBEDO = col;
+	// Clear glass lets the cabin show through; curtains stay opaque.
+	ALPHA = mix(1.0, 0.32, glass * (1.0 - curtain));
 	METALLIC = metal * 0.8;
 	ROUGHNESS = mix(mix(0.32, 0.18, wetness), 0.04, glass * (1.0 - curtain));
 	ROUGHNESS = mix(ROUGHNESS, 0.85, max(well, dust * 0.6));

@@ -42,6 +42,11 @@ var headlights_manual: bool = false
 @onready var _headlights: Array[SpotLight3D] = [$Visual/HeadlightL, $Visual/HeadlightR]
 var _lens_material := StandardMaterial3D.new()
 var _wheels: Array[Node3D] = []
+## 0 closed .. 1 open; the travel controller sets the target when someone is at the door.
+var door_target: float = 0.0
+var _door_amount: float = 0.0
+var _door: MeshInstance3D
+var _body_mesh: MeshInstance3D
 var _front_wheels: Array[Node3D] = []
 var _lean := Vector2.ZERO
 
@@ -189,7 +194,18 @@ func _update_steering(delta: float) -> void:
 	rotate_y(turn * delta)
 
 
+func _update_door(delta: float) -> void:
+	_door_amount = move_toward(_door_amount, door_target, delta * 1.6)
+	if _door == null:
+		return
+	_door.visible = _door_amount > 0.02
+	var t: float = smoothstep(0.0, 1.0, _door_amount)
+	_door.position = Vector3(0.1 * clampf(t * 4.0, 0.0, 1.0), 0.0, 0.95 * smoothstep(0.2, 1.0, t))
+	_body_mesh.set_instance_shader_parameter(&"door_open", _door_amount)
+
+
 func _update_visual(delta: float) -> void:
+	_update_door(delta)
 	# Tilt body to the ground under the van, then add lean from motion.
 	var region: Region = GameState.current_region
 	var ground_normal: Vector3 = Vector3.UP
@@ -244,6 +260,30 @@ func _build_visual() -> void:
 	body.name = "Body"
 	body.mesh = LowPolyMeshes.camper_body()
 	_visual.add_child(body)
+	for m: Mesh in AssetLibrary.meshes("camper_cabin", []):
+		var cabin := MeshInstance3D.new()
+		cabin.mesh = m
+		cabin.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_visual.add_child(cabin)
+	# Sliding door: a slab of the same paint, the shell cuts its doorway while open.
+	var paint: Material = body.mesh.surface_get_material(body.mesh.get_surface_count() - 1)
+	var bm := BoxMesh.new()
+	bm.size = Vector3(0.05, 1.6, 1.34)
+	var arrays: Array = bm.get_mesh_arrays()
+	var verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	for i: int in verts.size():
+		verts[i] += Vector3(0.975, 1.275, -0.2)
+	arrays[Mesh.ARRAY_VERTEX] = verts
+	var door_mesh := ArrayMesh.new()
+	door_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	door_mesh.surface_set_material(0, paint)
+	_door = MeshInstance3D.new()
+	_door.name = "SlidingDoor"
+	_door.mesh = door_mesh
+	_door.set_instance_shader_parameter(&"is_door", 1.0)
+	_door.visible = false
+	_visual.add_child(_door)
+	_body_mesh = body
 	# Glowing lenses so the lights read from outside, not just on the road.
 	_lens_material.albedo_color = Color(1.0, 0.97, 0.88)
 	_lens_material.emission_enabled = true

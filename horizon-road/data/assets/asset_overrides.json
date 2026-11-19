@@ -331,5 +331,12 @@
 		{
 			"path": "res://assets/models/blender/dog_2_rig.glb"
 		}
+	],
+	"camper_cabin": [
+		{
+			"path": "res://assets/models/blender/camper_cabin.glb",
+			"scale": 1.0,
+			"material": "vertex:0.8"
+		}
 	]
 }
