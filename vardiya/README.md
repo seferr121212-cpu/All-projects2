@@ -1,7 +1,7 @@
 # VARDİYA — NexDrive Game Studio
 
 Seçimlere dayalı, üçüncü şahıs sinematik hikâye oyunu (Godot 4.7, Compatibility renderer).
-Şu anki durum: **Aşama 6** — sanat geçişi: gri kutuların yerine stilize düşük poligon prop'lar, çalışma anında üretilen 512 px dokular, animasyonlu karakter gövdeleri, mekân atmosferi (gökyüzü, ışık hüzmesi, parçacık, titreyen ışık) ve epilog ışık varyantları. 8 bölüm + 5 son, epiloglar, son kartı, kredi ve "Sonlar" galerisi önceki aşamalardan. Raporlar: `docs/RAPOR_ASAMA_1_2.md` … `docs/RAPOR_ASAMA_6.md`; sonlara test yolları: `docs/SON_TEST_YOLLARI.md`.
+Şu anki durum: **Aşama 7** — cila ve optimizasyon: kod ile üretilen ses (arayüz sesleri, ortam sesleri, müzik), bölüm kartları ve geçişler, otomatik performans koruması, 3B çözünürlük ayarı, isteğe bağlı 26 yeni keşif sahnesi ve oynama süresi tahmin aracı. Aşama 6: gri kutuların yerine stilize düşük poligon prop'lar, çalışma anında üretilen 512 px dokular, animasyonlu karakter gövdeleri, mekân atmosferi (gökyüzü, ışık hüzmesi, parçacık, titreyen ışık) ve epilog ışık varyantları. 8 bölüm + 5 son, epiloglar, son kartı, kredi ve "Sonlar" galerisi önceki aşamalardan. Raporlar: `docs/RAPOR_ASAMA_1_2.md` … `docs/RAPOR_ASAMA_7.md`; sonlara test yolları: `docs/SON_TEST_YOLLARI.md`.
 
 ## Çalıştırma
 
@@ -35,6 +35,10 @@ python3 vardiya/tools/story_sim.py --game
 python3 vardiya/tools/render_map.py
 ```
 
+```bash
+python3 vardiya/tools/playtime.py
+```
+
 ## Kare süresi ölçümü (hedef cihazda)
 
 ```bash
@@ -57,6 +61,7 @@ Rapor `~/.local/share/vardiya/perf_report.json` içine yazılır; F3 oyun içind
 | `data/characters.json` | Konuşmacılar (oynanabilir + NPC), renkler, görünüm (`look`) |
 | `scenes/world/` | Mekân kurucu, prop kiti, mesh birleştirici, malzeme/doku kiti, karakter gövdesi, ortam animasyonu, oyuncu, kamera |
 | `ui/`, `scenes/` | Menüler, diyalog arayüzü, bölüm oynatıcı |
-| `tools/` | Veri doğrulayıcı ve testleri |
+| `scenes/audio/` | Ses sentezleyici (arayüz, ortam, müzik) |
+| `tools/` | Veri doğrulayıcı ve testleri, hikâye simülatörü, harita çizici, oynama süresi tahmini |
 | `tests/` | Motor içi (headless) testler |
 | `packaging/` | NexDrive manifest taslağı, kapak, afiş |

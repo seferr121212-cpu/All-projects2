@@ -202,6 +202,76 @@
 					]
 				},
 				{
+					"id": "ch08_tea",
+					"src": "more",
+					"label": "ch08.it.ch08_tea",
+					"point": "ch02_thermos",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch08.it.ch08_tea.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch08.it.ch08_tea.l2"
+						}
+					]
+				},
+				{
+					"id": "ch08_selim",
+					"src": "more",
+					"label": "ch08.it.ch08_selim",
+					"actor": "selim",
+					"if": {
+						"not": {
+							"flag": "selim_dead"
+						}
+					},
+					"journal": "journal.ch08.ch08_selim",
+					"lines": [
+						{
+							"speaker": "selim",
+							"text": "ch08.it.ch08_selim.l1"
+						},
+						{
+							"speaker": "selim",
+							"text": "ch08.it.ch08_selim.l2"
+						}
+					]
+				},
+				{
+					"id": "ch08_truck",
+					"src": "more",
+					"label": "ch08.it.ch08_truck",
+					"point": "ch02_truck",
+					"if": {
+						"status": "riza",
+						"ne": "dead"
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch08.it.ch08_truck.l1"
+						}
+					]
+				},
+				{
+					"id": "ch08_truck_gone",
+					"src": "more",
+					"label": "ch08.it.ch08_truck_gone",
+					"point": "ch02_truck",
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch08.it.ch08_truck_gone.l1"
+						}
+					]
+				},
+				{
 					"id": "ch08_nevin",
 					"label": "ch08.it.ch08_nevin",
 					"actor": "nevin",

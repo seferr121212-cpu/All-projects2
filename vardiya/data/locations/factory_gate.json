@@ -9,6 +9,7 @@
 	"floor_color": "#2c2f31",
 	"wall_color": "#3d3f44",
 	"background": "#0c0e10",
+	"ambience": "crowd",
 	"ambient": "#6a7078",
 	"ambient_energy": 0.65,
 	"sun": {
@@ -540,6 +541,33 @@
 				3.8
 			],
 			"radius": 1.4
+		},
+		"ch02_thermos": {
+			"pos": [
+				-7.9,
+				0,
+				0.0
+			],
+			"radius": 1.0,
+			"src": "more"
+		},
+		"ch02_crowd": {
+			"pos": [
+				0.0,
+				0,
+				-2.9
+			],
+			"radius": 1.2,
+			"src": "more"
+		},
+		"ch02_truck": {
+			"pos": [
+				9.0,
+				0,
+				7.1
+			],
+			"radius": 1.2,
+			"src": "more"
 		}
 	},
 	"camera": {
@@ -634,7 +662,8 @@
 							6
 						]
 					}
-				]
+				],
+				"ambience": "outdoor"
 			}
 		}
 	]

@@ -25,6 +25,8 @@ func _ready() -> void:
 	theme = UiTheme.build()
 	get_tree().paused = false
 	DialogueRunner.stop()
+	AudioBus.play_ambience("")
+	AudioBus.play_music("calm")
 	_build()
 	_refresh()
 	if PerfMonitor.benchmark:

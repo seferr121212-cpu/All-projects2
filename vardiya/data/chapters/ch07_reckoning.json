@@ -255,6 +255,103 @@
 					]
 				},
 				{
+					"id": "ch07_window",
+					"src": "more",
+					"label": "ch07.it.ch07_window",
+					"point": "ch04_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_window.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_window.l2"
+						}
+					]
+				},
+				{
+					"id": "ch07_sofa_k",
+					"src": "more",
+					"label": "ch07.it.ch07_sofa_k",
+					"point": "ch04_sofa",
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_sofa_k.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_sofa_r",
+					"src": "more",
+					"label": "ch07.it.ch07_sofa_r",
+					"point": "ch04_sofa",
+					"if": {
+						"all": [
+							{
+								"status": "kemal",
+								"ne": "dead"
+							},
+							{
+								"status": "riza",
+								"eq": "dead"
+							}
+						]
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_sofa_r.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_sofa",
+					"src": "more",
+					"label": "ch07.it.ch07_sofa",
+					"point": "ch04_sofa",
+					"if": {
+						"all": [
+							{
+								"status": "kemal",
+								"ne": "dead"
+							},
+							{
+								"status": "riza",
+								"ne": "dead"
+							}
+						]
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_sofa.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_tape",
+					"src": "more",
+					"label": "ch07.it.ch07_tape",
+					"point": "ch04_shelf",
+					"journal": "journal.ch07.ch07_tape",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_tape.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_tape.l2"
+						}
+					]
+				},
+				{
 					"id": "ch07_table",
 					"label": "ch07.it.ch07_table",
 					"point": "ch04_letter",

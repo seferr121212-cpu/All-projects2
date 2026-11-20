@@ -81,6 +81,64 @@
 					]
 				},
 				{
+					"id": "ch02_thermos",
+					"src": "more",
+					"label": "ch02.it.ch02_thermos",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_thermos.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_thermos.l2"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_thermos.l3"
+						}
+					]
+				},
+				{
+					"id": "ch02_crowd",
+					"src": "more",
+					"label": "ch02.it.ch02_crowd",
+					"journal": "journal.ch02.ch02_crowd",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_crowd.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_crowd.l2"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_crowd.l3"
+						}
+					]
+				},
+				{
+					"id": "ch02_truck",
+					"src": "more",
+					"label": "ch02.it.ch02_truck",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_truck.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_truck.l2"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_truck.l3"
+						}
+					]
+				},
+				{
 					"id": "ch02_selim",
 					"label": "ch02.it.ch02_selim",
 					"actor": "selim",

@@ -9,6 +9,7 @@
 	"floor_color": "#2b2f33",
 	"wall_color": "#4a5058",
 	"background": "#0b0d0f",
+	"ambience": "fluorescent",
 	"ambient": "#6b7480",
 	"ambient_energy": 0.55,
 	"sun": {
@@ -313,6 +314,22 @@
 			"color": "#9aa0a8",
 			"collide": false,
 			"decor": true
+		},
+		{
+			"kind": "window",
+			"pos": [
+				-4.95,
+				1.6,
+				0.2
+			],
+			"size": [
+				0.04,
+				0.8,
+				0.6
+			],
+			"color": "#8a98a4",
+			"collide": false,
+			"decor": true
 		}
 	],
 	"spawns": {
@@ -358,6 +375,24 @@
 				3.0
 			],
 			"radius": 1.4
+		},
+		"ch01_thermos": {
+			"pos": [
+				-1.2,
+				0,
+				-0.62
+			],
+			"radius": 0.9,
+			"src": "more"
+		},
+		"ch01_mirror": {
+			"pos": [
+				-4.3,
+				0,
+				0.2
+			],
+			"radius": 1.0,
+			"src": "more"
 		}
 	},
 	"camera": {

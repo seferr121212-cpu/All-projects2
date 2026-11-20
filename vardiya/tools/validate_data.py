@@ -210,6 +210,7 @@ class Context:
         self.locations = locations or {}
         self.used_keys: set[str] = set()
         self.item_ids: dict[str, str] = {}
+        self.root: Path | None = None
 
     def key(self, where: str, key) -> None:
         if not isinstance(key, str) or not key:
@@ -401,7 +402,10 @@ WALL_STYLES = {"plain", "factory", "home", "fence"}
 PARTICLE_TYPES = {"dust", "smoke", "embers", "mist", "steam"}
 FLICKER_MODES = {"tube", "fire"}
 VARIANT_KEYS = {"background", "sky", "ambient", "ambient_energy", "fog", "fog_density", "sun", "lights",
-                "particles", "vignette", "floor_color", "wall_color", "window_color"}
+                "particles", "vignette", "floor_color", "wall_color", "window_color", "ambience"}
+# Mirrors scenes/audio/sound_synth.gd (a file under assets/audio/<channel>/<id>.ogg|.wav also counts).
+AMBIENCES = {"factory", "factory_night", "harbor", "room", "fluorescent", "crowd", "fire", "outdoor"}
+MUSIC = {"calm", "tense", "sad", "warm", "night"}
 BOX_KEYS = {"pos", "size", "color", "collide", "emissive", "rot", "if", "kind", "mat", "decor"}
 HAIR_STYLES = {"short", "cap", "ponytail", "bun", "long", "bald"}
 LOOK_COLORS = {"top", "pants", "skin", "hair", "shoes", "cap"}
@@ -452,6 +456,16 @@ def _check_sky(ctx: Context, w: str, sky) -> None:
             ctx.rep.error(f"{w}.{k}: bad colour {sky[k]!r}")
 
 
+def _check_sound(ctx: Context, w: str, channel: str, sound_id) -> None:
+    known = AMBIENCES if channel == "ambience" else MUSIC
+    if sound_id == "" or sound_id in known:
+        return
+    audio = ctx.root / "assets" / "audio" / channel if ctx.root else None
+    if audio and any((audio / f"{sound_id}{ext}").exists() for ext in (".ogg", ".wav")):
+        return
+    ctx.rep.error(f"{w}: unknown {channel} '{sound_id}' (synthesised: {sorted(known)}, or add assets/audio/{channel}/{sound_id}.ogg)")
+
+
 def check_location_art(ctx: Context, lid: str, loc: dict) -> None:
     rep = ctx.rep
     w = f"location {lid}"
@@ -466,6 +480,8 @@ def check_location_art(ctx: Context, lid: str, loc: dict) -> None:
             rep.error(f"{w}: bad colour {key}={loc[key]!r}")
     if "sky" in loc:
         _check_sky(ctx, f"{w}.sky", loc["sky"])
+    if "ambience" in loc:
+        _check_sound(ctx, f"{w}.ambience", "ambience", loc["ambience"])
     fires = 0
     for i, b in enumerate(loc.get("boxes", [])):
         bw = f"{w}.boxes[{i}]"
@@ -509,6 +525,8 @@ def check_location_art(ctx: Context, lid: str, loc: dict) -> None:
             budget = max(budget, len(sets["particles"]) + 2 * fires)
         if "sky" in sets:
             _check_sky(ctx, f"{vw}.sky", sets["sky"])
+        if "ambience" in sets:
+            _check_sound(ctx, f"{vw}.ambience", "ambience", sets["ambience"])
     if budget > MAX_PARTICLE_SYSTEMS:
         rep.error(f"{w}: up to {budget} particle systems exceed the budget of {MAX_PARTICLE_SYSTEMS}")
 
@@ -1024,7 +1042,7 @@ def check_locales(rep: Report, locales: dict) -> None:
 def scan_code_keys(root: Path) -> set[str]:
     """Locale keys referenced from GDScript (string literals that look like keys)."""
     keys = set()
-    pat = re.compile(r'"((?:menu|slot|settings|pause|dialogue|summary|ui|confirm|game|lang|input|char|hud|journal|qte|flow|endscreen|gallery|credits)\.[a-z0-9_.]+)"')
+    pat = re.compile(r'"((?:menu|slot|settings|pause|dialogue|summary|ui|confirm|game|lang|input|char|hud|journal|qte|flow|endscreen|gallery|credits|card|perf)\.[a-z0-9_.]+)"')
     for f in root.rglob("*.gd"):
         keys.update(pat.findall(f.read_text(encoding="utf-8")))
     return keys
@@ -1057,6 +1075,7 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
             locations[path.stem] = loc
             check_location(rep, path.stem, loc, speakers)
     ctx = Context(rep, locales, flags, speakers, locations)
+    ctx.root = root
     for cid, info in {**chars.get("playable", {}), **chars.get("npc", {})}.items():
         ctx.key(f"characters.{cid}", info.get("name"))
     check_character_looks(rep, chars)
@@ -1077,6 +1096,8 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
         cid = entry.get("id")
         listed.add(cid)
         ctx.key(f"index.{cid}.title", entry.get("title"))
+        if "music" in entry:
+            _check_sound(ctx, f"index.{cid}.music", "music", entry["music"])
         path = root / "data" / "chapters" / f"{cid}.json"
         data = load_json(path, rep)
         if data is None:

@@ -18,6 +18,9 @@ var rows: Array = [
 		"labels": ["settings.size_normal", "settings.size_large", "settings.size_xlarge"]},
 	{"key": "settings.quality", "setting": "visual_quality", "values": ["high", "low"],
 		"labels": ["settings.quality_high", "settings.quality_low"]},
+	{"key": "settings.render_scale", "setting": "render_scale", "values": [1.0, 0.85, 0.7], "labels": []},
+	{"key": "settings.auto_quality", "setting": "auto_quality", "values": [true, false],
+		"labels": ["settings.on", "settings.off"]},
 	{"key": "settings.music", "setting": "music_volume", "values": VOLUME_STEPS, "labels": []},
 	{"key": "settings.sfx", "setting": "sfx_volume", "values": VOLUME_STEPS, "labels": []},
 ]

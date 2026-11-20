@@ -7,6 +7,7 @@ const EndingsGallery = preload("res://ui/endings_gallery.gd")
 const Credits = preload("res://ui/credits.gd")
 const LocationBuilder = preload("res://scenes/world/location_builder.gd")
 const ArtKit = preload("res://scenes/world/art_kit.gd")
+const SoundSynth = preload("res://scenes/audio/sound_synth.gd")
 const LOCATION_IDS := ["factory_locker", "factory_floor", "factory_night", "factory_gate", "port_yard",
 	"family_home", "police_room"]
 
@@ -35,6 +36,8 @@ func _ready() -> void:
 		"test_gallery_rows", "test_credits_data",
 		"test_art_locations_within_budget", "test_art_textures", "test_art_variants", "test_art_character_body",
 		"test_art_low_quality", "test_art_fire_props",
+		"test_audio_synth_cues", "test_audio_synth_loops", "test_audio_ids_in_data", "test_quality_governor_ladder",
+		"test_chapter_card_text",
 	]:
 		GameState.reset()
 		SaveSystem.active_slot = -1
@@ -851,3 +854,59 @@ func test_art_fire_props() -> void:
 	check(root.find_child("Ambience", false, false) != null, "fire is animated")
 	check(_count(root, "CPUParticles3D") == 4, "embers + smoke per fire")
 	root.free()
+
+
+# --- Stage 7: audio, performance guard, chapter cards -----------------------------------
+
+func test_audio_synth_cues() -> void:
+	for cue_name: String in SoundSynth.CUES:
+		var wav := SoundSynth.cue(cue_name)
+		check(wav != null and wav.data.size() > 200, cue_name + " renders")
+		check(wav != null and wav.loop_mode == AudioStreamWAV.LOOP_DISABLED, cue_name + " is a one-shot")
+		check(wav != null and wav.get_length() < 1.2, cue_name + " is short")
+	check(SoundSynth.cue("ui/unknown") == null, "unknown cue -> null")
+
+
+func test_audio_synth_loops() -> void:
+	var amb := SoundSynth.ambience("room")
+	check(amb.loop_mode == AudioStreamWAV.LOOP_FORWARD, "ambience loops")
+	check(absf(amb.get_length() - SoundSynth.AMB_SEC) < 0.05, "ambience loop length")
+	var music := SoundSynth.music("calm")
+	check(music.loop_mode == AudioStreamWAV.LOOP_FORWARD, "music loops")
+	check(absf(music.get_length() - SoundSynth.MUSIC_SEC) < 0.05, "music loop length")
+	# Seamless: first and last samples are close (no click at the loop point).
+	var first := music.data.decode_s16(0)
+	var last := music.data.decode_s16(music.data.size() - 2)
+	check(absi(first - last) < 2500, "music loop point has no jump (%d vs %d)" % [first, last])
+
+
+func test_audio_ids_in_data() -> void:
+	for id: String in LOCATION_IDS:
+		var amb := str(LocationBuilder.load_data(id).get("ambience", ""))
+		check(amb in SoundSynth.AMBIENCES, id + " ambience '%s' is synthesisable" % amb)
+	for c: Dictionary in SaveSystem.chapter_order + SaveSystem.epilogues:
+		check(str(c.get("music", "")) in SoundSynth.MUSIC, str(c["id"]) + " music is synthesisable")
+
+
+func test_quality_governor_ladder() -> void:
+	var saved := SaveSystem.settings.duplicate()
+	SaveSystem.settings["visual_quality"] = "high"
+	SaveSystem.settings["render_scale"] = 1.0
+	check(PerfMonitor.step_down() == "effects", "governor: effects first")
+	check(str(SaveSystem.settings["visual_quality"]) == "low", "governor: quality low")
+	check(PerfMonitor.step_down() == "resolution", "governor: then resolution")
+	check(is_equal_approx(get_tree().root.scaling_3d_scale, 0.85), "render scale applied (85 %)")
+	PerfMonitor.step_down()
+	check(PerfMonitor.step_down() == "", "governor: stops at the bottom")
+	check(is_equal_approx(float(SaveSystem.settings["render_scale"]), 0.7), "bottom is 70 %")
+	for k: String in saved:
+		SaveSystem.set_setting(k, saved[k])
+
+
+func test_chapter_card_text() -> void:
+	check(Localization.t("card.chapter", {"n": 3}) == "Bölüm 3", "chapter card TR")
+	Localization.set_locale("en")
+	check(Localization.t("card.chapter", {"n": 3}) == "Chapter 3", "chapter card EN")
+	Localization.set_locale("tr")
+	for c: Dictionary in SaveSystem.chapter_order:
+		check(not Localization.t(str(c["title"])).begins_with("["), str(c["id"]) + " has a title")

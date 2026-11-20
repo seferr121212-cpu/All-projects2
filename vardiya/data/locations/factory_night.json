@@ -9,6 +9,7 @@
 	"floor_color": "#30343a",
 	"wall_color": "#3b4148",
 	"background": "#050608",
+	"ambience": "factory_night",
 	"ambient": "#2a3040",
 	"ambient_energy": 0.45,
 	"fog": true,
@@ -736,5 +737,15 @@
 	"wall_style": "factory",
 	"floor_mat": "concrete",
 	"particles": [],
-	"window_color": "#141a26"
+	"window_color": "#141a26",
+	"variants": [
+		{
+			"if": {
+				"flag": "fire_started"
+			},
+			"set": {
+				"ambience": "fire"
+			}
+		}
+	]
 }

@@ -364,5 +364,38 @@ class ValidatorTests(unittest.TestCase):
         self.assertTrue(any("unknown 'mohawk'" in e for e in rep.errors), rep.errors)
         self.assertTrue(any("selim.look.height" in e for e in rep.errors), rep.errors)
 
+    # --- Stage 7: audio ids, play time ------------------------------------------------
+
+    def test_unknown_ambience_and_music_are_reported(self):
+        def m(loc):
+            loc["ambience"] = "jungle"
+        errs = self._loc_errors("police_room", m)
+        self.assertTrue(any("unknown ambience 'jungle'" in e for e in errs), errs)
+        idx = self.load("data/chapters/index.json")
+        idx["chapters"][0]["music"] = "disco"
+        self.save("data/chapters/index.json", idx)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("unknown music 'disco'" in e for e in rep.errors), rep.errors)
+
+    def test_audio_file_counts_as_known_id(self):
+        (self.root / "assets/audio/ambience").mkdir(parents=True)
+        (self.root / "assets/audio/ambience/jungle.ogg").write_bytes(b"")
+
+        def m(loc):
+            loc["ambience"] = "jungle"
+        errs = self._loc_errors("police_room", m)
+        self.assertFalse(any("jungle" in e for e in errs), errs)
+
+    def test_playtime_estimate_covers_every_chapter(self):
+        import playtime
+        res = playtime.estimate(ROOT, runs=20)
+        idx = json.loads((ROOT / "data/chapters/index.json").read_text(encoding="utf-8"))
+        for prof in ("quick", "careful"):
+            chapters = res[prof]["chapters"]
+            for e in idx["chapters"]:
+                self.assertGreater(chapters[e["id"]], 0.5, (prof, e["id"]))
+            self.assertIn("epilogue", chapters)
+        self.assertGreater(res["careful"]["minutes_mean"], res["quick"]["minutes_mean"])
+
 if __name__ == "__main__":
     unittest.main()

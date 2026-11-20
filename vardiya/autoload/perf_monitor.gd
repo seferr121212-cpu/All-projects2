@@ -4,9 +4,20 @@ extends Node
 ##                --benchmark         auto-play the test chapter, then quit
 ## The report holds avg / p95 / p99 / max frame time, memory and draw calls.
 
+signal quality_lowered(step: String)
+
 const SAMPLE_COUNT := 1800  # ~60 s at 30 FPS
+## Quality governor: when gameplay averages slower than GOV_LIMIT_MS over a
+## window, step down once (effects off, then 3D resolution 85 %, then 70 %).
+## Never steps back up by itself; the player can in Settings.
+const GOV_WINDOW_SEC := 5.0
+const GOV_LIMIT_MS := 38.0
+const GOV_WARMUP_SEC := 4.0
+const RENDER_SCALES := [1.0, 0.85, 0.7]
 
 var benchmark := false
+## Number of automatic step-downs this session (for the report).
+var governor_steps := 0
 var log_path := ""
 var _samples := PackedFloat32Array()
 var _index := 0
@@ -16,6 +27,10 @@ var _label: Label
 var _accum := 0.0
 var _peak_static_mem := 0
 var _total_frames := 0
+var _gameplay := false
+var _warmup := 0.0
+var _gov_sum := 0.0
+var _gov_frames := 0
 
 
 func _ready() -> void:
@@ -49,6 +64,7 @@ func _process(delta: float) -> void:
 	_total_frames += 1
 	_peak_static_mem = maxi(_peak_static_mem, int(OS.get_static_memory_usage()))
 	_accum += delta
+	_govern(delta)
 	if _overlay.visible and _accum >= 0.5:
 		_accum = 0.0
 		var r := report()
@@ -59,6 +75,56 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_perf"):
 		_overlay.visible = not _overlay.visible
+
+
+## Story player: true while a 3D location is on screen. Restarts the warm-up
+## so loading hitches never count.
+func set_gameplay(on: bool) -> void:
+	_gameplay = on
+	_warmup = GOV_WARMUP_SEC
+	_gov_sum = 0.0
+	_gov_frames = 0
+
+
+func governor_enabled() -> bool:
+	return _gameplay and not benchmark and bool(SaveSystem.settings.get("auto_quality", true)) and not get_tree().paused
+
+
+func _govern(delta: float) -> void:
+	if not governor_enabled():
+		return
+	if _warmup > 0.0:
+		_warmup -= delta
+		return
+	_gov_sum += delta
+	_gov_frames += 1
+	if _gov_sum < GOV_WINDOW_SEC:
+		return
+	var avg_ms := _gov_sum / _gov_frames * 1000.0
+	_gov_sum = 0.0
+	_gov_frames = 0
+	if avg_ms > GOV_LIMIT_MS:
+		step_down()
+
+
+## One step down the quality ladder. Returns the step taken ("" = already at the bottom).
+func step_down() -> String:
+	var step := ""
+	if str(SaveSystem.settings.get("visual_quality", "high")) == "high":
+		SaveSystem.set_setting("visual_quality", "low")
+		step = "effects"
+	else:
+		var scale := float(SaveSystem.settings.get("render_scale", 1.0))
+		for s: float in RENDER_SCALES:
+			if s < scale - 0.01:
+				SaveSystem.set_setting("render_scale", s)
+				step = "resolution"
+				break
+	if step != "":
+		governor_steps += 1
+		_warmup = GOV_WARMUP_SEC
+		quality_lowered.emit(step)
+	return step
 
 
 func report() -> Dictionary:
@@ -87,6 +153,9 @@ func report() -> Dictionary:
 		"renderer": str(ProjectSettings.get_setting("rendering/renderer/rendering_method")),
 		"adapter": RenderingServer.get_video_adapter_name(),
 		"resolution": str(get_viewport().get_visible_rect().size),
+		"render_scale": get_tree().root.scaling_3d_scale,
+		"visual_quality": str(SaveSystem.settings.get("visual_quality", "high")),
+		"governor_steps": governor_steps,
 	}
 
 

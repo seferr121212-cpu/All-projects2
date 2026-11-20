@@ -36,6 +36,8 @@ static func default_settings() -> Dictionary:
 		"qte_hold_alternative": false,
 		"subtitle_scale": 1.0,
 		"visual_quality": "high",
+		"render_scale": 1.0,
+		"auto_quality": true,
 		"master_volume": 1.0,
 		"music_volume": 0.8,
 		"sfx_volume": 0.8,
@@ -119,6 +121,7 @@ func set_setting(key: String, value: Variant) -> void:
 func _apply_settings() -> void:
 	Localization.set_locale(str(settings["locale"]))
 	AudioBus.apply_volumes(settings)
+	get_tree().root.scaling_3d_scale = clampf(float(settings["render_scale"]), 0.5, 1.0)
 
 
 # --- Profile (endings gallery) ---------------------------------------------------

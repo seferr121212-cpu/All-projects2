@@ -9,6 +9,7 @@
 	"floor_color": "#30322f",
 	"wall_color": "#5a6058",
 	"background": "#080908",
+	"ambience": "fluorescent",
 	"ambient": "#707a70",
 	"ambient_energy": 0.55,
 	"sun": {
@@ -209,6 +210,33 @@
 				-1.7
 			],
 			"radius": 1.2
+		},
+		"ch06_board": {
+			"pos": [
+				-3.3,
+				0,
+				0.8
+			],
+			"radius": 1.1,
+			"src": "more"
+		},
+		"ch06_door_s": {
+			"pos": [
+				3.3,
+				0,
+				2.1
+			],
+			"radius": 1.0,
+			"src": "more"
+		},
+		"ch06_door": {
+			"pos": [
+				3.3,
+				0,
+				2.1
+			],
+			"radius": 1.0,
+			"src": "more"
 		}
 	},
 	"camera": {

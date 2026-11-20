@@ -90,6 +90,50 @@
 					]
 				},
 				{
+					"id": "ch03_cabin",
+					"src": "more",
+					"label": "ch03.it.ch03_cabin",
+					"journal": "journal.ch03.ch03_cabin",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_cabin.l1"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_cabin.l2"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_cabin.l3"
+						}
+					]
+				},
+				{
+					"id": "ch03_quay",
+					"src": "more",
+					"label": "ch03.it.ch03_quay",
+					"journal": "journal.ch03.ch03_quay",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_quay.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_quay.l2"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_quay.l3"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_quay.l4"
+						}
+					]
+				},
+				{
 					"id": "ch03_dispatcher",
 					"label": "ch03.it.ch03_dispatcher",
 					"lines": [

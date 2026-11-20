@@ -198,6 +198,59 @@
 					]
 				},
 				{
+					"id": "ch06_board",
+					"src": "more",
+					"label": "ch06.it.ch06_board",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_board.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_board.l2"
+						}
+					]
+				},
+				{
+					"id": "ch06_door_s",
+					"src": "more",
+					"label": "ch06.it.ch06_door_s",
+					"if": {
+						"flag": "selim_dead"
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_door_s.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_door_s.l2"
+						}
+					]
+				},
+				{
+					"id": "ch06_door",
+					"src": "more",
+					"label": "ch06.it.ch06_door",
+					"if": {
+						"not": {
+							"flag": "selim_dead"
+						}
+					},
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_door.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_door.l2"
+						}
+					]
+				},
+				{
 					"id": "ch06_komiser",
 					"label": "ch06.it.ch06_komiser",
 					"actor": "komiser",

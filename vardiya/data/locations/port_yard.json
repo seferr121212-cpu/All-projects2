@@ -9,6 +9,7 @@
 	"floor_color": "#24282c",
 	"wall_color": "#2f353b",
 	"background": "#05070a",
+	"ambience": "harbor",
 	"ambient": "#3d4a5c",
 	"ambient_energy": 0.5,
 	"fog": true,
@@ -364,6 +365,24 @@
 				6
 			],
 			"radius": 1.6
+		},
+		"ch03_cabin": {
+			"pos": [
+				10.1,
+				0,
+				8.0
+			],
+			"radius": 1.2,
+			"src": "more"
+		},
+		"ch03_quay": {
+			"pos": [
+				0.0,
+				0,
+				-9.6
+			],
+			"radius": 1.4,
+			"src": "more"
 		}
 	},
 	"camera": {

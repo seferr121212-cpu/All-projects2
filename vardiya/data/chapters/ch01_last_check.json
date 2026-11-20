@@ -72,6 +72,45 @@
 					]
 				},
 				{
+					"id": "ch01_thermos",
+					"src": "more",
+					"label": "ch01.it.ch01_thermos",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.ch01_thermos.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_thermos.l2"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_thermos.l3"
+						}
+					]
+				},
+				{
+					"id": "ch01_mirror",
+					"src": "more",
+					"label": "ch01.it.ch01_mirror",
+					"journal": "journal.ch01.ch01_mirror",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.ch01_mirror.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_mirror.l2"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_mirror.l3"
+						}
+					]
+				},
+				{
 					"id": "ch01_locker_door",
 					"label": "ch01.it.locker_door",
 					"requires": {
@@ -189,6 +228,70 @@
 						{
 							"speaker": "kemal",
 							"text": "ch01.it.robot_panel.l1"
+						}
+					]
+				},
+				{
+					"id": "ch01_conveyor",
+					"src": "more",
+					"label": "ch01.it.ch01_conveyor",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.ch01_conveyor.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_conveyor.l2"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_conveyor.l3"
+						}
+					]
+				},
+				{
+					"id": "ch01_tea",
+					"src": "more",
+					"label": "ch01.it.ch01_tea",
+					"journal": "journal.ch01.ch01_tea",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.ch01_tea.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_tea.l2"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch01.it.ch01_tea.l3"
+						}
+					]
+				},
+				{
+					"id": "ch01_nevin_talk",
+					"src": "more",
+					"label": "ch01.it.ch01_nevin_talk",
+					"actor": "nevin",
+					"journal": "journal.ch01.ch01_nevin_talk",
+					"lines": [
+						{
+							"speaker": "nevin",
+							"text": "ch01.it.ch01_nevin_talk.l1"
+						},
+						{
+							"speaker": "kemal",
+							"text": "ch01.it.ch01_nevin_talk.l2"
+						},
+						{
+							"speaker": "nevin",
+							"text": "ch01.it.ch01_nevin_talk.l3"
+						},
+						{
+							"speaker": "nevin",
+							"text": "ch01.it.ch01_nevin_talk.l4"
 						}
 					]
 				},

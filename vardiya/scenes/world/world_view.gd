@@ -11,6 +11,8 @@ const CameraRig = preload("res://scenes/world/camera_rig.gd")
 const FACING_DOT := 0.1
 
 var location_id := ""
+## Ambience bed id of the loaded location (after variants), "" if none.
+var ambience := ""
 var player: PlayerController
 var rig: CameraRig
 var actors: Dictionary = {}
@@ -32,6 +34,7 @@ func load_location(scene_id: String, spawn: String, player_id: String) -> bool:
 	add_child(_content)
 	var built := LocationBuilder.build(_content, data)
 	actors = built["actors"]
+	ambience = str(built.get("ambience", ""))
 	points = built["points"]
 	var spawns: Dictionary = built["spawns"]
 	var xf: Transform3D = spawns.get(spawn, spawns.get("default", Transform3D.IDENTITY))
@@ -48,6 +51,27 @@ func load_location(scene_id: String, spawn: String, player_id: String) -> bool:
 	return true
 
 
+## Turns the "high" extras off in the location on screen right now (the
+## quality governor stepped down); the next location is built "low" anyway.
+func apply_low_quality() -> void:
+	if _content == null:
+		return
+	_lower(_content)
+
+
+func _lower(node: Node) -> void:
+	for c in node.get_children():
+		if c is CPUParticles3D:
+			(c as CPUParticles3D).emitting = false
+			(c as CPUParticles3D).visible = false
+		elif c is DirectionalLight3D:
+			(c as DirectionalLight3D).shadow_enabled = false
+		elif c is CanvasLayer or str(c.name).begins_with("Halo") or str(c.name).begins_with("Shaft"):
+			c.set("visible", false)
+		elif c is Node3D and not c is MeshInstance3D:
+			_lower(c)
+
+
 func unload() -> void:
 	if _content:
 		remove_child(_content)
@@ -55,6 +79,7 @@ func unload() -> void:
 	_content = null
 	player = null
 	rig = null
+	ambience = ""
 	actors = {}
 	points = {}
 	_set_focus({})

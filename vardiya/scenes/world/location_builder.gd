@@ -20,7 +20,7 @@ const Ambience = preload("res://scenes/world/ambience.gd")
 const WALL_STYLES := ["plain", "factory", "home", "fence"]
 const PARTICLE_TYPES := ["dust", "smoke", "embers", "mist", "steam"]
 const VARIANT_KEYS := ["background", "sky", "ambient", "ambient_energy", "fog", "fog_density", "sun", "lights",
-	"particles", "vignette", "floor_color", "wall_color"]
+	"particles", "vignette", "floor_color", "wall_color", "window_color", "ambience"]
 const WALL_T := 0.2
 
 static var _characters: Dictionary = {}
@@ -108,6 +108,7 @@ static func build(world: Node3D, raw: Dictionary) -> Dictionary:
 	var data := resolve_variants(raw)
 	var high := quality_high()
 	var result := {"spawns": {}, "actors": {}, "points": {}, "camera": data.get("camera", {}),
+		"ambience": str(data.get("ambience", "")),
 		"stats": {"meshes": 0, "vertices": 0, "lights": 0, "particles": 0}}
 	var batches := {}
 	var ambience := Ambience.new()
@@ -322,6 +323,7 @@ static func _build_lights(world: Node3D, data: Dictionary, ambience: Ambience, h
 
 static func _halo(pos: Vector3, c: Color, size: float) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
+	mi.name = "Halo"
 	var q := QuadMesh.new()
 	q.size = Vector2(size, size)
 	mi.mesh = q
@@ -359,6 +361,7 @@ static func _shaft(pos: Vector3, c: Color, light_range: float) -> MeshInstance3D
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	var mi := MeshInstance3D.new()
+	mi.name = "Shaft"
 	mi.mesh = mesh
 	mi.material_override = ArtKit.additive_material(false)
 	mi.position = pos

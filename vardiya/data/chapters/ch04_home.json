@@ -145,6 +145,80 @@
 					]
 				},
 				{
+					"id": "ch04_window",
+					"src": "more",
+					"label": "ch04.it.ch04_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch04.it.ch04_window.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_window.l2"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_window.l3"
+						}
+					]
+				},
+				{
+					"id": "ch04_sofa",
+					"src": "more",
+					"label": "ch04.it.ch04_sofa",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch04.it.ch04_sofa.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_sofa.l2"
+						}
+					]
+				},
+				{
+					"id": "ch04_shelf",
+					"src": "more",
+					"label": "ch04.it.ch04_shelf",
+					"journal": "journal.ch04.ch04_shelf",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch04.it.ch04_shelf.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_shelf.l2"
+						}
+					]
+				},
+				{
+					"id": "ch04_riza_talk",
+					"src": "more",
+					"label": "ch04.it.ch04_riza_talk",
+					"actor": "riza",
+					"if": {
+						"status": "riza",
+						"ne": "dead"
+					},
+					"lines": [
+						{
+							"speaker": "riza",
+							"text": "ch04.it.ch04_riza_talk.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch04.it.ch04_riza_talk.l2"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch04.it.ch04_riza_talk.l3"
+						}
+					]
+				},
+				{
 					"id": "ch04_kemal",
 					"label": "ch04.it.ch04_kemal",
 					"actor": "kemal",

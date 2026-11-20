@@ -6,7 +6,8 @@
 			"title": "ch01.title",
 			"characters": [
 				"kemal"
-			]
+			],
+			"music": "calm"
 		},
 		{
 			"id": "ch02_strike",
@@ -14,21 +15,24 @@
 			"characters": [
 				"defne",
 				"kemal"
-			]
+			],
+			"music": "tense"
 		},
 		{
 			"id": "ch03_port",
 			"title": "ch03.title",
 			"characters": [
 				"riza"
-			]
+			],
+			"music": "night"
 		},
 		{
 			"id": "ch04_home",
 			"title": "ch04.title",
 			"characters": [
 				"defne"
-			]
+			],
+			"music": "sad"
 		},
 		{
 			"id": "ch05_night_shift",
@@ -37,7 +41,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "tense"
 		},
 		{
 			"id": "ch06_informant",
@@ -46,7 +51,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "night"
 		},
 		{
 			"id": "ch07_reckoning",
@@ -55,7 +61,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "sad"
 		},
 		{
 			"id": "ch08_last_shift",
@@ -64,7 +71,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "tense"
 		}
 	],
 	"test_chapters": [
@@ -75,7 +83,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "calm"
 		}
 	],
 	"epilogues": [
@@ -86,7 +95,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "warm"
 		},
 		{
 			"id": "ep02_separation",
@@ -95,7 +105,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "calm"
 		},
 		{
 			"id": "ep03_bitter",
@@ -104,7 +115,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "sad"
 		},
 		{
 			"id": "ep04_betrayal",
@@ -113,7 +125,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "night"
 		},
 		{
 			"id": "ep05_secret",
@@ -122,7 +135,8 @@
 				"kemal",
 				"defne",
 				"riza"
-			]
+			],
+			"music": "sad"
 		}
 	]
 }
