@@ -1983,7 +1983,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8aa_03",
-			"next": "rc1"
+			"next": "s8gg_01"
 		},
 		"s8bb_01": {
 			"type": "line",
@@ -2050,6 +2050,38 @@
 			"speaker": "narrator",
 			"text": "ch07.s8ff_02",
 			"next": "end"
+		},
+		"s8gg_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8gg_01",
+			"next": "s8gg_02"
+		},
+		"s8gg_02": {
+			"type": "line",
+			"speaker": "hayriye",
+			"text": "ch07.s8gg_02",
+			"next": "s8gg_03",
+			"if": {
+				"status": "riza",
+				"eq": "alive"
+			}
+		},
+		"s8gg_03": {
+			"type": "line",
+			"speaker": "hayriye",
+			"text": "ch07.s8gg_03",
+			"next": "s8gg_04",
+			"if": {
+				"status": "riza",
+				"eq": "dead"
+			}
+		},
+		"s8gg_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8gg_04",
+			"next": "rc1"
 		}
 	}
 }

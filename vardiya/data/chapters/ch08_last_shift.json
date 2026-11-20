@@ -1369,7 +1369,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8r_02",
-			"next": "c02"
+			"next": "s8gg_01"
 		},
 		"s8t_01": {
 			"type": "line",
@@ -1582,6 +1582,18 @@
 			"speaker": "narrator",
 			"text": "ch08.s8ff_02",
 			"next": "outro"
+		},
+		"s8gg_01": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch08.s8gg_01",
+			"next": "s8gg_02"
+		},
+		"s8gg_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8gg_02",
+			"next": "c02"
 		}
 	}
 }

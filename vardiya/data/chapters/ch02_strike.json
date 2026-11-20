@@ -1572,7 +1572,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch02.s8z_09",
-			"next": "outro"
+			"next": "s8gg_01"
 		},
 		"s8aa_01": {
 			"type": "line",
@@ -1657,6 +1657,66 @@
 			"speaker": "hamdi",
 			"text": "ch02.s8dd_03",
 			"next": "l01"
+		},
+		"s8gg_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8gg_01",
+			"next": "s8gg_02",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8gg_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8gg_02",
+			"next": "s8gg_03",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8gg_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8gg_03",
+			"next": "s8gg_04",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8gg_04": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8gg_04",
+			"next": "s8gg_05",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8gg_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8gg_05",
+			"next": "outro",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
 		}
 	}
 }

@@ -2011,7 +2011,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch05.s8aa_04",
-			"next": "br_fire"
+			"next": "s8gg_01"
 		},
 		"s8bb_01": {
 			"type": "line",
@@ -2029,7 +2029,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.s8bb_03",
-			"next": "chk"
+			"next": "s8gh_01"
 		},
 		"s8cc_01": {
 			"type": "line",
@@ -2112,6 +2112,36 @@
 			"speaker": "narrator",
 			"text": "ch05.s8ff_02",
 			"next": "loc_k"
+		},
+		"s8gg_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8gg_01",
+			"next": "s8gg_02"
+		},
+		"s8gg_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8gg_02",
+			"next": "s8gg_03"
+		},
+		"s8gg_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8gg_03",
+			"next": "br_fire"
+		},
+		"s8gh_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8gh_01",
+			"next": "s8gh_02"
+		},
+		"s8gh_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8gh_02",
+			"next": "chk"
 		}
 	}
 }

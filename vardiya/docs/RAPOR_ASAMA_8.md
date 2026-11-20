@@ -1,8 +1,53 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.6 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.7 · Godot 4.7 · Compatibility renderer
 
-# 7. KISIM: Aşama 9 hazırlığı, bu ortamda yapılabilenler (en güncel durum)
+# 8. KISIM: 2 saat hedefine doğru (en güncel durum)
+
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
+|---|---|---|---|
+| 0.7.0 (Aşama 8 öncesi) | ~25 dk | ~35 dk | — |
+| 0.8.5 | ~64 dk | ~90 dk | ~10.680 |
+| **0.8.7 (bu teslim)** | **~82 dk** | **~115 dk** (aralık 112-118) | **~14.960** (+ ~22.500 EN) |
+| B üst hedefi | | 120 dk | |
+
+**2 saat hedefine ~5 dakika kaldı (~800 ana yol kelimesi).** Oyundaki toplam Türkçe metin ~21.700 kelime. Aşama 8 başında ~5.100 kelimeydi.
+
+Bölüm bölüm dikkatli oyuncu: 1: 20,1 · 2: 15,3 · 3: 14,8 · 4: 12,8 · 5: 12,0 · 6: 11,8 · 7: 11,5 · 8: 11,9 dk · epilog 3,1 · jenerik 1,9.
+
+**Bu teslimde eklenenler:** 10 katman ana yol sahnesi ve her epiloga sona özgü bir kapanış sahnesi. Başlıcaları:
+
+| Bölüm | Sahne |
+|---|---|
+| 1 | Yaşar usta ve hurdaya giden torna · hücrenin içinde bantlanmış sensör · Bayram: "Tutanak tut" · Kemal'in iş emrinin arkasına yazdığı tutanak · otoparkta radyo |
+| 2 | Fırıncı · Hamdi kapıda · muhabire "bir kere söylenen doğrudur" · Rıza kamyon kuyruğundan arıyor · iki baba aynı ateşte · Defne'nin çayı demirlerin arasından |
+| 3 | Liman bariyeri · Ferhat'ın zarf rafı ve açılmayan telefon · Nuri'nin konteyner hikâyesi · benzinlik · Rıza'nın eski odası ve rüya |
+| 4 | Gülten teyzenin dolması · ince duvar · sarı mutfak · kavanoz kapağı · çantadaki bisküvi · uykusuz baba ile kız |
+| 5 | Kurdele ve bant · Kemal'in Defne'ye sesli mesajı · Hamdi telsizde · öğleye şehir · kan bağışı kuyruğu · akşam altıda bütün düdükler |
+| 6 | Hamdi ile Nevin · boş sandalye ve simitin yarısı · itfaiye raporu · "Ne diyeceğim?" · "Yarın sabah ne yapacaksınız?" |
+| 7 | Sendikanın arka odası · balıkçılar · Hayriye Ana pazarda · eski albüm · mektubun arkası · mutfak lambası · sabahın beşi |
+| 8 | Kol bantları · Yaşar ustanın türküsü ve sözü · Deniz'in bayrağı · Nevin'in okuduğu isimler · Hamdi'nin açık kapısı · temizlenen kapı önü |
+| Epiloglar | Kooperatifin pastası · Gülten teyzenin biriktirdiği postalar · Yaşar ustanın mermere tebeşirle yazdığı yazı · aynı otobüs · üç bardak çay |
+
+Yeni ses karakteri: Yaşar Usta. Aşama 8'de toplam 11 yan karakter eklendi; NPC sayısı 3'ten 14'e çıktı.
+
+**Testler:**
+- Doğrulayıcı: 0 hata, 2 bilinçli uyarı.
+- Metin denetimi: 0 bulgu.
+- Tam oyun simülasyonu: 5 sonun hepsine ulaşılıyor.
+- Python testleri: 39/39.
+- Motor testleri ve kare süresi: çalıştırılamadı (Godot izni yok).
+
+**Not (tutarlılık):** Yeni sahneleri yazarken önceki kararlarla çelişen durumları koşullara bağladım:
+- Bölüm 1'de sensörü gece değiştiren Kemal otoparka gitmiyor.
+- Bölüm 5'te Defne babasıyla fabrikadaysa sesli mesaj sahnesi yerine ofisteki lamba sahnesi geliyor.
+- Bölüm 3'te konteyneri açmayan Rıza variller hakkında konuşmuyor.
+- Bölüm 2'de grevden ayrılan Defne ateşe gelmiyor.
+
+---
+
+
+# 7. KISIM: Aşama 9 hazırlığı, bu ortamda yapılabilenler
 
 İçerik eklenmedi; süre değişmedi (dikkatli oyuncu ~90 dk, hızlı oyuncu ~64 dk). Bu teslim Aşama 8'de eklenen metni ve mekânları sağlamlaştırıyor.
 
