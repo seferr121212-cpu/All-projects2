@@ -134,6 +134,33 @@
 					]
 				},
 				{
+					"id": "ch03_s8_bollard",
+					"label": "ch03.it.ch03_s8_bollard",
+					"point": "ch03_s8_bollard",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_bollard.l1"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_s8_bollard.l2"
+						}
+					]
+				},
+				{
+					"id": "ch03_s8_guard",
+					"label": "ch03.it.ch03_s8_guard",
+					"point": "ch03_s8_guard",
+					"journal": "journal.ch03.ch03_s8_guard",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_guard.l1"
+						}
+					]
+				},
+				{
 					"id": "ch03_dispatcher",
 					"label": "ch03.it.ch03_dispatcher",
 					"lines": [

@@ -1,8 +1,54 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.1 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.2 · Godot 4.7 · Compatibility renderer
 
-# 2. KISIM: B + D seçenekleri (en güncel durum)
+# 3. KISIM: B devam (en güncel durum)
+
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
+|---|---|---|---|
+| 0.7.0 | ~25 dk | ~35 dk | — |
+| 0.8.0 | ~36 dk | ~50 dk | ~3.975 |
+| 0.8.1 | ~44 dk | ~61 dk | ~5.600 |
+| **0.8.2 (bu teslim)** | **~47 dk** | **~67 dk** | **~7.060** (+ ~10.600 EN) |
+
+**Bu teslimde eklenenler:**
+- **Bölüm 8:**
+  - Son vardiya sabahı 05.10'da evde başlıyor. Ütü masası, Sevgi kanepede, aşağıda bekleyen Rıza; çıkmadan önce masaya not bırakma seçimi.
+  - Kapıya gelenlerle konuşulabiliyor: Hüsnü Hoca, Ece, Zeynep ve Deniz, Sevgi.
+- **Bölüm 7:**
+  - Evde 3 yeni keşif noktası: Defne'nin masası, askılıktaki üç mont, telesekreter.
+  - Yalnız kalan karakterin gecesi.
+  - Üç barışma konuşmasının uzun hâlleri: baba-kız, Defne-Rıza, Kemal-Rıza.
+- **Bölüm 6:** Sendika avukatı Leyla Tan (yeni yan karakter, sahnede yok); sorgu odasında 2 yeni nokta.
+- **Bölüm 5:**
+  - Kemal'in yangındaki ilk dakikaları: kabloları sökülmüş alarm, 112.
+  - Defne Nevin'in masasında Demirtaş teslimat notlarını buluyor.
+  - Cevdet Rıza'ya varilleri geri getirme karşılığı borç affı teklif ediyor.
+  - Kemal gece Selim'i arıyor.
+- **Bölüm 3:** Liman avlusunda 2 yeni nokta. Rıhtım babasında "R + K, 1993" yazısı.
+- **Bölüm 2:** Kapının iç tarafında Kemal ile Rıza.
+- **Epiloglar:** Beş epilogun hepsinde bir "Sonra:" bölümü var. Sevgi, Ece, Hüsnü Hoca, Cevdet, Rıza'nın kamyonu, Deniz ve Nevin'in akıbeti, oyuncunun yan hikâyelerde yaptığı seçimlere göre değişiyor. Aynı metin beş epilogda tekrarlandığı için **ham** kelime sayısı 8.700; tabloda **tekil** sayı var.
+
+**Toplam (Aşama 8):**
+- 536 yeni düğüm.
+- 25 süresiz seçim.
+- 5 keşif bölümü ve mevcut keşiflere 12 yeni nokta.
+- 7 yan karakter.
+
+**Süre neden yavaş artıyor?** Yeni sahnelerin çoğu bir dala bağlı: bakış açısına, kimin yaşadığına ya da yan hikâye seçimine. Tek oynanışta oyuncu eklenen metnin ancak yaklaşık %45'ini görüyor (ölçüm: dikkatli oyuncu Aşama 8 metninden ~3.200 kelime okuyor). Bu dalların hepsi beş sonu ve tekrar oynamayı zenginleştiriyor, ama tek oynanışın süresini sınırlı uzatıyor. B hedefine (~1,5-2 saat) ulaşmak için kalan ~13.000 TR kelimenin büyük kısmını herkesin gördüğü ana yola yazmayı öneriyorum.
+
+**Testler:**
+- Doğrulayıcı: 0 hata, 2 bilinçli uyarı.
+- Tam oyun simülasyonu: 5 sonun hepsine ulaşılıyor.
+- Python testleri: 37/37.
+- Motor testleri ve kare süresi: çalıştırılamadı (Godot izni yok).
+
+**Araç:** Belirli düğümlerden yapılan eklemeler artık kontrol ediliyor. Hedef düğüme gitmeyen bir ekleme, sahneyi sessizce erişilemez bırakmak yerine hata veriyor. Bu kontrol bir hatayı yakaladı ve hata düzeltildi.
+
+---
+
+
+# 2. KISIM: B + D seçenekleri
 
 ## Durum özeti
 | Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen TR kelime |

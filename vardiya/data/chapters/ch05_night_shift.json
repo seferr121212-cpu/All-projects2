@@ -81,7 +81,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch05.f01",
-			"next": "fx",
+			"next": "s8i_01",
 			"variants": [
 				{
 					"if": {
@@ -1716,6 +1716,24 @@
 			"speaker": "selim",
 			"text": "ch05.s8g_21",
 			"next": "nx"
+		},
+		"s8i_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8i_01",
+			"next": "s8i_02"
+		},
+		"s8i_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8i_02",
+			"next": "s8i_03"
+		},
+		"s8i_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8i_03",
+			"next": "fx"
 		}
 	}
 }

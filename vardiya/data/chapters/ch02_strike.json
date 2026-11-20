@@ -246,7 +246,7 @@
 			"scene": "factory_gate",
 			"spawn": "kemal_gate",
 			"player": "kemal",
-			"next": "l03k"
+			"next": "s8i_01"
 		},
 		"l03k": {
 			"type": "line",
@@ -1040,6 +1040,81 @@
 			"speaker": "riza",
 			"text": "ch02.s8c_08",
 			"next": "outro"
+		},
+		"s8i_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8i_01",
+			"next": "s8i_02"
+		},
+		"s8i_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8i_02",
+			"next": "s8i_03"
+		},
+		"s8i_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8i_03",
+			"next": "s8i_04"
+		},
+		"s8i_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8i_04",
+			"next": "s8i_05"
+		},
+		"s8i_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8i_05",
+			"next": "s8i_06",
+			"if": {
+				"any": [
+					{
+						"flag": "kemal_lent_riza",
+						"eq": true
+					},
+					{
+						"flag": "riza_warned_cevdet",
+						"eq": true
+					}
+				]
+			}
+		},
+		"s8i_06": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8i_06",
+			"next": "s8i_07",
+			"if": {
+				"any": [
+					{
+						"flag": "kemal_lent_riza",
+						"eq": true
+					},
+					{
+						"flag": "riza_warned_cevdet",
+						"eq": true
+					}
+				]
+			}
+		},
+		"s8i_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8i_07",
+			"next": "l03k",
+			"variants": [
+				{
+					"if": {
+						"decision": "b2_grev_destek",
+						"eq": "leave"
+					},
+					"text": "ch02.s8i_07_v1"
+				}
+			]
 		}
 	}
 }
