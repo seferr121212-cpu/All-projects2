@@ -251,6 +251,29 @@
 					]
 				},
 				{
+					"id": "ch06_s8_clock",
+					"label": "ch06.it.ch06_s8_clock",
+					"point": "ch06_s8_clock",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_s8_clock.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_s8_glass",
+					"label": "ch06.it.ch06_s8_glass",
+					"point": "ch06_s8_glass",
+					"journal": "journal.ch06.ch06_s8_glass",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_s8_glass.l1"
+						}
+					]
+				},
+				{
 					"id": "ch06_komiser",
 					"label": "ch06.it.ch06_komiser",
 					"actor": "komiser",
@@ -415,7 +438,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.r_confess",
-			"next": "c02",
+			"next": "s8g_01",
 			"variants": [
 				{
 					"if": {
@@ -447,19 +470,19 @@
 			"type": "line",
 			"speaker": "komiser",
 			"text": "ch06.r_inform",
-			"next": "c02"
+			"next": "s8g_01"
 		},
 		"r_blame": {
 			"type": "line",
 			"speaker": "komiser",
 			"text": "ch06.r_blame",
-			"next": "c02"
+			"next": "s8g_01"
 		},
 		"r_silence": {
 			"type": "line",
 			"speaker": "komiser",
 			"text": "ch06.r_silence",
-			"next": "c02"
+			"next": "s8g_01"
 		},
 		"c02": {
 			"type": "choice",
@@ -1192,6 +1215,67 @@
 			"speaker": "narrator",
 			"text": "ch06.s8b_kr2",
 			"next": "end"
+		},
+		"s8g_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8g_01",
+			"next": "s8g_02"
+		},
+		"s8g_02": {
+			"type": "line",
+			"speaker": "avukat",
+			"text": "ch06.s8g_02",
+			"next": "s8g_c1"
+		},
+		"s8g_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch06_avukat",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch06.s8g_c1.prompt",
+			"options": [
+				{
+					"id": "all",
+					"text": "ch06.s8g_c1.all",
+					"next": "s8g_r1",
+					"effects": [
+						{
+							"set_flag": "lawyer_advice",
+							"value": "all"
+						}
+					]
+				},
+				{
+					"id": "part",
+					"text": "ch06.s8g_c1.part",
+					"next": "s8g_r2",
+					"effects": [
+						{
+							"set_flag": "lawyer_advice",
+							"value": "part"
+						}
+					]
+				}
+			]
+		},
+		"s8g_r1": {
+			"type": "line",
+			"speaker": "avukat",
+			"text": "ch06.s8g_r1",
+			"next": "s8g_03"
+		},
+		"s8g_r2": {
+			"type": "line",
+			"speaker": "avukat",
+			"text": "ch06.s8g_r2",
+			"next": "s8g_03"
+		},
+		"s8g_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8g_03",
+			"next": "c02"
 		}
 	}
 }

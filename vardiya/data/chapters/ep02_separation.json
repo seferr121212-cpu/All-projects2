@@ -181,7 +181,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ep02.f_riza",
-			"next": "o01",
+			"next": "s8h0_00",
 			"variants": [
 				{
 					"if": {
@@ -217,6 +217,240 @@
 		"end": {
 			"type": "end",
 			"next_chapter": null
+		},
+		"s8h0_00": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_00",
+			"next": "s8h0_sevgi"
+		},
+		"s8h0_sevgi": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_sevgi",
+			"next": "s8h0_ece",
+			"variants": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"flag": "defne_izmir",
+								"eq": "go"
+							},
+							{
+								"any": [
+									{
+										"flag": "defne_met_mother",
+										"eq": "hug"
+									},
+									{
+										"flag": "defne_met_mother",
+										"eq": "talk"
+									}
+								]
+							}
+						]
+					},
+					"text": "ep02.s8h0_sevgi_v1"
+				},
+				{
+					"if": {
+						"flag": "kemal_gave_box",
+						"eq": true
+					},
+					"text": "ep02.s8h0_sevgi_v2"
+				},
+				{
+					"if": {
+						"flag": "defne_met_mother",
+						"eq": "pass"
+					},
+					"text": "ep02.s8h0_sevgi_v3"
+				}
+			],
+			"if": {
+				"any": [
+					{
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"any": [
+									{
+										"flag": "defne_met_mother",
+										"eq": "hug"
+									},
+									{
+										"flag": "defne_met_mother",
+										"eq": "talk"
+									}
+								]
+							}
+						]
+					},
+					{
+						"flag": "kemal_gave_box",
+						"eq": true
+					},
+					{
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"flag": "defne_met_mother",
+								"eq": "pass"
+							}
+						]
+					}
+				]
+			}
+		},
+		"s8h0_ece": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_ece",
+			"next": "s8h0_hoca",
+			"variants": [
+				{
+					"if": {
+						"flag": "ece_bond",
+						"eq": "study"
+					},
+					"text": "ep02.s8h0_ece_v1"
+				},
+				{
+					"if": {
+						"flag": "ece_bond",
+						"eq": "strike"
+					},
+					"text": "ep02.s8h0_ece_v2"
+				}
+			]
+		},
+		"s8h0_hoca": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_hoca",
+			"next": "s8h0_cevdet"
+		},
+		"s8h0_cevdet": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_cevdet",
+			"next": "s8h0_truck",
+			"variants": [
+				{
+					"if": {
+						"flag": "cevdet_reported",
+						"eq": true
+					},
+					"text": "ep02.s8h0_cevdet_v1"
+				},
+				{
+					"if": {
+						"any": [
+							{
+								"flag": "truck_saved",
+								"eq": true
+							},
+							{
+								"flag": "riza_truck",
+								"eq": "kept"
+							}
+						]
+					},
+					"text": "ep02.s8h0_cevdet_v2"
+				}
+			]
+		},
+		"s8h0_truck": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_truck",
+			"next": "s8h0_deniz",
+			"variants": [
+				{
+					"if": {
+						"status": "riza",
+						"eq": "dead"
+					},
+					"text": "ep02.s8h0_truck_v1"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "missing"
+					},
+					"text": "ep02.s8h0_truck_v2"
+				},
+				{
+					"if": {
+						"all": [
+							{
+								"any": [
+									{
+										"flag": "truck_saved",
+										"eq": true
+									},
+									{
+										"flag": "riza_truck",
+										"eq": "kept"
+									}
+								]
+							},
+							{
+								"flag": "riza_told_mother",
+								"eq": "truth"
+							}
+						]
+					},
+					"text": "ep02.s8h0_truck_v3"
+				},
+				{
+					"if": {
+						"any": [
+							{
+								"flag": "truck_saved",
+								"eq": true
+							},
+							{
+								"flag": "riza_truck",
+								"eq": "kept"
+							}
+						]
+					},
+					"text": "ep02.s8h0_truck_v4"
+				}
+			]
+		},
+		"s8h0_deniz": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_deniz",
+			"next": "s8h0_nevin",
+			"variants": [
+				{
+					"if": {
+						"flag": "selim_dead",
+						"eq": true
+					},
+					"text": "ep02.s8h0_deniz_v1"
+				}
+			]
+		},
+		"s8h0_nevin": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8h0_nevin",
+			"next": "o01"
 		}
 	}
 }

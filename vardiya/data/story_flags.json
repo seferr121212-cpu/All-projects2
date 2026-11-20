@@ -211,5 +211,17 @@
 	"sevgi_at_table": {
 		"default": "",
 		"doc": "How the evening with Sevgi at the table went (ch7): stay/leave."
+	},
+	"final_note": {
+		"default": "",
+		"doc": "The note left on the kitchen table on the last morning (ch8): dinner/fine/none."
+	},
+	"defne_found_papers": {
+		"default": false,
+		"doc": "Defne photographed the Demirtaş delivery notes in Nevin's office (ch5)."
+	},
+	"lawyer_advice": {
+		"default": "",
+		"doc": "What the union lawyer was told in the corridor (ch6): all/part."
 	}
 }

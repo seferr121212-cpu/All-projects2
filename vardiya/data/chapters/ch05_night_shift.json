@@ -453,7 +453,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch05.n01",
-			"next": "nx"
+			"next": "s8g_20"
 		},
 		"nx": {
 			"type": "explore",
@@ -606,7 +606,7 @@
 			"type": "line",
 			"speaker": "riza",
 			"text": "ch05.nr01",
-			"next": "nr_c",
+			"next": "s8g_10",
 			"variants": [
 				{
 					"if": {
@@ -745,7 +745,7 @@
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch05.d01",
-			"next": "d_br",
+			"next": "s8g_01",
 			"variants": [
 				{
 					"if": {
@@ -1618,6 +1618,104 @@
 					"text": "ch05.s8e_04_v1"
 				}
 			]
+		},
+		"s8g_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8g_01",
+			"next": "s8g_02",
+			"variants": [
+				{
+					"if": {
+						"flag": "fire_started",
+						"eq": true
+					},
+					"text": "ch05.s8g_01_v1"
+				}
+			]
+		},
+		"s8g_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch05.s8g_02",
+			"next": "s8g_c1"
+		},
+		"s8g_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch05_belge",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch05.s8g_c1.prompt",
+			"options": [
+				{
+					"id": "photo",
+					"text": "ch05.s8g_c1.photo",
+					"next": "s8g_r1",
+					"effects": [
+						{
+							"set_flag": "defne_found_papers",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "leave",
+					"text": "ch05.s8g_c1.leave",
+					"next": "s8g_r2"
+				}
+			]
+		},
+		"s8g_r1": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8g_r1",
+			"next": "d_br"
+		},
+		"s8g_r2": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8g_r2",
+			"next": "d_br"
+		},
+		"s8g_10": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch05.s8g_10",
+			"next": "s8g_11",
+			"if": {
+				"flag": "cargo_hidden",
+				"eq": true
+			}
+		},
+		"s8g_11": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch05.s8g_11",
+			"next": "s8g_12",
+			"if": {
+				"not": {
+					"flag": "cargo_hidden",
+					"eq": true
+				}
+			}
+		},
+		"s8g_12": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.s8g_12",
+			"next": "nr_c"
+		},
+		"s8g_20": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8g_20",
+			"next": "s8g_21"
+		},
+		"s8g_21": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch05.s8g_21",
+			"next": "nx"
 		}
 	}
 }

@@ -237,6 +237,22 @@
 			],
 			"radius": 1.0,
 			"src": "more"
+		},
+		"ch06_s8_clock": {
+			"pos": [
+				1.6,
+				0,
+				-2.2
+			],
+			"radius": 1.1
+		},
+		"ch06_s8_glass": {
+			"pos": [
+				-1.4,
+				0,
+				0.9
+			],
+			"radius": 1.0
 		}
 	},
 	"camera": {

@@ -352,6 +352,44 @@
 					]
 				},
 				{
+					"id": "ch07_s8_desk",
+					"label": "ch07.it.ch07_s8_desk",
+					"point": "ch04_exam_card",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_desk.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_s8_coat",
+					"label": "ch07.it.ch07_s8_coat",
+					"point": "ch04_coat",
+					"journal": "journal.ch07.ch07_s8_coat",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_coat.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_coat.l2"
+						}
+					]
+				},
+				{
+					"id": "ch07_s8_phone",
+					"label": "ch07.it.ch07_s8_phone",
+					"point": "ch04_phone",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_phone.l1"
+						}
+					]
+				},
+				{
 					"id": "ch07_table",
 					"label": "ch07.it.ch07_table",
 					"point": "ch04_letter",
@@ -370,7 +408,7 @@
 					"next": "c01"
 				}
 			],
-			"else": "c01s"
+			"else": "s8f_01"
 		},
 		"c01": {
 			"type": "choice",
@@ -1419,6 +1457,57 @@
 			"speaker": "narrator",
 			"text": "ch07.s8e_r2",
 			"next": "br_alone"
+		},
+		"s8f_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8f_01",
+			"next": "s8f_02"
+		},
+		"s8f_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8f_02",
+			"next": "s8f_03",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8f_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8f_03",
+			"next": "s8f_04",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8f_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8f_04",
+			"next": "s8f_05",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
+		},
+		"s8f_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8f_05",
+			"next": "c01s",
+			"variants": [
+				{
+					"if": {
+						"flag": "selim_dead",
+						"eq": true
+					},
+					"text": "ch07.s8f_05_v1"
+				}
+			]
 		}
 	}
 }
