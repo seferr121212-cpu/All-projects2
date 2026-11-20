@@ -355,7 +355,7 @@
 					"id": "ch07_table",
 					"label": "ch07.it.ch07_table",
 					"point": "ch04_letter",
-					"next": "br_alone"
+					"next": "s8e_br"
 				}
 			]
 		},
@@ -1290,6 +1290,135 @@
 			"speaker": "narrator",
 			"text": "ch07.s8b_i2",
 			"next": "c02"
+		},
+		"s8e_br": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"any": [
+									{
+										"flag": "defne_met_mother",
+										"eq": "hug"
+									},
+									{
+										"flag": "defne_met_mother",
+										"eq": "talk"
+									},
+									{
+										"flag": "kemal_sevgi_bridge",
+										"eq": true
+									}
+								]
+							}
+						]
+					},
+					"next": "s8e_01"
+				}
+			],
+			"else": "br_alone"
+		},
+		"s8e_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8e_01",
+			"next": "s8e_02"
+		},
+		"s8e_02": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch07.s8e_02",
+			"next": "s8e_03"
+		},
+		"s8e_03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8e_03",
+			"next": "s8e_04"
+		},
+		"s8e_04": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8e_04",
+			"next": "s8e_05",
+			"if": {
+				"status": "kemal",
+				"eq": "alive"
+			}
+		},
+		"s8e_05": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch07.s8e_05",
+			"next": "s8e_06",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ch07.s8e_05_v1"
+				}
+			]
+		},
+		"s8e_06": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8e_06",
+			"next": "s8e_c1",
+			"if": {
+				"status": "riza",
+				"eq": "alive"
+			}
+		},
+		"s8e_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch07_sofra",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch07.s8e_c1.prompt",
+			"options": [
+				{
+					"id": "stay",
+					"text": "ch07.s8e_c1.stay",
+					"next": "s8e_r1",
+					"effects": [
+						{
+							"set_flag": "sevgi_at_table",
+							"value": "stay"
+						}
+					]
+				},
+				{
+					"id": "leave",
+					"text": "ch07.s8e_c1.leave",
+					"next": "s8e_r2",
+					"effects": [
+						{
+							"set_flag": "sevgi_at_table",
+							"value": "leave"
+						}
+					]
+				}
+			]
+		},
+		"s8e_r1": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8e_r1",
+			"next": "br_alone"
+		},
+		"s8e_r2": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8e_r2",
+			"next": "br_alone"
 		}
 	}
 }

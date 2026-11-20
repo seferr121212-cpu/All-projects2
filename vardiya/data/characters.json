@@ -172,6 +172,21 @@
 				"height": 0.94,
 				"build": 0.98
 			}
+		},
+		"hayriye": {
+			"name": "char.hayriye",
+			"color": "#d8c8b0",
+			"body": "#4a3e4e",
+			"look": {
+				"top": "#4a3e4e",
+				"pants": "#2e2a2c",
+				"skin": "#c89a78",
+				"hair": "#d8d4cc",
+				"hair_style": "bun",
+				"coat": true,
+				"height": 0.88,
+				"build": 0.95
+			}
 		}
 	}
 }

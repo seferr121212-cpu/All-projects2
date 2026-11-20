@@ -1,6 +1,80 @@
-# VARDİYA — Aşama 8 Raporu (İçerik genişletme, 1. kısım)
+# VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.0 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.1 · Godot 4.7 · Compatibility renderer
+
+# 2. KISIM: B + D seçenekleri (en güncel durum)
+
+## Durum özeti
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen TR kelime |
+|---|---|---|---|
+| 0.7.0 | ~25 dk | ~35 dk | — |
+| 0.8.0 (1. kısım) | ~36 dk | ~50 dk | ~3.975 |
+| **0.8.1 (bu teslim)** | **~44 dk** | **~61 dk** | **~5.620** (+ ~8.400 EN) |
+| B hedefi | | ~1,5-2 saat | ~20.000 |
+
+- **D (yeni 3B mekânlar, yan karakterler sahnede, daha uzun keşif): tamamlandı.**
+- **B (20.000 kelime): yaklaşık %28'i tamamlandı.** Kalan ~14.400 Türkçe kelime ve İngilizcesi sonraki teslimlerde gelecek.
+
+Bölüm bölüm dikkatli oyuncu: 1: 12,0 · 2: 8,1 · 3: 8,5 · 4: 6,5 · 5: 6,2 · 6: 5,7 · 7: 5,3 · 8: 4,4 dk · epilog 2,2 · jenerik 1,9.
+
+## D — yapılanlar
+**5 yeni 3B mekân.** Aşama 6'daki gibi tamamen veriyle kuruluyor, model ya da doku dosyası yok:
+
+| Mekân | Bölüm | İçerik |
+|---|---|---|
+| `harbour_teahouse` (liman kahvesi) | 3 | Masalar, ocak, sessiz televizyon, tavla oynayan iki yaşlı; köşe masada Cevdet |
+| `prep_school` (dershane / sınav salonu) | 2, 5 | Sıralar, tahta, deneme sıralaması; Hüsnü Hoca, Ece (Defne'nin onu sınava ikna ettiği yolda) |
+| `hospital_corridor` (acil koridoru) | 5 | Floresan, bozuk çay makinesi, hemşire masası; yaşayanlar, Selim ve Zeynep |
+| `station_steps` (karakol önü, akşam) | 6 | Merdivenler, sokak lambaları, siyah araba, muhabirler; bakış açısına göre Cevdet, ya da Sevgi ve Ece |
+| `cemetery` (deniz kenarında mezarlık) | 7 | Kimin öldüğüne göre beliren yeni mezar taşları, servi ağaçları, bank; Zeynep ve Sevgi |
+
+**Yan karakterler sahnede.** Sevgi, Cevdet, Ece, Hüsnü Hoca ve Zeynep'in görünüş tanımları vardı; artık bedenleriyle duruyorlar. Yeni karakter Hayriye Ana yalnızca telefonda konuşuyor.
+- Kamera konuşan kişiye dönüyor.
+- Ev ve fabrika kapısına "misafir" olarak geliyorlar: Bölüm 4'te Ece, Bölüm 7'de Selim, Zeynep ve bebek Deniz, Bölüm 8'in şafağında Hüsnü Hoca, Ece, Zeynep ve Sevgi. Misafirler yalnızca kendi sahnelerinde görünüyor; bunu `scene_guests` bayrağı denetliyor ve Bölüm 8 sonunda bayrak temizleniyor, böylece epiloglara sızmıyorlar.
+
+**Daha uzun keşif.** Yeni mekânlarda 5 yeni keşif bölümü var: 15 isteğe bağlı nokta, 5 günlük notu.
+
+1. kısımdaki 2B kart sahnelerinin hepsi artık 3B. Tek istisna Bölüm 5'teki hastane sahnesi: üç karakter de öldüyse sahne hâlâ kartla oynanıyor, çünkü yönetecek kimse kalmıyor.
+
+## B — bu teslimde eklenen sahneler
+| Bölüm | Yeni sahne |
+|---|---|
+| 1 | Öğle arası Defne'yle telefon (robotu anlatmak ya da anlatmamak) |
+| 2 | Nevin'le bekçi kulübesinin arkasında: listeyi kim yazdırıyor, Selim için rica |
+| 3 | Rıza'nın annesi Hayriye Ana: kamyon için bozdurulan bilezikler, Cevdet'in "selamı" |
+| 4 | Balkonda Rıza'nın borç itirafı; Defne birikimini teklif edebilir |
+| 5 | Sınav salonu (sınavı seçtiyse); yangına giden yolda Rıza |
+| 6 | Komiser önceki kararları tek tek sayıyor: sensör, kapı, konteyner. Bakış açısındaki karakterin cevabı. |
+| 7 | Sevgi akşam yemeğinde; son vardiyadan önceki gece limanda |
+| 8 | Hüsnü Hoca'nın otuz yıl önceki on dört günlük grevi; Nevin'in son sözü |
+
+Toplam (1. ve 2. kısım):
+- **421 yeni düğüm**, **22 yeni süresiz seçim**, **5 keşif bölümü**.
+- **~5.620 TR + ~8.400 EN kelime**.
+- **6 yan karakter**.
+
+Sonları belirleyen kurallar ve eski 40 karar değişmedi; yeni seçimler yalnızca yan hikâye bayraklarını değiştiriyor.
+
+## Testler (bu teslim)
+| Test | Sonuç |
+|---|---|
+| Doğrulayıcı | **0 hata**, 2 bilinçli uyarı. Yeni mekânların yürünebilirlik, ışık ve parçacık bütçesi ile aktör ve nokta erişimi kontrol edildi. |
+| Tam oyun simülasyonu | 5 sonun hepsine ulaşılıyor; bakış açısı hatası yok |
+| Python testleri | **37/37** |
+| Kuşbakışı haritalar | `docs/maps/` altında 5 yeni mekân (yerleşimi gözle kontrol ettim) |
+| Motor testleri, kare süresi | **Çalıştırılamadı** (Godot izni yok). 5 yeni mekân var; bütçeleri en fazla 3 ışık ve 1 parçacık sistemi, yani mevcut mekânlardan hafif. Yine de hedef cihazda ölçülmesi gerekiyor. |
+
+## Varsayımlar (2. kısım)
+1. **Yeni mekânlar yalnızca verilerle tanımlandı ve motorda hiç görülmedi.** Yerleşim kuşbakışı haritalarla kontrol edildi. Duvar, ışık ve kamera mesafesi ilk açılışta ayar isteyebilir.
+2. **Aktörlerin bakış yönü (`rot`) tahminî.** Bazı karakterler konuşurken yanlış yöne bakıyor olabilir.
+3. **Sınav salonu, dershane mekânının aynısını kullanıyor.**
+
+## Sıradaki adım
+B'nin kalanı: ~14.400 Türkçe kelime ve İngilizcesi. En kısa bölümlerden (7, 8, 6, 5) başlayarak birkaç teslimde gelecek. Her teslimden sonra süre ölçülecek.
+
+---
+
+# 1. KISIM (önceki teslim, tarihçe)
 
 ## 0. Özet ve süre konusunda dürüst durum
 8 bölümün hepsine yeni sahneler ve üç kişisel yan hikâye eklendi. Ölçülen oynama süresi (`tools/playtime.py`, 200 rastgele oynanış):

@@ -311,7 +311,7 @@
 					"value": "riza"
 				}
 			],
-			"next": "r_loc"
+			"next": "s8e_01"
 		},
 		"r_loc": {
 			"type": "location",
@@ -1585,6 +1585,39 @@
 			"speaker": "narrator",
 			"text": "ch05.s8d_08",
 			"next": "d_out"
+		},
+		"s8e_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8e_01",
+			"next": "s8e_02"
+		},
+		"s8e_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.s8e_02",
+			"next": "s8e_03"
+		},
+		"s8e_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8e_03",
+			"next": "s8e_04"
+		},
+		"s8e_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch05.s8e_04",
+			"next": "r_loc",
+			"variants": [
+				{
+					"if": {
+						"flag": "defne_chose_exam",
+						"eq": true
+					},
+					"text": "ch05.s8e_04_v1"
+				}
+			]
 		}
 	}
 }

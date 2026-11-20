@@ -275,7 +275,7 @@
 					"id": "ch08_nevin",
 					"label": "ch08.it.ch08_nevin",
 					"actor": "nevin",
-					"next": "c01"
+					"next": "s8e_01"
 				}
 			]
 		},
@@ -850,6 +850,36 @@
 			"speaker": "narrator",
 			"text": "ch08.s8b_04",
 			"next": "outro"
+		},
+		"s8e_01": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch08.s8e_01",
+			"next": "s8e_02"
+		},
+		"s8e_02": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch08.s8e_02",
+			"next": "s8e_03"
+		},
+		"s8e_03": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch08.s8e_03",
+			"next": "s8e_04"
+		},
+		"s8e_04": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch08.s8e_04",
+			"next": "s8e_05"
+		},
+		"s8e_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8e_05",
+			"next": "c01"
 		}
 	}
 }

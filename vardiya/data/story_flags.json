@@ -203,5 +203,13 @@
 	"truck_saved": {
 		"default": false,
 		"doc": "Someone stood in front of Cevdet's tow truck (ch7)."
+	},
+	"riza_told_mother": {
+		"default": "",
+		"doc": "What Rıza told his mother about the truck (ch3): truth/lie."
+	},
+	"sevgi_at_table": {
+		"default": "",
+		"doc": "How the evening with Sevgi at the table went (ch7): stay/leave."
 	}
 }
