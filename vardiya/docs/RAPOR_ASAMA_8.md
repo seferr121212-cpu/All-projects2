@@ -1,8 +1,43 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.4 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.5 · Godot 4.7 · Compatibility renderer
 
-# 5. KISIM: ana yol devam (en güncel durum)
+# 6. KISIM: 90 dakika eşiği (en güncel durum)
+
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
+|---|---|---|---|
+| 0.7.0 (Aşama 8 öncesi) | ~25 dk | ~35 dk | — |
+| 0.8.4 | ~60 dk | ~84 dk | ~9.790 |
+| **0.8.5 (bu teslim)** | **~64 dk** | **~90 dk** (ölçüm 89,8; aralık 87-93) | **~10.680** (+ ~16.130 EN) |
+
+**B'nin alt sınırı olan ~1,5 saate dikkatli oyuncu için ulaşıldı.** Hızlı oyuncu ~1 saat. Bölüm bölüm dikkatli oyuncu: 1: 15,8 · 2: 11,6 · 3: 11,8 · 4: 9,4 · 5: 9,4 · 6: 9,1 · 7: 8,7 · 8: 9,2 dk · epilog 2,8 · jenerik 1,9.
+
+**Bu teslimdeki ana yol sahneleri:**
+| Bölüm | Sahne |
+|---|---|
+| 1 | Holün sabah sesleri ve "Kimse dokunmuyor zaten" · koridordaki güvenlik şeması ("İnsan yok iken") |
+| 2 | Simitçi: "Grevciye bedava" · grev ateşinde Kemal ("Soğuk herkese aynı soğuk") · bekçi kulübesinin camında Kemal'in yansıması |
+| 3 | Liman ışıkları · liman kedisi · yirmi varil ve "Yakıt az" (konteyneri açmayan oyuncuya ayrı metin) |
+| 4 | Pili biten mutfak saati · gece yarısı giden Rıza |
+| 5 | Soyunma odasında fotoğraf · acil çıkış okları · mavi ışıklar ve kapalı kameralar |
+| 6 | Kayıttaki kamera ve mendil kutusu · koridordaki muhabir |
+| 7 | Martılar ve bacanın tepesi · plansız masa · mektuptaki çay izi |
+| 8 | İki yüz isimlik liste · kurul başkanının duraksaması · Hamdi'nin nöbet çizelgesi |
+
+**Testler:**
+- Doğrulayıcı: 0 hata, 2 bilinçli uyarı.
+- Tam oyun simülasyonu: 5 sonun hepsine ulaşılıyor.
+- Python testleri: 37/37.
+- Motor testleri ve kare süresi: çalıştırılamadı (Godot izni yok).
+
+**Sonraki seçenekler:**
+1. **2 saat hedefi:** ~4.300 ana yol kelimesi daha; 2-3 teslim.
+2. **Burada dur, Aşama 9'a geç:** sizin makinenizde motor testleri ve kare süresi ölçümü, yeni mekânların motorda ince ayarı (ışık, kamera, karakterlerin baktığı yön), metin redaksiyonu ve İngilizce gözden geçirme.
+
+---
+
+
+# 5. KISIM: ana yol devam
 
 | Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
 |---|---|---|---|
