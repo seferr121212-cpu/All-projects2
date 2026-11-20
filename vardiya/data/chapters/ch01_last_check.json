@@ -133,7 +133,7 @@
 			"type": "line",
 			"speaker": "nevin",
 			"text": "ch01.l03",
-			"next": "c00"
+			"next": "s8cc_01"
 		},
 		"c00": {
 			"type": "choice",
@@ -1844,6 +1844,18 @@
 			"speaker": "narrator",
 			"text": "ch01.s8bb_04",
 			"next": "end"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8cc_01",
+			"next": "s8cc_02"
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8cc_02",
+			"next": "c00"
 		}
 	}
 }

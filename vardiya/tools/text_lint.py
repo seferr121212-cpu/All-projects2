@@ -89,7 +89,7 @@ def lint(tr: dict, en: dict) -> list[str]:
             m = re.search(r"\b(\w+) \1\b", v, re.IGNORECASE)
             if m and not m.group(1).isdigit():
                 rep = m.group(1)
-                if rep.lower() not in ("bip", "beep", "abi", "şaka", "uzun", "damla", "çok", "yavaş", "yavas", "sıra", "yan", "teker", "tek", "ha", "very", "far"):
+                if rep.lower() not in ("bip", "beep", "abi", "şaka", "uzun", "damla", "yer", "birer", "de", "da", "in", "çok", "yavaş", "yavas", "sıra", "yan", "teker", "tek", "ha", "very", "far"):
                     out.append(f"{w}: repeated word '{rep}'")
             if kd == "line" and v and v[-1] not in ".!?…'\")»:" and not v.endswith("—"):
                 out.append(f"{w}: no final punctuation")

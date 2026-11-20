@@ -1054,7 +1054,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch03.s8x_03",
-			"next": "c00"
+			"next": "s8cc_01"
 		},
 		"s8y_01": {
 			"type": "line",
@@ -1181,6 +1181,30 @@
 			"speaker": "narrator",
 			"text": "ch03.s8bb_03",
 			"next": "c02"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8cc_01",
+			"next": "s8cc_02"
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8cc_02",
+			"next": "s8cc_03"
+		},
+		"s8cc_03": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.s8cc_03",
+			"next": "s8cc_04"
+		},
+		"s8cc_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8cc_04",
+			"next": "c00"
 		}
 	}
 }

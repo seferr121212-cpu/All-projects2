@@ -1899,7 +1899,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8x_02",
-			"next": "c02"
+			"next": "s8cc_01"
 		},
 		"s8y_01": {
 			"type": "line",
@@ -2026,6 +2026,18 @@
 			"speaker": "narrator",
 			"text": "ch07.s8bb_05",
 			"next": "c01"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8cc_01",
+			"next": "s8cc_02"
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8cc_02",
+			"next": "c02"
 		}
 	}
 }

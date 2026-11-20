@@ -1138,7 +1138,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch04.s8t_03",
-			"next": "c01"
+			"next": "s8cc_01"
 		},
 		"s8w_01": {
 			"type": "line",
@@ -1307,6 +1307,30 @@
 			"speaker": "narrator",
 			"text": "ch04.s8bb_03",
 			"next": "x01"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8cc_01",
+			"next": "s8cc_02"
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.s8cc_02",
+			"next": "s8cc_03"
+		},
+		"s8cc_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8cc_03",
+			"next": "s8cc_04"
+		},
+		"s8cc_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8cc_04",
+			"next": "c01"
 		}
 	}
 }

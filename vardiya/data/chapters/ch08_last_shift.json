@@ -1459,7 +1459,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8z_04",
-			"next": "dl_k"
+			"next": "s8cc_01"
 		},
 		"s8aa_01": {
 			"type": "line",
@@ -1496,6 +1496,62 @@
 			"speaker": "narrator",
 			"text": "ch08.s8bb_03",
 			"next": "c01"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch08.s8cc_01",
+			"next": "s8cc_02",
+			"if": {
+				"all": [
+					{
+						"flag": "pov",
+						"eq": "defne"
+					},
+					{
+						"status": "kemal",
+						"eq": "alive"
+					}
+				]
+			}
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch08.s8cc_02",
+			"next": "s8cc_03",
+			"if": {
+				"all": [
+					{
+						"flag": "pov",
+						"eq": "defne"
+					},
+					{
+						"status": "kemal",
+						"eq": "dead"
+					}
+				]
+			}
+		},
+		"s8cc_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch08.s8cc_03",
+			"next": "s8cc_04",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8cc_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch08.s8cc_04",
+			"next": "dl_k",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
 		}
 	}
 }

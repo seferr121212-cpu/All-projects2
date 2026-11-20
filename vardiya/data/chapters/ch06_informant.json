@@ -1521,7 +1521,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8y_04",
-			"next": "l01"
+			"next": "s8cc_01"
 		},
 		"s8z_01": {
 			"type": "line",
@@ -1598,6 +1598,30 @@
 			"speaker": "narrator",
 			"text": "ch06.s8aa_04",
 			"next": "x01"
+		},
+		"s8cc_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8cc_01",
+			"next": "s8cc_02"
+		},
+		"s8cc_02": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch06.s8cc_02",
+			"next": "s8cc_03"
+		},
+		"s8cc_03": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch06.s8cc_03",
+			"next": "s8cc_04"
+		},
+		"s8cc_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8cc_04",
+			"next": "l01"
 		}
 	}
 }
