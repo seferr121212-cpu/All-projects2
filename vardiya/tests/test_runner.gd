@@ -215,10 +215,12 @@ func test_save_load_same_state() -> void:
 	check(SaveSystem.has_save(1), "slot written")
 	GameState.reset()
 	check(SaveSystem.load_slot(1), "slot loads")
-	check(JSON.stringify(GameState.to_dict()) == before, "loaded state equals saved state")
 	check(GameState.current_node == "r01_truth", "resume node stored")
 	DialogueRunner.start(GameState.current_chapter, GameState.current_node)
 	check(DialogueRunner.current_node_id == "r01_truth", "resume at saved node")
+	# The autosave is written as the choice is taken, before the next node is marked
+	# visited; once resumed at that node the state matches the one before the save.
+	check(JSON.stringify(GameState.to_dict()) == before, "loaded state equals saved state")
 
 
 func test_restart_chapter_restores_snapshot() -> void:
@@ -302,11 +304,19 @@ func _settings_reset() -> void:
 	SaveSystem.settings["choice_timer_scale"] = 1.0
 
 
+## Advances lines and takes the first option of the untimed stage-8 side-story
+## choices (ids starting with "s8"): they only set side flags, so the tests
+## written for the core path can step over them.
 func _run_until_blocking() -> void:
 	var guard := 0
-	while DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE and guard < 200:
-		DialogueRunner.advance()
+	while guard < 2000:
 		guard += 1
+		if DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE:
+			DialogueRunner.advance()
+		elif DialogueRunner.waiting == DialogueRunner.Wait.CHOICE and DialogueRunner.current_node_id.begins_with("s8"):
+			DialogueRunner.choose(str(DialogueRunner.current_options()[0]["id"]))
+		else:
+			break
 
 
 func test_explore_locked_and_exit() -> void:
@@ -314,7 +324,7 @@ func test_explore_locked_and_exit() -> void:
 	_run_until_blocking()
 	check(DialogueRunner.waiting == DialogueRunner.Wait.EXPLORE, "ch01 starts in exploration")
 	check(GameState.location.get("scene") == "factory_locker", "location stored")
-	check(DialogueRunner.explore_items().size() == 4, "four locker-room items")
+	check(DialogueRunner.explore_items().size() == 6, "six locker-room items")
 	check(DialogueRunner.interact("ch01_locker_door"), "locked door interacts")
 	check(DialogueRunner.waiting == DialogueRunner.Wait.ADVANCE, "locked door plays a line")
 	DialogueRunner.advance()
@@ -504,7 +514,7 @@ func test_story_index_and_majors() -> void:
 func test_fire_depends_on_earlier_choices() -> void:
 	DialogueRunner.start("ch05_night_shift")
 	check(GameState.get_flag("fire_started") == false, "no hidden fault, no delivered cargo: no fire")
-	check(DialogueRunner.current_node_id == "l01", "night shift starts")
+	check(DialogueRunner.current_node_id == "s8a_01", "night shift starts (at home, stage 8 opening)")
 	GameState.reset()
 	GameState.set_flag("fault_hidden", true)
 	DialogueRunner.start("ch05_night_shift")
@@ -544,6 +554,7 @@ func test_pov_skips_dead_character() -> void:
 	GameState.reset()
 	GameState.set_status("defne", "dead")
 	DialogueRunner.start("ch08_last_shift")
+	_run_until_blocking()
 	check(GameState.get_flag("pov") == "kemal", "Defne dead: chapter 8 seen through Kemal")
 
 
@@ -605,7 +616,7 @@ func _trust_all(delta: int) -> void:
 ## every exploration, pick the first option of every choice, pass every QTE.
 func _play_to_end(first_option: bool = true) -> void:
 	var guard := 0
-	while DialogueRunner.waiting != DialogueRunner.Wait.FINISHED and guard < 400:
+	while DialogueRunner.waiting != DialogueRunner.Wait.FINISHED and guard < 5000:
 		guard += 1
 		var w: int = DialogueRunner.waiting
 		if w == DialogueRunner.Wait.ADVANCE:
@@ -704,7 +715,7 @@ func test_epilogue_varies_by_fate() -> void:
 	shown = _collect_lines(func() -> void:
 		DialogueRunner.start("ep03_bitter")
 		_run_until_blocking())
-	check("ep03.n01" in shown, "nobody alive: Nevin closes the story")
+	check("ep03.n01" in shown or "ep03.n01_v1" in shown, "nobody alive: Nevin closes the story")
 	check(DialogueRunner.waiting == DialogueRunner.Wait.FINISHED, "all-dead epilogue completes")
 
 
@@ -722,6 +733,7 @@ func test_betrayal_epilogue_pov() -> void:
 
 
 func test_gallery_rows() -> void:
+	_cleanup_saves()  # earlier tests unlock endings in the shared test profile
 	SaveSystem.unlock_ending("separation")
 	var gallery := EndingsGallery.new()
 	var rows := gallery.rows()

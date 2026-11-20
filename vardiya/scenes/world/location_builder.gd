@@ -380,7 +380,7 @@ static func _add_fire(world: Node3D, ambience: Ambience, xf: Transform3D, s: Vec
 		bt.add_box(Transform3D(Basis(), Vector3((i - 1) * s.x * 0.18, s.y * f * 0.5, (i - 1) * 0.04)),
 			Vector3(s.x * (1.0 - i * 0.25), s.y * f, maxf(0.05, s.z * 0.5)), c)
 	var mi := MeshInstance3D.new()
-	mi.name = "Fire"
+	mi.name = "Fire%d" % world.get_child_count()  # unique: a second "Fire" would be auto-renamed
 	mi.mesh = bt.commit()
 	mi.material_override = ArtKit.material("glow")
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
