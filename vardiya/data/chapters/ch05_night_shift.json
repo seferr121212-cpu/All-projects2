@@ -1101,7 +1101,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch05.s8a_10",
-			"next": "loc_k"
+			"next": "s8ff_01"
 		},
 		"s8b_00": {
 			"type": "branch",
@@ -2100,6 +2100,18 @@
 					"eq": "father"
 				}
 			}
+		},
+		"s8ff_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8ff_01",
+			"next": "s8ff_02"
+		},
+		"s8ff_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8ff_02",
+			"next": "loc_k"
 		}
 	}
 }

@@ -645,13 +645,13 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch01.l_end_warned",
-			"next": "s8c_br"
+			"next": "s8ff_01"
 		},
 		"l_end": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch01.l_end",
-			"next": "s8c_br"
+			"next": "s8ff_01"
 		},
 		"end": {
 			"type": "end",
@@ -1729,7 +1729,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch01.s8y_05",
-			"next": "l07"
+			"next": "s8dd_01"
 		},
 		"s8z_01": {
 			"type": "line",
@@ -1856,6 +1856,60 @@
 			"speaker": "kemal",
 			"text": "ch01.s8cc_02",
 			"next": "c00"
+		},
+		"s8dd_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8dd_01",
+			"next": "s8dd_02"
+		},
+		"s8dd_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8dd_02",
+			"next": "s8dd_03"
+		},
+		"s8dd_03": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch01.s8dd_03",
+			"next": "l07"
+		},
+		"s8ff_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8ff_01",
+			"next": "s8ff_02",
+			"if": {
+				"not": {
+					"decision": "b1_ariza_rapor",
+					"eq": "fix"
+				}
+			}
+		},
+		"s8ff_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8ff_02",
+			"next": "s8ff_03",
+			"if": {
+				"not": {
+					"decision": "b1_ariza_rapor",
+					"eq": "fix"
+				}
+			}
+		},
+		"s8ff_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8ff_03",
+			"next": "s8c_br",
+			"if": {
+				"not": {
+					"decision": "b1_ariza_rapor",
+					"eq": "fix"
+				}
+			}
 		}
 	}
 }

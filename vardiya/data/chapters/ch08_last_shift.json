@@ -1381,7 +1381,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8t_02",
-			"next": "l02"
+			"next": "s8dd_01"
 		},
 		"s8v_01": {
 			"type": "line",
@@ -1435,7 +1435,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8y_02",
-			"next": "outro"
+			"next": "s8ff_01"
 		},
 		"s8z_01": {
 			"type": "line",
@@ -1552,6 +1552,36 @@
 				"flag": "pov",
 				"eq": "riza"
 			}
+		},
+		"s8dd_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8dd_01",
+			"next": "s8dd_02"
+		},
+		"s8dd_02": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch08.s8dd_02",
+			"next": "s8dd_03"
+		},
+		"s8dd_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8dd_03",
+			"next": "l02"
+		},
+		"s8ff_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8ff_01",
+			"next": "s8ff_02"
+		},
+		"s8ff_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8ff_02",
+			"next": "outro"
 		}
 	}
 }

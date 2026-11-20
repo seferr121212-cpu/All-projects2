@@ -203,7 +203,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ep02.o01",
-			"next": "end",
+			"next": "s8ee_01",
 			"variants": [
 				{
 					"if": {
@@ -451,6 +451,24 @@
 			"speaker": "narrator",
 			"text": "ep02.s8h0_nevin",
 			"next": "o01"
+		},
+		"s8ee_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8ee_01",
+			"next": "s8ee_02"
+		},
+		"s8ee_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8ee_02",
+			"next": "s8ee_03"
+		},
+		"s8ee_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ep02.s8ee_03",
+			"next": "end"
 		}
 	}
 }
