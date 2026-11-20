@@ -32,6 +32,7 @@
 
 [ext_resource type="Script" path="res://scripts/activities/net_mending.gd" id="40_mend"]
 
+[ext_resource type="Script" path="res://scripts/world/prop_placer.gd" id="40_props"]
 [node name="AegeanVillage" type="Node3D"]
 script = ExtResource("1_region")
 definition = ExtResource("2_def")
@@ -206,3 +207,21 @@ subject_id = &"SUBJ_NPC_MURAT"
 present_from = 6.0
 present_until = 20.5
 model = "villager_man"
+
+[node name="Windmill" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/Windmill.glb"
+model_size = 11.0
+spots = Array[Vector3]([Vector3(112, -36, 200)])
+collider = Vector3(5, 11, 2)
+
+[node name="Well" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/Well.glb"
+model_size = 2.2
+spots = Array[Vector3]([Vector3(60, -40, 0)])
+collider = Vector3(1.2, 2, 1.4)

@@ -20,6 +20,10 @@ var _comfort_nodes: Array[Node3D] = []
 var _lamp: OmniLight3D
 var _string_lights: Array[Node3D] = []
 var _kettle_audio: AudioStreamPlayer3D
+var _gallery := Node3D.new()
+static var _model_cache: Dictionary = {}
+
+const PACK: String = "res://assets/models/packs/quaternius/"
 
 
 func _ready() -> void:
@@ -27,6 +31,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	_build_shell()
 	_build_furniture()
+	_build_props()
 	GameState.upgrades_changed.connect(_apply_comfort)
 	_apply_comfort()
 
@@ -37,6 +42,7 @@ func open_at(camper: Node3D) -> void:
 	global_transform = Transform3D(Basis(Vector3.UP, yaw), camper.global_position + Vector3(0, FLOOR_OFFSET, 0))
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
+	_refresh_gallery()
 
 
 func close() -> void:
@@ -311,3 +317,147 @@ static func _box(size: Vector3) -> BoxMesh:
 
 static func _at(pos: Vector3, rot_y: float = 0.0) -> Transform3D:
 	return Transform3D(Basis(Vector3.UP, rot_y), pos)
+
+
+# --- Living-in details: pack props, textiles, photo wall -----------------------
+
+## Places a pack model (largest side = `size` metres) with its lowest point on y.
+func _prop(path: String, pos: Vector3, size: float, yaw_deg: float = 0.0, rot_x_deg: float = 0.0, parent: Node3D = null) -> Node3D:
+	var full: String = PACK + path
+	if not _model_cache.has(full):
+		_model_cache[full] = AssetLibrary.load_model(full)
+	var mesh: ArrayMesh = _model_cache[full]
+	if mesh == null:
+		return null
+	var box: AABB = mesh.get_aabb()
+	var s: float = size / maxf(box.size.x, maxf(box.size.y, box.size.z))
+	var basis := Basis(Vector3.UP, deg_to_rad(yaw_deg)) * Basis(Vector3.RIGHT, deg_to_rad(rot_x_deg)) * Basis.from_scale(Vector3.ONE * s)
+	var low: float = INF
+	for i: int in 8:
+		low = minf(low, (basis * box.get_endpoint(i)).y)
+	var mi := MeshInstance3D.new()
+	mi.mesh = mesh
+	mi.transform = Transform3D(basis, pos - Vector3(0, low, 0))
+	(parent if parent else self).add_child(mi)
+	return mi
+
+
+func _build_props() -> void:
+	var hw: float = WIDTH * 0.5
+	# Pack props (Quaternius, CC0): camping kit lived-in around the van.
+	_prop("survival/Backpack.glb", Vector3(0.65, 0.67, 1.55), 0.55, 20.0)
+	_prop("survival/Radio.glb", Vector3(-hw + 0.2, 1.82, 0.5), 0.26, 90.0)
+	_prop("survival/Compass_Open.glb", Vector3(0.3, 0.8, -1.52), 0.1, 30.0)
+	_prop("survival/Pot.glb", Vector3(-hw + 0.32, 0.96, -0.6), 0.2, 0.0)
+	_prop("survival/Pan.glb", Vector3(-hw + 0.3, 0.95, 0.05), 0.28, 90.0)
+	_prop("survival/WaterBottle_1.glb", Vector3(-hw + 0.2, 0.95, 0.7), 0.26)
+	_prop("survival/WaterBottle_3.glb", Vector3(-hw + 0.38, 0.95, 0.72), 0.2)
+	_prop("survival/Can_Closed.glb", Vector3(-hw + 0.18, 1.82, -0.5), 0.1)
+	_prop("survival/Can_Red.glb", Vector3(-hw + 0.18, 1.82, -0.38), 0.1)
+	_prop("survival/Can_Open.glb", Vector3(-hw + 0.5, 0.95, 0.32), 0.09)
+	_prop("survival/Matchbox.glb", Vector3(-hw + 0.5, 0.95, -0.9), 0.07, 40.0, 90.0)
+	_prop("survival/FirstAidKit.glb", Vector3(-hw + 0.05, 1.45, -2.0), 0.28, 90.0)
+	_prop("survival/Bandages.glb", Vector3(0.7, 0.8, -1.7), 0.07)
+	_prop("survival/PropaneTank.glb", Vector3(hw - 0.2, 0.0, -0.05), 0.55)
+	_prop("survival/GasCan.glb", Vector3(hw - 0.2, 0.0, 0.38), 0.42, 100.0)
+	_prop("survival/Phone.glb", Vector3(hw - 0.3, 0.8, -0.65), 0.14, 160.0, -90.0)
+	_prop("survival/Torch.glb", Vector3(hw - 0.4, 0.8, -1.2), 0.22, 0.0, 90.0)
+	_prop("survival/Battery_Big.glb", Vector3(hw - 0.45, 0.8, -0.5), 0.09)
+	_prop("survival/Tent.glb", Vector3(-0.85, 0.0, -1.75), 0.55, 15.0)
+	var s := LowPolyMeshes.Builder.new(96)
+	# Curtains: gathered panels with tie-backs at every window.
+	var cloth: Array[Color] = [Color(0.9, 0.55, 0.26), Color(0.3, 0.55, 0.52), Color(0.78, 0.3, 0.32), Color(0.9, 0.75, 0.35)]
+	for i: int in 4:
+		var c: Color = cloth[i]
+		var spec: Array = [
+			[Vector3(-hw + 0.1, 1.0, 0.0), Vector3(0.05, 0.78, 0.3), Vector3(0, 0, 0.5)],
+			[Vector3(hw - 0.1, 1.02, -1.1), Vector3(0.05, 0.7, 0.3), Vector3(0, 0, 0.5)],
+			[Vector3(0.0, 1.15, LENGTH * 0.5 - 0.1), Vector3(0.3, 0.7, 0.05), Vector3(0.55, 0, 0)],
+			[Vector3(0.0, 1.17, -LENGTH * 0.5 + 0.1), Vector3(0.3, 0.8, 0.05), Vector3(0.9, 0, 0)],
+		][i]
+		for side: float in [-1.0, 1.0]:
+			var off: Vector3 = spec[2] * side
+			var size: Vector3 = spec[1]
+			var centre: Vector3 = spec[0] + off + Vector3(0, size.y * 0.5, 0)
+			s.add(_box(size), _at(centre), c, 0.0, 0.05)
+			s.add(_box(size * Vector3(1.0, 0.5, 1.0) + Vector3(0.015, 0, 0.015)), _at(centre - Vector3(0, size.y * 0.15, 0)), c.darkened(0.12))
+			s.add(LowPolyMeshes._cone(0.045, 0.045, 0.03, 8), _at(centre - Vector3(0, 0.03, 0)), Color(0.85, 0.7, 0.3))  # tie-back
+	# Small fridge at the front-left corner.
+	s.add(_box(Vector3(0.55, 1.05, 0.55)), _at(Vector3(-hw + 0.3, 0.525, -1.52)), Color(0.86, 0.9, 0.9), 0.02, 0.02)
+	s.add(_box(Vector3(0.03, 0.4, 0.04)), _at(Vector3(-hw + 0.58, 0.8, -1.3)), Color(0.7, 0.72, 0.75))
+	s.add(_box(Vector3(0.015, 0.012, 0.52)), _at(Vector3(-hw + 0.585, 0.62, -1.52)), Color(0.5, 0.55, 0.55))
+	for i: int in 3:
+		s.add(_box(Vector3(0.012, 0.06, 0.12)), _at(Vector3(-hw + 0.59, 0.9 + i * 0.05, -1.62 + i * 0.1)), Color.from_hsv(0.1 * i + 0.05, 0.7, 0.9))  # magnets
+	# Wall clock, mirror and hooks with a hat and a coat by the door.
+	s.add(LowPolyMeshes._cone(0.16, 0.16, 0.04, 16), Transform3D(Basis(Vector3.FORWARD, PI * 0.5), Vector3(hw - 0.03, 1.95, 0.2)), Color(0.5, 0.35, 0.22))
+	s.add(LowPolyMeshes._cone(0.13, 0.13, 0.045, 16), Transform3D(Basis(Vector3.FORWARD, PI * 0.5), Vector3(hw - 0.04, 1.95, 0.2)), Color(0.97, 0.95, 0.88))
+	s.add(_box(Vector3(0.012, 0.09, 0.012)), _at(Vector3(hw - 0.07, 1.98, 0.2)), Color(0.15, 0.15, 0.15))
+	s.add(_box(Vector3(0.012, 0.012, 0.06)), _at(Vector3(hw - 0.07, 1.95, 0.24)), Color(0.15, 0.15, 0.15))
+	s.add(_box(Vector3(0.03, 0.5, 0.3)), _at(Vector3(hw - 0.04, 1.45, 1.75)), Color(0.55, 0.4, 0.26))
+	s.add(_box(Vector3(0.015, 0.44, 0.24)), _at(Vector3(hw - 0.055, 1.45, 1.75)), Color(0.75, 0.85, 0.9))
+	s.add(_box(Vector3(0.04, 0.04, 0.5)), _at(Vector3(hw - 0.04, 1.85, 1.95)), Color(0.4, 0.28, 0.18))
+	s.add(LowPolyMeshes._cone(0.13, 0.13, 0.03, 12), _at(Vector3(hw - 0.2, 1.8, 2.1)), Color(0.8, 0.65, 0.35))          # straw hat brim
+	s.add(LowPolyMeshes._cone(0.08, 0.07, 0.1, 10), _at(Vector3(hw - 0.2, 1.83, 2.1)), Color(0.85, 0.7, 0.4))
+	s.add(_box(Vector3(0.1, 0.6, 0.3)), _at(Vector3(hw - 0.12, 1.5, 1.85)), Color(0.35, 0.4, 0.5), 0.03, 0.08)           # coat
+	# Boots and slippers by the door, a basket of fruit on the map table, dried herbs hanging.
+	for z: float in [0.85, 1.0]:
+		s.add(_box(Vector3(0.1, 0.05, 0.26)), _at(Vector3(hw - 0.4, 0.025, z)), Color(0.25, 0.15, 0.1))
+		s.add(_box(Vector3(0.08, 0.16, 0.1)), _at(Vector3(hw - 0.4, 0.13, z - 0.06)), Color(0.28, 0.18, 0.12))
+	s.add(LowPolyMeshes._cone(0.12, 0.09, 0.07, 10), _at(Vector3(-0.45, 0.8, -1.7)), Color(0.55, 0.4, 0.22))
+	for i: int in 5:
+		s.add(LowPolyMeshes._sphere(0.045, 0.09, 6, 3), _at(Vector3(-0.45 + (i % 3 - 1) * 0.06, 0.88, -1.7 + (i / 3 - 0.5) * 0.07)), [Color(0.85, 0.2, 0.15), Color(0.95, 0.7, 0.2), Color(0.6, 0.75, 0.25)][i % 3])
+	for i: int in 4:
+		var hx: float = -hw + 0.35 + i * 0.1
+		s.add(_box(Vector3(0.012, 0.28, 0.012)), _at(Vector3(hx, HEIGHT - 0.2, 0.9)), Color(0.4, 0.3, 0.2))
+		s.add(LowPolyMeshes._sphere(0.045, 0.14, 5, 3), _at(Vector3(hx, HEIGHT - 0.44, 0.9)), Color(0.45 + 0.1 * i, 0.55, 0.25), 0.1, 0.1)
+	# Books and mugs on the table, a plant on the shelf, slippers under the bed, a guitar on the wall.
+	for i: int in 3:
+		s.add(_box(Vector3(0.16, 0.025 + i * 0.004, 0.22)), _at(Vector3(0.5, 0.79 + i * 0.027, -1.9), 0.2 * i), [Color(0.3, 0.4, 0.55), Color(0.65, 0.3, 0.25), Color(0.85, 0.8, 0.65)][i])
+	for x: float in [0.6, 0.75]:
+		s.add(LowPolyMeshes._cone(0.035, 0.032, 0.07, 8), _at(Vector3(x, 0.8, -1.3)), Color(0.9, 0.9, 0.85))
+	s.add(LowPolyMeshes._sphere(0.2, 0.34, 6, 3), _at(Vector3(0.5, 0.0, 1.35)), Color(0.3, 0.2, 0.15))  # duffel under the bed edge
+	s.add(LowPolyMeshes._sphere(0.2, 0.48, 8, 4), _at(Vector3(hw - 0.35, 0.46, -2.15)), Color(0.78, 0.5, 0.22), 0.0, 0.03)  # guitar body
+	s.add(_box(Vector3(0.05, 0.5, 0.04)), _at(Vector3(hw - 0.35, 0.98, -2.15)), Color(0.35, 0.22, 0.14))
+	var mi := MeshInstance3D.new()
+	mi.mesh = s.commit(LowPolyMeshes.vertex_color_material(0.85))
+	add_child(mi)
+	add_child(_gallery)
+
+
+## Pins the most recent photos and drawings to the front-left wall.
+func _refresh_gallery() -> void:
+	for c: Node in _gallery.get_children():
+		c.queue_free()
+	var entries: Array = []
+	for e: Dictionary in GameState.album.entries.slice(maxi(GameState.album.entries.size() - 4, 0)):
+		entries.append({"tex": GameState.album.get_thumbnail(e), "frame": Color(0.55, 0.38, 0.24)})
+	for e: Dictionary in GameState.drawings.entries.slice(maxi(GameState.drawings.entries.size() - 2, 0)):
+		entries.append({"tex": GameState.drawings.get_thumbnail(e) if GameState.drawings.has_method(&"get_thumbnail") else null, "frame": Color(0.9, 0.85, 0.7)})
+	var hw: float = WIDTH * 0.5
+	for i: int in mini(entries.size(), 6):
+		var col: int = i % 3
+		var row: int = i / 3
+		var pos := Vector3(-hw + 0.04, 1.62 + row * 0.38, -2.15 + col * 0.52)
+		var frame := MeshInstance3D.new()
+		var fm := BoxMesh.new()
+		fm.size = Vector3(0.03, 0.3, 0.42)
+		var fmat := StandardMaterial3D.new()
+		fmat.albedo_color = entries[i].frame
+		fm.material = fmat
+		frame.mesh = fm
+		frame.position = pos
+		frame.rotation.x = deg_to_rad((i * 37 % 5 - 2) * 1.6)
+		_gallery.add_child(frame)
+		var tex: Texture2D = entries[i].tex
+		if tex:
+			var pic := MeshInstance3D.new()
+			var q := QuadMesh.new()
+			q.size = Vector2(0.37, 0.25)
+			var pm := StandardMaterial3D.new()
+			pm.albedo_texture = tex
+			pm.roughness = 0.9
+			q.material = pm
+			pic.mesh = q
+			pic.position = pos + Vector3(0.02, 0, 0)
+			pic.rotation = Vector3(frame.rotation.x, deg_to_rad(90), 0)
+			_gallery.add_child(pic)

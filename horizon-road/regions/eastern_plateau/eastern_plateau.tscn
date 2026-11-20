@@ -229,3 +229,12 @@ subject_id = &"SUBJ_NPC_LEYLA"
 present_from = 6.0
 present_until = 20.5
 model = "villager_woman"
+
+[node name="OpenBarn" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/OpenBarn.glb"
+model_size = 7.0
+spots = Array[Vector3]([Vector3(98, 78, 100)])
+collider = Vector3(0, 0, 0)

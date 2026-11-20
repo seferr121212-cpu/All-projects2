@@ -2,31 +2,46 @@
 	"_comment": "Model files used instead of procedural meshes when present (first existing wins per entry list; all existing entries become variants). Blender-made models come from tools/blender_models.py. 'material': foliage:<sway>,<sway height>,<backlight> | vertex:<roughness>.",
 	"spruce": [
 		{
-			"path": "res://assets/models/blender/spruce_1.glb",
-			"scale": 1.0,
-			"material": "foliage:0.1,10,0.2"
+			"path": "res://assets/models/packs/quaternius/trees/Pine_1.glb",
+			"scale": 1.7
 		},
 		{
-			"path": "res://assets/models/blender/spruce_2.glb",
-			"scale": 1.0,
-			"material": "foliage:0.1,10,0.2"
+			"path": "res://assets/models/packs/quaternius/trees/Pine_2.glb",
+			"scale": 1.7
 		},
 		{
-			"path": "res://assets/models/blender/spruce_3.glb",
-			"scale": 1.0,
-			"material": "foliage:0.1,10,0.2"
+			"path": "res://assets/models/packs/quaternius/trees/Pine_3.glb",
+			"scale": 1.7
+		},
+		{
+			"path": "res://assets/models/packs/quaternius/trees/Pine_4.glb",
+			"scale": 1.7
+		},
+		{
+			"path": "res://assets/models/packs/quaternius/trees/Pine_5.glb",
+			"scale": 1.7
 		}
 	],
 	"broadleaf": [
 		{
-			"path": "res://assets/models/blender/broadleaf_1.glb",
-			"scale": 1.0,
-			"material": "foliage:0.1,6,0.32"
+			"path": "res://assets/models/packs/quaternius/trees/Tree_1.glb",
+			"scale": 1.6
 		},
 		{
-			"path": "res://assets/models/blender/broadleaf_2.glb",
-			"scale": 1.0,
-			"material": "foliage:0.1,6,0.32"
+			"path": "res://assets/models/packs/quaternius/trees/Tree_4.glb",
+			"scale": 1.6
+		},
+		{
+			"path": "res://assets/models/packs/quaternius/trees/Tree_7.glb",
+			"scale": 1.6
+		},
+		{
+			"path": "res://assets/models/packs/quaternius/trees/Birch_1.glb",
+			"scale": 1.0
+		},
+		{
+			"path": "res://assets/models/packs/quaternius/trees/Birch_5.glb",
+			"scale": 1.0
 		}
 	],
 	"rock": [
@@ -337,6 +352,20 @@
 			"path": "res://assets/models/blender/camper_cabin.glb",
 			"scale": 1.0,
 			"material": "vertex:0.8"
+		}
+	],
+	"camper_wheel": [
+		{
+			"path": "res://assets/models/blender/camper_wheel.glb",
+			"scale": 1.0,
+			"material": "vertex:0.55"
+		}
+	],
+	"camper_extras": [
+		{
+			"path": "res://assets/models/blender/camper_extras.glb",
+			"scale": 1.0,
+			"material": "vertex:0.5"
 		}
 	]
 }

@@ -301,13 +301,19 @@ func _build_visual() -> void:
 		lens.transform = Transform3D(Basis(Vector3.RIGHT, PI * 0.5), Vector3(x, 1.05, -2.44))
 		lens.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		_visual.add_child(lens)
-	var wheel_mesh: Mesh = LowPolyMeshes.wheel()
+	for m: Mesh in AssetLibrary.meshes("camper_extras", []):
+		var extras := MeshInstance3D.new()
+		extras.mesh = m
+		_visual.add_child(extras)
+	var wheel_mesh: Mesh = AssetLibrary.meshes("camper_wheel", [LowPolyMeshes.wheel()])[0]
 	for x: float in [-0.88, 0.88]:
 		for z: float in [-1.45, 1.5]:
 			var pivot := Node3D.new()
 			pivot.position = Vector3(x, WHEEL_RADIUS, z)
 			var mi := MeshInstance3D.new()
 			mi.mesh = wheel_mesh
+			if x < 0.0:
+				mi.rotation.y = PI
 			pivot.add_child(mi)
 			_visual.add_child(pivot)
 			_wheels.append(pivot)

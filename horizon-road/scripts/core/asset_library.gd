@@ -123,6 +123,12 @@ static func _collect(node: Node, parent_xf: Transform3D, out: ArrayMesh) -> void
 			arrays[Mesh.ARRAY_TANGENT] = null
 			out.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 			var mat: Material = mi.get_active_material(s)
+			if mat is StandardMaterial3D and (mat as StandardMaterial3D).transparency != BaseMaterial3D.TRANSPARENCY_DISABLED:
+				# Leaf cards: hard-edged cutout (no sorting problems, casts leaf-shaped shadows).
+				var sm := mat as StandardMaterial3D
+				sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+				sm.alpha_scissor_threshold = 0.5
+				sm.cull_mode = BaseMaterial3D.CULL_DISABLED
 			if mat:
 				out.surface_set_material(out.get_surface_count() - 1, mat)
 	for c: Node in node.get_children():

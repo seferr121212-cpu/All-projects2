@@ -50,7 +50,9 @@ func _ready() -> void:
 
 func _scatter_spruces() -> void:
 	var variants: Array[Mesh] = AssetLibrary.meshes("spruce", [LowPolyMeshes.spruce(1), LowPolyMeshes.spruce(2), LowPolyMeshes.spruce(3)])
-	var buckets: Array[Dictionary] = [{}, {}, {}]
+	var buckets: Array[Dictionary] = []
+	for i: int in variants.size():
+		buckets.append({})
 	var placed: int = 0
 	var attempts: int = 0
 	while placed < int(spruce_count * density_scale) and attempts < spruce_count * 12:
@@ -73,8 +75,10 @@ func _scatter_spruces() -> void:
 
 
 func _scatter_broadleaves() -> void:
-	var mesh: Mesh = AssetLibrary.meshes("broadleaf", [LowPolyMeshes.broadleaf()])[0]
-	var bucket: Dictionary = {}
+	var variants: Array[Mesh] = AssetLibrary.meshes("broadleaf", [LowPolyMeshes.broadleaf()])
+	var buckets: Array[Dictionary] = []
+	for i: int in variants.size():
+		buckets.append({})
 	var placed: int = 0
 	var attempts: int = 0
 	while placed < int(broadleaf_count * density_scale) and attempts < broadleaf_count * 20:
@@ -88,9 +92,10 @@ func _scatter_broadleaves() -> void:
 			continue
 		if _terrain.normal_at(p.x, p.y).y < 0.75:
 			continue
-		_add(bucket, _ground_transform(p, _rng.randf_range(0.8, 1.3), 0.3, 0.05), _tint(0.12))
+		_add(buckets[_rng.randi() % variants.size()], _ground_transform(p, _rng.randf_range(0.8, 1.3), 0.3, 0.05), _tint(0.12))
 		placed += 1
-	_build(bucket, mesh, "Broadleaf", 0.0, true)
+	for i: int in variants.size():
+		_build(buckets[i], variants[i], "Broadleaf%d" % i, 0.0, true)
 
 
 ## Tea is planted in contour-following hedgerows on the garden slope.

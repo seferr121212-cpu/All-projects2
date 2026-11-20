@@ -28,3 +28,9 @@ prosedürel olanlar kullanılır. Dosya adları farklıysa JSON'daki yolları d�
 
 **Dosya biçimi:** modeller `.glb`/`.gltf`, sesler `.ogg` (döngüler için) veya `.wav`.
 Lisans dosyalarını (`License.txt`) paket klasöründe bırak.
+
+## Quaternius packs (CC0)
+`assets/models/packs/quaternius/` — converted from the FBX originals with `tools/convert_packs.py`
+(Survival Pack, Farm Buildings, Ships, Textured Stylized Trees, Cute Fish Pack). CC0, credit: Quaternius (quaternius.com).
+Used: broadleaf/birch + pine trees (vegetation), barn/silo/coop/windmill/well, a sailing ship in the Aegean bay,
+survival props inside the camper. The fish pack is converted but not yet used.

@@ -38,6 +38,16 @@ func _ready() -> void:
 		add_child(boat)
 		_boats.append(boat)
 		_rest_y.append(boat.position.y)
+	# A three-masted ship at anchor in the bay, bobbing like the others.
+	var ship_mesh: ArrayMesh = AssetLibrary.load_model("res://assets/models/packs/quaternius/ships/Sail_ship.glb", 2.3)
+	if ship_mesh:
+		var ship := MeshInstance3D.new()
+		ship.mesh = ship_mesh
+		ship.position = Vector3(-34, -0.6, 105)
+		ship.rotation.y = deg_to_rad(35)
+		add_child(ship)
+		_boats.append(ship)
+		_rest_y.append(ship.position.y)
 	# A boat hauled up on the sand and nets drying beside it.
 	var beached := MeshInstance3D.new()
 	beached.mesh = boat_models[1 % boat_models.size()] if not boat_models.is_empty() else LowPolyMeshes.boat(250, Color(0.85, 0.85, 0.82))

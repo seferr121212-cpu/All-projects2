@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://scripts/activities/tea_brewing.gd" id="40_brew"]
 [ext_resource type="Script" path="res://scripts/activities/engine_repair.gd" id="41_repair"]
 
+[ext_resource type="Script" path="res://scripts/world/prop_placer.gd" id="40_props"]
 [node name="BlackseaHighland" type="Node3D"]
 script = ExtResource("1_region")
 definition = ExtResource("2_def")
@@ -249,3 +250,30 @@ subject_id = &"SUBJ_NPC_AYSE"
 present_from = 6.0
 present_until = 20.5
 model = "villager_woman"
+
+[node name="Barn" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/Barn.glb"
+model_size = 8.5
+spots = Array[Vector3]([Vector3(-141, -80, 80)])
+collider = Vector3(7.5, 6, 8)
+
+[node name="Silo" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/Silo.glb"
+model_size = 9.0
+spots = Array[Vector3]([Vector3(-152, -90, 0)])
+collider = Vector3(3.4, 9, 3.4)
+
+[node name="Coop" type="Node3D" parent="."]
+script = ExtResource("40_props")
+terrain_path = NodePath("../Terrain")
+kind = "model"
+model_path = "res://assets/models/packs/quaternius/farm/ChickenCoop.glb"
+model_size = 2.4
+spots = Array[Vector3]([Vector3(-132, -66, 30)])
+collider = Vector3(2.2, 1.8, 2)

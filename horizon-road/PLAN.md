@@ -230,3 +230,8 @@ Yeni diyalog eylemleri `give:<n>`, `story:<id>`; QuestLog'a `flag` türü ve hik
 makinenden geri bildirim için. Windows paketi + kontrol listesi (docs/QA.md).
 - Yapıldı (Aşama 12): 4 hikâye NPC'si (Ayşe/Murat/Selim/Leyla, 3 bölüm + harita parçası + final görevi), diyalog eylemleri give/story/story_piece,
   konuşma blip'leri + ayak sesleri, parmak/yüz detayı, `QaReport` + F3 "QA raporunu kaydet", `--smoke` (4 bölge PASS), docs/QA.md. Sürüm 0.10.0.
+
+## Aşama 13 — Karavan detayı ve Quaternius paketleri (v0.11.0)
+- Karavan: Blender'da lastik (tırtıl, jant, kapak), çamurluk kemerleri, basamak, ızgara, merdiven, tente, bidon, sandalye (`camper_wheel/extras`).
+- İç mekân: perdeler, buzdolabı, saat, ayna, kanca/şapka/ceket, çizme, bitki-bitkisel demetler, gitar, kitaplar, fotoğraf duvarı (albümden), Quaternius sırt çantası/radyo/tencere/pusula/ilk yardım/telefon/gaz tüpü...
+- Paketler: ağaçlar (yaprak kartları alfa kesmeli), çiftlik yapıları, gemi. Dönüştürücü: `tools/convert_packs.py`.
