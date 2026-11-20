@@ -52,7 +52,7 @@
 			"scene": "factory_gate",
 			"spawn": "dawn",
 			"player": "defne",
-			"next": "l01"
+			"next": "s8l_01"
 		},
 		"pk": {
 			"type": "effect",
@@ -70,7 +70,7 @@
 			"scene": "factory_gate",
 			"spawn": "dawn",
 			"player": "kemal",
-			"next": "l01"
+			"next": "s8l_01"
 		},
 		"pr": {
 			"type": "effect",
@@ -88,7 +88,7 @@
 			"scene": "factory_gate",
 			"spawn": "dawn",
 			"player": "riza",
-			"next": "l01"
+			"next": "s8l_01"
 		},
 		"l01": {
 			"type": "line",
@@ -559,7 +559,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_taken",
-			"next": "s8b_01"
+			"next": "s8k_01"
 		},
 		"r_speak": {
 			"type": "line",
@@ -644,19 +644,19 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_take",
-			"next": "s8b_01"
+			"next": "s8k_01"
 		},
 		"r_name": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_name",
-			"next": "s8b_01"
+			"next": "s8k_01"
 		},
 		"r_refuse": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_refuse",
-			"next": "s8b_01"
+			"next": "s8k_01"
 		},
 		"outro": {
 			"type": "line",
@@ -955,6 +955,18 @@
 			"text": "ch08.s8b_04",
 			"next": "outro"
 		},
+		"s8l_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8l_01",
+			"next": "s8l_02"
+		},
+		"s8l_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8l_02",
+			"next": "l01"
+		},
 		"s8e_01": {
 			"type": "line",
 			"speaker": "hoca",
@@ -1218,6 +1230,24 @@
 			"speaker": "narrator",
 			"text": "ch08.s8f_08",
 			"next": "start"
+		},
+		"s8k_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8k_01",
+			"next": "s8k_02"
+		},
+		"s8k_02": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch08.s8k_02",
+			"next": "s8k_03"
+		},
+		"s8k_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8k_03",
+			"next": "s8b_01"
 		}
 	}
 }

@@ -23,7 +23,7 @@
 			"scene": "port_yard",
 			"spawn": "riza_truck",
 			"player": "riza",
-			"next": "l01"
+			"next": "s8j_01"
 		},
 		"l01": {
 			"type": "line",
@@ -35,7 +35,7 @@
 			"type": "line",
 			"speaker": "riza",
 			"text": "ch03.l02",
-			"next": "x01",
+			"next": "s8l_01",
 			"variants": [
 				{
 					"if": {
@@ -761,6 +761,24 @@
 			"text": "ch03.s8c_06",
 			"next": "end"
 		},
+		"s8l_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8l_01",
+			"next": "s8l_02"
+		},
+		"s8l_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.s8l_02",
+			"next": "s8l_03"
+		},
+		"s8l_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8l_03",
+			"next": "x01"
+		},
 		"s8e_01": {
 			"type": "line",
 			"speaker": "narrator",
@@ -848,6 +866,54 @@
 			"speaker": "riza",
 			"text": "ch03.s8e_06",
 			"next": "c01"
+		},
+		"s8j_01": {
+			"type": "line",
+			"speaker": "nuri",
+			"text": "ch03.s8j_01",
+			"next": "s8j_02"
+		},
+		"s8j_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.s8j_02",
+			"next": "s8j_03"
+		},
+		"s8j_03": {
+			"type": "line",
+			"speaker": "nuri",
+			"text": "ch03.s8j_03",
+			"next": "s8j_04"
+		},
+		"s8j_04": {
+			"type": "line",
+			"speaker": "nuri",
+			"text": "ch03.s8j_04",
+			"next": "s8j_05"
+		},
+		"s8j_05": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.s8j_05",
+			"next": "s8j_06"
+		},
+		"s8j_06": {
+			"type": "line",
+			"speaker": "nuri",
+			"text": "ch03.s8j_06",
+			"next": "s8j_07"
+		},
+		"s8j_07": {
+			"type": "line",
+			"speaker": "nuri",
+			"text": "ch03.s8j_07",
+			"next": "s8j_08"
+		},
+		"s8j_08": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8j_08",
+			"next": "l01"
 		}
 	}
 }

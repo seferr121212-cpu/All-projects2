@@ -1,8 +1,44 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.2 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.3 · Godot 4.7 · Compatibility renderer
 
-# 3. KISIM: B devam (en güncel durum)
+# 4. KISIM: ana yol (en güncel durum)
+
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
+|---|---|---|---|
+| 0.8.2 | ~47 dk | ~67 dk | ~7.060 |
+| **0.8.3 (bu teslim)** | **~53 dk** | **~75 dk** | **~8.220** (+ ~12.380 EN) |
+
+Önceki teslimde önerdiğim gibi bu teslim **ana yola**, yani her oynanışta görülen sahnelere yazıldı. Verim belirgin biçimde arttı: ~1.160 kelime, dikkatli oyuncuya ~8 dakika ekledi. Daldaki içerikte bu oran 1.000 kelimede ~4 dakikaydı.
+
+**Yeni sahneler:**
+| Bölüm | Sahne |
+|---|---|
+| 1 | Bekçi Hamdi ile vardiya devri ("olmalıydı ile oldu arasındaki koridor") · üretim holünde açılış hazırlığı ve geri sayım |
+| 2 | Sabah altıda baba ile kızın kısa konuşması ("Anahtar bir taraf seçmez") · kürsüye çıkmadan önce Selim · akşam sendika toplantısında oylama (yeni yan karakter Bayram; süresiz seçim) |
+| 3 | Konteyner sıraları · vinççi Nuri telsizden: "Kırk yedi kokuyor" |
+| 4 | Defne'nin eve dönüşü · akşam yemeğinde haberler ve "Görmek başka, bakmak başka" |
+| 5 | Bekçi Hamdi ve kapalı arka rampa kamerası · şafak: itfaiye şefi ya da polis şeridi, battaniyeler, simit |
+| 6 | Bekleme koridorunda Nevin: "Bir kere okumadım" |
+| 7 | Üç hafta sonra: bakkalın veresiye defterinde "Fabrika" sayfası |
+| 8 | Kapıya varış ve Hamdi'nin son nöbeti · kurul giderken zincir |
+
+Yeni yan karakterler: Bayram (sendika temsilcisi), vinççi Nuri, bekçi Hamdi. Üçü de yalnızca sesle var, sahnede bedenleri yok. Aşama 8'deki yan karakter sayısı böylece 10 oldu.
+
+**Testler:**
+- Doğrulayıcı: 0 hata, 2 bilinçli uyarı.
+- Tam oyun simülasyonu: 5 sonun hepsine ulaşılıyor.
+- Python testleri: 37/37.
+- Motor testleri ve kare süresi: çalıştırılamadı (Godot izni yok).
+
+**Kalan iş (B hedefi ~1,5-2 saat):**
+- B için planlanan 20.000 tekil kelimenin ~%41'i yazıldı. Ana yol verimiyle (1.000 kelimede ~7 dakika), 90 dakika için **~2.000 kelime daha** yetmeli; 2 saat için **~6.000 kelime**.
+- Dolayısıyla 20.000 kelimenin tamamı gerekmeyebilir. Hedef süreye göre kalan iş 1-2 teslim.
+
+---
+
+
+# 3. KISIM: B devam
 
 | Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
 |---|---|---|---|

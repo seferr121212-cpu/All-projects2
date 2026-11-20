@@ -47,7 +47,7 @@
 			"scene": "factory_night",
 			"spawn": "kemal_floor",
 			"player": "kemal",
-			"next": "l01"
+			"next": "s8j_01"
 		},
 		"l01": {
 			"type": "line",
@@ -721,7 +721,7 @@
 					"next": "s8d_00"
 				}
 			],
-			"else": "outro"
+			"else": "s8k_01"
 		},
 		"d_pov": {
 			"type": "effect",
@@ -801,7 +801,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.d_dead",
-			"next": "outro"
+			"next": "s8k_01"
 		},
 		"d_c": {
 			"type": "choice",
@@ -846,25 +846,25 @@
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch05.d_rec",
-			"next": "outro"
+			"next": "s8k_01"
 		},
 		"d_help": {
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch05.d_help",
-			"next": "outro"
+			"next": "s8k_01"
 		},
 		"d_freeze": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.d_freeze",
-			"next": "outro"
+			"next": "s8k_01"
 		},
 		"d_out": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.d_out",
-			"next": "outro",
+			"next": "s8k_01",
 			"variants": [
 				{
 					"if": {
@@ -1734,6 +1734,94 @@
 			"speaker": "narrator",
 			"text": "ch05.s8i_03",
 			"next": "fx"
+		},
+		"s8j_01": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch05.s8j_01",
+			"next": "s8j_02"
+		},
+		"s8j_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8j_02",
+			"next": "s8j_03"
+		},
+		"s8j_03": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch05.s8j_03",
+			"next": "s8j_04"
+		},
+		"s8j_04": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch05.s8j_04",
+			"next": "s8j_05"
+		},
+		"s8j_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8j_05",
+			"next": "s8j_06"
+		},
+		"s8j_06": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch05.s8j_06",
+			"next": "s8j_07"
+		},
+		"s8j_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8j_07",
+			"next": "l01"
+		},
+		"s8k_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8k_01",
+			"next": "s8k_02"
+		},
+		"s8k_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8k_02",
+			"next": "s8k_03",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "fire_started",
+							"eq": true
+						}
+					},
+					"text": "ch05.s8k_02_v1"
+				}
+			]
+		},
+		"s8k_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8k_03",
+			"next": "s8k_04",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "fire_started",
+							"eq": true
+						}
+					},
+					"text": "ch05.s8k_03_v1"
+				}
+			]
+		},
+		"s8k_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8k_04",
+			"next": "outro"
 		}
 	}
 }

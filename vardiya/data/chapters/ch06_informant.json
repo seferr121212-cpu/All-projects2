@@ -52,7 +52,7 @@
 			"scene": "police_room",
 			"spawn": "seat",
 			"player": "riza",
-			"next": "l01"
+			"next": "s8j_01"
 		},
 		"pd": {
 			"type": "effect",
@@ -70,7 +70,7 @@
 			"scene": "police_room",
 			"spawn": "seat",
 			"player": "defne",
-			"next": "l01"
+			"next": "s8j_01"
 		},
 		"pk": {
 			"type": "effect",
@@ -88,7 +88,7 @@
 			"scene": "police_room",
 			"spawn": "seat",
 			"player": "kemal",
-			"next": "l01"
+			"next": "s8j_01"
 		},
 		"l01": {
 			"type": "line",
@@ -1276,6 +1276,45 @@
 			"speaker": "narrator",
 			"text": "ch06.s8g_03",
 			"next": "c02"
+		},
+		"s8j_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8j_01",
+			"next": "s8j_02"
+		},
+		"s8j_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8j_02",
+			"next": "s8j_03"
+		},
+		"s8j_03": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch06.s8j_03",
+			"next": "s8j_04",
+			"variants": [
+				{
+					"if": {
+						"flag": "defne_found_papers",
+						"eq": true
+					},
+					"text": "ch06.s8j_03_v1"
+				}
+			]
+		},
+		"s8j_04": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch06.s8j_04",
+			"next": "s8j_05"
+		},
+		"s8j_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8j_05",
+			"next": "l01"
 		}
 	}
 }

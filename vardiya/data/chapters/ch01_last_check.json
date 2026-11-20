@@ -117,7 +117,7 @@
 						"found": "ch01_own_locker"
 					},
 					"locked_text": "ch01.it.locker_door.locked",
-					"next": "loc_floor"
+					"next": "s8k_01"
 				}
 			]
 		},
@@ -127,7 +127,7 @@
 			"scene": "factory_floor",
 			"spawn": "from_locker",
 			"player": "kemal",
-			"next": "l03"
+			"next": "s8l_01"
 		},
 		"l03": {
 			"type": "line",
@@ -1370,6 +1370,72 @@
 			"speaker": "narrator",
 			"text": "ch01.s8d_07",
 			"next": "l10"
+		},
+		"s8l_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8l_01",
+			"next": "s8l_02"
+		},
+		"s8l_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8l_02",
+			"next": "s8l_03"
+		},
+		"s8l_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8l_03",
+			"next": "s8l_04"
+		},
+		"s8l_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8l_04",
+			"next": "l03"
+		},
+		"s8k_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8k_01",
+			"next": "s8k_02"
+		},
+		"s8k_02": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch01.s8k_02",
+			"next": "s8k_03"
+		},
+		"s8k_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8k_03",
+			"next": "s8k_04"
+		},
+		"s8k_04": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch01.s8k_04",
+			"next": "s8k_05"
+		},
+		"s8k_05": {
+			"type": "line",
+			"speaker": "hamdi",
+			"text": "ch01.s8k_05",
+			"next": "s8k_06"
+		},
+		"s8k_06": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8k_06",
+			"next": "s8k_07"
+		},
+		"s8k_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8k_07",
+			"next": "loc_floor"
 		}
 	}
 }

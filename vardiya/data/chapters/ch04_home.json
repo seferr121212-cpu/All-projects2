@@ -23,7 +23,7 @@
 			"scene": "family_home",
 			"spawn": "defne_room",
 			"player": "defne",
-			"next": "l01"
+			"next": "s8l_01"
 		},
 		"l01": {
 			"type": "line",
@@ -656,7 +656,7 @@
 			"scene": "family_home",
 			"spawn": "living",
 			"player": "defne",
-			"next": "x01"
+			"next": "s8j_01"
 		},
 		"s8b_br": {
 			"type": "branch",
@@ -911,6 +911,78 @@
 			"speaker": "narrator",
 			"text": "ch04.s8c_07",
 			"next": "end"
+		},
+		"s8l_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8l_01",
+			"next": "s8l_02"
+		},
+		"s8l_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.s8l_02",
+			"next": "s8l_03"
+		},
+		"s8l_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8l_03",
+			"next": "l01"
+		},
+		"s8j_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8j_01",
+			"next": "s8j_02"
+		},
+		"s8j_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch04.s8j_02",
+			"next": "s8j_03"
+		},
+		"s8j_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8j_03",
+			"next": "s8j_04"
+		},
+		"s8j_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch04.s8j_04",
+			"next": "s8j_05"
+		},
+		"s8j_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8j_05",
+			"next": "s8j_06"
+		},
+		"s8j_06": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.s8j_06",
+			"next": "s8j_07"
+		},
+		"s8j_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8j_07",
+			"next": "s8j_08"
+		},
+		"s8j_08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8j_08",
+			"next": "s8j_09"
+		},
+		"s8j_09": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.s8j_09",
+			"next": "x01"
 		}
 	}
 }

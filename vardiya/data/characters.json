@@ -203,6 +203,54 @@
 				"height": 0.97,
 				"build": 0.92
 			}
+		},
+		"bayram": {
+			"name": "char.bayram",
+			"color": "#e0a878",
+			"body": "#7a3a2a",
+			"look": {
+				"top": "#7a3a2a",
+				"pants": "#2e2a26",
+				"skin": "#c08c68",
+				"hair": "#4a4038",
+				"hair_style": "short",
+				"mustache": true,
+				"coat": true,
+				"height": 1.02,
+				"build": 1.1
+			}
+		},
+		"nuri": {
+			"name": "char.nuri",
+			"color": "#a8d0c8",
+			"body": "#c8a030",
+			"look": {
+				"top": "#c8a030",
+				"pants": "#2a3038",
+				"skin": "#b8885e",
+				"hair": "#2a2420",
+				"hair_style": "cap",
+				"cap": "#c8a030",
+				"beard": true,
+				"height": 0.98,
+				"build": 1.0
+			}
+		},
+		"hamdi": {
+			"name": "char.hamdi",
+			"color": "#c0c0d8",
+			"body": "#2a3a5a",
+			"look": {
+				"top": "#2a3a5a",
+				"pants": "#22262e",
+				"skin": "#c49a7a",
+				"hair": "#c8c4bc",
+				"hair_style": "cap",
+				"cap": "#22304a",
+				"mustache": true,
+				"height": 0.96,
+				"build": 1.05
+			}
 		}
 	}
 }

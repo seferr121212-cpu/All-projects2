@@ -223,5 +223,9 @@
 	"lawyer_advice": {
 		"default": "",
 		"doc": "What the union lawyer was told in the corridor (ch6): all/part."
+	},
+	"union_vote": {
+		"default": "",
+		"doc": "Kemal's hand at the union meeting (ch2): up/down/none."
 	}
 }
