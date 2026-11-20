@@ -136,6 +136,18 @@
 		"default": false,
 		"doc": "Kemal brought up İzmir and Sevgi with Defne (ch1)."
 	},
+	"kemal_lunch_call": {
+		"default": "",
+		"doc": "What Kemal told Defne on the lunch call (ch1): robot/fine/exam."
+	},
+	"kemal_asked_for_selim": {
+		"default": false,
+		"doc": "Kemal asked Nevin to take Selim off the list (ch2)."
+	},
+	"defne_offered_savings": {
+		"default": false,
+		"doc": "Defne offered Rıza her savings for the debt (ch4)."
+	},
 	"ece_bond": {
 		"default": "",
 		"doc": "What Defne told Ece about quitting the exam (ch2): study/free/strike."
@@ -155,6 +167,10 @@
 	"riza_exam_ride": {
 		"default": false,
 		"doc": "Rıza promised to drive Defne to the exam (ch3)."
+	},
+	"scene_guests": {
+		"default": "",
+		"doc": "Which stage-8 guests stand in the current location (set right before it is built)."
 	},
 	"defne_read_letters": {
 		"default": false,

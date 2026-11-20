@@ -387,7 +387,80 @@
 		"s8a_00": {
 			"type": "location",
 			"location": "loc.ch03.s8a_00",
-			"next": "s8a_01"
+			"scene": "harbour_teahouse",
+			"spawn": "door",
+			"player": "riza",
+			"next": "s8a_x"
+		},
+		"s8a_x": {
+			"type": "explore",
+			"scene": "harbour_teahouse",
+			"objective": "ch03.s8a_x.objective",
+			"items": [
+				{
+					"id": "ch03_s8_tv",
+					"label": "ch03.it.ch03_s8_tv",
+					"point": "ch03_s8_tv",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_tv.l1"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_s8_tv.l2"
+						}
+					]
+				},
+				{
+					"id": "ch03_s8_counter",
+					"label": "ch03.it.ch03_s8_counter",
+					"point": "ch03_s8_counter",
+					"journal": "journal.ch03.ch03_s8_counter",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_counter.l1"
+						},
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_counter.l2"
+						}
+					]
+				},
+				{
+					"id": "ch03_s8_backgammon",
+					"label": "ch03.it.ch03_s8_backgammon",
+					"point": "ch03_s8_backgammon",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_backgammon.l1"
+						},
+						{
+							"speaker": "riza",
+							"text": "ch03.it.ch03_s8_backgammon.l2"
+						}
+					]
+				},
+				{
+					"id": "ch03_s8_window",
+					"label": "ch03.it.ch03_s8_window",
+					"point": "ch03_s8_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch03.it.ch03_s8_window.l1"
+						}
+					]
+				},
+				{
+					"id": "ch03_s8_cevdet",
+					"label": "ch03.it.ch03_s8_cevdet",
+					"actor": "cevdet",
+					"next": "s8a_01"
+				}
+			]
 		},
 		"s8a_01": {
 			"type": "line",

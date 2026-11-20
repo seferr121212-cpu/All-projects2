@@ -423,6 +423,45 @@
 				1.6
 			],
 			"rot": 90
+		},
+		{
+			"id": "ece",
+			"pos": [
+				0.8,
+				0,
+				-0.6
+			],
+			"rot": 180,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch04_ece"
+			}
+		},
+		{
+			"id": "selim",
+			"pos": [
+				1.2,
+				0,
+				0.4
+			],
+			"rot": 200,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch07_baby"
+			}
+		},
+		{
+			"id": "zeynep",
+			"pos": [
+				-1.8,
+				0,
+				0.4
+			],
+			"rot": 160,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch07_baby"
+			}
 		}
 	],
 	"points": {

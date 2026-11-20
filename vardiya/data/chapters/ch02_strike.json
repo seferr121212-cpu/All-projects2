@@ -267,7 +267,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch02.l04k",
-			"next": "c02",
+			"next": "s8d_01",
 			"variants": [
 				{
 					"if": {
@@ -462,6 +462,79 @@
 			"type": "end",
 			"next_chapter": "ch03_port"
 		},
+		"s8d_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8d_01",
+			"next": "s8d_02"
+		},
+		"s8d_02": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.s8d_02",
+			"next": "s8d_03"
+		},
+		"s8d_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8d_03",
+			"next": "s8d_04"
+		},
+		"s8d_04": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.s8d_04",
+			"next": "s8d_05"
+		},
+		"s8d_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8d_05",
+			"next": "s8d_c1"
+		},
+		"s8d_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch02_nevin",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch02.s8d_c1.prompt",
+			"options": [
+				{
+					"id": "selim",
+					"text": "ch02.s8d_c1.selim",
+					"next": "s8d_r1",
+					"effects": [
+						{
+							"set_flag": "kemal_asked_for_selim",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "nothing",
+					"text": "ch02.s8d_c1.nothing",
+					"next": "s8d_r2"
+				}
+			]
+		},
+		"s8d_r1": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.s8d_r1",
+			"next": "s8d_06"
+		},
+		"s8d_r2": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch02.s8d_r2",
+			"next": "s8d_06"
+		},
+		"s8d_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8d_06",
+			"next": "c02"
+		},
 		"s8a_01": {
 			"type": "line",
 			"speaker": "narrator",
@@ -598,7 +671,65 @@
 		"s8b_d00": {
 			"type": "location",
 			"location": "loc.ch02.s8b_d00",
-			"next": "s8b_d01"
+			"scene": "prep_school",
+			"spawn": "back",
+			"player": "defne",
+			"next": "s8b_dx"
+		},
+		"s8b_dx": {
+			"type": "explore",
+			"scene": "prep_school",
+			"objective": "ch02.s8b_dx.objective",
+			"items": [
+				{
+					"id": "ch02_s8_board",
+					"label": "ch02.it.ch02_s8_board",
+					"point": "ch02_s8_board",
+					"journal": "journal.ch02.ch02_s8_board",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_s8_board.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_s8_board.l2"
+						}
+					]
+				},
+				{
+					"id": "ch02_s8_window",
+					"label": "ch02.it.ch02_s8_window",
+					"point": "ch02_s8_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_s8_window.l1"
+						},
+						{
+							"speaker": "defne",
+							"text": "ch02.it.ch02_s8_window.l2"
+						}
+					]
+				},
+				{
+					"id": "ch02_s8_desk",
+					"label": "ch02.it.ch02_s8_desk",
+					"point": "ch02_s8_desk",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch02.it.ch02_s8_desk.l1"
+						}
+					]
+				},
+				{
+					"id": "ch02_s8_hoca",
+					"label": "ch02.it.ch02_s8_hoca",
+					"actor": "hoca",
+					"next": "s8b_d01"
+				}
+			]
 		},
 		"s8b_d01": {
 			"type": "line",

@@ -718,7 +718,7 @@
 						"status": "defne",
 						"eq": "alive"
 					},
-					"next": "d_out"
+					"next": "s8d_00"
 				}
 			],
 			"else": "outro"
@@ -1104,8 +1104,69 @@
 			"next": "loc_k"
 		},
 		"s8b_00": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"not": {
+									"flag": "defne_chose_exam",
+									"eq": true
+								}
+							}
+						]
+					},
+					"next": "s8b_pd"
+				},
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "alive"
+					},
+					"next": "s8b_pk"
+				},
+				{
+					"if": {
+						"status": "riza",
+						"eq": "alive"
+					},
+					"next": "s8b_pr"
+				}
+			],
+			"else": "s8b_pc"
+		},
+		"s8b_pd": {
 			"type": "location",
-			"location": "loc.ch05.s8b_00",
+			"location": "loc.ch05.s8_hosp",
+			"scene": "hospital_corridor",
+			"spawn": "entrance",
+			"player": "defne",
+			"next": "s8b_01"
+		},
+		"s8b_pk": {
+			"type": "location",
+			"location": "loc.ch05.s8_hosp",
+			"scene": "hospital_corridor",
+			"spawn": "entrance",
+			"player": "kemal",
+			"next": "s8b_01"
+		},
+		"s8b_pr": {
+			"type": "location",
+			"location": "loc.ch05.s8_hosp",
+			"scene": "hospital_corridor",
+			"spawn": "entrance",
+			"player": "riza",
+			"next": "s8b_01"
+		},
+		"s8b_pc": {
+			"type": "location",
+			"location": "loc.ch05.s8_hosp",
 			"next": "s8b_01"
 		},
 		"s8b_01": {
@@ -1346,7 +1407,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.s8b_12",
-			"next": "chk",
+			"next": "s8b_xb",
 			"variants": [
 				{
 					"if": {
@@ -1368,6 +1429,162 @@
 					"text": "ch05.s8b_12_v1"
 				}
 			]
+		},
+		"s8b_xb": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"any": [
+							{
+								"status": "kemal",
+								"eq": "alive"
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							},
+							{
+								"all": [
+									{
+										"status": "defne",
+										"eq": "alive"
+									},
+									{
+										"not": {
+											"flag": "defne_chose_exam",
+											"eq": true
+										}
+									}
+								]
+							}
+						]
+					},
+					"next": "s8b_x"
+				}
+			],
+			"else": "chk"
+		},
+		"s8b_x": {
+			"type": "explore",
+			"scene": "hospital_corridor",
+			"objective": "ch05.s8b_x.objective",
+			"items": [
+				{
+					"id": "ch05_s8_machine",
+					"label": "ch05.it.ch05_s8_machine",
+					"point": "ch05_s8_machine",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch05.it.ch05_s8_machine.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_s8_window",
+					"label": "ch05.it.ch05_s8_window",
+					"point": "ch05_s8_window",
+					"journal": "journal.ch05.ch05_s8_window",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch05.it.ch05_s8_window.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_s8_zeynep",
+					"label": "ch05.it.ch05_s8_zeynep",
+					"actor": "zeynep",
+					"lines": [
+						{
+							"speaker": "zeynep",
+							"text": "ch05.it.ch05_s8_zeynep.l1"
+						}
+					]
+				},
+				{
+					"id": "ch05_s8_desk",
+					"label": "ch05.it.ch05_s8_desk",
+					"point": "ch05_s8_desk",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch05.it.ch05_s8_desk.l1"
+						}
+					],
+					"next": "chk"
+				}
+			]
+		},
+		"s8d_00": {
+			"type": "location",
+			"location": "loc.ch05.s8d_00",
+			"scene": "prep_school",
+			"spawn": "back",
+			"player": "defne",
+			"next": "s8d_01"
+		},
+		"s8d_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8d_01",
+			"next": "s8d_02"
+		},
+		"s8d_02": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch05.s8d_02",
+			"next": "s8d_03"
+		},
+		"s8d_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8d_03",
+			"next": "s8d_04"
+		},
+		"s8d_04": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch05.s8d_04",
+			"next": "s8d_05"
+		},
+		"s8d_05": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch05.s8d_05",
+			"next": "s8d_06"
+		},
+		"s8d_06": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch05.s8d_06",
+			"next": "s8d_07",
+			"if": {
+				"any": [
+					{
+						"flag": "ece_bond",
+						"eq": "study"
+					},
+					{
+						"flag": "ece_bond",
+						"eq": "strike"
+					}
+				]
+			}
+		},
+		"s8d_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8d_07",
+			"next": "s8d_08"
+		},
+		"s8d_08": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8d_08",
+			"next": "d_out"
 		}
 	}
 }

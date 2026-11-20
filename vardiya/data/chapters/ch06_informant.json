@@ -254,7 +254,7 @@
 					"id": "ch06_komiser",
 					"label": "ch06.it.ch06_komiser",
 					"actor": "komiser",
-					"next": "c01"
+					"next": "s8d_01"
 				}
 			]
 		},
@@ -555,6 +555,108 @@
 			"type": "end",
 			"next_chapter": "ch07_reckoning"
 		},
+		"s8d_01": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8d_01",
+			"next": "s8d_02",
+			"variants": [
+				{
+					"if": {
+						"flag": "fault_fixed_secretly",
+						"eq": true
+					},
+					"text": "ch06.s8d_01_v1"
+				},
+				{
+					"if": {
+						"flag": "fault_reported",
+						"eq": true
+					},
+					"text": "ch06.s8d_01_v2"
+				},
+				{
+					"if": {
+						"flag": "fault_hidden",
+						"eq": true
+					},
+					"text": "ch06.s8d_01_v3"
+				}
+			]
+		},
+		"s8d_02": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8d_02",
+			"next": "s8d_03",
+			"variants": [
+				{
+					"if": {
+						"flag": "gate_opened",
+						"eq": true
+					},
+					"text": "ch06.s8d_02_v1"
+				}
+			]
+		},
+		"s8d_03": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8d_03",
+			"next": "s8d_04",
+			"variants": [
+				{
+					"if": {
+						"flag": "cargo_photo",
+						"eq": true
+					},
+					"text": "ch06.s8d_03_v1"
+				},
+				{
+					"if": {
+						"flag": "cargo_hidden",
+						"eq": true
+					},
+					"text": "ch06.s8d_03_v2"
+				}
+			]
+		},
+		"s8d_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch06.s8d_04",
+			"next": "s8d_05",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
+		},
+		"s8d_05": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch06.s8d_05",
+			"next": "s8d_06",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8d_06": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch06.s8d_06",
+			"next": "s8d_07",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8d_07": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8d_07",
+			"next": "c01"
+		},
 		"s8a_01": {
 			"type": "line",
 			"speaker": "komiser",
@@ -736,9 +838,95 @@
 			"next": "x01"
 		},
 		"s8b_00": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "riza"
+					},
+					"next": "s8b_lr"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "defne"
+					},
+					"next": "s8b_ld"
+				}
+			],
+			"else": "s8b_lk"
+		},
+		"s8b_lr": {
 			"type": "location",
-			"location": "loc.ch06.s8b_00",
-			"next": "s8b_br"
+			"location": "loc.ch06.s8_steps",
+			"scene": "station_steps",
+			"spawn": "steps",
+			"player": "riza",
+			"next": "s8b_x"
+		},
+		"s8b_ld": {
+			"type": "location",
+			"location": "loc.ch06.s8_steps",
+			"scene": "station_steps",
+			"spawn": "steps",
+			"player": "defne",
+			"next": "s8b_x"
+		},
+		"s8b_lk": {
+			"type": "location",
+			"location": "loc.ch06.s8_steps",
+			"scene": "station_steps",
+			"spawn": "steps",
+			"player": "kemal",
+			"next": "s8b_x"
+		},
+		"s8b_x": {
+			"type": "explore",
+			"scene": "station_steps",
+			"objective": "ch06.s8b_x.objective",
+			"items": [
+				{
+					"id": "ch06_s8_press",
+					"label": "ch06.it.ch06_s8_press",
+					"point": "ch06_s8_press",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_s8_press.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_s8_bench",
+					"label": "ch06.it.ch06_s8_bench",
+					"point": "ch06_s8_bench",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_s8_bench.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_s8_poster",
+					"label": "ch06.it.ch06_s8_poster",
+					"point": "ch06_s8_poster",
+					"journal": "journal.ch06.ch06_s8_poster",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch06.it.ch06_s8_poster.l1"
+						}
+					]
+				},
+				{
+					"id": "ch06_s8_down",
+					"label": "ch06.it.ch06_s8_down",
+					"point": "ch06_s8_down",
+					"next": "s8b_br"
+				}
+			]
 		},
 		"s8b_br": {
 			"type": "branch",

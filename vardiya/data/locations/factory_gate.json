@@ -499,6 +499,82 @@
 				-2.4
 			],
 			"rot": 180
+		},
+		{
+			"id": "hoca",
+			"pos": [
+				-6.0,
+				0,
+				2.4
+			],
+			"rot": 90,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch08_dawn"
+			}
+		},
+		{
+			"id": "ece",
+			"pos": [
+				-4.6,
+				0,
+				3.4
+			],
+			"rot": 120,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch08_dawn"
+			}
+		},
+		{
+			"id": "zeynep",
+			"pos": [
+				5.2,
+				0,
+				3.0
+			],
+			"rot": 240,
+			"if": {
+				"flag": "scene_guests",
+				"eq": "ch08_dawn"
+			}
+		},
+		{
+			"id": "sevgi",
+			"pos": [
+				8.0,
+				0,
+				4.4
+			],
+			"rot": 250,
+			"if": {
+				"all": [
+					{
+						"flag": "scene_guests",
+						"eq": "ch08_dawn"
+					},
+					{
+						"any": [
+							{
+								"flag": "kemal_sevgi_bridge",
+								"eq": true
+							},
+							{
+								"flag": "defne_met_mother",
+								"eq": "hug"
+							},
+							{
+								"flag": "defne_met_mother",
+								"eq": "talk"
+							},
+							{
+								"flag": "kemal_gave_box",
+								"eq": true
+							}
+						]
+					}
+				]
+			}
 		}
 	],
 	"points": {

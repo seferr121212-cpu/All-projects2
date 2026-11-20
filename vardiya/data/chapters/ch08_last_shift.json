@@ -7,7 +7,7 @@
 		"defne",
 		"riza"
 	],
-	"start": "start",
+	"start": "s8g_on",
 	"nodes": {
 		"start": {
 			"type": "branch",
@@ -443,13 +443,13 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_together",
-			"next": "c02"
+			"next": "s8d_01"
 		},
 		"r_expose": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_expose",
-			"next": "c02"
+			"next": "s8d_01"
 		},
 		"r_taken": {
 			"type": "line",
@@ -461,19 +461,19 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_speak",
-			"next": "c02"
+			"next": "s8d_01"
 		},
 		"r_alone": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_alone",
-			"next": "c02"
+			"next": "s8d_01"
 		},
 		"r_silence": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_silence",
-			"next": "c02"
+			"next": "s8d_01"
 		},
 		"c02": {
 			"type": "choice",
@@ -558,7 +558,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.outro",
-			"next": "end"
+			"next": "s8g_off"
 		},
 		"after": {
 			"type": "location",
@@ -569,11 +569,32 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.a01",
-			"next": "end"
+			"next": "s8g_off"
 		},
 		"end": {
 			"type": "end",
 			"next_chapter": "@ending"
+		},
+		"s8d_01": {
+			"type": "line",
+			"speaker": "nevin",
+			"text": "ch08.s8d_01",
+			"next": "s8d_02",
+			"variants": [
+				{
+					"if": {
+						"flag": "company_blamed",
+						"eq": true
+					},
+					"text": "ch08.s8d_01_v1"
+				}
+			]
+		},
+		"s8d_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8d_02",
+			"next": "c02"
 		},
 		"s8a_01": {
 			"type": "line",
@@ -765,6 +786,26 @@
 			"speaker": "narrator",
 			"text": "ch08.s8a_11",
 			"next": "x01"
+		},
+		"s8g_on": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "scene_guests",
+					"value": "ch08_dawn"
+				}
+			],
+			"next": "start"
+		},
+		"s8g_off": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "scene_guests",
+					"value": ""
+				}
+			],
+			"next": "end"
 		},
 		"s8b_01": {
 			"type": "line",

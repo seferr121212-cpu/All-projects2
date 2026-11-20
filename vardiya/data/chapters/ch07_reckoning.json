@@ -634,19 +634,19 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_together",
-			"next": "end"
+			"next": "s8d_00"
 		},
 		"r_alone2": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_alone2",
-			"next": "end"
+			"next": "s8d_00"
 		},
 		"r_leave": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_leave",
-			"next": "end"
+			"next": "s8d_00"
 		},
 		"after": {
 			"type": "location",
@@ -673,6 +673,113 @@
 		"end": {
 			"type": "end",
 			"next_chapter": "ch08_last_shift"
+		},
+		"s8d_00": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "defne"
+					},
+					"next": "s8d_ld"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "kemal"
+					},
+					"next": "s8d_lk"
+				}
+			],
+			"else": "s8d_lr"
+		},
+		"s8d_ld": {
+			"type": "location",
+			"location": "loc.ch07.s8_port",
+			"scene": "port_yard",
+			"spawn": "riza_truck",
+			"player": "defne",
+			"next": "s8d_01"
+		},
+		"s8d_lk": {
+			"type": "location",
+			"location": "loc.ch07.s8_port",
+			"scene": "port_yard",
+			"spawn": "riza_truck",
+			"player": "kemal",
+			"next": "s8d_01"
+		},
+		"s8d_lr": {
+			"type": "location",
+			"location": "loc.ch07.s8_port",
+			"scene": "port_yard",
+			"spawn": "riza_truck",
+			"player": "riza",
+			"next": "s8d_01"
+		},
+		"s8d_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8d_01",
+			"next": "s8d_02"
+		},
+		"s8d_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8d_02",
+			"next": "s8d_03",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8d_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8d_03",
+			"next": "s8d_04",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8d_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8d_04",
+			"next": "s8d_05",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
+		},
+		"s8d_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8d_05",
+			"next": "s8d_06",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "pov",
+							"eq": "defne"
+						}
+					},
+					"text": "ch07.s8d_05_v1"
+				}
+			],
+			"if": {
+				"status": "defne",
+				"eq": "alive"
+			}
+		},
+		"s8d_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8d_06",
+			"next": "end"
 		},
 		"s8a_br": {
 			"type": "branch",
@@ -703,9 +810,84 @@
 			"else": "s8a_s01"
 		},
 		"s8a_m00": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "defne"
+					},
+					"next": "s8a_cd"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "kemal"
+					},
+					"next": "s8a_ck"
+				}
+			],
+			"else": "s8a_cr"
+		},
+		"s8a_cd": {
 			"type": "location",
-			"location": "loc.ch07.s8a_m00",
-			"next": "s8a_m01"
+			"location": "loc.ch07.s8_cem",
+			"scene": "cemetery",
+			"spawn": "gate",
+			"player": "defne",
+			"next": "s8a_cx"
+		},
+		"s8a_ck": {
+			"type": "location",
+			"location": "loc.ch07.s8_cem",
+			"scene": "cemetery",
+			"spawn": "gate",
+			"player": "kemal",
+			"next": "s8a_cx"
+		},
+		"s8a_cr": {
+			"type": "location",
+			"location": "loc.ch07.s8_cem",
+			"scene": "cemetery",
+			"spawn": "gate",
+			"player": "riza",
+			"next": "s8a_cx"
+		},
+		"s8a_cx": {
+			"type": "explore",
+			"scene": "cemetery",
+			"objective": "ch07.s8a_cx.objective",
+			"items": [
+				{
+					"id": "ch07_s8_sea",
+					"label": "ch07.it.ch07_s8_sea",
+					"point": "ch07_s8_sea",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_sea.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_s8_bench",
+					"label": "ch07.it.ch07_s8_bench",
+					"point": "ch07_s8_bench",
+					"journal": "journal.ch07.ch07_s8_bench",
+					"lines": [
+						{
+							"speaker": "narrator",
+							"text": "ch07.it.ch07_s8_bench.l1"
+						}
+					]
+				},
+				{
+					"id": "ch07_s8_stones",
+					"label": "ch07.it.ch07_s8_stones",
+					"point": "ch07_s8_stones",
+					"next": "s8a_m01"
+				}
+			]
 		},
 		"s8a_m01": {
 			"type": "line",
@@ -887,6 +1069,24 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8a_s01",
+			"next": "s8a_sg"
+		},
+		"s8a_sg": {
+			"type": "effect",
+			"effects": [
+				{
+					"set_flag": "scene_guests",
+					"value": "ch07_baby"
+				}
+			],
+			"next": "s8a_sh"
+		},
+		"s8a_sh": {
+			"type": "location",
+			"location": "loc.ch07.s8_home",
+			"scene": "family_home",
+			"spawn": "living",
+			"player": "defne",
 			"next": "s8a_s02"
 		},
 		"s8a_s02": {
