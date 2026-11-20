@@ -1380,7 +1380,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch02.s8q_04",
-			"next": "outro"
+			"next": "s8z_01"
 		},
 		"s8r_01": {
 			"type": "line",
@@ -1392,7 +1392,7 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch02.s8r_02",
-			"next": "l03k"
+			"next": "s8y_01"
 		},
 		"s8v_01": {
 			"type": "line",
@@ -1459,6 +1459,120 @@
 			"speaker": "narrator",
 			"text": "ch02.s8x_03",
 			"next": "c02"
+		},
+		"s8y_01": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8y_01",
+			"next": "s8y_02"
+		},
+		"s8y_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8y_02",
+			"next": "s8y_03"
+		},
+		"s8y_03": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8y_03",
+			"next": "s8y_04"
+		},
+		"s8y_04": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8y_04",
+			"next": "s8y_05",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8y_05": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8y_05",
+			"next": "s8y_06",
+			"if": {
+				"not": {
+					"decision": "b2_grev_destek",
+					"eq": "leave"
+				}
+			}
+		},
+		"s8y_06": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8y_06",
+			"next": "s8y_07"
+		},
+		"s8y_07": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8y_07",
+			"next": "s8y_08"
+		},
+		"s8y_08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8y_08",
+			"next": "l03k"
+		},
+		"s8z_01": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8z_01",
+			"next": "s8z_02"
+		},
+		"s8z_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8z_02",
+			"next": "s8z_03"
+		},
+		"s8z_03": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8z_03",
+			"next": "s8z_04"
+		},
+		"s8z_04": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8z_04",
+			"next": "s8z_05"
+		},
+		"s8z_05": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8z_05",
+			"next": "s8z_06"
+		},
+		"s8z_06": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8z_06",
+			"next": "s8z_07"
+		},
+		"s8z_07": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8z_07",
+			"next": "s8z_08"
+		},
+		"s8z_08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch02.s8z_08",
+			"next": "s8z_09"
+		},
+		"s8z_09": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8z_09",
+			"next": "outro"
 		}
 	}
 }

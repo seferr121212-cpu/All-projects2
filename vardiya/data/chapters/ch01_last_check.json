@@ -1459,7 +1459,7 @@
 			"type": "line",
 			"speaker": "selim",
 			"text": "ch01.s8m_04",
-			"next": "l07"
+			"next": "s8y_01"
 		},
 		"s8m_10": {
 			"type": "line",
@@ -1564,7 +1564,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch01.s8n_08",
-			"next": "c02"
+			"next": "s8z_01"
 		},
 		"s8o_01": {
 			"type": "line",
@@ -1700,6 +1700,96 @@
 			"speaker": "narrator",
 			"text": "ch01.s8x_03",
 			"next": "x02"
+		},
+		"s8y_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8y_01",
+			"next": "s8y_02"
+		},
+		"s8y_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8y_02",
+			"next": "s8y_03"
+		},
+		"s8y_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8y_03",
+			"next": "s8y_04"
+		},
+		"s8y_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8y_04",
+			"next": "s8y_05"
+		},
+		"s8y_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8y_05",
+			"next": "l07"
+		},
+		"s8z_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8z_01",
+			"next": "s8z_02"
+		},
+		"s8z_02": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch01.s8z_02",
+			"next": "s8z_03"
+		},
+		"s8z_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8z_03",
+			"next": "s8z_04"
+		},
+		"s8z_04": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch01.s8z_04",
+			"next": "s8z_05"
+		},
+		"s8z_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8z_05",
+			"next": "s8z_06"
+		},
+		"s8z_06": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch01.s8z_06",
+			"next": "s8z_07"
+		},
+		"s8z_07": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch01.s8z_07",
+			"next": "s8z_08"
+		},
+		"s8z_08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8z_08",
+			"next": "s8z_09"
+		},
+		"s8z_09": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch01.s8z_09",
+			"next": "s8z_10"
+		},
+		"s8z_10": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8z_10",
+			"next": "c02"
 		}
 	}
 }
