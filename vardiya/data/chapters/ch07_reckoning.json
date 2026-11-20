@@ -405,7 +405,7 @@
 						"alive_count": true,
 						"gte": 2
 					},
-					"next": "c01"
+					"next": "s8m_01"
 				}
 			],
 			"else": "s8f_01"
@@ -529,7 +529,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_none",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"c01s": {
 			"type": "choice",
@@ -571,13 +571,13 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_stay",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"r_go": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_go",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"c02": {
 			"type": "choice",
@@ -817,7 +817,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8d_06",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8a_br": {
 			"type": "branch",
@@ -1531,7 +1531,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8i_k4",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"s8i_d1": {
 			"type": "line",
@@ -1555,7 +1555,7 @@
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch07.s8i_d4",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"s8i_r1": {
 			"type": "line",
@@ -1579,7 +1579,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8i_r4",
-			"next": "s8b_br"
+			"next": "s8n_01"
 		},
 		"s8j_01": {
 			"type": "line",
@@ -1654,6 +1654,72 @@
 			"speaker": "narrator",
 			"text": "ch07.s8j_06",
 			"next": "rc1"
+		},
+		"s8m_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8m_01",
+			"next": "s8m_02"
+		},
+		"s8m_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8m_02",
+			"next": "c01"
+		},
+		"s8n_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8n_01",
+			"next": "s8n_02"
+		},
+		"s8n_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8n_02",
+			"next": "s8n_03"
+		},
+		"s8n_03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8n_03",
+			"next": "s8n_04",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8n_04": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8n_04",
+			"next": "s8n_05",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8n_05": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8n_05",
+			"next": "s8n_06",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
+		},
+		"s8n_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8n_06",
+			"next": "s8b_br"
+		},
+		"s8o_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8o_01",
+			"next": "end"
 		}
 	}
 }

@@ -94,7 +94,7 @@
 			"type": "line",
 			"speaker": "komiser",
 			"text": "ch06.l01",
-			"next": "dl_k",
+			"next": "s8m_01",
 			"variants": [
 				{
 					"if": {
@@ -858,7 +858,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8a_end",
-			"next": "x01"
+			"next": "s8n_01"
 		},
 		"s8b_00": {
 			"type": "branch",
@@ -1033,7 +1033,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_rr1",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_rr2": {
 			"type": "line",
@@ -1045,7 +1045,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_rr3",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_d01": {
 			"type": "line",
@@ -1135,7 +1135,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_dr1",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_dr2": {
 			"type": "line",
@@ -1147,13 +1147,13 @@
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch06.s8b_dr2b",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_dr3": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_dr3",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_k01": {
 			"type": "line",
@@ -1208,13 +1208,13 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_kr1",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8b_kr2": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch06.s8b_kr2",
-			"next": "end"
+			"next": "s8o_01"
 		},
 		"s8g_01": {
 			"type": "line",
@@ -1315,6 +1315,57 @@
 			"speaker": "narrator",
 			"text": "ch06.s8j_05",
 			"next": "l01"
+		},
+		"s8m_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8m_01",
+			"next": "dl_k"
+		},
+		"s8n_01": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8n_01",
+			"next": "s8n_02"
+		},
+		"s8n_02": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8n_02",
+			"next": "s8n_03"
+		},
+		"s8n_03": {
+			"type": "line",
+			"speaker": "komiser",
+			"text": "ch06.s8n_03",
+			"next": "s8n_04"
+		},
+		"s8n_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8n_04",
+			"next": "x01"
+		},
+		"s8o_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8o_01",
+			"next": "s8o_02",
+			"variants": [
+				{
+					"if": {
+						"decision": "b6_basin",
+						"eq": "speak"
+					},
+					"text": "ch06.s8o_01_v1"
+				}
+			]
+		},
+		"s8o_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8o_02",
+			"next": "end"
 		}
 	}
 }
