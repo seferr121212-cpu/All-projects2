@@ -1247,7 +1247,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8l_02",
-			"next": "l01"
+			"next": "s8aa_01"
 		},
 		"s8m_01": {
 			"type": "line",
@@ -1423,7 +1423,7 @@
 			"type": "line",
 			"speaker": "hoca",
 			"text": "ch08.s8x_02",
-			"next": "c01"
+			"next": "s8bb_01"
 		},
 		"s8y_01": {
 			"type": "line",
@@ -1460,6 +1460,42 @@
 			"speaker": "narrator",
 			"text": "ch08.s8z_04",
 			"next": "dl_k"
+		},
+		"s8aa_01": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch08.s8aa_01",
+			"next": "s8aa_02"
+		},
+		"s8aa_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8aa_02",
+			"next": "s8aa_03"
+		},
+		"s8aa_03": {
+			"type": "line",
+			"speaker": "bayram",
+			"text": "ch08.s8aa_03",
+			"next": "l01"
+		},
+		"s8bb_01": {
+			"type": "line",
+			"speaker": "yasar",
+			"text": "ch08.s8bb_01",
+			"next": "s8bb_02"
+		},
+		"s8bb_02": {
+			"type": "line",
+			"speaker": "yasar",
+			"text": "ch08.s8bb_02",
+			"next": "s8bb_03"
+		},
+		"s8bb_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8bb_03",
+			"next": "c01"
 		}
 	}
 }

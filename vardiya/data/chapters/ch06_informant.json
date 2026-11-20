@@ -1419,7 +1419,7 @@
 			"type": "line",
 			"speaker": "komiser",
 			"text": "ch06.s8s_03",
-			"next": "x01"
+			"next": "s8aa_01"
 		},
 		"s8w_01": {
 			"type": "line",
@@ -1558,6 +1558,46 @@
 			"speaker": "komiser",
 			"text": "ch06.s8z_06",
 			"next": "c01"
+		},
+		"s8aa_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8aa_01",
+			"next": "s8aa_02"
+		},
+		"s8aa_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch06.s8aa_02",
+			"next": "s8aa_03",
+			"if": {
+				"all": [
+					{
+						"flag": "pov",
+						"eq": "riza"
+					},
+					{
+						"status": "kemal",
+						"eq": "alive"
+					}
+				]
+			}
+		},
+		"s8aa_03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch06.s8aa_03",
+			"next": "s8aa_04",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8aa_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch06.s8aa_04",
+			"next": "x01"
 		}
 	}
 }
