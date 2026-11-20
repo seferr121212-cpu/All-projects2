@@ -423,6 +423,19 @@ class ValidatorTests(unittest.TestCase):
         kept = story_sim._reduce(states, rel, cap=5)
         self.assertTrue(any(st.status["kemal"] == "dead" for st, _ in kept))
 
+    def test_locale_passes_text_lint(self):
+        import text_lint
+        found = text_lint.lint(text_lint.load("tr"), text_lint.load("en"))
+        self.assertEqual(found, [], found[:10])
+
+    def test_text_lint_catches_emoji_and_long_lines(self):
+        import text_lint
+        tr = {"ch09.l01": "Merhaba ❤", "ch09.l02": "a" * 400 + "."}
+        en = {"ch09.l01": "Hello ❤", "ch09.l02": "b."}
+        found = text_lint.lint(tr, en)
+        self.assertTrue(any("glyphs" in f for f in found), found)
+        self.assertTrue(any("longer than the subtitle box" in f for f in found), found)
+
 
 if __name__ == "__main__":
     unittest.main()

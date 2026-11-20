@@ -39,6 +39,10 @@ python3 vardiya/tools/render_map.py
 python3 vardiya/tools/playtime.py
 ```
 
+```bash
+python3 vardiya/tools/text_lint.py
+```
+
 ## Kare süresi ölçümü (hedef cihazda)
 
 ```bash

@@ -431,7 +431,7 @@
 				0,
 				-0.6
 			],
-			"rot": 180,
+			"rot": 337,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch04_ece"
@@ -444,7 +444,7 @@
 				0,
 				0.4
 			],
-			"rot": 200,
+			"rot": 320,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch07_baby"
@@ -457,7 +457,7 @@
 				0,
 				0.4
 			],
-			"rot": 160,
+			"rot": 33,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch07_baby"

@@ -1,8 +1,52 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.5 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.6 · Godot 4.7 · Compatibility renderer
 
-# 6. KISIM: 90 dakika eşiği (en güncel durum)
+# 7. KISIM: Aşama 9 hazırlığı, bu ortamda yapılabilenler (en güncel durum)
+
+İçerik eklenmedi; süre değişmedi (dikkatli oyuncu ~90 dk, hızlı oyuncu ~64 dk). Bu teslim Aşama 8'de eklenen metni ve mekânları sağlamlaştırıyor.
+
+**1. Metin denetimi: `tools/text_lint.py` (yeni)**
+
+Aracın denetledikleri:
+- Altyazı uzunluğu: en fazla 270 karakter. Kutu 1520 px genişliğinde ve 30 px yazı tipiyle 3 satır gösteriyor.
+- Seçim metni uzunluğu: en fazla 95 karakter.
+- Fazla boşluk ve noktalamadan önce boşluk.
+- Dengesiz parantez ya da tırnak.
+- TR ile EN arasında `{n}` gibi yer tutucuların uyuşmaması.
+- Diyalog satırında son noktalama eksikliği.
+- Tekrarlanan kelime ("şaka şaka", "uzun uzun", "damla damla" gibi bilinçli tekrarlar hariç).
+- Sık yapılan Türkçe yazım hataları ("herşey", "yada", "kağıt", "hala"/"hâlâ").
+- **Varsayılan yazı tipinde olmayabilecek karakterler.**
+
+Sonuçlar:
+- İlk çalıştırmada **gerçek bir sorun** buldu: Bölüm 3'te Defne'nin mesajındaki ❤ emojisi. Godot'nun varsayılan yazı tipinde emoji yok, büyük olasılıkla boş kutu görünecekti. Emoji çıkarıldı.
+- Diğer bulgular aracın yanlış sınıflandırmasıydı; araç düzeltildi. Şu an **0 bulgu.**
+- 2 yeni Python testi eklendi; toplam **39/39**:
+  - Yerelleştirme dosyaları denetimden temiz geçmeli.
+  - Denetim emojiyi ve uzun satırı yakalamalı.
+
+**2. Karakterlerin baktığı yön**
+
+Yeni 5 mekândaki aktörlerin ve evle fabrika kapısına gelen misafirlerin yönü artık tahminle değil hesapla veriliyor:
+- Model önü +Z kabul ediliyor ve yön `atan2(dx, dz)` ile hesaplanıyor; bu `player_controller.face()` ile aynı formül.
+- Her aktör oyuncunun başladığı noktaya bakıyor.
+- Örnek: hastane koridorundaki herkes girişe, yani gelen oyuncuya dönük.
+
+Bu, 2. kısımda yazdığım "aktörlerin yönü tahminî" varsayımını kapatıyor. Model önünün +Z olduğunu mevcut kodla ve mevcut yerleşimle (komiser `rot 90` ile oturan kişiye bakıyor) doğruladım.
+
+**3. Hâlâ motor gerektirenler**
+
+Bunları bu ortamda yapamıyorum:
+- Motor içi testler.
+- Hedef cihazda kare süresi.
+- Yeni mekânlarda ışık ve kamera mesafesinin gözle ayarı.
+- Uzun Türkçe satırların gerçek yazı tipiyle kaç satıra kırıldığı. Sınırı karakter sayısıyla tahmin ettim.
+
+---
+
+
+# 6. KISIM: 90 dakika eşiği
 
 | Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
 |---|---|---|---|

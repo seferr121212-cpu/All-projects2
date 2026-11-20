@@ -507,7 +507,7 @@
 				0,
 				2.4
 			],
-			"rot": 90,
+			"rot": 75,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch08_dawn"
@@ -520,7 +520,7 @@
 				0,
 				3.4
 			],
-			"rot": 120,
+			"rot": 83,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch08_dawn"
@@ -533,7 +533,7 @@
 				0,
 				3.0
 			],
-			"rot": 240,
+			"rot": 281,
 			"if": {
 				"flag": "scene_guests",
 				"eq": "ch08_dawn"
@@ -546,7 +546,7 @@
 				0,
 				4.4
 			],
-			"rot": 250,
+			"rot": 267,
 			"if": {
 				"all": [
 					{
