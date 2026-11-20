@@ -1,5 +1,5 @@
 {
-	"_doc": "Grey-box: factory gate during the strike (ch2, ch8).",
+	"_doc": "Factory gate during the strike (ch2, ch8) and the memorial (ep03).",
 	"id": "factory_gate",
 	"size": [
 		24,
@@ -25,13 +25,14 @@
 	"lights": [
 		{
 			"pos": [
-				-6,
-				3,
-				0
+				-6.0,
+				3.2,
+				-0.65
 			],
 			"range": 7,
 			"energy": 0.8,
-			"color": "#ffd59a"
+			"color": "#ffd59a",
+			"halo": true
 		}
 	],
 	"boxes": [
@@ -46,7 +47,8 @@
 				4,
 				0.6
 			],
-			"color": "#5b5f66"
+			"color": "#5b5f66",
+			"kind": "pillar"
 		},
 		{
 			"pos": [
@@ -59,7 +61,8 @@
 				4,
 				0.6
 			],
-			"color": "#5b5f66"
+			"color": "#5b5f66",
+			"kind": "pillar"
 		},
 		{
 			"pos": [
@@ -72,7 +75,8 @@
 				0.15,
 				0.1
 			],
-			"color": "#b8a040"
+			"color": "#b8a040",
+			"mat": "metal"
 		},
 		{
 			"pos": [
@@ -85,7 +89,8 @@
 				0.15,
 				0.1
 			],
-			"color": "#b8a040"
+			"color": "#b8a040",
+			"mat": "metal"
 		},
 		{
 			"pos": [
@@ -98,7 +103,8 @@
 				0.8,
 				0.9
 			],
-			"color": "#6b5a44"
+			"color": "#6b5a44",
+			"kind": "table"
 		},
 		{
 			"pos": [
@@ -112,7 +118,8 @@
 				0.5
 			],
 			"color": "#d9d2c0",
-			"collide": false
+			"collide": false,
+			"kind": "paper"
 		},
 		{
 			"pos": [
@@ -126,7 +133,8 @@
 				0.05
 			],
 			"color": "#a33a2c",
-			"collide": false
+			"collide": false,
+			"kind": "banner"
 		},
 		{
 			"pos": [
@@ -139,7 +147,8 @@
 				2.4,
 				2
 			],
-			"color": "#55606b"
+			"color": "#55606b",
+			"kind": "booth"
 		},
 		{
 			"pos": [
@@ -152,7 +161,8 @@
 				2.8,
 				6
 			],
-			"color": "#3f5a7a"
+			"color": "#3f5a7a",
+			"kind": "truck"
 		},
 		{
 			"pos": [
@@ -165,7 +175,8 @@
 				1,
 				1.5
 			],
-			"color": "#3f4a40"
+			"color": "#3f4a40",
+			"kind": "crate"
 		},
 		{
 			"pos": [
@@ -178,7 +189,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -191,7 +203,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -204,7 +217,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -217,7 +231,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -230,7 +245,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -243,7 +259,8 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
 		},
 		{
 			"pos": [
@@ -256,7 +273,153 @@
 				1.7,
 				0.45
 			],
-			"color": "#4d5560"
+			"color": "#4d5560",
+			"kind": "person"
+		},
+		{
+			"kind": "lamp_post",
+			"pos": [
+				-6.0,
+				1.7,
+				-1.05
+			],
+			"size": [
+				0.3,
+				3.4,
+				0.9
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "hazard",
+			"pos": [
+				0,
+				0.006,
+				-6.6
+			],
+			"size": [
+				9.0,
+				0.01,
+				0.25
+			],
+			"color": "#d9a62e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "barrel",
+			"pos": [
+				-10.8,
+				0.45,
+				6.6
+			],
+			"size": [
+				0.6,
+				0.9,
+				0.6
+			],
+			"color": "#4a4a4a",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "pallet",
+			"pos": [
+				-11.0,
+				0.07,
+				3.4
+			],
+			"size": [
+				1.0,
+				0.14,
+				1.2
+			],
+			"color": "#7a6040",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "panel",
+			"pos": [
+				-0.6,
+				0.06,
+				-6.9
+			],
+			"size": [
+				0.12,
+				0.12,
+				0.12
+			],
+			"color": "#ffc070",
+			"if": {
+				"flag": "ending",
+				"eq": "bitter"
+			},
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "panel",
+			"pos": [
+				0.0,
+				0.06,
+				-6.95
+			],
+			"size": [
+				0.12,
+				0.12,
+				0.12
+			],
+			"color": "#ffc070",
+			"if": {
+				"flag": "ending",
+				"eq": "bitter"
+			},
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "panel",
+			"pos": [
+				0.6,
+				0.06,
+				-6.9
+			],
+			"size": [
+				0.12,
+				0.12,
+				0.12
+			],
+			"color": "#ffc070",
+			"if": {
+				"flag": "ending",
+				"eq": "bitter"
+			},
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "crate",
+			"pos": [
+				0.0,
+				0.12,
+				-6.6
+			],
+			"size": [
+				1.4,
+				0.24,
+				0.3
+			],
+			"color": "#a33a4c",
+			"mat": "fabric",
+			"if": {
+				"flag": "ending",
+				"eq": "bitter"
+			},
+			"collide": false,
+			"decor": true
 		}
 	],
 	"spawns": {
@@ -381,5 +544,98 @@
 	},
 	"camera": {
 		"distance": 3.8
-	}
+	},
+	"wall_style": "fence",
+	"floor_mat": "concrete",
+	"sky": {
+		"top": "#1d2a3c",
+		"horizon": "#6d757e",
+		"ground": "#1a1c1e"
+	},
+	"particles": [
+		{
+			"type": "dust",
+			"pos": [
+				0,
+				1.5,
+				-2
+			],
+			"extent": [
+				8,
+				1,
+				4
+			]
+		}
+	],
+	"variants": [
+		{
+			"if": {
+				"flag": "ending",
+				"eq": "bitter"
+			},
+			"set": {
+				"sky": {
+					"top": "#141a2c",
+					"horizon": "#8a5a4a",
+					"ground": "#141516"
+				},
+				"ambient": "#6a5a58",
+				"ambient_energy": 0.55,
+				"fog": true,
+				"fog_density": 0.02,
+				"sun": {
+					"rot": [
+						-12,
+						60,
+						0
+					],
+					"energy": 0.5,
+					"color": "#ffb080",
+					"shadow": true,
+					"shadow_distance": 24
+				},
+				"lights": [
+					{
+						"pos": [
+							-6.0,
+							3.2,
+							-0.65
+						],
+						"range": 7,
+						"energy": 0.6,
+						"color": "#ffd59a",
+						"halo": true
+					},
+					{
+						"pos": [
+							0.0,
+							0.4,
+							-6.6
+						],
+						"range": 3.5,
+						"energy": 0.9,
+						"color": "#ffb060",
+						"halo": true,
+						"halo_size": 0.5,
+						"flicker": "fire"
+					}
+				],
+				"particles": [
+					{
+						"type": "mist",
+						"pos": [
+							0,
+							0.4,
+							0
+						],
+						"extent": [
+							10,
+							0.2,
+							6
+						]
+					}
+				]
+			}
+		}
+	]
 }

@@ -1,5 +1,5 @@
 {
-	"_doc": "Grey-box: factory floor with robot cell 3 and the supervisor booth (chapter 1).",
+	"_doc": "Factory floor, robot cell 3 and the supervisor booth (ch1, ep01).",
 	"id": "factory_floor",
 	"size": [
 		26,
@@ -33,7 +33,9 @@
 			],
 			"range": 9,
 			"energy": 1.2,
-			"color": "#ffd59a"
+			"color": "#ffd59a",
+			"halo": true,
+			"beam": true
 		},
 		{
 			"pos": [
@@ -43,7 +45,9 @@
 			],
 			"range": 6,
 			"energy": 0.9,
-			"color": "#e6f0ff"
+			"color": "#e6f0ff",
+			"halo": true,
+			"flicker": "tube"
 		},
 		{
 			"pos": [
@@ -53,7 +57,9 @@
 			],
 			"range": 10,
 			"energy": 0.8,
-			"color": "#dfe8ff"
+			"color": "#dfe8ff",
+			"halo": true,
+			"beam": true
 		}
 	],
 	"boxes": [
@@ -68,7 +74,8 @@
 				0.9,
 				1.2
 			],
-			"color": "#4b4f55"
+			"color": "#4b4f55",
+			"kind": "conveyor"
 		},
 		{
 			"pos": [
@@ -81,7 +88,8 @@
 				0.3,
 				0.8
 			],
-			"color": "#8a6d3b"
+			"color": "#8a6d3b",
+			"kind": "crate"
 		},
 		{
 			"pos": [
@@ -94,7 +102,8 @@
 				0.3,
 				0.8
 			],
-			"color": "#8a6d3b"
+			"color": "#8a6d3b",
+			"kind": "crate"
 		},
 		{
 			"pos": [
@@ -107,7 +116,8 @@
 				1.2,
 				0.1
 			],
-			"color": "#d9a62e"
+			"color": "#d9a62e",
+			"kind": "rail"
 		},
 		{
 			"pos": [
@@ -120,7 +130,8 @@
 				1.2,
 				5.2
 			],
-			"color": "#d9a62e"
+			"color": "#d9a62e",
+			"kind": "rail"
 		},
 		{
 			"pos": [
@@ -133,7 +144,8 @@
 				1.2,
 				5.2
 			],
-			"color": "#d9a62e"
+			"color": "#d9a62e",
+			"kind": "rail"
 		},
 		{
 			"pos": [
@@ -146,7 +158,8 @@
 				1.2,
 				0.1
 			],
-			"color": "#d9a62e"
+			"color": "#d9a62e",
+			"kind": "rail"
 		},
 		{
 			"pos": [
@@ -159,7 +172,9 @@
 				0.8,
 				1.0
 			],
-			"color": "#c44a2a"
+			"color": "#c44a2a",
+			"kind": "barrel",
+			"mat": "paint"
 		},
 		{
 			"pos": [
@@ -173,7 +188,9 @@
 				0.4
 			],
 			"color": "#d65a33",
-			"collide": false
+			"collide": false,
+			"kind": "barrel",
+			"mat": "paint"
 		},
 		{
 			"pos": [
@@ -187,7 +204,9 @@
 				0.25
 			],
 			"color": "#e36a3a",
-			"collide": false
+			"collide": false,
+			"kind": "cylinder",
+			"mat": "paint"
 		},
 		{
 			"pos": [
@@ -200,7 +219,8 @@
 				1.2,
 				0.35
 			],
-			"color": "#38424d"
+			"color": "#38424d",
+			"kind": "machine"
 		},
 		{
 			"pos": [
@@ -215,7 +235,8 @@
 			],
 			"color": "#5ad16a",
 			"collide": false,
-			"emissive": true
+			"emissive": true,
+			"kind": "screen"
 		},
 		{
 			"pos": [
@@ -228,7 +249,8 @@
 				2.5,
 				0.1
 			],
-			"color": "#5a6470"
+			"color": "#5a6470",
+			"mat": "plaster"
 		},
 		{
 			"pos": [
@@ -241,7 +263,8 @@
 				2.5,
 				3
 			],
-			"color": "#5a6470"
+			"color": "#5a6470",
+			"mat": "plaster"
 		},
 		{
 			"pos": [
@@ -254,7 +277,8 @@
 				2.5,
 				1.4
 			],
-			"color": "#5a6470"
+			"color": "#5a6470",
+			"mat": "plaster"
 		},
 		{
 			"pos": [
@@ -267,7 +291,8 @@
 				0.8,
 				0.8
 			],
-			"color": "#6b5a44"
+			"color": "#6b5a44",
+			"kind": "desk"
 		},
 		{
 			"pos": [
@@ -281,7 +306,8 @@
 				0.45
 			],
 			"color": "#e8e2d0",
-			"collide": false
+			"collide": false,
+			"kind": "paper"
 		},
 		{
 			"pos": [
@@ -295,7 +321,8 @@
 				0.4
 			],
 			"color": "#d8c78a",
-			"collide": false
+			"collide": false,
+			"kind": "paper"
 		},
 		{
 			"pos": [
@@ -308,7 +335,8 @@
 				2.0,
 				1.2
 			],
-			"color": "#3f4a40"
+			"color": "#3f4a40",
+			"kind": "machine"
 		},
 		{
 			"pos": [
@@ -321,7 +349,8 @@
 				2.4,
 				2.5
 			],
-			"color": "#4a3f3a"
+			"color": "#4a3f3a",
+			"kind": "crate"
 		},
 		{
 			"pos": [
@@ -336,7 +365,309 @@
 			],
 			"color": "#f0a838",
 			"collide": false,
-			"emissive": true
+			"emissive": true,
+			"kind": "door"
+		},
+		{
+			"kind": "hazard",
+			"pos": [
+				-6.4,
+				0.006,
+				0.5
+			],
+			"size": [
+				0.12,
+				0.01,
+				12.0
+			],
+			"color": "#d9a62e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "hazard",
+			"pos": [
+				0.0,
+				0.006,
+				3.9
+			],
+			"size": [
+				20.0,
+				0.01,
+				0.12
+			],
+			"color": "#d9a62e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "beam",
+			"pos": [
+				-8,
+				6.7,
+				0
+			],
+			"size": [
+				0.25,
+				0.4,
+				17.6
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "beam",
+			"pos": [
+				0,
+				6.7,
+				0
+			],
+			"size": [
+				0.25,
+				0.4,
+				17.6
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "beam",
+			"pos": [
+				8,
+				6.7,
+				0
+			],
+			"size": [
+				0.25,
+				0.4,
+				17.6
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "pipe",
+			"pos": [
+				0,
+				6.0,
+				-8.4
+			],
+			"size": [
+				25.0,
+				0.3,
+				0.3
+			],
+			"color": "#5b6f63",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "pipe",
+			"pos": [
+				12.4,
+				5.6,
+				0
+			],
+			"size": [
+				0.22,
+				0.22,
+				17.0
+			],
+			"color": "#8a4a3a",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "window",
+			"pos": [
+				-9.0,
+				1.7,
+				-6.94
+			],
+			"size": [
+				2.6,
+				0.9,
+				0.06
+			],
+			"color": "#4a5a6e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "board",
+			"pos": [
+				-6.6,
+				1.5,
+				-5.9
+			],
+			"size": [
+				0.06,
+				0.8,
+				0.9
+			],
+			"color": "#8a7a52",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "pallet",
+			"pos": [
+				9.0,
+				0.07,
+				6.6
+			],
+			"size": [
+				1.2,
+				0.14,
+				1.0
+			],
+			"color": "#8a6d3b",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "barrel",
+			"pos": [
+				12.2,
+				0.45,
+				-7.4
+			],
+			"size": [
+				0.6,
+				0.9,
+				0.6
+			],
+			"color": "#2f5a7a",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "barrel",
+			"pos": [
+				12.2,
+				0.45,
+				-6.6
+			],
+			"size": [
+				0.6,
+				0.9,
+				0.6
+			],
+			"color": "#7a2f2f",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "barrel",
+			"pos": [
+				11.4,
+				0.45,
+				-7.4
+			],
+			"size": [
+				0.6,
+				0.9,
+				0.6
+			],
+			"color": "#2f5a7a",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "lamp",
+			"pos": [
+				6,
+				5.76,
+				-3
+			],
+			"size": [
+				0.8,
+				1.88,
+				0.8
+			],
+			"color": "#2a2d31",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "lamp",
+			"pos": [
+				0,
+				5.76,
+				4
+			],
+			"size": [
+				0.8,
+				1.88,
+				0.8
+			],
+			"color": "#2a2d31",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "banner",
+			"pos": [
+				0,
+				4.6,
+				-8.85
+			],
+			"size": [
+				7.0,
+				0.9,
+				0.05
+			],
+			"color": "#3f7a4a",
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			},
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "table",
+			"pos": [
+				-3.0,
+				0.45,
+				-1.0
+			],
+			"size": [
+				2.0,
+				0.9,
+				1.0
+			],
+			"color": "#9a7a4a",
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			},
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "shelf",
+			"pos": [
+				-12.5,
+				1.0,
+				-2.0
+			],
+			"size": [
+				0.5,
+				2.0,
+				2.4
+			],
+			"color": "#7a6040",
+			"rot": 0,
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			},
+			"collide": false,
+			"decor": true
 		}
 	],
 	"spawns": {
@@ -449,5 +780,64 @@
 	},
 	"camera": {
 		"distance": 3.6
-	}
+	},
+	"wall_style": "factory",
+	"floor_mat": "concrete",
+	"particles": [
+		{
+			"type": "dust",
+			"pos": [
+				0,
+				2.5,
+				0
+			],
+			"extent": [
+				10,
+				2,
+				7
+			]
+		}
+	],
+	"window_color": "#5a6a82",
+	"variants": [
+		{
+			"if": {
+				"flag": "ending",
+				"eq": "solidarity"
+			},
+			"set": {
+				"background": "#1b1f24",
+				"ambient": "#8e939b",
+				"ambient_energy": 0.85,
+				"fog_density": 0.008,
+				"window_color": "#c8d8ec",
+				"sun": {
+					"rot": [
+						-45,
+						-30,
+						0
+					],
+					"energy": 0.95,
+					"color": "#fff0d0",
+					"shadow": true,
+					"shadow_distance": 22
+				},
+				"particles": [
+					{
+						"type": "dust",
+						"pos": [
+							0,
+							2.5,
+							0
+						],
+						"extent": [
+							10,
+							2,
+							7
+						]
+					}
+				]
+			}
+		}
+	]
 }

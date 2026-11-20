@@ -1,7 +1,7 @@
 # VARDİYA — NexDrive Game Studio
 
 Seçimlere dayalı, üçüncü şahıs sinematik hikâye oyunu (Godot 4.7, Compatibility renderer).
-Şu anki durum: **Aşama 5** — 8 bölüm + 5 son, her son için final sahnesi (epilog), son kartı, kredi ve oyunlar arası "Sonlar" galerisi. Raporlar: `docs/RAPOR_ASAMA_1_2.md`, `docs/RAPOR_ASAMA_3.md`, `docs/RAPOR_ASAMA_4.md`, `docs/RAPOR_ASAMA_5.md`; sonlara test yolları: `docs/SON_TEST_YOLLARI.md`.
+Şu anki durum: **Aşama 6** — sanat geçişi: gri kutuların yerine stilize düşük poligon prop'lar, çalışma anında üretilen 512 px dokular, animasyonlu karakter gövdeleri, mekân atmosferi (gökyüzü, ışık hüzmesi, parçacık, titreyen ışık) ve epilog ışık varyantları. 8 bölüm + 5 son, epiloglar, son kartı, kredi ve "Sonlar" galerisi önceki aşamalardan. Raporlar: `docs/RAPOR_ASAMA_1_2.md` … `docs/RAPOR_ASAMA_6.md`; sonlara test yolları: `docs/SON_TEST_YOLLARI.md`.
 
 ## Çalıştırma
 
@@ -53,9 +53,9 @@ Rapor `~/.local/share/vardiya/perf_report.json` içine yazılır; F3 oyun içind
 | `data/credits.json` | Kredi metni |
 | `data/locale/` | `tr.json`, `en.json` — oyuncuya görünen tüm metin |
 | `data/story_flags.json` | Bildirilmiş hikâye bayrakları ve varsayılanları |
-| `data/locations/` | Gri kutu mekânlar (kutular, ışıklar, başlangıç ve etkileşim noktaları) |
-| `data/characters.json` | Konuşmacılar (oynanabilir + NPC), renkler |
-| `scenes/world/` | Mekân kurucu, oyuncu, kamera, dünya görünümü |
+| `data/locations/` | Mekânlar: çarpışma kutuları + prop türü (`kind`), malzeme (`mat`), duvar stili, gökyüzü, ışıklar (hale / hüzme / titreme), parçacıklar, koşullu varyantlar |
+| `data/characters.json` | Konuşmacılar (oynanabilir + NPC), renkler, görünüm (`look`) |
+| `scenes/world/` | Mekân kurucu, prop kiti, mesh birleştirici, malzeme/doku kiti, karakter gövdesi, ortam animasyonu, oyuncu, kamera |
 | `ui/`, `scenes/` | Menüler, diyalog arayüzü, bölüm oynatıcı |
 | `tools/` | Veri doğrulayıcı ve testleri |
 | `tests/` | Motor içi (headless) testler |

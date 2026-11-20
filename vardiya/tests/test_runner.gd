@@ -5,6 +5,10 @@ extends Control
 
 const EndingsGallery = preload("res://ui/endings_gallery.gd")
 const Credits = preload("res://ui/credits.gd")
+const LocationBuilder = preload("res://scenes/world/location_builder.gd")
+const ArtKit = preload("res://scenes/world/art_kit.gd")
+const LOCATION_IDS := ["factory_locker", "factory_floor", "factory_night", "factory_gate", "port_yard",
+	"family_home", "police_room"]
 
 var _failures: Array[String] = []
 var _passed := 0
@@ -29,6 +33,8 @@ func _ready() -> void:
 		"test_ending_link_and_unlock", "test_profile_survives_slots", "test_epilogue_keeps_snapshots",
 		"test_every_epilogue_completes", "test_epilogue_varies_by_fate", "test_betrayal_epilogue_pov",
 		"test_gallery_rows", "test_credits_data",
+		"test_art_locations_within_budget", "test_art_textures", "test_art_variants", "test_art_character_body",
+		"test_art_low_quality", "test_art_fire_props",
 	]:
 		GameState.reset()
 		SaveSystem.active_slot = -1
@@ -459,7 +465,6 @@ func test_chapter1_full_playthrough() -> void:
 
 
 func test_location_data_builds() -> void:
-	const LocationBuilder = preload("res://scenes/world/location_builder.gd")
 	for id in ["factory_locker", "factory_floor"]:
 		var root := Node3D.new()
 		add_child(root)
@@ -731,3 +736,118 @@ func test_credits_data() -> void:
 	check(sections.size() >= 5, "credits loaded")
 	check(Credits.display_name("credits.thanks_name") == Localization.t("credits.thanks_name"), "credit keys are translated")
 	check(Credits.display_name("NexDrive Game Studio") == "NexDrive Game Studio", "proper names are kept")
+
+
+# --- Stage 6: art pass ------------------------------------------------------------
+
+func _build_location(id: String) -> Array:
+	var root := Node3D.new()
+	add_child(root)
+	GameState.location = {"player": "kemal"}
+	var built := LocationBuilder.build(root, LocationBuilder.load_data(id))
+	return [root, built]
+
+
+func _count(node: Node, type_name: String) -> int:
+	var n := 1 if node.is_class(type_name) else 0
+	for c in node.get_children():
+		n += _count(c, type_name)
+	return n
+
+
+func test_art_locations_within_budget() -> void:
+	SaveSystem.settings["visual_quality"] = "high"
+	for id: String in LOCATION_IDS:
+		var r := _build_location(id)
+		var root: Node3D = r[0]
+		var stats: Dictionary = r[1]["stats"]
+		check(int(stats["meshes"]) >= 3 and int(stats["meshes"]) <= 10, id + " merged into 3-10 material batches")
+		check(int(stats["vertices"]) < 80000, id + " vertex budget (%d)" % int(stats["vertices"]))
+		check(int(stats["lights"]) <= 4, id + " omni light budget")
+		# Static geometry + effects, excluding character bodies (5 meshes each).
+		var meshes := _count(root, "MeshInstance3D") - 5 * (r[1]["actors"] as Dictionary).size()
+		check(meshes <= 24, id + " draw-call budget (%d mesh instances)" % meshes)
+		check(_count(root, "DirectionalLight3D") <= 1, id + " one sun")
+		root.free()
+
+
+func test_art_textures() -> void:
+	for id: String in ArtKit.SURFACES:
+		var tex := ArtKit.detail_texture(id)
+		check(tex.get_width() == ArtKit.TEX_SIZE and tex.get_height() == ArtKit.TEX_SIZE, id + " texture is 512 px")
+	var first := ArtKit.detail_texture("concrete")
+	var second := ArtKit.detail_texture("concrete")
+	check(first == second, "textures are cached")
+	var glow := ArtKit.material("glow") as StandardMaterial3D
+	check(glow.shading_mode == BaseMaterial3D.SHADING_MODE_UNSHADED, "glow material is unshaded")
+	var concrete := ArtKit.material("concrete") as StandardMaterial3D
+	check(concrete.uv1_triplanar and concrete.albedo_texture != null, "concrete uses triplanar detail")
+
+
+func test_art_variants() -> void:
+	var raw := LocationBuilder.load_data("factory_floor")
+	check(str(LocationBuilder.resolve_variants(raw)["background"]) == str(raw["background"]), "no variant by default")
+	GameState.set_flag("ending", "solidarity")
+	check(str(LocationBuilder.resolve_variants(raw)["background"]) == "#1b1f24", "solidarity epilogue lighting")
+	var home := LocationBuilder.load_data("family_home")
+	GameState.set_flag("ending", "secret")
+	var lit: Array = LocationBuilder.resolve_variants(home)["lights"]
+	check(lit.size() == 1 and str(lit[0].get("flicker", "")) == "fire", "secret ending: candle light only")
+	GameState.set_flag("ending", "")
+
+
+func test_art_character_body() -> void:
+	for id: String in LocationBuilder.characters():
+		var body := LocationBuilder.make_body(id)
+		add_child(body)
+		check(_count(body, "MeshInstance3D") == 5, id + " body has 5 meshes")
+		body.call("set_motion", 2.3)
+		body.call("_process", 0.25)
+		var moved := false
+		for c in body.get_children():
+			if not c is MeshInstance3D and absf((c as Node3D).rotation.x) > 0.01:
+				moved = true
+		check(moved, id + " limbs swing when walking")
+		body.call("talk")
+		body.call("set_motion", 0.0)
+		body.call("_process", 0.5)
+		body.free()
+
+
+func test_art_low_quality() -> void:
+	SaveSystem.settings["visual_quality"] = "low"
+	GameState.set_flag("fire_started", true)
+	var r := _build_location("factory_night")
+	var root: Node3D = r[0]
+	check(_count(root, "CPUParticles3D") == 0, "low quality: no particles")
+	check(_count(root, "CanvasLayer") == 0, "low quality: no vignette")
+	var shadows := false
+	for c in root.get_children():
+		if c is DirectionalLight3D and (c as DirectionalLight3D).shadow_enabled:
+			shadows = true
+	check(not shadows, "low quality: no realtime shadow")
+	root.free()
+	SaveSystem.settings["visual_quality"] = "high"
+
+
+func test_art_fire_props() -> void:
+	SaveSystem.settings["visual_quality"] = "high"
+	var r := _build_location("factory_night")
+	var root: Node3D = r[0]
+	var before := 0
+	for c in root.get_children():
+		if str(c.name).contains("Fire"):
+			before += 1
+	check(before == 0, "no fire before fire_started")
+	root.free()
+	GameState.set_flag("fire_started", true)
+	r = _build_location("factory_night")
+	root = r[0]
+	var fires := 0
+	for c in root.get_children():
+		if str(c.name).contains("Fire"):
+			fires += 1
+	check(fires == 2, "two fire sheets when fire_started")
+	check(root.find_child("Ambience", false, false) != null, "fire is animated")
+	check(_count(root, "CPUParticles3D") == 4, "embers + smoke per fire")
+	root.free()

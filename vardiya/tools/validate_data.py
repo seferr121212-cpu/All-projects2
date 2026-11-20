@@ -385,6 +385,159 @@ def check_location(rep: Report, lid: str, loc: dict, speakers: set) -> None:
             rep.error(f"{w}: texture {tx.get('path')} exceeds 1024 px budget")
 
 
+# --------------------------------------------------------------------------- #
+# Stage 6 art schema (mirrors scenes/world/location_builder.gd, prop_kit.gd,
+# art_kit.gd and character_body.gd)
+# --------------------------------------------------------------------------- #
+
+PROP_KINDS = {
+    "block", "crate", "container", "locker", "table", "desk", "bench", "machine", "cylinder", "barrel",
+    "rail", "pillar", "beam", "truck", "booth", "person", "sofa", "shelf", "cabinet", "board", "paper",
+    "window", "door", "banner", "crane", "lamp", "pipe", "conveyor", "screen", "pallet", "hazard",
+    "kitchen", "fire", "lamp_post", "bed", "fence", "panel",
+}
+MATERIALS = {"concrete", "metal", "paint", "wood", "fabric", "plaster", "plain", "glow", "skin"}
+WALL_STYLES = {"plain", "factory", "home", "fence"}
+PARTICLE_TYPES = {"dust", "smoke", "embers", "mist", "steam"}
+FLICKER_MODES = {"tube", "fire"}
+VARIANT_KEYS = {"background", "sky", "ambient", "ambient_energy", "fog", "fog_density", "sun", "lights",
+                "particles", "vignette", "floor_color", "wall_color", "window_color"}
+BOX_KEYS = {"pos", "size", "color", "collide", "emissive", "rot", "if", "kind", "mat", "decor"}
+HAIR_STYLES = {"short", "cap", "ponytail", "bun", "long", "bald"}
+LOOK_COLORS = {"top", "pants", "skin", "hair", "shoes", "cap"}
+LOOK_FLAGS = {"coat", "overalls", "bag", "mustache", "beard", "glasses"}
+# Budgets for the Vega 6 target (per location, worst case with every "if" true).
+MAX_LIGHTS = 4
+MAX_PARTICLE_SYSTEMS = 4
+MAX_FIRES = 3
+HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+
+def _is_color(v) -> bool:
+    return isinstance(v, str) and bool(HEX_RE.match(v))
+
+
+def _check_lights(ctx: Context, w: str, lights) -> None:
+    if not isinstance(lights, list):
+        ctx.rep.error(f"{w}: lights must be a list")
+        return
+    if len(lights) > MAX_LIGHTS:
+        ctx.rep.error(f"{w}: {len(lights)} omni lights exceed the budget of {MAX_LIGHTS}")
+    for i, l in enumerate(lights):
+        if "if" in l:
+            check_condition(ctx, f"{w}[{i}].if", l["if"])
+        if "flicker" in l and l["flicker"] not in FLICKER_MODES:
+            ctx.rep.error(f"{w}[{i}]: unknown flicker '{l['flicker']}' (use {sorted(FLICKER_MODES)})")
+        if "color" in l and not _is_color(l["color"]):
+            ctx.rep.error(f"{w}[{i}]: bad colour {l['color']!r}")
+
+
+def _check_particles(ctx: Context, w: str, parts) -> None:
+    if not isinstance(parts, list):
+        ctx.rep.error(f"{w}: particles must be a list")
+        return
+    for i, p in enumerate(parts):
+        if p.get("type") not in PARTICLE_TYPES:
+            ctx.rep.error(f"{w}[{i}]: unknown particle type '{p.get('type')}' (use {sorted(PARTICLE_TYPES)})")
+        if "if" in p:
+            check_condition(ctx, f"{w}[{i}].if", p["if"])
+
+
+def _check_sky(ctx: Context, w: str, sky) -> None:
+    if not isinstance(sky, dict):
+        ctx.rep.error(f"{w}: sky must be an object")
+        return
+    for k in ("top", "horizon", "ground"):
+        if k in sky and not _is_color(sky[k]):
+            ctx.rep.error(f"{w}.{k}: bad colour {sky[k]!r}")
+
+
+def check_location_art(ctx: Context, lid: str, loc: dict) -> None:
+    rep = ctx.rep
+    w = f"location {lid}"
+    size = loc.get("size", [12, 4, 10])
+    if loc.get("wall_style", "plain") not in WALL_STYLES:
+        rep.error(f"{w}: unknown wall_style '{loc.get('wall_style')}' (use {sorted(WALL_STYLES)})")
+    for key in ("floor_mat", "wall_mat"):
+        if key in loc and loc[key] not in MATERIALS:
+            rep.error(f"{w}: unknown {key} '{loc[key]}'")
+    for key in ("floor_color", "wall_color", "background", "ambient", "window_color"):
+        if key in loc and not _is_color(loc[key]):
+            rep.error(f"{w}: bad colour {key}={loc[key]!r}")
+    if "sky" in loc:
+        _check_sky(ctx, f"{w}.sky", loc["sky"])
+    fires = 0
+    for i, b in enumerate(loc.get("boxes", [])):
+        bw = f"{w}.boxes[{i}]"
+        unknown = set(b) - BOX_KEYS
+        if unknown:
+            rep.error(f"{bw}: unknown keys {sorted(unknown)}")
+        if "kind" in b and b["kind"] not in PROP_KINDS:
+            rep.error(f"{bw}: unknown prop kind '{b['kind']}'")
+        if "mat" in b and b["mat"] not in MATERIALS:
+            rep.error(f"{bw}: unknown material '{b['mat']}'")
+        if "color" in b and not _is_color(b["color"]):
+            rep.error(f"{bw}: bad colour {b['color']!r}")
+        if "if" in b:
+            check_condition(ctx, f"{bw}.if", b["if"])
+        if b.get("kind") == "fire":
+            fires += 1
+            if b.get("collide", True):
+                rep.error(f"{bw}: fire must not collide (it is an animated effect)")
+        p = b.get("pos", [0, 0, 0])
+        if abs(p[0]) > size[0] / 2 or abs(p[2]) > size[2] / 2 or p[1] > size[1]:
+            rep.error(f"{bw}: centre {p} is outside the room {size}")
+    if fires > MAX_FIRES:
+        rep.error(f"{w}: {fires} fire props exceed the budget of {MAX_FIRES}")
+    _check_lights(ctx, f"{w}.lights", loc.get("lights", []))
+    _check_particles(ctx, f"{w}.particles", loc.get("particles", []))
+    budget = len(loc.get("particles", [])) + 2 * fires
+    for vi, v in enumerate(loc.get("variants", [])):
+        vw = f"{w}.variants[{vi}]"
+        if "if" not in v:
+            rep.error(f"{vw}: a variant needs an 'if' condition")
+        else:
+            check_condition(ctx, f"{vw}.if", v["if"])
+        sets = v.get("set", {})
+        bad = set(sets) - VARIANT_KEYS
+        if bad:
+            rep.error(f"{vw}: keys {sorted(bad)} cannot be changed by a variant (allowed: {sorted(VARIANT_KEYS)})")
+        if "lights" in sets:
+            _check_lights(ctx, f"{vw}.lights", sets["lights"])
+        if "particles" in sets:
+            _check_particles(ctx, f"{vw}.particles", sets["particles"])
+            budget = max(budget, len(sets["particles"]) + 2 * fires)
+        if "sky" in sets:
+            _check_sky(ctx, f"{vw}.sky", sets["sky"])
+    if budget > MAX_PARTICLE_SYSTEMS:
+        rep.error(f"{w}: up to {budget} particle systems exceed the budget of {MAX_PARTICLE_SYSTEMS}")
+
+
+def check_character_looks(rep: Report, chars: dict) -> None:
+    for group in ("playable", "npc"):
+        for cid, info in chars.get(group, {}).items():
+            look = info.get("look")
+            w = f"characters.{cid}.look"
+            if look is None:
+                rep.warn(f"{w}: no look, the default body is used")
+                continue
+            for k, v in look.items():
+                if k in LOOK_COLORS:
+                    if not _is_color(v):
+                        rep.error(f"{w}.{k}: bad colour {v!r}")
+                elif k in LOOK_FLAGS:
+                    if not isinstance(v, bool):
+                        rep.error(f"{w}.{k}: must be true/false")
+                elif k in ("height", "build"):
+                    if not _num(v) or not 0.8 <= v <= 1.2:
+                        rep.error(f"{w}.{k}: must be a number in 0.8..1.2")
+                elif k == "hair_style":
+                    if v not in HAIR_STYLES:
+                        rep.error(f"{w}.hair_style: unknown '{v}' (use {sorted(HAIR_STYLES)})")
+                else:
+                    rep.error(f"{w}: unknown key '{k}'")
+
+
 ENDING_LINK = "@ending"
 PLAYER_RADIUS = 0.3
 CELL = 0.2
@@ -906,6 +1059,9 @@ def validate(root: Path, game_sim: bool | None = None) -> tuple[Report, dict]:
     ctx = Context(rep, locales, flags, speakers, locations)
     for cid, info in {**chars.get("playable", {}), **chars.get("npc", {})}.items():
         ctx.key(f"characters.{cid}", info.get("name"))
+    check_character_looks(rep, chars)
+    for lid, loc in locations.items():
+        check_location_art(ctx, lid, loc)
 
     index = load_json(root / "data" / "chapters" / "index.json", rep) or {}
     chapters = []

@@ -35,6 +35,7 @@ static func default_settings() -> Dictionary:
 		"qte_easy": false,
 		"qte_hold_alternative": false,
 		"subtitle_scale": 1.0,
+		"visual_quality": "high",
 		"master_volume": 1.0,
 		"music_volume": 0.8,
 		"sfx_volume": 0.8,

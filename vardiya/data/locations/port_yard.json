@@ -1,5 +1,5 @@
 {
-	"_doc": "Grey-box: Karaliman port container yard at night (ch3).",
+	"_doc": "Karaliman port container yard at night (ch3).",
 	"id": "port_yard",
 	"size": [
 		30,
@@ -33,7 +33,9 @@
 			],
 			"range": 8,
 			"energy": 1.1,
-			"color": "#ffcf8a"
+			"color": "#ffcf8a",
+			"halo": true,
+			"beam": true
 		},
 		{
 			"pos": [
@@ -43,7 +45,9 @@
 			],
 			"range": 10,
 			"energy": 0.9,
-			"color": "#e0ecff"
+			"color": "#e0ecff",
+			"halo": true,
+			"beam": true
 		}
 	],
 	"boxes": [
@@ -58,7 +62,8 @@
 				2.6,
 				6
 			],
-			"color": "#a5452f"
+			"color": "#a5452f",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -71,7 +76,8 @@
 				2.6,
 				6
 			],
-			"color": "#2f6a8a"
+			"color": "#2f6a8a",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -84,7 +90,8 @@
 				2.6,
 				6
 			],
-			"color": "#8a7a2f"
+			"color": "#8a7a2f",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -97,7 +104,8 @@
 				2.6,
 				6
 			],
-			"color": "#4f7a3f"
+			"color": "#4f7a3f",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -110,7 +118,8 @@
 				2.6,
 				6
 			],
-			"color": "#7a3f6a"
+			"color": "#7a3f6a",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -123,7 +132,8 @@
 				2.6,
 				6
 			],
-			"color": "#a5452f"
+			"color": "#a5452f",
+			"kind": "container"
 		},
 		{
 			"pos": [
@@ -136,7 +146,9 @@
 				2.6,
 				2.6
 			],
-			"color": "#6a6e72"
+			"color": "#6a6e72",
+			"kind": "booth",
+			"mat": "metal"
 		},
 		{
 			"pos": [
@@ -151,7 +163,8 @@
 			],
 			"color": "#ffd88a",
 			"collide": false,
-			"emissive": true
+			"emissive": true,
+			"kind": "window"
 		},
 		{
 			"pos": [
@@ -164,7 +177,8 @@
 				2.8,
 				6
 			],
-			"color": "#3f5a7a"
+			"color": "#3f5a7a",
+			"kind": "truck"
 		},
 		{
 			"pos": [
@@ -177,7 +191,8 @@
 				8,
 				0.6
 			],
-			"color": "#c9a227"
+			"color": "#c9a227",
+			"kind": "crane"
 		},
 		{
 			"pos": [
@@ -190,7 +205,120 @@
 				8,
 				0.6
 			],
-			"color": "#c9a227"
+			"color": "#c9a227",
+			"kind": "crane"
+		},
+		{
+			"kind": "lamp_post",
+			"pos": [
+				10,
+				2.5,
+				5.55
+			],
+			"size": [
+				0.3,
+				5.0,
+				0.9
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "lamp_post",
+			"pos": [
+				-10,
+				3.3,
+				-7.45
+			],
+			"size": [
+				0.3,
+				1.4,
+				0.9
+			],
+			"color": "#3a3f45",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "beam",
+			"pos": [
+				-11,
+				7.6,
+				6
+			],
+			"size": [
+				5.0,
+				0.5,
+				0.8
+			],
+			"color": "#c9a227",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "hazard",
+			"pos": [
+				-3,
+				0.006,
+				0
+			],
+			"size": [
+				0.15,
+				0.01,
+				18.0
+			],
+			"color": "#d9a62e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "hazard",
+			"pos": [
+				3,
+				0.006,
+				0
+			],
+			"size": [
+				0.15,
+				0.01,
+				18.0
+			],
+			"color": "#d9a62e",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "pallet",
+			"pos": [
+				13.5,
+				0.07,
+				-9.5
+			],
+			"size": [
+				1.2,
+				0.14,
+				1.0
+			],
+			"color": "#7a6040",
+			"collide": true,
+			"decor": true
+		},
+		{
+			"kind": "barrel",
+			"pos": [
+				13.6,
+				0.45,
+				-8.2
+			],
+			"size": [
+				0.6,
+				0.9,
+				0.6
+			],
+			"color": "#2f5a7a",
+			"collide": true,
+			"decor": true
 		}
 	],
 	"spawns": {
@@ -240,5 +368,26 @@
 	},
 	"camera": {
 		"distance": 3.8
-	}
+	},
+	"wall_style": "fence",
+	"sky": {
+		"top": "#04070e",
+		"horizon": "#1c2a3e",
+		"ground": "#05070a"
+	},
+	"particles": [
+		{
+			"type": "mist",
+			"pos": [
+				0,
+				0.5,
+				0
+			],
+			"extent": [
+				13,
+				0.3,
+				9
+			]
+		}
+	]
 }

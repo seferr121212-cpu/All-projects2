@@ -314,5 +314,55 @@ class ValidatorTests(unittest.TestCase):
         self.assertTrue(any("dead/missing 'riza' in control" in m for m in r["unreachable"]))
 
 
+    # --- Stage 6: art schema -------------------------------------------------------
+
+    def _loc_errors(self, name, mutate):
+        loc = self.load(f"data/locations/{name}.json")
+        mutate(loc)
+        self.save(f"data/locations/{name}.json", loc)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        return rep.errors
+
+    def test_unknown_prop_kind_and_material(self):
+        def m(loc):
+            loc["boxes"][0]["kind"] = "spaceship"
+            loc["boxes"][1]["mat"] = "gold"
+        errs = self._loc_errors("police_room", m)
+        self.assertTrue(any("unknown prop kind 'spaceship'" in e for e in errs), errs)
+        self.assertTrue(any("unknown material 'gold'" in e for e in errs), errs)
+
+    def test_light_and_particle_budgets(self):
+        def m(loc):
+            loc["lights"] = [dict(loc["lights"][0]) for _ in range(5)]
+            loc["particles"] = [{"type": "dust", "pos": [0, 1, 0], "extent": [1, 1, 1]}] * 5
+        errs = self._loc_errors("police_room", m)
+        self.assertTrue(any("exceed the budget of 4" in e and "omni lights" in e for e in errs), errs)
+        self.assertTrue(any("particle systems exceed" in e for e in errs), errs)
+
+    def test_variant_checks_condition_and_keys(self):
+        def m(loc):
+            loc["variants"] = [{"if": {"flag": "no_such_flag"}, "set": {"boxes": [], "particles": [{"type": "rain"}]}}]
+        errs = self._loc_errors("police_room", m)
+        self.assertTrue(any("undeclared flag 'no_such_flag'" in e for e in errs), errs)
+        self.assertTrue(any("cannot be changed by a variant" in e for e in errs), errs)
+        self.assertTrue(any("unknown particle type 'rain'" in e for e in errs), errs)
+
+    def test_fire_must_not_collide_and_box_inside_room(self):
+        def m(loc):
+            loc["boxes"].append({"kind": "fire", "pos": [0, 1, 0], "size": [1, 1, 0.2], "color": "#ff6a1a"})
+            loc["boxes"].append({"pos": [40, 1, 0], "size": [1, 1, 1], "color": "#808080", "collide": False})
+        errs = self._loc_errors("police_room", m)
+        self.assertTrue(any("fire must not collide" in e for e in errs), errs)
+        self.assertTrue(any("outside the room" in e for e in errs), errs)
+
+    def test_character_look_is_checked(self):
+        chars = self.load("data/characters.json")
+        chars["playable"]["kemal"]["look"]["hair_style"] = "mohawk"
+        chars["npc"]["selim"]["look"]["height"] = 2.5
+        self.save("data/characters.json", chars)
+        rep, _ = vd.validate(self.root, game_sim=False)
+        self.assertTrue(any("unknown 'mohawk'" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("selim.look.height" in e for e in rep.errors), rep.errors)
+
 if __name__ == "__main__":
     unittest.main()

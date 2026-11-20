@@ -37,6 +37,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 	move_and_slide()
+	if visual and visual.has_method("set_motion"):
+		visual.call("set_motion", Vector2(velocity.x, velocity.z).length())
 	if visual and dir.length() > 0.1:
 		visual.rotation.y = lerp_angle(visual.rotation.y, atan2(dir.x, dir.z), TURN_SPEED * delta)
 

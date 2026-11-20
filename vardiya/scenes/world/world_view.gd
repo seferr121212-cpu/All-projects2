@@ -144,6 +144,7 @@ func on_line(speaker: String) -> void:
 	if rig == null or player == null:
 		return
 	var player_id := str(GameState.location.get("player", ""))
+	_gesture(speaker, player_id)
 	if actors.has(speaker):
 		var spk: Node3D = actors[speaker]
 		player.face(spk.global_position)
@@ -152,6 +153,17 @@ func on_line(speaker: String) -> void:
 		var other := _nearest_actor()
 		if other:
 			rig.focus(other.global_position, player.global_position)
+
+
+## Speaking body nods / gestures (stage 6 animation).
+func _gesture(speaker: String, player_id: String) -> void:
+	var body: Node3D = null
+	if actors.has(speaker):
+		body = actors[speaker]
+	elif speaker == player_id and player:
+		body = player.visual
+	if body and body.has_method("talk"):
+		body.call("talk")
 
 
 func _nearest_actor() -> Node3D:

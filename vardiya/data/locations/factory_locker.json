@@ -1,5 +1,5 @@
 {
-	"_doc": "Grey-box: factory locker room (chapter 1). Units in metres, y up. Points are interaction spots.",
+	"_doc": "Factory locker room (ch1). Units in metres, y up. Points are interaction spots.",
 	"id": "factory_locker",
 	"size": [
 		10,
@@ -31,7 +31,10 @@
 			],
 			"range": 6,
 			"energy": 0.9,
-			"color": "#e8f0ff"
+			"color": "#e8f0ff",
+			"flicker": "tube",
+			"halo": true,
+			"halo_size": 0.7
 		},
 		{
 			"pos": [
@@ -41,7 +44,9 @@
 			],
 			"range": 6,
 			"energy": 0.8,
-			"color": "#ffe9c4"
+			"color": "#ffe9c4",
+			"halo": true,
+			"halo_size": 0.7
 		}
 	],
 	"boxes": [
@@ -56,7 +61,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -69,7 +75,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -82,7 +89,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#6f8394"
+			"color": "#6f8394",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -95,7 +103,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -108,7 +117,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#7a7458"
+			"color": "#7a7458",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -121,7 +131,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -134,7 +145,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -147,7 +159,8 @@
 				2.0,
 				0.5
 			],
-			"color": "#5d6b78"
+			"color": "#5d6b78",
+			"kind": "locker"
 		},
 		{
 			"pos": [
@@ -160,7 +173,8 @@
 				0.44,
 				0.45
 			],
-			"color": "#6b5a44"
+			"color": "#6b5a44",
+			"kind": "bench"
 		},
 		{
 			"pos": [
@@ -173,7 +187,8 @@
 				0.44,
 				2.6
 			],
-			"color": "#6b5a44"
+			"color": "#6b5a44",
+			"kind": "bench"
 		},
 		{
 			"pos": [
@@ -186,7 +201,8 @@
 				1.0,
 				1.4
 			],
-			"color": "#8a7a52"
+			"color": "#8a7a52",
+			"kind": "board"
 		},
 		{
 			"pos": [
@@ -200,7 +216,8 @@
 				0.22
 			],
 			"color": "#c23b2f",
-			"collide": false
+			"collide": false,
+			"kind": "paper"
 		},
 		{
 			"pos": [
@@ -215,7 +232,8 @@
 			],
 			"color": "#f0a838",
 			"collide": false,
-			"emissive": true
+			"emissive": true,
+			"kind": "door"
 		},
 		{
 			"pos": [
@@ -228,7 +246,73 @@
 				0.9,
 				1.2
 			],
-			"color": "#3f4a40"
+			"color": "#3f4a40",
+			"kind": "cabinet",
+			"mat": "paint"
+		},
+		{
+			"kind": "panel",
+			"pos": [
+				-2,
+				3.1,
+				-1
+			],
+			"size": [
+				1.2,
+				0.06,
+				0.25
+			],
+			"color": "#e8f0ff",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "panel",
+			"pos": [
+				3,
+				3.1,
+				1.5
+			],
+			"size": [
+				1.2,
+				0.06,
+				0.25
+			],
+			"color": "#ffe9c4",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "pipe",
+			"pos": [
+				0,
+				2.85,
+				3.3
+			],
+			"size": [
+				9.6,
+				0.14,
+				0.14
+			],
+			"color": "#6a6e72",
+			"collide": false,
+			"decor": true
+		},
+		{
+			"kind": "board",
+			"pos": [
+				-4.93,
+				1.6,
+				-0.6
+			],
+			"size": [
+				0.04,
+				0.5,
+				0.7
+			],
+			"color": "#9aa0a8",
+			"collide": false,
+			"decor": true
 		}
 	],
 	"spawns": {
@@ -278,5 +362,22 @@
 	},
 	"camera": {
 		"distance": 2.8
-	}
+	},
+	"wall_style": "plain",
+	"wall_mat": "paint",
+	"particles": [
+		{
+			"type": "dust",
+			"pos": [
+				0,
+				1.6,
+				0
+			],
+			"extent": [
+				4,
+				1,
+				3
+			]
+		}
+	]
 }
