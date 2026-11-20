@@ -115,5 +115,49 @@
 	"ending": {
 		"default": "",
 		"doc": "Resolved ending id, set when the last story chapter ends (before its epilogue)."
+	},
+	"sevgi_call": {
+		"default": "",
+		"doc": "Kemal's answer to Sevgi's call (ch1): promise/cold/open."
+	},
+	"kemal_lent_riza": {
+		"default": false,
+		"doc": "Kemal lent Rıza money for the truck debt (ch1)."
+	},
+	"riza_warned_cevdet": {
+		"default": false,
+		"doc": "Kemal warned Rıza not to take dirty work to pay Cevdet (ch1)."
+	},
+	"kemal_told_defne_fix": {
+		"default": false,
+		"doc": "Kemal told Defne why he stayed at the plant overnight (ch1)."
+	},
+	"kemal_asked_izmir": {
+		"default": false,
+		"doc": "Kemal brought up İzmir and Sevgi with Defne (ch1)."
+	},
+	"ece_bond": {
+		"default": "",
+		"doc": "What Defne told Ece about quitting the exam (ch2): study/free/strike."
+	},
+	"defne_mother_reply": {
+		"default": "",
+		"doc": "Defne's answer to her mother's message (ch2): warm/hard/none."
+	},
+	"kemal_faced_cevdet": {
+		"default": false,
+		"doc": "Kemal stood between Rıza and Cevdet at the gate (ch2)."
+	},
+	"riza_cevdet": {
+		"default": "",
+		"doc": "How Rıza faced Cevdet at the teahouse (ch3): beg/proud/truck."
+	},
+	"riza_exam_ride": {
+		"default": false,
+		"doc": "Rıza promised to drive Defne to the exam (ch3)."
+	},
+	"defne_read_letters": {
+		"default": false,
+		"doc": "Defne opened her mother's letters (ch4)."
 	}
 }

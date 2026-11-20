@@ -42,7 +42,7 @@
 			"type": "line",
 			"speaker": "selim",
 			"text": "ch02.l03",
-			"next": "x01",
+			"next": "s8a_01",
 			"if": {
 				"flag": "selim_warned",
 				"eq": true
@@ -238,7 +238,7 @@
 					"value": "kemal"
 				}
 			],
-			"next": "loc_k"
+			"next": "s8b_br"
 		},
 		"loc_k": {
 			"type": "location",
@@ -415,25 +415,25 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch02.r02_open",
-			"next": "outro"
+			"next": "s8c_01"
 		},
 		"r02_closed": {
 			"type": "line",
 			"speaker": "nevin",
 			"text": "ch02.r02_closed",
-			"next": "outro"
+			"next": "s8c_01"
 		},
 		"r02_riza": {
 			"type": "line",
 			"speaker": "riza",
 			"text": "ch02.r02_riza",
-			"next": "outro"
+			"next": "s8c_01"
 		},
 		"r02_silence": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch02.r02_silence",
-			"next": "outro"
+			"next": "s8c_01"
 		},
 		"outro": {
 			"type": "line",
@@ -461,6 +461,454 @@
 		"end": {
 			"type": "end",
 			"next_chapter": "ch03_port"
+		},
+		"s8a_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8a_01",
+			"next": "s8a_02"
+		},
+		"s8a_02": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_02",
+			"next": "s8a_03"
+		},
+		"s8a_03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8a_03",
+			"next": "s8a_04"
+		},
+		"s8a_04": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_04",
+			"next": "s8a_05"
+		},
+		"s8a_05": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8a_05",
+			"next": "s8a_06"
+		},
+		"s8a_06": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_06",
+			"next": "s8a_07"
+		},
+		"s8a_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8a_07",
+			"next": "s8a_08"
+		},
+		"s8a_08": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_08",
+			"next": "s8a_09"
+		},
+		"s8a_09": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_09",
+			"next": "s8a_c1"
+		},
+		"s8a_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch02_ece",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch02.s8a_c1.prompt",
+			"options": [
+				{
+					"id": "study",
+					"text": "ch02.s8a_c1.study",
+					"next": "s8a_r1",
+					"effects": [
+						{
+							"set_flag": "ece_bond",
+							"value": "study"
+						}
+					]
+				},
+				{
+					"id": "free",
+					"text": "ch02.s8a_c1.free",
+					"next": "s8a_r2",
+					"effects": [
+						{
+							"set_flag": "ece_bond",
+							"value": "free"
+						}
+					]
+				},
+				{
+					"id": "strike",
+					"text": "ch02.s8a_c1.strike",
+					"next": "s8a_r3",
+					"effects": [
+						{
+							"set_flag": "ece_bond",
+							"value": "strike"
+						}
+					]
+				}
+			]
+		},
+		"s8a_r1": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_r1",
+			"next": "s8a_10"
+		},
+		"s8a_r2": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_r2",
+			"next": "s8a_10"
+		},
+		"s8a_r3": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch02.s8a_r3",
+			"next": "s8a_10"
+		},
+		"s8a_10": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8a_10",
+			"next": "x01"
+		},
+		"s8b_br": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"decision": "b2_grev_destek",
+						"eq": "leave"
+					},
+					"next": "s8b_d00"
+				}
+			],
+			"else": "s8b_p00"
+		},
+		"s8b_d00": {
+			"type": "location",
+			"location": "loc.ch02.s8b_d00",
+			"next": "s8b_d01"
+		},
+		"s8b_d01": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch02.s8b_d01",
+			"next": "s8b_d02"
+		},
+		"s8b_d02": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch02.s8b_d02",
+			"next": "s8b_d03"
+		},
+		"s8b_d03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8b_d03",
+			"next": "s8b_d04"
+		},
+		"s8b_d04": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch02.s8b_d04",
+			"next": "s8b_d05"
+		},
+		"s8b_d05": {
+			"type": "line",
+			"speaker": "hoca",
+			"text": "ch02.s8b_d05",
+			"next": "s8b_d06"
+		},
+		"s8b_d06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_d06",
+			"next": "s8b_d07",
+			"variants": [
+				{
+					"if": {
+						"flag": "ece_bond",
+						"eq": "study"
+					},
+					"text": "ch02.s8b_d06_v1"
+				}
+			]
+		},
+		"s8b_d07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_d07",
+			"next": "s8b_m01"
+		},
+		"s8b_p00": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_p00",
+			"next": "s8b_p01"
+		},
+		"s8b_p01": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8b_p01",
+			"next": "s8b_p02"
+		},
+		"s8b_p02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8b_p02",
+			"next": "s8b_p03"
+		},
+		"s8b_p03": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8b_p03",
+			"next": "s8b_p04"
+		},
+		"s8b_p04": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8b_p04",
+			"next": "s8b_p05",
+			"variants": [
+				{
+					"if": {
+						"decision": "b2_grev_destek",
+						"eq": "mediate"
+					},
+					"text": "ch02.s8b_p04_v1"
+				}
+			]
+		},
+		"s8b_p05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_p05",
+			"next": "s8b_p06"
+		},
+		"s8b_p06": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch02.s8b_p06",
+			"next": "s8b_pc"
+		},
+		"s8b_pc": {
+			"type": "choice",
+			"decision_id": "s8_ch02_anne",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch02.s8b_pc.prompt",
+			"options": [
+				{
+					"id": "warm",
+					"text": "ch02.s8b_pc.warm",
+					"next": "s8b_pr1",
+					"effects": [
+						{
+							"set_flag": "defne_mother_reply",
+							"value": "warm"
+						}
+					]
+				},
+				{
+					"id": "hard",
+					"text": "ch02.s8b_pc.hard",
+					"next": "s8b_pr2",
+					"effects": [
+						{
+							"set_flag": "defne_mother_reply",
+							"value": "hard"
+						}
+					]
+				},
+				{
+					"id": "none",
+					"text": "ch02.s8b_pc.none",
+					"next": "s8b_pr3",
+					"effects": [
+						{
+							"set_flag": "defne_mother_reply",
+							"value": "none"
+						}
+					]
+				}
+			]
+		},
+		"s8b_pr1": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch02.s8b_pr1",
+			"next": "s8b_p07"
+		},
+		"s8b_pr2": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch02.s8b_pr2",
+			"next": "s8b_p07"
+		},
+		"s8b_pr3": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_pr3",
+			"next": "s8b_p07"
+		},
+		"s8b_p07": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch02.s8b_p07",
+			"next": "s8b_p08"
+		},
+		"s8b_p08": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch02.s8b_p08",
+			"next": "s8b_p09"
+		},
+		"s8b_p09": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_p09",
+			"next": "s8b_m01"
+		},
+		"s8b_m01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8b_m01",
+			"next": "loc_k"
+		},
+		"s8c_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8c_01",
+			"next": "s8c_02"
+		},
+		"s8c_02": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch02.s8c_02",
+			"next": "s8c_03",
+			"variants": [
+				{
+					"if": {
+						"any": [
+							{
+								"flag": "gate_opened",
+								"eq": true
+							},
+							{
+								"decision": "b2_kapi",
+								"eq": "riza_only"
+							}
+						]
+					},
+					"text": "ch02.s8c_02_v1"
+				},
+				{
+					"if": {
+						"decision": "b2_kapi",
+						"eq": "closed"
+					},
+					"text": "ch02.s8c_02_v2"
+				}
+			]
+		},
+		"s8c_03": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8c_03",
+			"next": "s8c_04"
+		},
+		"s8c_04": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch02.s8c_04",
+			"next": "s8c_05"
+		},
+		"s8c_05": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8c_05",
+			"next": "s8c_06"
+		},
+		"s8c_06": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch02.s8c_06",
+			"next": "s8c_07"
+		},
+		"s8c_07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8c_07",
+			"next": "s8c_c1",
+			"variants": [
+				{
+					"if": {
+						"flag": "kemal_lent_riza",
+						"eq": true
+					},
+					"text": "ch02.s8c_07_v1"
+				}
+			]
+		},
+		"s8c_c1": {
+			"type": "choice",
+			"decision_id": "s8_ch02_cevdet",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch02.s8c_c1.prompt",
+			"options": [
+				{
+					"id": "face",
+					"text": "ch02.s8c_c1.face",
+					"next": "s8c_r1",
+					"effects": [
+						{
+							"set_flag": "kemal_faced_cevdet",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "out",
+					"text": "ch02.s8c_c1.out",
+					"next": "s8c_r2"
+				}
+			]
+		},
+		"s8c_r1": {
+			"type": "line",
+			"speaker": "cevdet",
+			"text": "ch02.s8c_r1",
+			"next": "s8c_r1b"
+		},
+		"s8c_r1b": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8c_r1b",
+			"next": "s8c_08"
+		},
+		"s8c_r2": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch02.s8c_r2",
+			"next": "s8c_08"
+		},
+		"s8c_08": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch02.s8c_08",
+			"next": "outro"
 		}
 	}
 }

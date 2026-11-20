@@ -94,6 +94,69 @@
 				"height": 1.06,
 				"build": 1.08
 			}
+		},
+		"sevgi": {
+			"name": "char.sevgi",
+			"color": "#d9a0b8",
+			"body": "#6e4a5c",
+			"look": {
+				"top": "#6e4a5c",
+				"pants": "#2e2a30",
+				"skin": "#d8a988",
+				"hair": "#4a2c22",
+				"hair_style": "long",
+				"coat": true,
+				"height": 0.95,
+				"build": 0.92
+			}
+		},
+		"cevdet": {
+			"name": "char.cevdet",
+			"color": "#c7b38a",
+			"body": "#3a3328",
+			"look": {
+				"top": "#3a3328",
+				"pants": "#26241f",
+				"skin": "#b88a66",
+				"hair": "#888078",
+				"hair_style": "short",
+				"mustache": true,
+				"coat": true,
+				"height": 1.0,
+				"build": 1.15
+			}
+		},
+		"ece": {
+			"name": "char.ece",
+			"color": "#a7c7f0",
+			"body": "#3e5c8a",
+			"look": {
+				"top": "#3e5c8a",
+				"pants": "#2a2e38",
+				"skin": "#e3b896",
+				"hair": "#1e1612",
+				"hair_style": "bun",
+				"glasses": true,
+				"bag": true,
+				"height": 0.93,
+				"build": 0.88
+			}
+		},
+		"hoca": {
+			"name": "char.hoca",
+			"color": "#c9c9a0",
+			"body": "#56523e",
+			"look": {
+				"top": "#56523e",
+				"pants": "#2c2b26",
+				"skin": "#c9a07e",
+				"hair": "#bdb8b0",
+				"hair_style": "bald",
+				"glasses": true,
+				"mustache": true,
+				"height": 0.98,
+				"build": 1.05
+			}
 		}
 	}
 }

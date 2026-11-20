@@ -91,6 +91,10 @@ def relevance(chapters: list, endings: dict) -> dict:
 def simulate(chapter: dict, flags: dict, start_state=None, rel=None, start_states=None) -> dict:
     vd = _vd()
     nodes = chapter.get("nodes", {})
+    if rel is None:
+        # Memoise on what this chapter's own conditions can see: exact for its reachability,
+        # and keeps exploration orders / unrelated side-story flags from multiplying states.
+        rel = relevance([chapter], {})
     seen_nodes: set[str] = set()
     seen_options: set[tuple] = set()
     seen_items: set[tuple] = set()
