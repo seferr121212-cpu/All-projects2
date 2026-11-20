@@ -397,5 +397,32 @@ class ValidatorTests(unittest.TestCase):
             self.assertIn("epilogue", chapters)
         self.assertGreater(res["careful"]["minutes_mean"], res["quick"]["minutes_mean"])
 
+    def test_playtime_skips_lines_whose_condition_fails(self):
+        import playtime
+        texts = {"k.a": "bir iki üç dört beş altı yedi sekiz dokuz on", "k.b": "x"}
+        ch = {"start": "a", "nodes": {
+            "a": {"type": "line", "speaker": "narrator", "text": "k.a", "next": "b", "if": {"flag": "never", "eq": True}},
+            "b": {"type": "line", "speaker": "narrator", "text": "k.b", "next": "end"},
+            "end": {"type": "end", "next_chapter": ""}}}
+        clock = playtime.Clock(texts, playtime.PROFILES["careful"])
+        playtime.play_chapter(ch, vd.State({"never": False}), clock, playtime.PROFILES["careful"], __import__("random").Random(1))
+        self.assertEqual(clock.words, 1)
+
+    def test_sampler_keeps_every_life_status(self):
+        import story_sim
+        rel = {"moods": set(), "counters": {}, "decisions": set(), "found": set(), "flags": {f"f{i}" for i in range(50)}}
+        states = []
+        for i in range(400):
+            st = vd.State({f"f{j}": False for j in range(50)})
+            for j in range(50):
+                st.flags[f"f{j}"] = bool((i >> (j % 9)) & 1)
+            states.append((st, []))
+        lone = vd.State({f"f{j}": False for j in range(50)})
+        lone.status = {"kemal": "dead", "defne": "dead", "riza": "dead"}
+        states.append((lone, []))
+        kept = story_sim._reduce(states, rel, cap=5)
+        self.assertTrue(any(st.status["kemal"] == "dead" for st, _ in kept))
+
+
 if __name__ == "__main__":
     unittest.main()

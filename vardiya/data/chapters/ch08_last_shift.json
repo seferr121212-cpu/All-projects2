@@ -149,7 +149,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.dl_s",
-			"next": "x01",
+			"next": "s8a_01",
 			"if": {
 				"flag": "selim_dead",
 				"eq": true
@@ -455,7 +455,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_taken",
-			"next": "outro"
+			"next": "s8b_01"
 		},
 		"r_speak": {
 			"type": "line",
@@ -540,19 +540,19 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_take",
-			"next": "outro"
+			"next": "s8b_01"
 		},
 		"r_name": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_name",
-			"next": "outro"
+			"next": "s8b_01"
 		},
 		"r_refuse": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.r_refuse",
-			"next": "outro"
+			"next": "s8b_01"
 		},
 		"outro": {
 			"type": "line",
@@ -574,6 +574,241 @@
 		"end": {
 			"type": "end",
 			"next_chapter": "@ending"
+		},
+		"s8a_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8a_01",
+			"next": "s8a_02"
+		},
+		"s8a_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8a_02",
+			"next": "s8a_03"
+		},
+		"s8a_03": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch08.s8a_03",
+			"next": "s8a_04",
+			"variants": [
+				{
+					"if": {
+						"flag": "ece_bond",
+						"eq": "study"
+					},
+					"text": "ch08.s8a_03_v1"
+				},
+				{
+					"if": {
+						"flag": "ece_bond",
+						"eq": "strike"
+					},
+					"text": "ch08.s8a_03_v2"
+				}
+			]
+		},
+		"s8a_04": {
+			"type": "line",
+			"speaker": "zeynep",
+			"text": "ch08.s8a_04",
+			"next": "s8a_05"
+		},
+		"s8a_05": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch08.s8a_05",
+			"next": "s8a_06",
+			"variants": [
+				{
+					"if": {
+						"flag": "fault_fixed_secretly"
+					},
+					"text": "ch08.s8a_05_v1"
+				}
+			],
+			"if": {
+				"not": {
+					"flag": "selim_dead"
+				}
+			}
+		},
+		"s8a_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8a_06",
+			"next": "s8a_07",
+			"if": {
+				"all": [
+					{
+						"status": "riza",
+						"eq": "alive"
+					},
+					{
+						"any": [
+							{
+								"flag": "truck_saved"
+							},
+							{
+								"flag": "riza_truck",
+								"eq": "kept"
+							}
+						]
+					}
+				]
+			}
+		},
+		"s8a_07": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch08.s8a_07",
+			"next": "s8a_08",
+			"if": {
+				"all": [
+					{
+						"status": "riza",
+						"eq": "alive"
+					},
+					{
+						"any": [
+							{
+								"flag": "truck_saved"
+							},
+							{
+								"flag": "riza_truck",
+								"eq": "kept"
+							}
+						]
+					}
+				]
+			}
+		},
+		"s8a_08": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch08.s8a_08",
+			"next": "s8a_09",
+			"if": {
+				"all": [
+					{
+						"status": "riza",
+						"eq": "alive"
+					},
+					{
+						"not": {
+							"flag": "truck_saved"
+						}
+					},
+					{
+						"not": {
+							"flag": "riza_truck",
+							"eq": "kept"
+						}
+					}
+				]
+			}
+		},
+		"s8a_09": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8a_09",
+			"next": "s8a_10",
+			"if": {
+				"any": [
+					{
+						"flag": "kemal_sevgi_bridge"
+					},
+					{
+						"flag": "defne_met_mother",
+						"eq": "hug"
+					},
+					{
+						"flag": "defne_met_mother",
+						"eq": "talk"
+					},
+					{
+						"flag": "kemal_gave_box"
+					}
+				]
+			}
+		},
+		"s8a_10": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch08.s8a_10",
+			"next": "s8a_11",
+			"variants": [
+				{
+					"if": {
+						"flag": "defne_izmir",
+						"eq": "go"
+					},
+					"text": "ch08.s8a_10_v1"
+				}
+			],
+			"if": {
+				"all": [
+					{
+						"status": "defne",
+						"eq": "alive"
+					},
+					{
+						"status": "kemal",
+						"eq": "alive"
+					}
+				]
+			}
+		},
+		"s8a_11": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8a_11",
+			"next": "x01"
+		},
+		"s8b_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8b_01",
+			"next": "s8b_02"
+		},
+		"s8b_02": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch08.s8b_02",
+			"next": "s8b_03"
+		},
+		"s8b_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8b_03",
+			"next": "s8b_04",
+			"if": {
+				"all": [
+					{
+						"status": "defne",
+						"eq": "alive"
+					},
+					{
+						"any": [
+							{
+								"flag": "defne_met_mother",
+								"eq": "hug"
+							},
+							{
+								"flag": "defne_met_mother",
+								"eq": "talk"
+							}
+						]
+					}
+				]
+			}
+		},
+		"s8b_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8b_04",
+			"next": "outro"
 		}
 	}
 }

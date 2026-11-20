@@ -232,7 +232,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.dl_s",
-			"next": "x01",
+			"next": "s8a_br",
 			"if": {
 				"flag": "selim_dead",
 				"eq": true
@@ -473,25 +473,25 @@
 			"type": "line",
 			"speaker": "kemal",
 			"text": "ch07.r_kd",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"r_dr": {
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch07.r_dr",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"r_kr": {
 			"type": "line",
 			"speaker": "riza",
 			"text": "ch07.r_kr",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"r_none": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_none",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"c01s": {
 			"type": "choice",
@@ -533,13 +533,13 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_stay",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"r_go": {
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.r_go",
-			"next": "c02"
+			"next": "s8b_br"
 		},
 		"c02": {
 			"type": "choice",
@@ -673,6 +673,423 @@
 		"end": {
 			"type": "end",
 			"next_chapter": "ch08_last_shift"
+		},
+		"s8a_br": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"any": [
+							{
+								"status": "kemal",
+								"eq": "dead"
+							},
+							{
+								"status": "defne",
+								"eq": "dead"
+							},
+							{
+								"status": "riza",
+								"eq": "dead"
+							},
+							{
+								"flag": "selim_dead"
+							}
+						]
+					},
+					"next": "s8a_m00"
+				}
+			],
+			"else": "s8a_s01"
+		},
+		"s8a_m00": {
+			"type": "location",
+			"location": "loc.ch07.s8a_m00",
+			"next": "s8a_m01"
+		},
+		"s8a_m01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m01",
+			"next": "s8a_m02"
+		},
+		"s8a_m02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m02",
+			"next": "s8a_m03",
+			"if": {
+				"status": "kemal",
+				"eq": "dead"
+			}
+		},
+		"s8a_m03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m03",
+			"next": "s8a_m04",
+			"if": {
+				"status": "defne",
+				"eq": "dead"
+			}
+		},
+		"s8a_m04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m04",
+			"next": "s8a_m05",
+			"if": {
+				"status": "riza",
+				"eq": "dead"
+			}
+		},
+		"s8a_m05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m05",
+			"next": "s8a_m06",
+			"if": {
+				"flag": "selim_dead"
+			}
+		},
+		"s8a_m06": {
+			"type": "line",
+			"speaker": "zeynep",
+			"text": "ch07.s8a_m06",
+			"next": "s8a_m07",
+			"if": {
+				"flag": "selim_dead"
+			}
+		},
+		"s8a_m07": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8a_m07",
+			"next": "s8a_m08",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8a_m08": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8a_m08",
+			"next": "s8a_m09",
+			"if": {
+				"flag": "pov",
+				"eq": "kemal"
+			}
+		},
+		"s8a_m09": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8a_m09",
+			"next": "s8a_m10",
+			"if": {
+				"flag": "pov",
+				"eq": "riza"
+			}
+		},
+		"s8a_m10": {
+			"type": "line",
+			"speaker": "sevgi",
+			"text": "ch07.s8a_m10",
+			"next": "s8a_m11",
+			"if": {
+				"any": [
+					{
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"any": [
+									{
+										"flag": "defne_met_mother",
+										"eq": "hug"
+									},
+									{
+										"flag": "defne_met_mother",
+										"eq": "talk"
+									}
+								]
+							}
+						]
+					},
+					{
+						"all": [
+							{
+								"flag": "pov",
+								"eq": "kemal"
+							},
+							{
+								"status": "defne",
+								"eq": "dead"
+							}
+						]
+					}
+				]
+			}
+		},
+		"s8a_m11": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_m11",
+			"next": "s8a_back"
+		},
+		"s8a_back": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "defne"
+					},
+					"next": "s8a_back_d"
+				},
+				{
+					"if": {
+						"flag": "pov",
+						"eq": "kemal"
+					},
+					"next": "s8a_back_k"
+				}
+			],
+			"else": "s8a_back_r"
+		},
+		"s8a_back_d": {
+			"type": "location",
+			"location": "loc.ch07.s8_home",
+			"scene": "family_home",
+			"spawn": "living",
+			"player": "defne",
+			"next": "x01"
+		},
+		"s8a_back_k": {
+			"type": "location",
+			"location": "loc.ch07.s8_home",
+			"scene": "family_home",
+			"spawn": "living",
+			"player": "kemal",
+			"next": "x01"
+		},
+		"s8a_back_r": {
+			"type": "location",
+			"location": "loc.ch07.s8_home",
+			"scene": "family_home",
+			"spawn": "living",
+			"player": "riza",
+			"next": "x01"
+		},
+		"s8a_s01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_s01",
+			"next": "s8a_s02"
+		},
+		"s8a_s02": {
+			"type": "line",
+			"speaker": "selim",
+			"text": "ch07.s8a_s02",
+			"next": "s8a_s03"
+		},
+		"s8a_s03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8a_s03",
+			"next": "s8a_s04"
+		},
+		"s8a_s04": {
+			"type": "line",
+			"speaker": "zeynep",
+			"text": "ch07.s8a_s04",
+			"next": "s8a_s05"
+		},
+		"s8a_s05": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8a_s05",
+			"next": "s8a_s06"
+		},
+		"s8a_s06": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8a_s06",
+			"next": "s8a_s07"
+		},
+		"s8a_s07": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8a_s07",
+			"next": "x01"
+		},
+		"s8b_br": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "riza",
+								"eq": "alive"
+							},
+							{
+								"not": {
+									"flag": "riza_truck",
+									"eq": "gave"
+								}
+							}
+						]
+					},
+					"next": "s8b_01"
+				}
+			],
+			"else": "s8b_br2"
+		},
+		"s8b_br2": {
+			"type": "branch",
+			"cases": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"flag": "defne_chose_exam"
+							}
+						]
+					},
+					"next": "s8b_04"
+				}
+			],
+			"else": "c02"
+		},
+		"s8b_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8b_01",
+			"next": "s8b_02"
+		},
+		"s8b_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch07.s8b_02",
+			"next": "s8b_03",
+			"variants": [
+				{
+					"if": {
+						"flag": "cevdet_reported",
+						"eq": true
+					},
+					"text": "ch07.s8b_02_v1"
+				}
+			]
+		},
+		"s8b_03": {
+			"type": "choice",
+			"decision_id": "s8_ch07_cekici",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch07.s8b_03.prompt",
+			"options": [
+				{
+					"id": "stand",
+					"text": "ch07.s8b_03.stand",
+					"next": "s8b_r1",
+					"effects": [
+						{
+							"set_flag": "truck_saved",
+							"value": true
+						}
+					]
+				},
+				{
+					"id": "let",
+					"text": "ch07.s8b_03.let",
+					"next": "s8b_r2"
+				}
+			]
+		},
+		"s8b_r1": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8b_r1",
+			"next": "s8b_br2"
+		},
+		"s8b_r2": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8b_r2",
+			"next": "s8b_br2"
+		},
+		"s8b_04": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8b_04",
+			"next": "s8b_05"
+		},
+		"s8b_05": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8b_05",
+			"next": "s8b_06"
+		},
+		"s8b_06": {
+			"type": "choice",
+			"decision_id": "s8_ch07_izmir",
+			"major": false,
+			"timer": 0,
+			"prompt": "ch07.s8b_06.prompt",
+			"options": [
+				{
+					"id": "go",
+					"text": "ch07.s8b_06.go",
+					"next": "s8b_i1",
+					"effects": [
+						{
+							"set_flag": "defne_izmir",
+							"value": "go"
+						}
+					]
+				},
+				{
+					"id": "stay",
+					"text": "ch07.s8b_06.stay",
+					"next": "s8b_i2",
+					"effects": [
+						{
+							"set_flag": "defne_izmir",
+							"value": "stay"
+						}
+					]
+				}
+			]
+		},
+		"s8b_i1": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8b_i1",
+			"next": "c02",
+			"variants": [
+				{
+					"if": {
+						"status": "kemal",
+						"eq": "dead"
+					},
+					"text": "ch07.s8b_i1_v1",
+					"speaker": "narrator"
+				}
+			]
+		},
+		"s8b_i2": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8b_i2",
+			"next": "c02"
 		}
 	}
 }

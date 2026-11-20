@@ -74,7 +74,8 @@ def play_chapter(ch: dict, s, clock: Clock, profile: dict, rng: random.Random) -
             return ""
         t = n.get("type")
         if t == "line":
-            clock.read(_line_key(n, s))
+            if "if" not in n or vd.evaluate(n["if"], s):  # the runner skips lines whose "if" fails
+                clock.read(_line_key(n, s))
             node_id = n["next"]
         elif t == "branch":
             nxt = n["else"]

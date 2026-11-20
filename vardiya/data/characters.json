@@ -157,6 +157,21 @@
 				"height": 0.98,
 				"build": 1.05
 			}
+		},
+		"zeynep": {
+			"name": "char.zeynep",
+			"color": "#e3b7a0",
+			"body": "#8a5a4a",
+			"look": {
+				"top": "#8a5a4a",
+				"pants": "#3a3030",
+				"skin": "#d9a882",
+				"hair": "#2a1a14",
+				"hair_style": "long",
+				"coat": true,
+				"height": 0.94,
+				"build": 0.98
+			}
 		}
 	}
 }

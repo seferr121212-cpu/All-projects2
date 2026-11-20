@@ -159,5 +159,33 @@
 	"defne_read_letters": {
 		"default": false,
 		"doc": "Defne opened her mother's letters (ch4)."
+	},
+	"kemal_sevgi_bridge": {
+		"default": false,
+		"doc": "Kemal told Sevgi to write to Defne herself (ch5)."
+	},
+	"cevdet_reported": {
+		"default": false,
+		"doc": "Rıza told the police about Cevdet as well (ch6)."
+	},
+	"riza_truck": {
+		"default": "",
+		"doc": "What Rıza did with the truck keys outside the station (ch6): gave/kept."
+	},
+	"defne_met_mother": {
+		"default": "",
+		"doc": "How Defne met Sevgi outside the station (ch6): hug/talk/pass."
+	},
+	"kemal_gave_box": {
+		"default": false,
+		"doc": "Kemal gave Sevgi the box of letters (ch6)."
+	},
+	"defne_izmir": {
+		"default": "",
+		"doc": "Defne's answer to the İzmir nursing placement (ch7): go/stay."
+	},
+	"truck_saved": {
+		"default": false,
+		"doc": "Someone stood in front of Cevdet's tow truck (ch7)."
 	}
 }

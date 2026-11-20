@@ -226,6 +226,7 @@ def simulate(chapter: dict, flags: dict, start_state=None, rel=None, start_state
 
 def _reduce(states: list, rel: dict, cap: int, seed: int = 11) -> list:
     """Order and trim carried states so a limited budget still sees every kind of story.
+    0) one random state per life-status combination (who is alive must never be sampled away),
     1) one random state per coarse group (life status + relevant flags),
     2) lowest/highest-trust state of every fine group (+ counters, decisions),
     3) everything else; each tier shuffled, the whole list cut at `cap`."""
@@ -234,10 +235,12 @@ def _reduce(states: list, rel: dict, cap: int, seed: int = 11) -> list:
 
     def fl(st):
         return {k: v for k, v in st.flags.items() if k in rel["flags"]}
+    life: dict[str, list] = {}
     coarse: dict[str, list] = {}
     fine: dict[str, list] = {}
     for sp in states:
         st = sp[0]
+        life.setdefault(json.dumps(st.status, sort_keys=True), []).append(sp)
         ck = json.dumps([st.status, fl(st)], sort_keys=True, default=str)
         fk = json.dumps([ck, {k: min(v, rel["counters"].get(k, 0)) for k, v in st.counters.items() if k in rel["counters"]},
                          {k: v for k, v in st.decisions.items() if k in rel["decisions"]}], sort_keys=True, default=str)
@@ -251,6 +254,7 @@ def _reduce(states: list, rel: dict, cap: int, seed: int = 11) -> list:
             if id(sp) not in seen:
                 seen.add(id(sp))
                 chosen.append(sp)
+    take([rng.choice(m) for m in life.values()])
     take([rng.choice(m) for m in coarse.values()])
     ext = []
     for m in fine.values():

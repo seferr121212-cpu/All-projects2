@@ -1,6 +1,6 @@
 # Asset licenses — VARDİYA
 
-Up to stage 7 the game contains **no third-party copyrighted music, sound, model, texture or font**.
+Up to stage 8 the game contains **no third-party copyrighted music, sound, model, texture or font**.
 
 | Asset | Source | License |
 |---|---|---|
@@ -11,7 +11,7 @@ Up to stage 7 the game contains **no third-party copyrighted music, sound, model
 | Textures (stage 6) | Generated at runtime by `scenes/world/art_kit.gd` from Godot's `FastNoiseLite` (concrete, metal, paint, wood, fabric, plaster; 512 × 512, greyscale, mipmapped). No image files. Soft sprite and vignette are `GradientTexture2D`. | Own work |
 | Particles, sky | Godot `CPUParticles3D` and `ProceduralSkyMaterial` with our parameters | Own work |
 | `docs/maps/*.png` | Rendered by `tools/render_map.py` | Own work |
-| Story text (`data/`) | Original writing for this project | Own work |
+| Story text (`data/`), incl. the stage 8 side stories | Original writing for this project | Own work |
 
 Rules for later stages:
 - Only CC0 / own work / explicitly licensed assets. Record every file here with source URL and license.
