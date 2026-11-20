@@ -1435,7 +1435,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch01.s8l_04",
-			"next": "l03"
+			"next": "s8w_01"
 		},
 		"s8m_01": {
 			"type": "line",
@@ -1627,7 +1627,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch01.s8q_03",
-			"next": "x02"
+			"next": "s8x_01"
 		},
 		"s8r_01": {
 			"type": "line",
@@ -1646,6 +1646,60 @@
 			"speaker": "narrator",
 			"text": "ch01.s8r_03",
 			"next": "loc_cell"
+		},
+		"s8w_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8w_01",
+			"next": "s8w_02"
+		},
+		"s8w_02": {
+			"type": "line",
+			"speaker": "yasar",
+			"text": "ch01.s8w_02",
+			"next": "s8w_03"
+		},
+		"s8w_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8w_03",
+			"next": "s8w_04"
+		},
+		"s8w_04": {
+			"type": "line",
+			"speaker": "yasar",
+			"text": "ch01.s8w_04",
+			"next": "s8w_05"
+		},
+		"s8w_05": {
+			"type": "line",
+			"speaker": "yasar",
+			"text": "ch01.s8w_05",
+			"next": "s8w_06"
+		},
+		"s8w_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8w_06",
+			"next": "l03"
+		},
+		"s8x_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8x_01",
+			"next": "s8x_02"
+		},
+		"s8x_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch01.s8x_02",
+			"next": "s8x_03"
+		},
+		"s8x_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch01.s8x_03",
+			"next": "x02"
 		}
 	}
 }

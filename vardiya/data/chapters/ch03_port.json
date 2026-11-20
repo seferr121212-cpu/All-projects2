@@ -949,7 +949,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch03.s8m_06",
-			"next": "c00"
+			"next": "s8x_01"
 		},
 		"s8o_01": {
 			"type": "line",
@@ -1037,6 +1037,24 @@
 			"speaker": "riza",
 			"text": "ch03.s8t_02",
 			"next": "x01"
+		},
+		"s8x_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8x_01",
+			"next": "s8x_02"
+		},
+		"s8x_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch03.s8x_02",
+			"next": "s8x_03"
+		},
+		"s8x_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch03.s8x_03",
+			"next": "c00"
 		}
 	}
 }

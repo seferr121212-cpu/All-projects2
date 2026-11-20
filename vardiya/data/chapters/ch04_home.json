@@ -964,7 +964,7 @@
 			"type": "line",
 			"speaker": "defne",
 			"text": "ch04.s8j_09",
-			"next": "x01"
+			"next": "s8x_01"
 		},
 		"s8l_01": {
 			"type": "line",
@@ -994,7 +994,7 @@
 			"type": "line",
 			"speaker": "riza",
 			"text": "ch04.s8m_02",
-			"next": "l02"
+			"next": "s8w_01"
 		},
 		"s8n_01": {
 			"type": "line",
@@ -1139,6 +1139,60 @@
 			"speaker": "kemal",
 			"text": "ch04.s8t_03",
 			"next": "c01"
+		},
+		"s8w_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8w_01",
+			"next": "s8w_02"
+		},
+		"s8w_02": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch04.s8w_02",
+			"next": "s8w_03"
+		},
+		"s8w_03": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8w_03",
+			"next": "s8w_04"
+		},
+		"s8w_04": {
+			"type": "line",
+			"speaker": "riza",
+			"text": "ch04.s8w_04",
+			"next": "s8w_05"
+		},
+		"s8w_05": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch04.s8w_05",
+			"next": "s8w_06"
+		},
+		"s8w_06": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8w_06",
+			"next": "l02"
+		},
+		"s8x_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8x_01",
+			"next": "s8x_02"
+		},
+		"s8x_02": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch04.s8x_02",
+			"next": "s8x_03"
+		},
+		"s8x_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch04.s8x_03",
+			"next": "x01"
 		}
 	}
 }

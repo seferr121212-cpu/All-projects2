@@ -1839,7 +1839,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.s8m_03",
-			"next": "br_fire"
+			"next": "s8w_01"
 		},
 		"s8n_01": {
 			"type": "line",
@@ -1910,7 +1910,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch05.s8r_02",
-			"next": "defne_part"
+			"next": "s8x_01"
 		},
 		"s8u_01": {
 			"type": "line",
@@ -1929,6 +1929,47 @@
 			"speaker": "narrator",
 			"text": "ch05.s8u_03",
 			"next": "l01"
+		},
+		"s8w_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8w_01",
+			"next": "s8w_02"
+		},
+		"s8w_02": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch05.s8w_02",
+			"next": "s8w_03"
+		},
+		"s8w_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8w_03",
+			"next": "br_fire"
+		},
+		"s8x_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8x_01",
+			"next": "s8x_02",
+			"variants": [
+				{
+					"if": {
+						"not": {
+							"flag": "fire_started",
+							"eq": true
+						}
+					},
+					"text": "ch05.s8x_01_v1"
+				}
+			]
+		},
+		"s8x_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch05.s8x_02",
+			"next": "defne_part"
 		}
 	}
 }

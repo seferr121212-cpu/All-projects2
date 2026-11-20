@@ -251,6 +251,22 @@
 				"height": 0.96,
 				"build": 1.05
 			}
+		},
+		"yasar": {
+			"name": "char.yasar",
+			"color": "#c8b090",
+			"body": "#4a5a6a",
+			"look": {
+				"top": "#4a5a6a",
+				"pants": "#2a2e34",
+				"skin": "#c09070",
+				"hair": "#e0dcd4",
+				"hair_style": "bald",
+				"mustache": true,
+				"overalls": true,
+				"height": 0.94,
+				"build": 0.95
+			}
 		}
 	}
 }
