@@ -1,8 +1,42 @@
 # VARDİYA — Aşama 8 Raporu (İçerik genişletme)
 
-Sürüm: 0.8.3 · Godot 4.7 · Compatibility renderer
+Sürüm: 0.8.4 · Godot 4.7 · Compatibility renderer
 
-# 4. KISIM: ana yol (en güncel durum)
+# 5. KISIM: ana yol devam (en güncel durum)
+
+| Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
+|---|---|---|---|
+| 0.8.3 | ~53 dk | ~75 dk | ~8.220 |
+| **0.8.4 (bu teslim)** | **~60 dk** | **~84 dk** | **~9.790** (+ ~14.800 EN) |
+
+Bölüm bölüm dikkatli oyuncu: 1: 15,1 · 2: 10,9 · 3: 11,1 · 4: 8,9 · 5: 8,6 · 6: 8,5 · 7: 8,0 · 8: 8,3 dk · epilog 2,8 · jenerik 1,9.
+
+**Yeni ana yol sahneleri (bu teslim):**
+| Bölüm | Sahne |
+|---|---|
+| 1 | Hücreye girmeden önce kilit ve etiket · kolun ardından koşarak gelen Selim · Nevin'in ofisinde arazi satışı ve "iki yıl" · vardiya sonu · gece yarısı |
+| 2 | Kemal kalabalığın üstünden kızını izliyor · grev alanında atkı ören yaşlı kadın |
+| 3 | Sevkiyatçı Ferhat: "Zincir böyle işler" · sabah Hayriye Ana'nın kahvaltısı |
+| 4 | Ocak başında Kemal · Defne babasının botlarını çıkarıyor · Kemal'in babası ve "bir yıl" |
+| 5 | Özensizce bırakılmış fabrika · gece üç buçukta Nevin · sabah haberleri |
+| 6 | Komiserin işçi babası · üç fotoğraf ("Hikâyesiz isim sadece suçlamadır") · akşam haberleri |
+| 7 | Kapanış mektubu · mahallenin getirdiği yemekler · barışma masası · eve dönüş |
+| 8 | Kurulun kâğıdı · kapıdaki mumlar · Bayram'ın megafonu ve sırayla konuşanlar · Ece'nin konuşması · pankarta bağlanan atkı |
+
+**Testler:**
+- Doğrulayıcı: 0 hata, 2 bilinçli uyarı.
+- Tam oyun simülasyonu: 5 sonun hepsine ulaşılıyor.
+- Python testleri: 37/37.
+- Motor testleri ve kare süresi: çalıştırılamadı (Godot izni yok).
+
+**Araç düzeltmesi:** İçerik betikleri adlarına göre alfabetik sırayla çalışıyordu, bu yüzden `layer10`, `layer3`'ten önce geliyordu. Ekleme kontrolü sıralama hatasını yakaladı. Dosya adları sıfır dolgulu yapıldı (`layer03`).
+
+**Kalan iş:** 90 dakikaya yaklaşık 6 dakika, yani ~900 kelime kaldı. 2 saat için ~5.000 kelime gerekiyor.
+
+---
+
+
+# 4. KISIM: ana yol
 
 | Sürüm | Hızlı oyuncu | Dikkatli oyuncu | Aşama 8'de eklenen tekil TR kelime |
 |---|---|---|---|

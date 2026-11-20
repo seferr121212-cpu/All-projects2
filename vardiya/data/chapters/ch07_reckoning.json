@@ -1085,7 +1085,7 @@
 			"scene": "family_home",
 			"spawn": "living",
 			"player": "defne",
-			"next": "x01"
+			"next": "s8p_01"
 		},
 		"s8a_back_k": {
 			"type": "location",
@@ -1093,7 +1093,7 @@
 			"scene": "family_home",
 			"spawn": "living",
 			"player": "kemal",
-			"next": "x01"
+			"next": "s8p_01"
 		},
 		"s8a_back_r": {
 			"type": "location",
@@ -1101,7 +1101,7 @@
 			"scene": "family_home",
 			"spawn": "living",
 			"player": "riza",
-			"next": "x01"
+			"next": "s8p_01"
 		},
 		"s8a_s01": {
 			"type": "line",
@@ -1161,7 +1161,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch07.s8a_s07",
-			"next": "x01"
+			"next": "s8p_01"
 		},
 		"s8b_br": {
 			"type": "branch",
@@ -1720,6 +1720,72 @@
 			"speaker": "narrator",
 			"text": "ch07.s8o_01",
 			"next": "end"
+		},
+		"s8p_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8p_01",
+			"next": "s8p_02"
+		},
+		"s8p_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8p_02",
+			"next": "s8p_03",
+			"variants": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "kemal",
+								"eq": "alive"
+							},
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							},
+							{
+								"not": {
+									"flag": "selim_dead"
+								}
+							}
+						]
+					},
+					"text": "ch07.s8p_02_v1"
+				}
+			]
+		},
+		"s8p_03": {
+			"type": "line",
+			"speaker": "defne",
+			"text": "ch07.s8p_03",
+			"next": "s8p_04",
+			"if": {
+				"flag": "pov",
+				"eq": "defne"
+			}
+		},
+		"s8p_04": {
+			"type": "line",
+			"speaker": "kemal",
+			"text": "ch07.s8p_04",
+			"next": "s8p_05",
+			"if": {
+				"not": {
+					"flag": "pov",
+					"eq": "defne"
+				}
+			}
+		},
+		"s8p_05": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch07.s8p_05",
+			"next": "x01"
 		}
 	}
 }

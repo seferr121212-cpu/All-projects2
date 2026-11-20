@@ -109,7 +109,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.l02",
-			"next": "dl_k",
+			"next": "s8p_01",
 			"if": {
 				"flag": "leave_town",
 				"eq": true
@@ -983,7 +983,7 @@
 			"type": "line",
 			"speaker": "narrator",
 			"text": "ch08.s8e_05",
-			"next": "c01"
+			"next": "s8p_10"
 		},
 		"s8f_00": {
 			"type": "branch",
@@ -1290,6 +1290,68 @@
 			"speaker": "narrator",
 			"text": "ch08.s8o_01",
 			"next": "outro"
+		},
+		"s8p_01": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8p_01",
+			"next": "s8p_02",
+			"variants": [
+				{
+					"if": {
+						"all": [
+							{
+								"status": "kemal",
+								"eq": "alive"
+							},
+							{
+								"status": "defne",
+								"eq": "alive"
+							},
+							{
+								"status": "riza",
+								"eq": "alive"
+							},
+							{
+								"not": {
+									"flag": "selim_dead"
+								}
+							}
+						]
+					},
+					"text": "ch08.s8p_01_v1"
+				}
+			]
+		},
+		"s8p_02": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8p_02",
+			"next": "s8p_03"
+		},
+		"s8p_03": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8p_03",
+			"next": "dl_k"
+		},
+		"s8p_10": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch08.s8p_10",
+			"next": "s8p_11"
+		},
+		"s8p_11": {
+			"type": "line",
+			"speaker": "ece",
+			"text": "ch08.s8p_11",
+			"next": "s8p_12"
+		},
+		"s8p_12": {
+			"type": "line",
+			"speaker": "narrator",
+			"text": "ch08.s8p_12",
+			"next": "c01"
 		}
 	}
 }
