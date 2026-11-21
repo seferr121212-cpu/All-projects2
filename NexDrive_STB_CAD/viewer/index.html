@@ -167,7 +167,9 @@ const d2=new THREE.DirectionalLight(0x9fd8ff,0.35);d2.position.set(700,300,-600)
 const grid=new THREE.GridHelper(2000,40,0x1e3a4a,0x14243a);grid.position.y=-480;scene.add(grid);
 const clip=new THREE.Plane(new THREE.Vector3(0,0,-1),0); // CAD +Y = three -Z → emme (−Y) yarısını kes
 
-const gltf=await new Promise((res,rej)=>new THREE.GLTFLoader().load('NexDrive_STB_Montaj.glb',res,undefined,rej));
+const b64=(await (await fetch('model.json')).json()).glb;
+const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;
+const gltf=await new Promise((res,rej)=>new THREE.GLTFLoader().parse(bin,'',res,rej));
 const root=gltf.scene;scene.add(root);
 const objs={};
 const cad2three=v=>new THREE.Vector3(v[0],v[2],-v[1]);
