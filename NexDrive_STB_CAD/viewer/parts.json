@@ -1,0 +1,5322 @@
+{
+ "steps": [
+  {
+   "id": 1,
+   "name": "Silindir bloğu",
+   "desc": "Al döküm blok, cast-in gri dökme demir gömlekler"
+  },
+  {
+   "id": 2,
+   "name": "Piston soğutma jetleri",
+   "desc": "4 adet Ø1,5 mm jet, 2,8 bar açma"
+  },
+  {
+   "id": 3,
+   "name": "Krank mili ve ana yatak grubu",
+   "desc": "5 ana yatak, bedplate (yatak iskeleti)"
+  },
+  {
+   "id": 4,
+   "name": "Balans şaftları (VCR-P varyantı)",
+   "desc": "2× ters dönen, 2× devir"
+  },
+  {
+   "id": 5,
+   "name": "Piston – biyel grubu (VCR-P)",
+   "desc": "İki parçalı piston, segman, pim, biyel"
+  },
+  {
+   "id": 6,
+   "name": "Yağlama: pompa ve karter",
+   "desc": "Değişken debili pompa, emiş, karter"
+  },
+  {
+   "id": 7,
+   "name": "Tahrik plakası ve krank sensörü",
+   "desc": "Flexplate (CVT), 60-2 tetik tekerleği"
+  },
+  {
+   "id": 8,
+   "name": "Silindir kapağı grubu",
+   "desc": "MLS conta, DOHC 16V kapak, supap takımı, kapak cıvataları"
+  },
+  {
+   "id": 9,
+   "name": "Eksantrik, çift VVT ve zincir",
+   "desc": "2 eksantrik, 2 faz ayarlayıcı, duplex zincir, gergi, zincir kapağı"
+  },
+  {
+   "id": 10,
+   "name": "Ateşleme ve kam kapağı",
+   "desc": "M10 buji, COP bobin, kam kapağı"
+  },
+  {
+   "id": 11,
+   "name": "Emme sistemi ve yakıt",
+   "desc": "Plenum, runner, gaz kelebeği, enjektör, yakıt rayı"
+  },
+  {
+   "id": 12,
+   "name": "Egzoz ve turbo",
+   "desc": "Twin-scroll manifold, K03 twin-scroll, EWG, downpipe"
+  },
+  {
+   "id": 13,
+   "name": "Soğutma ve yağ filtresi",
+   "desc": "Su pompası, termostat, yağ filtresi"
+  },
+  {
+   "id": 14,
+   "name": "Ön aksesuar tahriki",
+   "desc": "Krank kasnağı, alternatör, gergi, kayış"
+  },
+  {
+   "id": 15,
+   "name": "Hydro-Turbo",
+   "desc": "Rotrex C15-60, hidrolik motor + 1:2 dişli, pompa, tank, akümülatör"
+  },
+  {
+   "id": 16,
+   "name": "Şarj havası hattı",
+   "desc": "Intercooler 300×200×76, boost boruları"
+  },
+  {
+   "id": 17,
+   "name": "Sensörler",
+   "desc": "Vuruntu ×2, kam fazı ×2, MAP"
+  },
+  {
+   "id": 18,
+   "name": "Motor takozları",
+   "desc": "M1 hidrotakoz, M2 şanzıman takozu, M3 roll sınırlayıcı"
+  }
+ ],
+ "parts": [
+  {
+   "id": "B01",
+   "name": "Silindir bloğu",
+   "step": 1,
+   "material": "AlSi7Mg0,3 T6 (LPDC)",
+   "dims": "372×190×193 mm, bore pitch 84, köprü 6,0 mm, açık deck",
+   "section": "3.1, 10.1, 13.1",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "group": "Silindir bloğu",
+   "supply": "Sanayi (döküm+işleme)",
+   "note": "Kapak cıvata yuvası M10, köprü soğutma Ø2,0",
+   "color": "#b7bcc4",
+   "bbox": [
+    372.0,
+    190.0,
+    193.3
+   ],
+   "center": [
+    0.0,
+    0.0,
+    96.7
+   ],
+   "volume_cm3": 4157.8
+  },
+  {
+   "id": "B02-1",
+   "name": "Silindir gömleği 1",
+   "step": 1,
+   "material": "Gri dökme demir, cast-in",
+   "dims": "Ø72 / Ø78 × 135 mm, et 3,0 mm",
+   "section": "3.1, 10.2, 13.1",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "group": "Silindir gömleği",
+   "supply": "",
+   "note": "Cast-in (içe gömme) kararı – bölüm 13.1",
+   "color": "#54565b",
+   "bbox": [
+    78.0,
+    78.0,
+    135.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    125.8
+   ],
+   "volume_cm3": 95.4
+  },
+  {
+   "id": "B02-2",
+   "name": "Silindir gömleği 2",
+   "step": 1,
+   "material": "Gri dökme demir, cast-in",
+   "dims": "Ø72 / Ø78 × 135 mm, et 3,0 mm",
+   "section": "3.1, 10.2, 13.1",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "group": "Silindir gömleği",
+   "supply": "",
+   "note": "Cast-in (içe gömme) kararı – bölüm 13.1",
+   "color": "#54565b",
+   "bbox": [
+    78.0,
+    78.0,
+    135.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    125.8
+   ],
+   "volume_cm3": 95.4
+  },
+  {
+   "id": "B02-3",
+   "name": "Silindir gömleği 3",
+   "step": 1,
+   "material": "Gri dökme demir, cast-in",
+   "dims": "Ø72 / Ø78 × 135 mm, et 3,0 mm",
+   "section": "3.1, 10.2, 13.1",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "group": "Silindir gömleği",
+   "supply": "",
+   "note": "Cast-in (içe gömme) kararı – bölüm 13.1",
+   "color": "#54565b",
+   "bbox": [
+    78.0,
+    78.0,
+    135.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    125.8
+   ],
+   "volume_cm3": 95.4
+  },
+  {
+   "id": "B02-4",
+   "name": "Silindir gömleği 4",
+   "step": 1,
+   "material": "Gri dökme demir, cast-in",
+   "dims": "Ø72 / Ø78 × 135 mm, et 3,0 mm",
+   "section": "3.1, 10.2, 13.1",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "group": "Silindir gömleği",
+   "supply": "",
+   "note": "Cast-in (içe gömme) kararı – bölüm 13.1",
+   "color": "#54565b",
+   "bbox": [
+    78.0,
+    78.0,
+    135.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    125.8
+   ],
+   "volume_cm3": 95.4
+  },
+  {
+   "id": "L05-1",
+   "name": "Piston soğutma jeti 1",
+   "step": 2,
+   "material": "Çelik",
+   "dims": "Ø1,5 mm nozul, Cd 0,70, açma 2,8 bar",
+   "section": "5.2, 13.4",
+   "explode": [
+    0,
+    -120,
+    -40
+   ],
+   "group": "Piston soğutma jeti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    12.0,
+    18.7,
+    40.5
+   ],
+   "center": [
+    -126.0,
+    -38.7,
+    68.3
+   ],
+   "volume_cm3": 1.7
+  },
+  {
+   "id": "L05-2",
+   "name": "Piston soğutma jeti 2",
+   "step": 2,
+   "material": "Çelik",
+   "dims": "Ø1,5 mm nozul, Cd 0,70, açma 2,8 bar",
+   "section": "5.2, 13.4",
+   "explode": [
+    0,
+    -120,
+    -40
+   ],
+   "group": "Piston soğutma jeti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    12.0,
+    18.7,
+    40.5
+   ],
+   "center": [
+    -42.0,
+    -38.7,
+    68.3
+   ],
+   "volume_cm3": 1.7
+  },
+  {
+   "id": "L05-3",
+   "name": "Piston soğutma jeti 3",
+   "step": 2,
+   "material": "Çelik",
+   "dims": "Ø1,5 mm nozul, Cd 0,70, açma 2,8 bar",
+   "section": "5.2, 13.4",
+   "explode": [
+    0,
+    -120,
+    -40
+   ],
+   "group": "Piston soğutma jeti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    12.0,
+    18.7,
+    40.5
+   ],
+   "center": [
+    42.0,
+    -38.7,
+    68.3
+   ],
+   "volume_cm3": 1.7
+  },
+  {
+   "id": "L05-4",
+   "name": "Piston soğutma jeti 4",
+   "step": 2,
+   "material": "Çelik",
+   "dims": "Ø1,5 mm nozul, Cd 0,70, açma 2,8 bar",
+   "section": "5.2, 13.4",
+   "explode": [
+    0,
+    -120,
+    -40
+   ],
+   "group": "Piston soğutma jeti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    12.0,
+    18.7,
+    40.5
+   ],
+   "center": [
+    126.0,
+    -38.7,
+    68.3
+   ],
+   "volume_cm3": 1.7
+  },
+  {
+   "id": "K01",
+   "name": "Krank mili",
+   "step": 3,
+   "material": "Dövme çelik (42CrMo4)",
+   "dims": "Strok 73,6 (r 36,8), ana muylu Ø48, biyel muylusu Ø42, 180° flat",
+   "section": "1.1, 4, 21",
+   "explode": [
+    0,
+    0,
+    -260
+   ],
+   "group": "Krank mili",
+   "supply": "Sanayi (kütükten)",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    458.0,
+    80.0,
+    125.6
+   ],
+   "center": [
+    -39.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 1697.5
+  },
+  {
+   "id": "K02",
+   "name": "Ana yatak iskeleti (bedplate)",
+   "step": 3,
+   "material": "AlSi9Cu3 + çelik insert",
+   "dims": "372×190×45 mm, 5 ana yatak",
+   "section": "3, 21",
+   "explode": [
+    0,
+    0,
+    -180
+   ],
+   "group": "Ana yatak iskeleti (bedplate)",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    372.0,
+    190.0,
+    45.0
+   ],
+   "center": [
+    0.0,
+    0.0,
+    -22.5
+   ],
+   "volume_cm3": 1215.3
+  },
+  {
+   "id": "K03",
+   "name": "Ana yatak burçları (5 çift)",
+   "step": 3,
+   "material": "Çelik/Al-Sn kaplama",
+   "dims": "Ø48 × 18 mm, et 1,8",
+   "section": "21",
+   "explode": [
+    0,
+    0,
+    -220
+   ],
+   "group": "Ana yatak burçları (5 çift)",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    354.0,
+    51.6,
+    51.6
+   ],
+   "center": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 25.3
+  },
+  {
+   "id": "K04-1",
+   "name": "Balans şaftı emme tarafı",
+   "step": 4,
+   "material": "Çelik",
+   "dims": "m·e ≈ 2,3 g·m, 2× krank devri, ters yönlü",
+   "section": "4, 15.5, 21",
+   "explode": [
+    0,
+    -60,
+    -340
+   ],
+   "group": "Balans şaftı",
+   "supply": "",
+   "note": "VCR-P varyantında zorunlu (m_hr 507 g > 430 g)",
+   "color": "#666b75",
+   "bbox": [
+    335.0,
+    54.0,
+    47.0
+   ],
+   "center": [
+    -7.5,
+    -60.0,
+    -81.5
+   ],
+   "volume_cm3": 205.9
+  },
+  {
+   "id": "K04-2",
+   "name": "Balans şaftı egzoz tarafı",
+   "step": 4,
+   "material": "Çelik",
+   "dims": "m·e ≈ 2,3 g·m, 2× krank devri, ters yönlü",
+   "section": "4, 15.5, 21",
+   "explode": [
+    0,
+    60,
+    -340
+   ],
+   "group": "Balans şaftı",
+   "supply": "",
+   "note": "VCR-P varyantında zorunlu (m_hr 507 g > 430 g)",
+   "color": "#666b75",
+   "bbox": [
+    335.0,
+    54.0,
+    47.0
+   ],
+   "center": [
+    -7.5,
+    60.0,
+    -81.5
+   ],
+   "volume_cm3": 205.9
+  },
+  {
+   "id": "P01-1",
+   "name": "VCR-P üst taç 1",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø72, 3 segman yuvası, supap cebi E 5,8 / Eg 4,9 mm, hareket 1,97 mm",
+   "section": "15.2, 20.1, 20.4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P üst taç",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    72.0,
+    72.0,
+    26.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    179.8
+   ],
+   "volume_cm3": 53.5
+  },
+  {
+   "id": "P02-1",
+   "name": "VCR-P alt gövde (pim taşıyıcı) 1",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø71,6 etek, pim deliği Ø19",
+   "section": "15, 20.1",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P alt gövde",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    71.6,
+    71.6,
+    36.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    156.8
+   ],
+   "volume_cm3": 35.5
+  },
+  {
+   "id": "P03-1",
+   "name": "Dayanma halkası 1",
+   "step": 5,
+   "material": "42CrMo4, preslenmiş",
+   "dims": "Ø56 / Ø51 mm, alan 420 mm², 97 MPa",
+   "section": "20.1, 20.2",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Dayanma halkası",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    56.0,
+    56.0,
+    2.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    175.8
+   ],
+   "volume_cm3": 0.8
+  },
+  {
+   "id": "P04-1",
+   "name": "Kilit pimleri (2×) 1",
+   "step": 5,
+   "material": "42CrMo4 nitrürlü",
+   "dims": "2× Ø6 radyal, 3,0–3,5 bar geçiş, yay 5–8 N",
+   "section": "20.1–20.3",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Kilit pimi seti",
+   "supply": "",
+   "note": "",
+   "color": "#c62d28",
+   "bbox": [
+    6.0,
+    54.0,
+    6.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    169.8
+   ],
+   "volume_cm3": 0.6
+  },
+  {
+   "id": "P05-1",
+   "name": "Piston pimi 1",
+   "step": 5,
+   "material": "Çelik (içi boş DLC)",
+   "dims": "Ø19 / Ø11 × 58 mm, 62 g",
+   "section": "4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Piston pimi",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    58.0,
+    19.0,
+    19.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    164.8
+   ],
+   "volume_cm3": 10.9
+  },
+  {
+   "id": "P06-1",
+   "name": "Segman seti 1",
+   "step": 5,
+   "material": "Çelik / dökme demir",
+   "dims": "3 segman: 1,2 / 1,5 / 2,0 mm",
+   "section": "4, 21",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Segman seti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    72.0,
+    72.0,
+    9.4
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    183.6
+   ],
+   "volume_cm3": 3.3
+  },
+  {
+   "id": "P07-1",
+   "name": "Biyel 1",
+   "step": 5,
+   "material": "Dövme çelik, yağ kanallı",
+   "dims": "L = 128 mm (λ 0,2875), büyük uç Ø42, küçük uç Ø19, Ø2,5 yağ kanalı",
+   "section": "1.1, 20.3, 21",
+   "explode": [
+    0,
+    0,
+    90
+   ],
+   "group": "Biyel",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    20.0,
+    62.0,
+    173.0
+   ],
+   "center": [
+    -126.0,
+    0.0,
+    92.3
+   ],
+   "volume_cm3": 54.9
+  },
+  {
+   "id": "P01-2",
+   "name": "VCR-P üst taç 2",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø72, 3 segman yuvası, supap cebi E 5,8 / Eg 4,9 mm, hareket 1,97 mm",
+   "section": "15.2, 20.1, 20.4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P üst taç",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    72.0,
+    72.0,
+    26.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    106.2
+   ],
+   "volume_cm3": 53.5
+  },
+  {
+   "id": "P02-2",
+   "name": "VCR-P alt gövde (pim taşıyıcı) 2",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø71,6 etek, pim deliği Ø19",
+   "section": "15, 20.1",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P alt gövde",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    71.6,
+    71.6,
+    36.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    83.2
+   ],
+   "volume_cm3": 35.5
+  },
+  {
+   "id": "P03-2",
+   "name": "Dayanma halkası 2",
+   "step": 5,
+   "material": "42CrMo4, preslenmiş",
+   "dims": "Ø56 / Ø51 mm, alan 420 mm², 97 MPa",
+   "section": "20.1, 20.2",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Dayanma halkası",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    56.0,
+    56.0,
+    2.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    102.2
+   ],
+   "volume_cm3": 0.8
+  },
+  {
+   "id": "P04-2",
+   "name": "Kilit pimleri (2×) 2",
+   "step": 5,
+   "material": "42CrMo4 nitrürlü",
+   "dims": "2× Ø6 radyal, 3,0–3,5 bar geçiş, yay 5–8 N",
+   "section": "20.1–20.3",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Kilit pimi seti",
+   "supply": "",
+   "note": "",
+   "color": "#c62d28",
+   "bbox": [
+    6.0,
+    54.0,
+    6.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    96.2
+   ],
+   "volume_cm3": 0.6
+  },
+  {
+   "id": "P05-2",
+   "name": "Piston pimi 2",
+   "step": 5,
+   "material": "Çelik (içi boş DLC)",
+   "dims": "Ø19 / Ø11 × 58 mm, 62 g",
+   "section": "4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Piston pimi",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    58.0,
+    19.0,
+    19.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    91.2
+   ],
+   "volume_cm3": 10.9
+  },
+  {
+   "id": "P06-2",
+   "name": "Segman seti 2",
+   "step": 5,
+   "material": "Çelik / dökme demir",
+   "dims": "3 segman: 1,2 / 1,5 / 2,0 mm",
+   "section": "4, 21",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Segman seti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    72.0,
+    72.0,
+    9.4
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    110.0
+   ],
+   "volume_cm3": 3.3
+  },
+  {
+   "id": "P07-2",
+   "name": "Biyel 2",
+   "step": 5,
+   "material": "Dövme çelik, yağ kanallı",
+   "dims": "L = 128 mm (λ 0,2875), büyük uç Ø42, küçük uç Ø19, Ø2,5 yağ kanalı",
+   "section": "1.1, 20.3, 21",
+   "explode": [
+    0,
+    0,
+    90
+   ],
+   "group": "Biyel",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    20.0,
+    62.0,
+    173.0
+   ],
+   "center": [
+    -42.0,
+    0.0,
+    18.7
+   ],
+   "volume_cm3": 54.9
+  },
+  {
+   "id": "P01-3",
+   "name": "VCR-P üst taç 3",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø72, 3 segman yuvası, supap cebi E 5,8 / Eg 4,9 mm, hareket 1,97 mm",
+   "section": "15.2, 20.1, 20.4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P üst taç",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    72.0,
+    72.0,
+    26.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    106.2
+   ],
+   "volume_cm3": 53.5
+  },
+  {
+   "id": "P02-3",
+   "name": "VCR-P alt gövde (pim taşıyıcı) 3",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø71,6 etek, pim deliği Ø19",
+   "section": "15, 20.1",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P alt gövde",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    71.6,
+    71.6,
+    36.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    83.2
+   ],
+   "volume_cm3": 35.5
+  },
+  {
+   "id": "P03-3",
+   "name": "Dayanma halkası 3",
+   "step": 5,
+   "material": "42CrMo4, preslenmiş",
+   "dims": "Ø56 / Ø51 mm, alan 420 mm², 97 MPa",
+   "section": "20.1, 20.2",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Dayanma halkası",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    56.0,
+    56.0,
+    2.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    102.2
+   ],
+   "volume_cm3": 0.8
+  },
+  {
+   "id": "P04-3",
+   "name": "Kilit pimleri (2×) 3",
+   "step": 5,
+   "material": "42CrMo4 nitrürlü",
+   "dims": "2× Ø6 radyal, 3,0–3,5 bar geçiş, yay 5–8 N",
+   "section": "20.1–20.3",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Kilit pimi seti",
+   "supply": "",
+   "note": "",
+   "color": "#c62d28",
+   "bbox": [
+    6.0,
+    54.0,
+    6.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    96.2
+   ],
+   "volume_cm3": 0.6
+  },
+  {
+   "id": "P05-3",
+   "name": "Piston pimi 3",
+   "step": 5,
+   "material": "Çelik (içi boş DLC)",
+   "dims": "Ø19 / Ø11 × 58 mm, 62 g",
+   "section": "4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Piston pimi",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    58.0,
+    19.0,
+    19.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    91.2
+   ],
+   "volume_cm3": 10.9
+  },
+  {
+   "id": "P06-3",
+   "name": "Segman seti 3",
+   "step": 5,
+   "material": "Çelik / dökme demir",
+   "dims": "3 segman: 1,2 / 1,5 / 2,0 mm",
+   "section": "4, 21",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Segman seti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    72.0,
+    72.0,
+    9.4
+   ],
+   "center": [
+    42.0,
+    0.0,
+    110.0
+   ],
+   "volume_cm3": 3.3
+  },
+  {
+   "id": "P07-3",
+   "name": "Biyel 3",
+   "step": 5,
+   "material": "Dövme çelik, yağ kanallı",
+   "dims": "L = 128 mm (λ 0,2875), büyük uç Ø42, küçük uç Ø19, Ø2,5 yağ kanalı",
+   "section": "1.1, 20.3, 21",
+   "explode": [
+    0,
+    0,
+    90
+   ],
+   "group": "Biyel",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    20.0,
+    62.0,
+    173.0
+   ],
+   "center": [
+    42.0,
+    0.0,
+    18.7
+   ],
+   "volume_cm3": 54.9
+  },
+  {
+   "id": "P01-4",
+   "name": "VCR-P üst taç 4",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø72, 3 segman yuvası, supap cebi E 5,8 / Eg 4,9 mm, hareket 1,97 mm",
+   "section": "15.2, 20.1, 20.4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P üst taç",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    72.0,
+    72.0,
+    26.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    179.8
+   ],
+   "volume_cm3": 53.5
+  },
+  {
+   "id": "P02-4",
+   "name": "VCR-P alt gövde (pim taşıyıcı) 4",
+   "step": 5,
+   "material": "Dövme Al 2618-T61",
+   "dims": "Ø71,6 etek, pim deliği Ø19",
+   "section": "15, 20.1",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "VCR-P alt gövde",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    71.6,
+    71.6,
+    36.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    156.8
+   ],
+   "volume_cm3": 35.5
+  },
+  {
+   "id": "P03-4",
+   "name": "Dayanma halkası 4",
+   "step": 5,
+   "material": "42CrMo4, preslenmiş",
+   "dims": "Ø56 / Ø51 mm, alan 420 mm², 97 MPa",
+   "section": "20.1, 20.2",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Dayanma halkası",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    56.0,
+    56.0,
+    2.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    175.8
+   ],
+   "volume_cm3": 0.8
+  },
+  {
+   "id": "P04-4",
+   "name": "Kilit pimleri (2×) 4",
+   "step": 5,
+   "material": "42CrMo4 nitrürlü",
+   "dims": "2× Ø6 radyal, 3,0–3,5 bar geçiş, yay 5–8 N",
+   "section": "20.1–20.3",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Kilit pimi seti",
+   "supply": "",
+   "note": "",
+   "color": "#c62d28",
+   "bbox": [
+    6.0,
+    54.0,
+    6.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    169.8
+   ],
+   "volume_cm3": 0.6
+  },
+  {
+   "id": "P05-4",
+   "name": "Piston pimi 4",
+   "step": 5,
+   "material": "Çelik (içi boş DLC)",
+   "dims": "Ø19 / Ø11 × 58 mm, 62 g",
+   "section": "4",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Piston pimi",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    58.0,
+    19.0,
+    19.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    164.8
+   ],
+   "volume_cm3": 10.9
+  },
+  {
+   "id": "P06-4",
+   "name": "Segman seti 4",
+   "step": 5,
+   "material": "Çelik / dökme demir",
+   "dims": "3 segman: 1,2 / 1,5 / 2,0 mm",
+   "section": "4, 21",
+   "explode": [
+    0,
+    0,
+    170
+   ],
+   "group": "Segman seti",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    72.0,
+    72.0,
+    9.4
+   ],
+   "center": [
+    126.0,
+    0.0,
+    183.6
+   ],
+   "volume_cm3": 3.3
+  },
+  {
+   "id": "P07-4",
+   "name": "Biyel 4",
+   "step": 5,
+   "material": "Dövme çelik, yağ kanallı",
+   "dims": "L = 128 mm (λ 0,2875), büyük uç Ø42, küçük uç Ø19, Ø2,5 yağ kanalı",
+   "section": "1.1, 20.3, 21",
+   "explode": [
+    0,
+    0,
+    90
+   ],
+   "group": "Biyel",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    20.0,
+    62.0,
+    173.0
+   ],
+   "center": [
+    126.0,
+    0.0,
+    92.3
+   ],
+   "volume_cm3": 54.9
+  },
+  {
+   "id": "L01",
+   "name": "Yağ karteri",
+   "step": 6,
+   "material": "Al döküm / çelik sac",
+   "dims": "372×190 mm, sump 300×160, ≈ 4,5 L",
+   "section": "5",
+   "explode": [
+    0,
+    0,
+    -430
+   ],
+   "group": "Yağ karteri",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    372.0,
+    190.0,
+    110.0
+   ],
+   "center": [
+    0.0,
+    0.0,
+    -100.0
+   ],
+   "volume_cm3": 711.7
+  },
+  {
+   "id": "L02",
+   "name": "Değişken debili yağ pompası",
+   "step": 6,
+   "material": "Al gövde, vane tip",
+   "dims": "11 cc/dev, 2 kademe, röle 5 bar",
+   "section": "5.1, 13.4, 21",
+   "explode": [
+    0,
+    0,
+    -380
+   ],
+   "group": "Değişken debili yağ pompası",
+   "supply": "İkinci el (donör)",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    54.0,
+    84.0,
+    84.0
+   ],
+   "center": [
+    -157.0,
+    0.0,
+    -112.0
+   ],
+   "volume_cm3": 230.5
+  },
+  {
+   "id": "L03",
+   "name": "Yağ emiş borusu ve süzgeç",
+   "step": 6,
+   "material": "Çelik",
+   "dims": "Ø18 boru, süzgeç Ø44",
+   "section": "5",
+   "explode": [
+    0,
+    0,
+    -380
+   ],
+   "group": "Yağ emiş borusu ve süzgeç",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    115.9,
+    44.0,
+    40.1
+   ],
+   "center": [
+    -76.0,
+    0.0,
+    -131.9
+   ],
+   "volume_cm3": 15.1
+  },
+  {
+   "id": "K05",
+   "name": "Tahrik plakası (flexplate) + marş dişlisi",
+   "step": 7,
+   "material": "Çelik sac",
+   "dims": "Ø286, CVT tork konvertörüne bağlanır (damper'sız)",
+   "section": "6, 11.2, 13.5",
+   "explode": [
+    220,
+    0,
+    0
+   ],
+   "group": "Tahrik plakası (flexplate) + marş dişlisi",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    12.0,
+    286.0,
+    286.0
+   ],
+   "center": [
+    198.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 292.8
+  },
+  {
+   "id": "K06",
+   "name": "Krank tetik tekerleği 60-2",
+   "step": 7,
+   "material": "Çelik",
+   "dims": "Ø112, 58 diş + 2 boşluk",
+   "section": "7.3, 7.9",
+   "explode": [
+    -150,
+    0,
+    0
+   ],
+   "group": "Krank tetik tekerleği 60-2",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    4.0,
+    112.0,
+    112.0
+   ],
+   "center": [
+    -237.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 37.3
+  },
+  {
+   "id": "S01",
+   "name": "Krank konum sensörü (Hall)",
+   "step": 7,
+   "material": "Plastik gövde",
+   "dims": "Hall, tek cıvata flanşlı",
+   "section": "7.3, 7.9",
+   "explode": [
+    -150,
+    0,
+    -80
+   ],
+   "group": "Krank konum sensörü (Hall)",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    20.0,
+    24.0,
+    43.0
+   ],
+   "center": [
+    -237.0,
+    0.0,
+    -83.5
+   ],
+   "volume_cm3": 13.2
+  },
+  {
+   "id": "H01",
+   "name": "Kapak contası (MLS)",
+   "step": 8,
+   "material": "Çok katlı çelik",
+   "dims": "0,7 mm, bore Ø74, kalibre su delikleri Ø4–7",
+   "section": "3.1, 10.3",
+   "explode": [
+    0,
+    0,
+    200
+   ],
+   "group": "Kapak contası (MLS)",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    372.0,
+    140.0,
+    0.7
+   ],
+   "center": [
+    0.0,
+    0.0,
+    193.7
+   ],
+   "volume_cm3": 23.5
+  },
+  {
+   "id": "H02",
+   "name": "Silindir kapağı DOHC 16V",
+   "step": 8,
+   "material": "AlSi7Mg T6 / AlSi10Mg",
+   "dims": "Pentroof 28°, emme Ø27,5 / egzoz Ø23,5, M10 buji, 84 mm pitch",
+   "section": "1.3, 3.3, 8.4, 10.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Silindir kapağı DOHC 16V",
+   "supply": "Sanayi (döküm+işleme)",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    372.0,
+    160.0,
+    138.2
+   ],
+   "center": [
+    0.0,
+    -0.0,
+    263.1
+   ],
+   "volume_cm3": 5603.8
+  },
+  {
+   "id": "H03",
+   "name": "Eksantrik yatak kepleri (10)",
+   "step": 8,
+   "material": "Al",
+   "dims": "Ø30 yatak, 20 mm genişlik",
+   "section": "3.3",
+   "explode": [
+    0,
+    0,
+    540
+   ],
+   "group": "Eksantrik yatak kepleri (10)",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    356.0,
+    148.3,
+    19.1
+   ],
+   "center": [
+    0.0,
+    2.3,
+    340.6
+   ],
+   "volume_cm3": 102.1
+  },
+  {
+   "id": "H04-01",
+   "name": "Supap emme (sil. 1)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    -141.8,
+    -22.1,
+    248.8
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-01",
+   "name": "Supap yayı (sil. 1)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.7,
+    38.2
+   ],
+   "center": [
+    -141.8,
+    -33.4,
+    274.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-01",
+   "name": "Supap tutucu + kama (sil. 1)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -141.8,
+    -38.1,
+    292.9
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-01",
+   "name": "Kovan itici (sil. 1)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -141.8,
+    -41.4,
+    306.0
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-02",
+   "name": "Supap emme (sil. 1)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    -110.2,
+    -22.1,
+    248.8
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-02",
+   "name": "Supap yayı (sil. 1)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.7,
+    38.2
+   ],
+   "center": [
+    -110.2,
+    -33.4,
+    274.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-02",
+   "name": "Supap tutucu + kama (sil. 1)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -110.2,
+    -38.1,
+    292.9
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-02",
+   "name": "Kovan itici (sil. 1)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -110.2,
+    -41.4,
+    306.0
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-03",
+   "name": "Supap egzoz (sil. 1)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    -139.5,
+    27.6,
+    247.9
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-03",
+   "name": "Supap yayı (sil. 1)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.3,
+    41.1
+   ],
+   "center": [
+    -139.5,
+    37.9,
+    272.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-03",
+   "name": "Supap tutucu + kama (sil. 1)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -139.5,
+    42.6,
+    291.8
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-03",
+   "name": "Kovan itici (sil. 1)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -139.5,
+    45.9,
+    304.9
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-04",
+   "name": "Supap egzoz (sil. 1)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    -112.5,
+    27.6,
+    247.9
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-04",
+   "name": "Supap yayı (sil. 1)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.3,
+    41.1
+   ],
+   "center": [
+    -112.5,
+    37.9,
+    272.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-04",
+   "name": "Supap tutucu + kama (sil. 1)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -112.5,
+    42.6,
+    291.8
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-04",
+   "name": "Kovan itici (sil. 1)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -112.5,
+    45.9,
+    304.9
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-05",
+   "name": "Supap emme (sil. 2)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    -57.8,
+    -22.1,
+    248.8
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-05",
+   "name": "Supap yayı (sil. 2)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.7,
+    38.2
+   ],
+   "center": [
+    -57.8,
+    -33.4,
+    274.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-05",
+   "name": "Supap tutucu + kama (sil. 2)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -57.8,
+    -38.1,
+    292.9
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-05",
+   "name": "Kovan itici (sil. 2)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -57.8,
+    -41.4,
+    306.0
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-06",
+   "name": "Supap emme (sil. 2)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    -26.2,
+    -22.1,
+    248.8
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-06",
+   "name": "Supap yayı (sil. 2)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.7,
+    38.2
+   ],
+   "center": [
+    -26.2,
+    -33.4,
+    274.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-06",
+   "name": "Supap tutucu + kama (sil. 2)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -26.2,
+    -38.1,
+    292.9
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-06",
+   "name": "Kovan itici (sil. 2)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -26.2,
+    -41.4,
+    306.0
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-07",
+   "name": "Supap egzoz (sil. 2)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    -55.5,
+    26.5,
+    243.5
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-07",
+   "name": "Supap yayı (sil. 2)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    30.5,
+    36.9
+   ],
+   "center": [
+    -55.5,
+    37.4,
+    270.6
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-07",
+   "name": "Supap tutucu + kama (sil. 2)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -55.5,
+    41.5,
+    287.4
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-07",
+   "name": "Kovan itici (sil. 2)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -55.5,
+    44.8,
+    300.5
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-08",
+   "name": "Supap egzoz (sil. 2)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    -28.5,
+    26.5,
+    243.5
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-08",
+   "name": "Supap yayı (sil. 2)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    30.5,
+    36.9
+   ],
+   "center": [
+    -28.5,
+    37.4,
+    270.6
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-08",
+   "name": "Supap tutucu + kama (sil. 2)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    -28.5,
+    41.5,
+    287.4
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-08",
+   "name": "Kovan itici (sil. 2)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    -28.5,
+    44.8,
+    300.5
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-09",
+   "name": "Supap emme (sil. 3)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    26.2,
+    -21.0,
+    244.5
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-09",
+   "name": "Supap yayı (sil. 3)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.8,
+    34.0
+   ],
+   "center": [
+    26.3,
+    -32.9,
+    271.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-09",
+   "name": "Supap tutucu + kama (sil. 3)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    26.2,
+    -37.0,
+    288.6
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-09",
+   "name": "Kovan itici (sil. 3)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    26.2,
+    -40.3,
+    301.7
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-10",
+   "name": "Supap emme (sil. 3)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    57.8,
+    -21.0,
+    244.5
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-10",
+   "name": "Supap yayı (sil. 3)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.8,
+    34.0
+   ],
+   "center": [
+    57.8,
+    -32.9,
+    271.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-10",
+   "name": "Supap tutucu + kama (sil. 3)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    57.8,
+    -37.0,
+    288.6
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-10",
+   "name": "Kovan itici (sil. 3)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    57.8,
+    -40.3,
+    301.7
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-11",
+   "name": "Supap egzoz (sil. 3)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    28.5,
+    27.6,
+    247.9
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-11",
+   "name": "Supap yayı (sil. 3)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.3,
+    41.1
+   ],
+   "center": [
+    28.5,
+    37.9,
+    272.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-11",
+   "name": "Supap tutucu + kama (sil. 3)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    28.5,
+    42.6,
+    291.8
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-11",
+   "name": "Kovan itici (sil. 3)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    28.5,
+    45.9,
+    304.9
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-12",
+   "name": "Supap egzoz (sil. 3)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    55.5,
+    27.6,
+    247.9
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-12",
+   "name": "Supap yayı (sil. 3)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.3,
+    41.1
+   ],
+   "center": [
+    55.5,
+    37.9,
+    272.8
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-12",
+   "name": "Supap tutucu + kama (sil. 3)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    55.5,
+    42.6,
+    291.8
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-12",
+   "name": "Kovan itici (sil. 3)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    55.5,
+    45.9,
+    304.9
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-13",
+   "name": "Supap emme (sil. 4)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    110.2,
+    -21.6,
+    246.9
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-13",
+   "name": "Supap yayı (sil. 4)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.3,
+    36.4
+   ],
+   "center": [
+    110.3,
+    -33.2,
+    273.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-13",
+   "name": "Supap tutucu + kama (sil. 4)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    110.2,
+    -37.6,
+    291.0
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-13",
+   "name": "Kovan itici (sil. 4)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    110.2,
+    -40.9,
+    304.1
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-14",
+   "name": "Supap emme (sil. 4)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø27.5, sap Ø5,5, kaldırma 8.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap emme",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    27.5,
+    41.9,
+    108.0
+   ],
+   "center": [
+    141.8,
+    -21.6,
+    246.9
+   ],
+   "volume_cm3": 6.1
+  },
+  {
+   "id": "H05-14",
+   "name": "Supap yayı (sil. 4)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    32.3,
+    36.4
+   ],
+   "center": [
+    141.8,
+    -33.2,
+    273.0
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-14",
+   "name": "Supap tutucu + kama (sil. 4)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    141.8,
+    -37.6,
+    291.0
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-14",
+   "name": "Kovan itici (sil. 4)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    141.8,
+    -40.9,
+    304.1
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-15",
+   "name": "Supap egzoz (sil. 4)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    112.5,
+    27.2,
+    246.4
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-15",
+   "name": "Supap yayı (sil. 4)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.0,
+    39.7
+   ],
+   "center": [
+    112.5,
+    37.7,
+    272.1
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-15",
+   "name": "Supap tutucu + kama (sil. 4)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    112.5,
+    42.3,
+    290.3
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-15",
+   "name": "Kovan itici (sil. 4)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    112.5,
+    45.5,
+    303.4
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H04-16",
+   "name": "Supap egzoz (sil. 4)",
+   "step": 8,
+   "material": "Emme: çelik / Egzoz: Ni-Cr, sodyum dolgulu ops.",
+   "dims": "Ø23.5, sap Ø5,5, kaldırma 7.5 mm",
+   "section": "1.3, 8.1",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap egzoz",
+   "supply": "",
+   "note": "",
+   "color": "#ccad4c",
+   "bbox": [
+    23.5,
+    40.0,
+    107.5
+   ],
+   "center": [
+    139.5,
+    27.2,
+    246.4
+   ],
+   "volume_cm3": 5.1
+  },
+  {
+   "id": "H05-16",
+   "name": "Supap yayı (sil. 4)",
+   "step": 8,
+   "material": "Si-Cr yay çeliği",
+   "dims": "Ø22 ort., ön yük ≥ 384 N, k ≈ 29 N/mm",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap yayı",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    25.4,
+    31.0,
+    39.7
+   ],
+   "center": [
+    139.5,
+    37.7,
+    272.1
+   ],
+   "volume_cm3": 3.8
+  },
+  {
+   "id": "H06-16",
+   "name": "Supap tutucu + kama (sil. 4)",
+   "step": 8,
+   "material": "Çelik",
+   "dims": "Ø23",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Supap tutucu",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    23.0,
+    23.0,
+    8.5
+   ],
+   "center": [
+    139.5,
+    42.3,
+    290.3
+   ],
+   "volume_cm3": 1.1
+  },
+  {
+   "id": "H07-16",
+   "name": "Kovan itici (sil. 4)",
+   "step": 8,
+   "material": "Çelik, DLC",
+   "dims": "Ø30 × 18, ayar pulu",
+   "section": "7.2",
+   "explode": [
+    0,
+    0,
+    380
+   ],
+   "group": "Kovan itici",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    30.0,
+    33.5,
+    24.7
+   ],
+   "center": [
+    139.5,
+    45.5,
+    303.4
+   ],
+   "volume_cm3": 4.7
+  },
+  {
+   "id": "H08--168E",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    -168.0,
+    -56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08--168X",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    -168.0,
+    56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08--84E",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    -84.0,
+    -56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08--84X",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    -84.0,
+    56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+0E",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    0.0,
+    -56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+0X",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    0.0,
+    56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+84E",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    84.0,
+    -56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+84X",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    84.0,
+    56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+168E",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    168.0,
+    -56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "H08-+168X",
+   "name": "Kapak cıvatası M10×1,25 12.9",
+   "step": 8,
+   "material": "12.9 alaşımlı çelik",
+   "dims": "Ön yük 38,7 kN, tork + açı (30 Nm + 2×90°)",
+   "section": "3.2, 10.1",
+   "explode": [
+    0,
+    0,
+    560
+   ],
+   "group": "Kapak cıvatası M10×1,25 12.9",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    17.0,
+    17.0,
+    150.0
+   ],
+   "center": [
+    168.0,
+    56.0,
+    225.0
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "V01-emme",
+   "name": "Eksantrik mili emme",
+   "step": 9,
+   "material": "Çelik (kütükten taşlama)",
+   "dims": "Taban Ø36, kaldırma 8.5 mm, süre 274.0° KA, LSA 107°",
+   "section": "8.1, 7.2",
+   "explode": [
+    0,
+    0,
+    520
+   ],
+   "group": "Eksantrik mili",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    404.0,
+    50.9,
+    50.9
+   ],
+   "center": [
+    -20.0,
+    -47.9,
+    332.2
+   ],
+   "volume_cm3": 311.7
+  },
+  {
+   "id": "V02-emme",
+   "name": "VVT faz ayarlayıcı + dişli (emme)",
+   "step": 9,
+   "material": "Çelik/Al, kanatlı",
+   "dims": "Kanatlı tip, aralık 50° KA, kilit pimi",
+   "section": "14.1, 8.2",
+   "explode": [
+    -120,
+    0,
+    520
+   ],
+   "group": "VVT faz ayarlayıcı",
+   "supply": "İkinci el (donör)",
+   "note": "",
+   "color": "#28bcc1",
+   "bbox": [
+    40.0,
+    100.0,
+    100.0
+   ],
+   "center": [
+    -209.0,
+    -47.9,
+    332.2
+   ],
+   "volume_cm3": 236.8
+  },
+  {
+   "id": "V03-emme",
+   "name": "OCV oransal solenoid (emme)",
+   "step": 9,
+   "material": "Plastik/çelik",
+   "dims": "4/3 oransal, PWM 250–300 Hz",
+   "section": "14.1",
+   "explode": [
+    -60,
+    0,
+    560
+   ],
+   "group": "OCV solenoid",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    20.0,
+    40.0,
+    31.0
+   ],
+   "center": [
+    -175.0,
+    -47.9,
+    368.7
+   ],
+   "volume_cm3": 14.6
+  },
+  {
+   "id": "V01-egzoz",
+   "name": "Eksantrik mili egzoz",
+   "step": 9,
+   "material": "Çelik (kütükten taşlama)",
+   "dims": "Taban Ø36, kaldırma 7.5 mm, süre 284.0° KA, LSA 107°",
+   "section": "8.1, 7.2",
+   "explode": [
+    0,
+    0,
+    520
+   ],
+   "group": "Eksantrik mili",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    404.0,
+    49.6,
+    49.6
+   ],
+   "center": [
+    -20.0,
+    52.4,
+    331.1
+   ],
+   "volume_cm3": 309.0
+  },
+  {
+   "id": "V02-egzoz",
+   "name": "VVT faz ayarlayıcı + dişli (egzoz)",
+   "step": 9,
+   "material": "Çelik/Al, kanatlı",
+   "dims": "Kanatlı tip, aralık 30° KA, kilit pimi",
+   "section": "14.1, 8.2",
+   "explode": [
+    -120,
+    0,
+    520
+   ],
+   "group": "VVT faz ayarlayıcı",
+   "supply": "İkinci el (donör)",
+   "note": "",
+   "color": "#28bcc1",
+   "bbox": [
+    40.0,
+    100.0,
+    100.0
+   ],
+   "center": [
+    -209.0,
+    52.4,
+    331.1
+   ],
+   "volume_cm3": 236.8
+  },
+  {
+   "id": "V03-egzoz",
+   "name": "OCV oransal solenoid (egzoz)",
+   "step": 9,
+   "material": "Plastik/çelik",
+   "dims": "4/3 oransal, PWM 250–300 Hz",
+   "section": "14.1",
+   "explode": [
+    -60,
+    0,
+    560
+   ],
+   "group": "OCV solenoid",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    20.0,
+    40.0,
+    31.0
+   ],
+   "center": [
+    -175.0,
+    52.4,
+    367.6
+   ],
+   "volume_cm3": 14.6
+  },
+  {
+   "id": "V04",
+   "name": "Krank zincir dişlisi",
+   "step": 9,
+   "material": "Çelik",
+   "dims": "Ø50, 2:1 oran",
+   "section": "21",
+   "explode": [
+    -120,
+    0,
+    0
+   ],
+   "group": "Krank zincir dişlisi",
+   "supply": "",
+   "note": "",
+   "color": "#9ea3ad",
+   "bbox": [
+    14.0,
+    50.0,
+    50.0
+   ],
+   "center": [
+    -196.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 24.8
+  },
+  {
+   "id": "V05",
+   "name": "Duplex triger zinciri",
+   "step": 9,
+   "material": "Çelik",
+   "dims": "Duplex, gergi + kılavuz",
+   "section": "21",
+   "explode": [
+    -120,
+    0,
+    250
+   ],
+   "group": "Duplex triger zinciri",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    14.0,
+    215.3,
+    422.2
+   ],
+   "center": [
+    -196.0,
+    2.3,
+    178.6
+   ],
+   "volume_cm3": 102.0
+  },
+  {
+   "id": "V06",
+   "name": "Zincir gergisi + pabuç",
+   "step": 9,
+   "material": "Hidrolik gergi, PA66 pabuç",
+   "dims": "Hidrolik, yağ beslemeli",
+   "section": "21",
+   "explode": [
+    -120,
+    -60,
+    250
+   ],
+   "group": "Zincir gergisi + pabuç",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    16.0,
+    26.0,
+    200.0
+   ],
+   "center": [
+    -194.0,
+    -65.0,
+    160.0
+   ],
+   "volume_cm3": 28.5
+  },
+  {
+   "id": "V07",
+   "name": "Zincir kılavuzu",
+   "step": 9,
+   "material": "PA66",
+   "dims": "Sabit kılavuz",
+   "section": "21",
+   "explode": [
+    -120,
+    60,
+    250
+   ],
+   "group": "Zincir kılavuzu",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    12.0,
+    12.0,
+    200.0
+   ],
+   "center": [
+    -196.0,
+    56.0,
+    160.0
+   ],
+   "volume_cm3": 28.8
+  },
+  {
+   "id": "V08",
+   "name": "Zincir kapağı (ön kapak)",
+   "step": 9,
+   "material": "Al döküm",
+   "dims": "Krank keçesi Ø34",
+   "section": "21",
+   "explode": [
+    -260,
+    0,
+    150
+   ],
+   "group": "Zincir kapağı (ön kapak)",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    6.0,
+    236.3,
+    546.2
+   ],
+   "center": [
+    -231.0,
+    2.3,
+    127.1
+   ],
+   "volume_cm3": 528.2
+  },
+  {
+   "id": "I01-1",
+   "name": "M10 buji 1",
+   "step": 10,
+   "material": "Cu çekirdek, 2 kademe soğuk, ince elektrot",
+   "dims": "M10, ısı derecesi 2 kademe soğuk, aralık 0,7 mm",
+   "section": "3.3, 13.2",
+   "explode": [
+    0,
+    0,
+    640
+   ],
+   "group": "M10 buji",
+   "supply": "",
+   "note": "",
+   "color": "#eaeae0",
+   "bbox": [
+    18.5,
+    16.0,
+    71.0
+   ],
+   "center": [
+    -126.0,
+    -0.0,
+    238.5
+   ],
+   "volume_cm3": 7.0
+  },
+  {
+   "id": "I02-1",
+   "name": "Kalem bobin (COP) 1",
+   "step": 10,
+   "material": "Plastik gövde",
+   "dims": "Gövde Ø ≤ 20, ≥ 28 kV, 60–80 mJ",
+   "section": "7.5",
+   "explode": [
+    0,
+    0,
+    760
+   ],
+   "group": "COP bobin",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    32.0,
+    44.0,
+    144.2
+   ],
+   "center": [
+    -126.0,
+    8.0,
+    342.1
+   ],
+   "volume_cm3": 69.4
+  },
+  {
+   "id": "I01-2",
+   "name": "M10 buji 2",
+   "step": 10,
+   "material": "Cu çekirdek, 2 kademe soğuk, ince elektrot",
+   "dims": "M10, ısı derecesi 2 kademe soğuk, aralık 0,7 mm",
+   "section": "3.3, 13.2",
+   "explode": [
+    0,
+    0,
+    640
+   ],
+   "group": "M10 buji",
+   "supply": "",
+   "note": "",
+   "color": "#eaeae0",
+   "bbox": [
+    18.5,
+    16.0,
+    71.0
+   ],
+   "center": [
+    -42.0,
+    -0.0,
+    238.5
+   ],
+   "volume_cm3": 7.0
+  },
+  {
+   "id": "I02-2",
+   "name": "Kalem bobin (COP) 2",
+   "step": 10,
+   "material": "Plastik gövde",
+   "dims": "Gövde Ø ≤ 20, ≥ 28 kV, 60–80 mJ",
+   "section": "7.5",
+   "explode": [
+    0,
+    0,
+    760
+   ],
+   "group": "COP bobin",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    32.0,
+    44.0,
+    144.2
+   ],
+   "center": [
+    -42.0,
+    8.0,
+    342.1
+   ],
+   "volume_cm3": 69.4
+  },
+  {
+   "id": "I01-3",
+   "name": "M10 buji 3",
+   "step": 10,
+   "material": "Cu çekirdek, 2 kademe soğuk, ince elektrot",
+   "dims": "M10, ısı derecesi 2 kademe soğuk, aralık 0,7 mm",
+   "section": "3.3, 13.2",
+   "explode": [
+    0,
+    0,
+    640
+   ],
+   "group": "M10 buji",
+   "supply": "",
+   "note": "",
+   "color": "#eaeae0",
+   "bbox": [
+    18.5,
+    16.0,
+    71.0
+   ],
+   "center": [
+    42.0,
+    -0.0,
+    238.5
+   ],
+   "volume_cm3": 7.0
+  },
+  {
+   "id": "I02-3",
+   "name": "Kalem bobin (COP) 3",
+   "step": 10,
+   "material": "Plastik gövde",
+   "dims": "Gövde Ø ≤ 20, ≥ 28 kV, 60–80 mJ",
+   "section": "7.5",
+   "explode": [
+    0,
+    0,
+    760
+   ],
+   "group": "COP bobin",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    32.0,
+    44.0,
+    144.2
+   ],
+   "center": [
+    42.0,
+    8.0,
+    342.1
+   ],
+   "volume_cm3": 69.4
+  },
+  {
+   "id": "I01-4",
+   "name": "M10 buji 4",
+   "step": 10,
+   "material": "Cu çekirdek, 2 kademe soğuk, ince elektrot",
+   "dims": "M10, ısı derecesi 2 kademe soğuk, aralık 0,7 mm",
+   "section": "3.3, 13.2",
+   "explode": [
+    0,
+    0,
+    640
+   ],
+   "group": "M10 buji",
+   "supply": "",
+   "note": "",
+   "color": "#eaeae0",
+   "bbox": [
+    18.5,
+    16.0,
+    71.0
+   ],
+   "center": [
+    126.0,
+    -0.0,
+    238.5
+   ],
+   "volume_cm3": 7.0
+  },
+  {
+   "id": "I02-4",
+   "name": "Kalem bobin (COP) 4",
+   "step": 10,
+   "material": "Plastik gövde",
+   "dims": "Gövde Ø ≤ 20, ≥ 28 kV, 60–80 mJ",
+   "section": "7.5",
+   "explode": [
+    0,
+    0,
+    760
+   ],
+   "group": "COP bobin",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    32.0,
+    44.0,
+    144.2
+   ],
+   "center": [
+    126.0,
+    8.0,
+    342.1
+   ],
+   "volume_cm3": 69.4
+  },
+  {
+   "id": "I03",
+   "name": "Kam kapağı (külbütör kapağı)",
+   "step": 10,
+   "material": "PA66-GF / Al",
+   "dims": "372×180×52 mm, COP delikleri Ø24",
+   "section": "7",
+   "explode": [
+    0,
+    0,
+    620
+   ],
+   "group": "Kam kapağı (külbütör kapağı)",
+   "supply": "",
+   "note": "",
+   "color": "#282b30",
+   "bbox": [
+    372.0,
+    180.0,
+    66.0
+   ],
+   "center": [
+    0.0,
+    0.0,
+    365.2
+   ],
+   "volume_cm3": 583.8
+  },
+  {
+   "id": "E01",
+   "name": "Emme manifoldu (plenum + runner, TCV entegre)",
+   "step": 11,
+   "material": "PA6-GF30",
+   "dims": "Plenum ≤ 2,5 L, runner Ø34, TCV (alt %60 kesit)",
+   "section": "1.3, 8.4, 2.4",
+   "explode": [
+    0,
+    -240,
+    40
+   ],
+   "group": "Emme manifoldu (plenum + runner, TCV entegre)",
+   "supply": "",
+   "note": "",
+   "color": "#282b30",
+   "bbox": [
+    385.0,
+    145.0,
+    68.0
+   ],
+   "center": [
+    -12.5,
+    -152.5,
+    262.0
+   ],
+   "volume_cm3": 762.5
+  },
+  {
+   "id": "E02",
+   "name": "Elektronik gaz kelebeği (drive-by-wire)",
+   "step": 11,
+   "material": "Al gövde",
+   "dims": "Ø50 kelebek, çift TPS",
+   "section": "7.3",
+   "explode": [
+    -120,
+    -240,
+    40
+   ],
+   "group": "Elektronik gaz kelebeği (drive-by-wire)",
+   "supply": "İkinci el",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    58.0,
+    72.0,
+    64.0
+   ],
+   "center": [
+    -233.0,
+    -199.0,
+    262.0
+   ],
+   "volume_cm3": 83.3
+  },
+  {
+   "id": "E03-1",
+   "name": "Enjektör 1 (MPI)",
+   "step": 11,
+   "material": "Plastik/çelik",
+   "dims": "≥ 200 cc/dk @ 3,5 bar, EOI IVO'dan 20–40° önce",
+   "section": "7.4",
+   "explode": [
+    0,
+    -280,
+    120
+   ],
+   "group": "Enjektör",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    14.0,
+    34.1,
+    53.2
+   ],
+   "center": [
+    -126.0,
+    -98.8,
+    289.4
+   ],
+   "volume_cm3": 7.7
+  },
+  {
+   "id": "E03-2",
+   "name": "Enjektör 2 (MPI)",
+   "step": 11,
+   "material": "Plastik/çelik",
+   "dims": "≥ 200 cc/dk @ 3,5 bar, EOI IVO'dan 20–40° önce",
+   "section": "7.4",
+   "explode": [
+    0,
+    -280,
+    120
+   ],
+   "group": "Enjektör",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    14.0,
+    34.1,
+    53.2
+   ],
+   "center": [
+    -42.0,
+    -98.8,
+    289.4
+   ],
+   "volume_cm3": 7.7
+  },
+  {
+   "id": "E03-3",
+   "name": "Enjektör 3 (MPI)",
+   "step": 11,
+   "material": "Plastik/çelik",
+   "dims": "≥ 200 cc/dk @ 3,5 bar, EOI IVO'dan 20–40° önce",
+   "section": "7.4",
+   "explode": [
+    0,
+    -280,
+    120
+   ],
+   "group": "Enjektör",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    14.0,
+    34.1,
+    53.2
+   ],
+   "center": [
+    42.0,
+    -98.8,
+    289.4
+   ],
+   "volume_cm3": 7.7
+  },
+  {
+   "id": "E03-4",
+   "name": "Enjektör 4 (MPI)",
+   "step": 11,
+   "material": "Plastik/çelik",
+   "dims": "≥ 200 cc/dk @ 3,5 bar, EOI IVO'dan 20–40° önce",
+   "section": "7.4",
+   "explode": [
+    0,
+    -280,
+    120
+   ],
+   "group": "Enjektör",
+   "supply": "",
+   "note": "",
+   "color": "#f27f19",
+   "bbox": [
+    14.0,
+    34.1,
+    53.2
+   ],
+   "center": [
+    126.0,
+    -98.8,
+    289.4
+   ],
+   "volume_cm3": 7.7
+  },
+  {
+   "id": "E04",
+   "name": "Yakıt rayı",
+   "step": 11,
+   "material": "Paslanmaz çelik",
+   "dims": "Ø22, 3,5 bar sabit fark",
+   "section": "7.4",
+   "explode": [
+    0,
+    -300,
+    180
+   ],
+   "group": "Yakıt rayı",
+   "supply": "",
+   "note": "",
+   "color": "#b2a899",
+   "bbox": [
+    380.0,
+    22.0,
+    75.0
+   ],
+   "center": [
+    -10.0,
+    -112.0,
+    287.5
+   ],
+   "volume_cm3": 155.4
+  },
+  {
+   "id": "X01",
+   "name": "Twin-scroll egzoz manifoldu (1-4 / 2-3)",
+   "step": 12,
+   "material": "1.4828 / 321 paslanmaz",
+   "dims": "Kol Ø38×1,5 (iç Ø35), kol boyu 150–200 mm, flanş 10 mm",
+   "section": "19.2, 7.6",
+   "explode": [
+    0,
+    240,
+    0
+   ],
+   "group": "Twin-scroll egzoz manifoldu (1-4 / 2-3)",
+   "supply": "Sanayi (kaynak)",
+   "note": "",
+   "color": "#b2a899",
+   "bbox": [
+    60.0,
+    12.0,
+    95.0
+   ],
+   "center": [
+    20.0,
+    188.0,
+    207.5
+   ],
+   "volume_cm3": 67.9
+  },
+  {
+   "id": "X02",
+   "name": "Turbo türbin gövdesi (twin-scroll, A/R 0,65–0,70)",
+   "step": 12,
+   "material": "Ni-Resist / paslanmaz",
+   "dims": "BorgWarner K03 twin-scroll, T3 ≤ 1273 K",
+   "section": "2.3, 19.1",
+   "explode": [
+    0,
+    400,
+    0
+   ],
+   "group": "Turbo türbin gövdesi (twin-scroll, A/R 0,65–0,70)",
+   "supply": "Yeni ilan ≈ 443 € / ikinci el",
+   "note": "",
+   "color": "#c62d28",
+   "bbox": [
+    90.0,
+    124.0,
+    124.0
+   ],
+   "center": [
+    40.0,
+    245.0,
+    207.0
+   ],
+   "volume_cm3": 762.2
+  },
+  {
+   "id": "X03",
+   "name": "Turbo yatak gövdesi (CHRA, su soğutmalı)",
+   "step": 12,
+   "material": "Dökme demir",
+   "dims": "Motor yağı + su soğutma",
+   "section": "19.1",
+   "explode": [
+    0,
+    400,
+    0
+   ],
+   "group": "Turbo yatak gövdesi (CHRA, su soğutmalı)",
+   "supply": "",
+   "note": "",
+   "color": "#54565b",
+   "bbox": [
+    38.0,
+    68.0,
+    68.0
+   ],
+   "center": [
+    -19.0,
+    245.0,
+    207.0
+   ],
+   "volume_cm3": 138.0
+  },
+  {
+   "id": "X04",
+   "name": "Turbo kompresör gövdesi",
+   "step": 12,
+   "material": "Al döküm",
+   "dims": "TD025/K03 sınıfı, D2 42–46 mm, PR 2,14",
+   "section": "2.2, 19.1",
+   "explode": [
+    0,
+    400,
+    0
+   ],
+   "group": "Turbo kompresör gövdesi",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    102.0,
+    116.0,
+    133.0
+   ],
+   "center": [
+    -89.0,
+    245.0,
+    215.5
+   ],
+   "volume_cm3": 613.9
+  },
+  {
+   "id": "X05",
+   "name": "Elektronik wastegate aktüatörü (rotary)",
+   "step": 12,
+   "material": "Al/plastik",
+   "dims": "Etkin alan ≥ 196 mm², valf Ø22",
+   "section": "2.3, 9.2",
+   "explode": [
+    0,
+    470,
+    60
+   ],
+   "group": "Elektronik wastegate aktüatörü (rotary)",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    104.0,
+    55.0,
+    45.0
+   ],
+   "center": [
+    -28.0,
+    312.5,
+    209.5
+   ],
+   "volume_cm3": 91.0
+  },
+  {
+   "id": "X06",
+   "name": "Downpipe + yakın bağlı katalizör girişi",
+   "step": 12,
+   "material": "Paslanmaz",
+   "dims": "Ø56, katalizör ısıtma (bölüm 13.3)",
+   "section": "13.3",
+   "explode": [
+    0,
+    400,
+    -120
+   ],
+   "group": "Downpipe + yakın bağlı katalizör girişi",
+   "supply": "",
+   "note": "",
+   "color": "#b2a899",
+   "bbox": [
+    92.1,
+    56.0,
+    349.8
+   ],
+   "center": [
+    120.6,
+    245.0,
+    63.3
+   ],
+   "volume_cm3": 886.6
+  },
+  {
+   "id": "C01",
+   "name": "Mekanik su pompası",
+   "step": 13,
+   "material": "Al gövde",
+   "dims": "154 L/dk @6000, Δp 1,2 bar",
+   "section": "5.3, 10.3",
+   "explode": [
+    -200,
+    80,
+    0
+   ],
+   "group": "Mekanik su pompası",
+   "supply": "İkinci el (donör)",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    40.0,
+    122.0,
+    84.0
+   ],
+   "center": [
+    -206.0,
+    79.0,
+    120.0
+   ],
+   "volume_cm3": 245.4
+  },
+  {
+   "id": "C02",
+   "name": "Termostat gövdesi + ECT sensörü",
+   "step": 13,
+   "material": "PA66 / Al",
+   "dims": "Termostat → radyatör, bypass",
+   "section": "10.3",
+   "explode": [
+    200,
+    0,
+    0
+   ],
+   "group": "Termostat gövdesi + ECT sensörü",
+   "supply": "",
+   "note": "",
+   "color": "#282b30",
+   "bbox": [
+    64.0,
+    50.0,
+    40.0
+   ],
+   "center": [
+    218.0,
+    0.0,
+    250.0
+   ],
+   "volume_cm3": 80.9
+  },
+  {
+   "id": "C03",
+   "name": "Yağ filtresi + modül",
+   "step": 13,
+   "material": "Çelik kartuş",
+   "dims": "Ø76 × 95",
+   "section": "5",
+   "explode": [
+    0,
+    220,
+    -40
+   ],
+   "group": "Yağ filtresi + modül",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    76.0,
+    120.0,
+    76.0
+   ],
+   "center": [
+    -110.0,
+    130.0,
+    30.0
+   ],
+   "volume_cm3": 484.1
+  },
+  {
+   "id": "A01",
+   "name": "Krank kasnağı (torsiyon damperli)",
+   "step": 14,
+   "material": "Çelik/kauçuk",
+   "dims": "Ø150, PK kayış",
+   "section": "7.7",
+   "explode": [
+    -320,
+    0,
+    0
+   ],
+   "group": "Krank kasnağı (torsiyon damperli)",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    22.0,
+    150.0,
+    150.0
+   ],
+   "center": [
+    -254.0,
+    0.0,
+    0.0
+   ],
+   "volume_cm3": 388.8
+  },
+  {
+   "id": "A02",
+   "name": "Alternatör (OAD kasnaklı)",
+   "step": 14,
+   "material": "Al gövde / Cu sargı",
+   "dims": "110–140 A @14 V, kasnak oranı 2,3–2,6",
+   "section": "7.7",
+   "explode": [
+    -300,
+    -120,
+    60
+   ],
+   "group": "Alternatör (OAD kasnaklı)",
+   "supply": "",
+   "note": "",
+   "color": "#c67238",
+   "bbox": [
+    134.0,
+    120.0,
+    120.0
+   ],
+   "center": [
+    -195.0,
+    -160.0,
+    110.0
+   ],
+   "volume_cm3": 1285.5
+  },
+  {
+   "id": "A03",
+   "name": "Su pompası kasnağı",
+   "step": 14,
+   "material": "Çelik",
+   "dims": "Ø100",
+   "section": "5.3",
+   "explode": [
+    -320,
+    80,
+    0
+   ],
+   "group": "Su pompası kasnağı",
+   "supply": "",
+   "note": "",
+   "color": "#666b75",
+   "bbox": [
+    19.0,
+    100.0,
+    100.0
+   ],
+   "center": [
+    -252.5,
+    60.0,
+    120.0
+   ],
+   "volume_cm3": 149.2
+  },
+  {
+   "id": "A04",
+   "name": "Kayış gergisi",
+   "step": 14,
+   "material": "Çelik/Al",
+   "dims": "Otomatik gergi Ø70",
+   "section": "—",
+   "explode": [
+    -320,
+    40,
+    0
+   ],
+   "group": "Kayış gergisi",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    30.0,
+    70.0,
+    95.0
+   ],
+   "center": [
+    -247.0,
+    70.0,
+    2.5
+   ],
+   "volume_cm3": 82.7
+  },
+  {
+   "id": "A05",
+   "name": "Kanallı kayış (PK)",
+   "step": 14,
+   "material": "EPDM",
+   "dims": "6PK",
+   "section": "7.7",
+   "explode": [
+    -360,
+    0,
+    0
+   ],
+   "group": "Kanallı kayış (PK)",
+   "supply": "",
+   "note": "",
+   "color": "#141414",
+   "bbox": [
+    17.0,
+    323.6,
+    253.6
+   ],
+   "center": [
+    -252.5,
+    -47.5,
+    47.5
+   ],
+   "volume_cm3": 67.2
+  },
+  {
+   "id": "T01",
+   "name": "Hidrolik pompa 10 cc + elektromanyetik kavrama",
+   "step": 15,
+   "material": "Çelik/Al",
+   "dims": "10 cc/dev, klima kompresörü konumunda",
+   "section": "18.2, 18.3",
+   "explode": [
+    -200,
+    -200,
+    -60
+   ],
+   "group": "Hidrolik pompa 10 cc + elektromanyetik kavrama",
+   "supply": "Yeni / hurdacı (kavrama)",
+   "note": "",
+   "color": "#3f9959",
+   "bbox": [
+    126.0,
+    110.0,
+    110.0
+   ],
+   "center": [
+    -199.0,
+    -150.0,
+    -20.0
+   ],
+   "volume_cm3": 836.5
+  },
+  {
+   "id": "T02",
+   "name": "Rotrex C15-60 yardımcı kompresör",
+   "step": 15,
+   "material": "Al, traction drive",
+   "dims": "0,22 kg/s, PR 2,35, 150.000 / 11.840 d/d, 2,9 kg",
+   "section": "18.1",
+   "explode": [
+    0,
+    -280,
+    -60
+   ],
+   "group": "Rotrex C15-60 yardımcı kompresör",
+   "supply": "Yeni (2.100–2.400 €)",
+   "note": "",
+   "color": "#28bcc1",
+   "bbox": [
+    180.0,
+    140.0,
+    155.0
+   ],
+   "center": [
+    60.0,
+    -182.0,
+    34.5
+   ],
+   "volume_cm3": 1391.5
+  },
+  {
+   "id": "T03",
+   "name": "Hidrolik motor 3,2 cc + 1:2 dişli kademe",
+   "step": 15,
+   "material": "Çelik/Al",
+   "dims": "Flanşlı 1:2 hız artırıcı",
+   "section": "18.2, 18.3",
+   "explode": [
+    120,
+    -280,
+    -60
+   ],
+   "group": "Hidrolik motor 3,2 cc + 1:2 dişli kademe",
+   "supply": "",
+   "note": "",
+   "color": "#3f9959",
+   "bbox": [
+    90.0,
+    70.0,
+    70.0
+   ],
+   "center": [
+    195.0,
+    -182.0,
+    42.0
+   ],
+   "volume_cm3": 327.0
+  },
+  {
+   "id": "T04",
+   "name": "Baypas klapesi Ø50 + HT valf bloğu",
+   "step": 15,
+   "material": "Al",
+   "dims": "Kompresöre paralel, Ø50",
+   "section": "18.2",
+   "explode": [
+    0,
+    -330,
+    40
+   ],
+   "group": "Baypas klapesi Ø50 + HT valf bloğu",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    60.0,
+    60.0,
+    65.0
+   ],
+   "center": [
+    -10.0,
+    -252.0,
+    122.5
+   ],
+   "volume_cm3": 170.8
+  },
+  {
+   "id": "T05",
+   "name": "Hidrolik tank 2 L + filtre + hava-yağ soğutucu",
+   "step": 15,
+   "material": "Al / plastik",
+   "dims": "HLP 46, 10 µm dönüş filtresi",
+   "section": "18.2",
+   "explode": [
+    0,
+    -360,
+    60
+   ],
+   "group": "Hidrolik tank 2 L + filtre + hava-yağ soğutucu",
+   "supply": "",
+   "note": "",
+   "color": "#3f9959",
+   "bbox": [
+    130.0,
+    70.0,
+    95.0
+   ],
+   "center": [
+    125.0,
+    -275.0,
+    197.5
+   ],
+   "volume_cm3": 864.5
+  },
+  {
+   "id": "T06",
+   "name": "Akümülatör 4 L, 250+ bar (şasi rayı)",
+   "step": 15,
+   "material": "Çelik",
+   "dims": "Egzozdan ≥ 250 mm uzak, ısı kalkanı arkası",
+   "section": "18.2, 18.3",
+   "explode": [
+    0,
+    -200,
+    -60
+   ],
+   "group": "Akümülatör 4 L, 250+ bar (şasi rayı)",
+   "supply": "",
+   "note": "Motor bölmesi dışında - konum temsilidir",
+   "color": "#c62d28",
+   "bbox": [
+    405.0,
+    140.0,
+    140.0
+   ],
+   "center": [
+    -2.5,
+    -460.0,
+    -110.0
+   ],
+   "volume_cm3": 5396.9
+  },
+  {
+   "id": "T07",
+   "name": "Hidrolik hortumlar (basınç / dönüş)",
+   "step": 15,
+   "material": "Hidrolik hortum",
+   "dims": "Ø12",
+   "section": "18.2",
+   "explode": [
+    0,
+    -320,
+    -60
+   ],
+   "group": "Hidrolik hortumlar (basınç / dönüş)",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    371.3,
+    115.2,
+    202.9
+   ],
+   "center": [
+    44.9,
+    -203.4,
+    54.5
+   ],
+   "volume_cm3": 58.9
+  },
+  {
+   "id": "F01",
+   "name": "Intercooler çekirdeği 300×200×76 (≈4,5 L)",
+   "step": 16,
+   "material": "Al, ofset şerit kanat",
+   "dims": "UA ≈ 224 W/K, ε 0,85, Δp ≤ 50 mbar",
+   "section": "2.4, 9.3",
+   "explode": [
+    0,
+    200,
+    0
+   ],
+   "group": "Intercooler çekirdeği 300×200×76 (≈4,5 L)",
+   "supply": "",
+   "note": "",
+   "color": "#b7bcc4",
+   "bbox": [
+    300.0,
+    76.0,
+    200.0
+   ],
+   "center": [
+    0.0,
+    368.0,
+    100.0
+   ],
+   "volume_cm3": 4560.0
+  },
+  {
+   "id": "F02",
+   "name": "Intercooler giriş / çıkış tankları",
+   "step": 16,
+   "material": "Al döküm",
+   "dims": "Hacim ≤ 2,5 L (kompresör sonrası)",
+   "section": "2.4, 9.3",
+   "explode": [
+    0,
+    200,
+    0
+   ],
+   "group": "Intercooler giriş / çıkış tankları",
+   "supply": "",
+   "note": "",
+   "color": "#8c939e",
+   "bbox": [
+    380.0,
+    86.0,
+    220.0
+   ],
+   "center": [
+    0.0,
+    368.0,
+    100.0
+   ],
+   "volume_cm3": 1513.6
+  },
+  {
+   "id": "F03",
+   "name": "Boost borusu: turbo → Rotrex",
+   "step": 16,
+   "material": "Al boru / silikon",
+   "dims": "Ø54",
+   "section": "18.2",
+   "explode": [
+    0,
+    120,
+    80
+   ],
+   "group": "Boost borusu: turbo → Rotrex",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    327.2,
+    539.5,
+    348.4
+   ],
+   "center": [
+    -189.5,
+    2.4,
+    184.1
+   ],
+   "volume_cm3": 2213.4
+  },
+  {
+   "id": "F04",
+   "name": "Boost borusu: Rotrex → intercooler",
+   "step": 16,
+   "material": "Al boru / silikon",
+   "dims": "Ø54",
+   "section": "18.2",
+   "explode": [
+    0,
+    120,
+    -120
+   ],
+   "group": "Boost borusu: Rotrex → intercooler",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    210.1,
+    562.8,
+    289.2
+   ],
+   "center": [
+    95.1,
+    69.3,
+    -95.7
+   ],
+   "volume_cm3": 1731.8
+  },
+  {
+   "id": "F05",
+   "name": "Boost borusu: intercooler → gaz kelebeği",
+   "step": 16,
+   "material": "Al boru / silikon",
+   "dims": "Ø54, boru içi ≤ 20 mbar",
+   "section": "2.4",
+   "explode": [
+    -120,
+    120,
+    120
+   ],
+   "group": "Boost borusu: intercooler → gaz kelebeği",
+   "supply": "",
+   "note": "",
+   "color": "#3366bf",
+   "bbox": [
+    201.6,
+    575.4,
+    255.6
+   ],
+   "center": [
+    -248.1,
+    64.3,
+    263.2
+   ],
+   "volume_cm3": 1668.1
+  },
+  {
+   "id": "S02-1",
+   "name": "Vuruntu sensörü 1",
+   "step": 17,
+   "material": "Piezo",
+   "dims": "Sil. 1-2 / 3-4 arası, 20 Nm, band 5–9 kHz",
+   "section": "7.9, 12.2",
+   "explode": [
+    0,
+    -150,
+    0
+   ],
+   "group": "Vuruntu sensörü",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    26.0,
+    26.0,
+    33.0
+   ],
+   "center": [
+    -84.0,
+    -83.0,
+    123.5
+   ],
+   "volume_cm3": 11.0
+  },
+  {
+   "id": "S02-2",
+   "name": "Vuruntu sensörü 2",
+   "step": 17,
+   "material": "Piezo",
+   "dims": "Sil. 1-2 / 3-4 arası, 20 Nm, band 5–9 kHz",
+   "section": "7.9, 12.2",
+   "explode": [
+    0,
+    -150,
+    0
+   ],
+   "group": "Vuruntu sensörü",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    26.0,
+    26.0,
+    33.0
+   ],
+   "center": [
+    84.0,
+    -83.0,
+    123.5
+   ],
+   "volume_cm3": 11.0
+  },
+  {
+   "id": "S03-1",
+   "name": "Kam fazı sensörü emme",
+   "step": 17,
+   "material": "Hall",
+   "dims": "VVT konum geri beslemesi",
+   "section": "7.3, 14.1",
+   "explode": [
+    150,
+    0,
+    0
+   ],
+   "group": "Kam fazı sensörü",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    42.0,
+    18.0,
+    29.0
+   ],
+   "center": [
+    207.0,
+    -47.9,
+    337.7
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "S03-2",
+   "name": "Kam fazı sensörü egzoz",
+   "step": 17,
+   "material": "Hall",
+   "dims": "VVT konum geri beslemesi",
+   "section": "7.3, 14.1",
+   "explode": [
+    150,
+    0,
+    0
+   ],
+   "group": "Kam fazı sensörü",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    42.0,
+    18.0,
+    29.0
+   ],
+   "center": [
+    207.0,
+    52.4,
+    336.6
+   ],
+   "volume_cm3": 13.3
+  },
+  {
+   "id": "S04",
+   "name": "MAP + IAT sensörü (plenum)",
+   "step": 17,
+   "material": "Plastik",
+   "dims": "Plenum basınç/sıcaklık, speed-density",
+   "section": "7.3",
+   "explode": [
+    0,
+    -240,
+    140
+   ],
+   "group": "MAP + IAT sensörü (plenum)",
+   "supply": "",
+   "note": "",
+   "color": "#1e1e21",
+   "bbox": [
+    30.0,
+    25.0,
+    16.0
+   ],
+   "center": [
+    -105.0,
+    -192.5,
+    304.0
+   ],
+   "volume_cm3": 12.0
+  },
+  {
+   "id": "M01",
+   "name": "M1 sağ motor takozu (hidrotakoz)",
+   "step": 18,
+   "material": "Hidrotakoz, Shore A 55",
+   "dims": "Yük %45, kz 311 N/mm",
+   "section": "11.1",
+   "explode": [
+    -60,
+    0,
+    300
+   ],
+   "group": "M1 sağ motor takozu (hidrotakoz)",
+   "supply": "",
+   "note": "",
+   "color": "#141414",
+   "bbox": [
+    80.0,
+    80.0,
+    100.0
+   ],
+   "center": [
+    -211.0,
+    0.0,
+    380.0
+   ],
+   "volume_cm3": 432.7
+  },
+  {
+   "id": "M02",
+   "name": "M2 sol takoz (şanzıman tarafı)",
+   "step": 18,
+   "material": "Kauçuk, Shore A 55",
+   "dims": "Yük %40, kz 276 N/mm",
+   "section": "11.1",
+   "explode": [
+    120,
+    0,
+    200
+   ],
+   "group": "M2 sol takoz (şanzıman tarafı)",
+   "supply": "",
+   "note": "",
+   "color": "#141414",
+   "bbox": [
+    94.0,
+    80.0,
+    100.0
+   ],
+   "center": [
+    233.0,
+    0.0,
+    250.0
+   ],
+   "volume_cm3": 452.3
+  },
+  {
+   "id": "M03",
+   "name": "M3 roll sınırlayıcı (burç tipi)",
+   "step": 18,
+   "material": "Kauçuk, Shore A 65–70",
+   "dims": "Yük %15, kz 104 N/mm",
+   "section": "11.1",
+   "explode": [
+    0,
+    -180,
+    -150
+   ],
+   "group": "M3 roll sınırlayıcı (burç tipi)",
+   "supply": "",
+   "note": "",
+   "color": "#141414",
+   "bbox": [
+    50.0,
+    220.0,
+    50.0
+   ],
+   "center": [
+    0.0,
+    -170.0,
+    -70.0
+   ],
+   "volume_cm3": 200.0
+  }
+ ],
+ "params": {
+  "bore": 72.0,
+  "stroke": 73.6,
+  "rod": 128.0,
+  "pitch": 84.0,
+  "deck": 193.3,
+  "head_top": 332.2,
+  "cam_in": [
+   -47.9,
+   332.2
+  ],
+  "cam_ex": [
+   52.4,
+   331.1
+  ],
+  "y_in": -15.0,
+  "y_ex": 19.54
+ }
+}
