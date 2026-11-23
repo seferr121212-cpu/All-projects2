@@ -3,7 +3,8 @@ extends RigidBody3D
 ## Futbol topu: hava direnci, Magnus etkisi (falso), çimde yuvarlanma direnci,
 ## file içinde sönümleme. Vuruşlar kick() ile verilir.
 
-signal kicked(team: int)
+## is_dribble: top sürme/kontrol dokunuşu (topa sahip olma bozulmaz)
+signal kicked(team: int, is_dribble: bool)
 
 const GRAVITY := 9.81
 
@@ -30,7 +31,7 @@ func _ready() -> void:
 
 
 ## velocity: m/s, spin: rad/s (açısal hız vektörü), team: vuran takım.
-func kick(velocity: Vector3, spin: Vector3, team := -1) -> void:
+func kick(velocity: Vector3, spin: Vector3, team := -1, is_dribble := false) -> void:
 	linear_velocity = velocity
 	# Yerden vuruşta top kaymadan yuvarlanmaya başlasın (gerçekçi pas mesafesi)
 	if grounded and velocity.y < 1.0:
@@ -38,7 +39,7 @@ func kick(velocity: Vector3, spin: Vector3, team := -1) -> void:
 		spin += Vector3.UP.cross(vh) / params.radius
 	angular_velocity = spin
 	last_touch_team = team
-	kicked.emit(team)
+	kicked.emit(team, is_dribble)
 
 
 ## Topu durdurup verilen konuma ışınlar (fizik adımında uygulanır).

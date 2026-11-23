@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/tests/player_test_setup.gd" id="1_setup"]
+[ext_resource type="PackedScene" path="res://scenes/stadium.tscn" id="2_stadium"]
+[ext_resource type="PackedScene" path="res://scenes/ball.tscn" id="3_ball"]
+[ext_resource type="Script" path="res://scripts/match/match_events.gd" id="4_events"]
+[ext_resource type="Script" path="res://scripts/camera/debug_orbit_camera.gd" id="5_cam"]
+
+[node name="PlayerTest" type="Node3D"]
+script = ExtResource("1_setup")
+
+[node name="Stadium" parent="." instance=ExtResource("2_stadium")]
+
+[node name="Ball" parent="." instance=ExtResource("3_ball")]
+
+[node name="MatchEvents" type="Node" parent="."]
+script = ExtResource("4_events")
+ball_path = NodePath("../Ball")
+
+[node name="Camera" type="Camera3D" parent="."]
+script = ExtResource("5_cam")
+target_path = NodePath("../Ball")

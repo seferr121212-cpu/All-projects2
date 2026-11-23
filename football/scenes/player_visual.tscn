@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player_visual.gd" id="1_vis"]
+
+[sub_resource type="CapsuleMesh" id="mesh_body"]
+radius = 0.32
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="mat_nose"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="mesh_nose"]
+material = SubResource("mat_nose")
+size = Vector3(0.18, 0.12, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="mat_ind"]
+albedo_color = Color(1, 0.9, 0.1, 1)
+shading_mode = 0
+
+[sub_resource type="TorusMesh" id="mesh_ind"]
+material = SubResource("mat_ind")
+inner_radius = 0.45
+outer_radius = 0.6
+
+[node name="PlayerVisual" type="Node3D"]
+script = ExtResource("1_vis")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("mesh_body")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.32)
+mesh = SubResource("mesh_nose")
+
+[node name="Indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+cast_shadow = 0
+mesh = SubResource("mesh_ind")

@@ -11,6 +11,7 @@ bounce = 0.55
 radius = 0.11
 
 [node name="Ball" type="RigidBody3D" groups=["ball"]]
+collision_layer = 4
 mass = 0.43
 physics_material_override = SubResource("mat_ball")
 can_sleep = false

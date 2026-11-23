@@ -104,6 +104,7 @@ func _add_box(body: StaticBody3D, mat: Material, pos: Vector3, size: Vector3) ->
 func _build_net_area() -> void:
 	var area := Area3D.new()
 	area.name = "NetArea"
+	area.collision_mask = 4 # top katmanı
 	var cs := CollisionShape3D.new()
 	var box := BoxShape3D.new()
 	var start := PD.BALL_RADIUS
