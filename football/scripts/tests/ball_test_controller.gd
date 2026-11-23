@@ -1,7 +1,7 @@
 extends Node3D
 ## Top fiziği test sahnesi: klavyeyle farklı güç/açı/spin ile vuruş yapılır.
 
-const PD = PitchDimensions
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
 const HELP := "Space: vur | ↑↓ güç | ←→ yön | PgUp/PgDn yükseklik | Q/E yan falso | Z/X üst/alt falso\n1: yer pası  2: sert şut  3: falsolu frikik  4: lob | R: sıfırla | Sağ tık: kamera"
 
 @export var kick_origin := Vector3(25.0, PD.BALL_RADIUS, 0.0)

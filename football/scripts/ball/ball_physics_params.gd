@@ -12,4 +12,4 @@ extends Resource
 @export var max_lift_coefficient := 0.35
 @export var spin_decay := 0.15 # havada spin sönümü (1/s)
 ## Yerde yuvarlanma direnç katsayısı (çim). Yavaşlama = k·g
-@export var rolling_resistance := 0.17
+@export var rolling_resistance := 0.15

@@ -1,9 +1,9 @@
 extends "res://tests/test_case.gd"
 ## Gol / taç / korner / aut karar testleri (saf fonksiyon).
 
-const PD = PitchDimensions
-const E = MatchEvents.EventType
-const R = PitchDimensions.BALL_RADIUS
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
+const E = preload("res://scripts/match/match_events.gd").EventType
+const R = 0.11
 
 
 func _cls(pos: Vector3, last: int) -> Dictionary:

@@ -10,7 +10,7 @@ enum EventType { NONE, GOAL, THROW_IN, CORNER, GOAL_KICK }
 
 const HOME := 0
 const AWAY := 1
-const PD = PitchDimensions
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
 
 @export var ball_path: NodePath
 

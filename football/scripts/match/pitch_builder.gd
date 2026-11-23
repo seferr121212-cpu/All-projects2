@@ -2,7 +2,7 @@ extends Node3D
 ## Saha zemini, çizgiler, zemin çarpışması ve temel ışığı kodla üretir.
 ## Ölçüler PitchDimensions'tan gelir; AI/ofsayt aynı sabitleri kullanır.
 
-const PD = PitchDimensions
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
 const LINE_Y := 0.01 # z-fighting önlemek için çizgiler zeminin hafif üstünde
 
 @export var grass_color := Color(0.18, 0.45, 0.16)

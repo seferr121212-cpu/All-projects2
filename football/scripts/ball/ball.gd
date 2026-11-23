@@ -32,6 +32,10 @@ func _ready() -> void:
 ## velocity: m/s, spin: rad/s (açısal hız vektörü), team: vuran takım.
 func kick(velocity: Vector3, spin: Vector3, team := -1) -> void:
 	linear_velocity = velocity
+	# Yerden vuruşta top kaymadan yuvarlanmaya başlasın (gerçekçi pas mesafesi)
+	if grounded and velocity.y < 1.0:
+		var vh := Vector3(velocity.x, 0.0, velocity.z)
+		spin += Vector3.UP.cross(vh) / params.radius
 	angular_velocity = spin
 	last_touch_team = team
 	kicked.emit(team)

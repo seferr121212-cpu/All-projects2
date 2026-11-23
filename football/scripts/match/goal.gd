@@ -5,7 +5,7 @@ extends Node3D
 
 signal ball_entered_net(side: int)
 
-const PD = PitchDimensions
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
 
 ## +1: sağ kale (x = +52.5), -1: sol kale (x = -52.5)
 @export var side := 1

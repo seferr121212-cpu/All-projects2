@@ -1,7 +1,7 @@
 extends "res://tests/test_case.gd"
 ## Entegrasyon: gerçek stadyumda gol algılama, file ve direk çarpışması.
 
-const PD = PitchDimensions
+const PD = preload("res://scripts/match/pitch_dimensions.gd")
 const StadiumScene = preload("res://scenes/stadium.tscn")
 const BallScene = preload("res://scenes/ball.tscn")
 
