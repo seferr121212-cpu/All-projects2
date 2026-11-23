@@ -139,3 +139,21 @@ func test_slide_tackle_wins_ball() -> void:
 	check(pos.owner_player != p, "Kayarak müdahale topu almalı")
 	check(p.state == FootballPlayer.State.STUMBLE or p.state == FootballPlayer.State.NORMAL, "Hücumcu sendelemeli")
 	await clear_children()
+
+
+func test_long_ground_pass_arrives() -> void:
+	_ground()
+	var ball: Ball = BallScene.instantiate()
+	add_child(ball)
+	ball.reset_to(Vector3(0, 0.11, 0))
+	await step_physics(10)
+	var v := PlayerActions.ground_pass_velocity(Vector3.ZERO, Vector3(28, 0, 0), 4.0)
+	ball.kick(v, Vector3.ZERO)
+	var arrived_speed := -1.0
+	for i in 600:
+		await get_tree().physics_frame
+		if ball.global_position.x >= 28.0:
+			arrived_speed = PlayerActions.horizontal(ball.linear_velocity).length()
+			break
+	check(arrived_speed > 2.5 and arrived_speed < 5.5, "28 m pas hedefe ~4 m/s ile varmalı (%.2f)" % arrived_speed)
+	await clear_children()

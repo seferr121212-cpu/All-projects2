@@ -1,12 +1,12 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/match/ai_match_setup.gd" id="1_setup"]
+[ext_resource type="Script" path="res://scripts/match/match_setup.gd" id="1_setup"]
 [ext_resource type="PackedScene" path="res://scenes/stadium.tscn" id="2_stadium"]
 [ext_resource type="PackedScene" path="res://scenes/ball.tscn" id="3_ball"]
 [ext_resource type="Script" path="res://scripts/match/match_events.gd" id="4_events"]
 [ext_resource type="Script" path="res://scripts/camera/broadcast_camera.gd" id="5_cam"]
 
-[node name="AIMatch" type="Node3D"]
+[node name="Match" type="Node3D"]
 script = ExtResource("1_setup")
 
 [node name="Stadium" parent="." instance=ExtResource("2_stadium")]

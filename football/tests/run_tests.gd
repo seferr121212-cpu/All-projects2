@@ -11,6 +11,7 @@ const TEST_FILES := [
 	"res://tests/test_player_movement.gd",
 	"res://tests/test_camera.gd",
 	"res://tests/test_ai.gd",
+	"res://tests/test_rules.gd",
 ]
 
 

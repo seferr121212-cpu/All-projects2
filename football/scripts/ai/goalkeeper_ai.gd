@@ -127,7 +127,7 @@ func _check_catch() -> void:
 	else:
 		# Çelme: topu kaleden uzağa, yana sektir
 		var out := Vector3(-defend_sign() * maxf(absf(ball.linear_velocity.x) * 0.3, 3.0), 2.5, ball.linear_velocity.z * 0.4 + _rng.randf_range(-3.0, 3.0))
-		ball.kick(out, Vector3.ZERO, player.team_id)
+		ball.kick(out, Vector3.ZERO, player.team_id, false, player)
 
 
 func _hold_point() -> Vector3:

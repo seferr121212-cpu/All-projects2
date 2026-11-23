@@ -31,6 +31,10 @@ var stamina := 100.0
 var state := State.NORMAL
 var shot_charge := -1.0 # >= 0 iken şut gücü doluyor
 var is_sprinting := false
+## Duran top beklerken: oyuncu yerinden oynamaz (yalnızca nişan için döner).
+var locked := false
+## +1: +X kalesine hücum, -1: -X. 0 ise team_id'den türetilir. Devre arasında değişir.
+var attack_direction := 0.0
 var holding_ball := false # kaleci topu elinde tutuyor
 var accuracy_bonus := 0 # AI zorluk ayarı (pas/şut isabetine eklenir)
 var has_look_target := false # dururken bu noktaya dön
@@ -56,6 +60,8 @@ func _ready() -> void:
 
 
 func attack_sign() -> float:
+	if attack_direction != 0.0:
+		return attack_direction
 	return 1.0 if team_id == 0 else -1.0
 
 
@@ -121,6 +127,17 @@ func _update_movement(delta: float) -> void:
 
 	var hv := Vector3(velocity.x, 0.0, velocity.z)
 	var desired := Vector3.ZERO
+	if locked:
+		velocity.x = 0.0
+		velocity.z = 0.0
+		is_sprinting = false
+		if input_len > 0.1:
+			facing = rotate_towards(facing, input / input_len, TURN_RATE_SLOW * delta)
+		elif has_look_target:
+			var tl := PlayerActions.horizontal(look_target - global_position)
+			if tl.length() > 0.3:
+				facing = rotate_towards(facing, tl.normalized(), TURN_RATE_SLOW * delta)
+		return
 	if input_len > 0.1:
 		var dir := input / input_len
 		var speed_ratio := clampf(hv.length() / stats.sprint_speed(), 0.0, 1.0)
@@ -174,7 +191,7 @@ func _set_state(s: State) -> void:
 # --- Top sürme -----------------------------------------------------------
 
 func _dribble() -> void:
-	if holding_ball or _touch_cooldown > 0.0 or ball == null or ball.global_position.y > 0.5:
+	if locked or holding_ball or _touch_cooldown > 0.0 or ball == null or ball.global_position.y > 0.5:
 		return
 	if _ball_distance() > TOUCH_REACH:
 		return
@@ -278,6 +295,18 @@ func clear_to(point: Vector3, elevation_deg := 30.0) -> bool:
 	return true
 
 
+## Oyuncuyu bir noktaya ışınlar (duran top/başlama dizilişi).
+func teleport(pos: Vector3, face: Vector3) -> void:
+	global_position = pos
+	velocity = Vector3.ZERO
+	if face.length_squared() > 0.001:
+		facing = PlayerActions.horizontal(face).normalized()
+	shot_charge = -1.0
+	holding_ball = false
+	_set_state(State.NORMAL)
+	_apply_facing()
+
+
 ## Kaleci uzanması: verilen hızla yana atılır.
 func dive(dive_velocity: Vector3, duration := 0.6) -> void:
 	if state == State.DIVE or holding_ball:
@@ -289,11 +318,11 @@ func dive(dive_velocity: Vector3, duration := 0.6) -> void:
 
 func _kick_ball(v: Vector3, spin: Vector3) -> void:
 	holding_ball = false
-	ball.kick(v, spin, team_id)
+	ball.kick(v, spin, team_id, false, self)
 
 
 func slide_tackle() -> void:
-	if state != State.NORMAL or has_ball():
+	if locked or state != State.NORMAL or has_ball():
 		return
 	var speed := maxf(PlayerActions.horizontal(velocity).length() + 3.0, 7.0)
 	velocity = facing * speed
@@ -315,7 +344,7 @@ func _update_slide(delta: float) -> void:
 			# Önce topa temas: temiz müdahale
 			_slide_resolved = true
 			var side := facing.cross(Vector3.UP) * _rng.randf_range(-2.0, 2.0)
-			ball.kick(facing * 7.0 + side, Vector3.ZERO, team_id)
+			ball.kick(facing * 7.0 + side, Vector3.ZERO, team_id, false, self)
 			if victim != null and victim.team_id != team_id:
 				victim.stumble(0.6)
 			tackle_made.emit(victim, true)
@@ -330,7 +359,7 @@ func _update_slide(delta: float) -> void:
 
 
 func shoulder_challenge() -> void:
-	if state != State.NORMAL or _challenge_cooldown > 0.0 or possession == null:
+	if locked or state != State.NORMAL or _challenge_cooldown > 0.0 or possession == null:
 		return
 	var opp := possession.owner_player
 	if opp == null or opp.team_id == team_id or opp.holding_ball:
@@ -350,7 +379,7 @@ func shoulder_challenge() -> void:
 
 
 func skill_move() -> void:
-	if not has_ball() or state != State.NORMAL or _skill_cooldown > 0.0:
+	if locked or not has_ball() or state != State.NORMAL or _skill_cooldown > 0.0:
 		return
 	var right := facing.cross(Vector3.UP).normalized()
 	var lateral := move_input.dot(right)

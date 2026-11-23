@@ -12,6 +12,8 @@ const GRAVITY := 9.81
 
 ## Topa son dokunan takım (-1: yok). Korner/aut/taç kararında kullanılır.
 var last_touch_team := -1
+## Topa son vuran oyuncu (dribble hariç). Ofsayt için hakem kullanır.
+var last_kicker: Node = null
 var grounded := false
 
 var _net_count := 0
@@ -33,7 +35,9 @@ func _ready() -> void:
 
 
 ## velocity: m/s, spin: rad/s (açısal hız vektörü), team: vuran takım.
-func kick(velocity: Vector3, spin: Vector3, team := -1, is_dribble := false) -> void:
+func kick(velocity: Vector3, spin: Vector3, team := -1, is_dribble := false, kicker: Node = null) -> void:
+	if not is_dribble:
+		last_kicker = kicker
 	_held = false
 	linear_velocity = velocity
 	# Yerden vuruşta top kaymadan yuvarlanmaya başlasın (gerçekçi pas mesafesi)

@@ -17,10 +17,16 @@ var controlled: FootballPlayer
 var possession: Possession
 
 var _auto_cooldown := 0.0
+## Duran top sırasında elle oyuncu değiştirme kapalı
+var lock_switch := false
+var attack_direction := 0.0
 
 
 func add_player(p: FootballPlayer) -> void:
 	p.team_id = team_id
+	if attack_direction == 0.0:
+		attack_direction = 1.0 if team_id == 0 else -1.0
+	p.attack_direction = attack_direction
 	players.append(p)
 	if p.visual and p.visual.has_method("set_team_color"):
 		p.visual.set_team_color(goalkeeper_color if p.is_goalkeeper else color)
@@ -61,7 +67,23 @@ func closest_to_ball(exclude: FootballPlayer = null) -> FootballPlayer:
 	return best
 
 
+func set_attack_direction(d: float) -> void:
+	attack_direction = d
+	for p in players:
+		p.attack_direction = d
+
+
+## Oyuncuyu takımdan çıkarır (kırmızı kart).
+func remove_player(p: FootballPlayer) -> void:
+	players.erase(p)
+	if controlled == p:
+		controlled = null
+		set_controlled(closest_to_ball())
+
+
 func switch_manual() -> void:
+	if lock_switch:
+		return
 	var p := closest_to_ball(controlled)
 	if p:
 		set_controlled(p)

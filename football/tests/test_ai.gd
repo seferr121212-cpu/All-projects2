@@ -2,7 +2,7 @@ extends "res://tests/test_case.gd"
 ## AI testleri: kaleci konumu, formasyon kayması, karar verme, AI maçı.
 
 const PD = preload("res://scripts/match/pitch_dimensions.gd")
-const AIMatchScene = preload("res://scenes/tests/ai_match.tscn")
+const AIMatchScene = preload("res://scenes/match.tscn")
 
 
 func _v(list: Array) -> Array[Vector3]:
@@ -59,6 +59,8 @@ func test_difficulty_levels_load() -> void:
 func test_ai_vs_ai_match_runs() -> void:
 	var m = AIMatchScene.instantiate()
 	m.human_team = -1
+	m.replay_enabled = false
+	m.half_minutes_override = 10.0
 	add_child(m)
 	var start := Time.get_ticks_msec()
 	var touches := [0]

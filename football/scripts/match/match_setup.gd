@@ -1,14 +1,14 @@
 extends Node3D
-## 5v5 AI test maçı. human_team: 0 = ev sahibini siz kontrol edersiniz, -1 = AI'ya karşı AI.
-## Gol/aut olunca top ortaya, oyuncular diziliş konumlarına döner (kurallar Faz 5'te).
-
-signal goal_scored(team_id: int)
+## Maç sahnesi kurulumu: takımlar, AI, hakem, maç akışı, kameralar, tekrar kaydı, HUD.
+## human_team: 0 = ev sahibini siz kontrol edersiniz, 1 = deplasman, -1 = AI'ya karşı AI.
 
 const PlayerScene = preload("res://scenes/player.tscn")
 
 @export var human_team := 0
 @export var formation_id := "5v5_2-1-1"
 @export var difficulty_level := ""
+@export var half_minutes_override := 0.0 # >0 ise settings.json yerine (testler için)
+@export var replay_enabled := true
 
 var possession: Possession
 var home: Team
@@ -16,8 +16,14 @@ var away: Team
 var home_ai: TeamAI
 var away_ai: TeamAI
 var formation: Formation
-var score := [0, 0]
+var referee: Referee
+var flow: MatchFlow
+var director: CameraDirector
+var recorder: ReplayRecorder
 var shots := 0
+var score: Array:
+	get:
+		return flow.score if flow else [0, 0]
 
 @onready var ball: Ball = $Ball
 @onready var events: MatchEvents = $MatchEvents
@@ -38,17 +44,45 @@ func _ready() -> void:
 	_spawn(away)
 	home_ai = _make_ai(home, away, difficulty)
 	away_ai = _make_ai(away, home, difficulty)
+
+	var input: HumanInputController = null
 	if human_team >= 0:
 		var t := home if human_team == 0 else away
-		var input := HumanInputController.new()
+		input = HumanInputController.new()
+		input.name = "HumanInput"
 		input.team = t
-		input.camera = camera
 		add_child(input)
 		var hud: CanvasLayer = preload("res://scripts/ui/player_hud.gd").new()
 		hud.team = t
 		add_child(hud)
-	events.event_detected.connect(_on_event)
-	reset_positions()
+	_setup_cameras(input)
+
+	referee = Referee.new()
+	referee.name = "Referee"
+	add_child(referee)
+	var both: Array[Team] = [home, away]
+	referee.setup(ball, possession, both)
+
+	flow = MatchFlow.new()
+	flow.name = "MatchFlow"
+	flow.ball = ball
+	flow.possession = possession
+	flow.events = events
+	flow.referee = referee
+	flow.teams.assign([home, away])
+	flow.team_ais.assign([home_ai, away_ai])
+	flow.director = director
+	flow.recorder = recorder
+	flow.load_settings()
+	if half_minutes_override > 0.0:
+		flow.half_seconds = half_minutes_override * 60.0
+	flow.replay_enabled = replay_enabled
+	add_child(flow)
+
+	var match_hud: CanvasLayer = preload("res://scripts/ui/match_hud.gd").new()
+	match_hud.flow = flow
+	add_child(match_hud)
+	flow.start()
 
 
 func _make_team(id: int, team_name: String, color: Color, human: bool) -> Team:
@@ -85,24 +119,28 @@ func _spawn(t: Team) -> void:
 		t.add_player(p)
 
 
-## Oyuncuları başlama konumlarına, topu ortaya alır.
-func reset_positions() -> void:
-	for t in [home, away]:
-		for i in t.players.size():
-			var p: FootballPlayer = t.players[i]
-			p.global_position = Formation.kickoff_position(formation.slots[i], p.attack_sign())
-			p.velocity = Vector3.ZERO
-			p.facing = Vector3(p.attack_sign(), 0.0, 0.0)
-			p.holding_ball = false
-			p.state = FootballPlayer.State.NORMAL
-	ball.reset_to(Vector3(0, PitchDimensions.BALL_RADIUS, 0))
-	events.restart_play()
-
-
-func _on_event(ev: Dictionary) -> void:
-	if ev.type == MatchEvents.EventType.GOAL:
-		score[ev.team] += 1
-		goal_scored.emit(ev.team)
-	print("Olay: %s | Skor %d - %d" % [MatchEvents.describe(ev), score[0], score[1]])
-	await get_tree().create_timer(1.0).timeout
-	reset_positions()
+func _setup_cameras(input: HumanInputController) -> void:
+	director = CameraDirector.new()
+	director.name = "CameraDirector"
+	add_child(director)
+	var replay := ReplayCamera.new()
+	replay.name = "ReplayCamera"
+	add_child(replay)
+	director.replay_camera = replay
+	if input:
+		director.camera_changed.connect(func(cam: Camera3D) -> void: input.camera = cam)
+	if camera:
+		director.add_camera(camera)
+	if input:
+		var behind := BehindPlayerCamera.new()
+		behind.name = "BehindCamera"
+		behind.team = input.team
+		add_child(behind)
+		director.add_camera(behind)
+		input.camera = director.active_camera()
+	recorder = ReplayRecorder.new()
+	recorder.name = "ReplayRecorder"
+	add_child(recorder)
+	recorder.track(ball)
+	for p in home.players + away.players:
+		recorder.track(p)

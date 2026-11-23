@@ -3,8 +3,9 @@ extends RefCounted
 ## Pas/orta/şut vuruş hızlarını hesaplayan saf fonksiyonlar (test edilebilir).
 
 const GRAVITY := 9.81
-## Yerde yavaşlama (yuvarlanma direnci + yaklaşık hava direnci)
-const ROLL_DECEL := 0.15 * 9.81 + 0.25
+## Yerde yavaşlama: dv/dt = -(ROLL_DECEL + DRAG_K·v²)
+const ROLL_DECEL := 0.15 * 9.81
+const DRAG_K := 0.5 * 1.2 * 0.25 * PI * 0.11 * 0.11 / 0.43
 
 
 static func horizontal(v: Vector3) -> Vector3:
@@ -14,8 +15,15 @@ static func horizontal(v: Vector3) -> Vector3:
 ## Yer pası: hedefe arrive_speed hızla varacak şekilde.
 static func ground_pass_velocity(from: Vector3, to: Vector3, arrive_speed := 4.0) -> Vector3:
 	var d := horizontal(to - from)
-	var speed := sqrt(arrive_speed * arrive_speed + 2.0 * ROLL_DECEL * d.length())
-	return d.normalized() * clampf(speed, 5.0, 24.0)
+	return d.normalized() * clampf(ground_speed_for(d.length(), arrive_speed), 5.0, 24.0)
+
+
+## d metre sonra arrive_speed hızına düşecek başlangıç hızı (yuvarlanma + hava direnci).
+## Mesafe = 1/(2k)·ln((a + k·v0²)/(a + k·v1²))  =>  v0 çözülür.
+static func ground_speed_for(dist: float, arrive_speed: float) -> float:
+	var a := ROLL_DECEL
+	var k := DRAG_K
+	return sqrt(((a + k * arrive_speed * arrive_speed) * exp(2.0 * k * dist) - a) / k)
 
 
 ## Havadan pas/orta: verilen yükseliş açısıyla hedefe düşecek balistik hız (+ sürtünme payı).

@@ -16,6 +16,8 @@ const PD = preload("res://scripts/match/pitch_dimensions.gd")
 
 var ball: Ball
 var ball_in_play := true
+## Ev sahibinin hücum yönü (+1: +X kalesine). Devre arasında -1 olur.
+var home_attack_sign := 1.0
 
 
 func _ready() -> void:
@@ -26,7 +28,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if ball == null or not ball_in_play:
 		return
-	var ev := classify(ball.global_position, PD.BALL_RADIUS, ball.last_touch_team)
+	var ev := classify(ball.global_position, PD.BALL_RADIUS, ball.last_touch_team, home_attack_sign)
 	if ev.type != EventType.NONE:
 		ball_in_play = false
 		event_detected.emit(ev)
@@ -37,10 +39,11 @@ func restart_play() -> void:
 
 
 ## Saf fonksiyon: konuma göre olay döndürür. team = olayla hak kazanan takım.
-static func classify(pos: Vector3, r: float, last_touch: int) -> Dictionary:
+static func classify(pos: Vector3, r: float, last_touch: int, home_attack := 1.0) -> Dictionary:
 	if absf(pos.x) > PD.HALF_LENGTH + r:
 		var s := 1 if pos.x > 0.0 else -1
-		var defending := AWAY if s > 0 else HOME
+		# Bu kaleyi savunan takım: ev sahibinin kendi kalesi -home_attack tarafında
+		var defending := HOME if float(s) == -home_attack else AWAY
 		var attacking := 1 - defending
 		if absf(pos.z) < PD.GOAL_WIDTH * 0.5 and pos.y < PD.GOAL_HEIGHT:
 			return _event(EventType.GOAL, attacking, pos, s)
