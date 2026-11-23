@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/match/pitch_builder.gd" id="1_pitch"]
+[ext_resource type="PackedScene" path="res://scenes/goal.tscn" id="2_goal"]
+
+[node name="Stadium" type="Node3D"]
+script = ExtResource("1_pitch")
+
+[node name="GoalLeft" parent="." instance=ExtResource("2_goal")]
+side = -1
+
+[node name="GoalRight" parent="." instance=ExtResource("2_goal")]
+side = 1
