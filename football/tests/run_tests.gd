@@ -9,6 +9,7 @@ const TEST_FILES := [
 	"res://tests/test_goal_scene.gd",
 	"res://tests/test_pass_targeting.gd",
 	"res://tests/test_player_movement.gd",
+	"res://tests/test_camera.gd",
 ]
 
 

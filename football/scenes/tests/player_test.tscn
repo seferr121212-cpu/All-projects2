@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/stadium.tscn" id="2_stadium"]
 [ext_resource type="PackedScene" path="res://scenes/ball.tscn" id="3_ball"]
 [ext_resource type="Script" path="res://scripts/match/match_events.gd" id="4_events"]
-[ext_resource type="Script" path="res://scripts/camera/debug_orbit_camera.gd" id="5_cam"]
+[ext_resource type="Script" path="res://scripts/camera/broadcast_camera.gd" id="5_cam"]
 
 [node name="PlayerTest" type="Node3D"]
 script = ExtResource("1_setup")

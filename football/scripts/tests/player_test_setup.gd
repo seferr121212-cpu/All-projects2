@@ -10,7 +10,10 @@ var away: Team
 
 @onready var ball: Ball = $Ball
 @onready var events: MatchEvents = $MatchEvents
-@onready var camera: Camera3D = $Camera
+@onready var camera: BroadcastCamera = $Camera
+
+var director: CameraDirector
+var recorder: ReplayRecorder
 
 
 func _ready() -> void:
@@ -27,17 +30,13 @@ func _ready() -> void:
 	var input := HumanInputController.new()
 	input.name = "HumanInput"
 	input.team = home
-	input.camera = camera
 	add_child(input)
+	_setup_cameras(input)
 
 	var hud: CanvasLayer = preload("res://scripts/ui/player_hud.gd").new()
 	hud.team = home
 	add_child(hud)
 
-	# Yan görünüm: +X sağda, ileri tuşu -Z
-	camera.yaw = 0.0
-	camera.pitch = -0.6
-	camera.distance = 26.0
 	events.event_detected.connect(_on_event)
 	ball.reset_to(Vector3(0, PitchDimensions.BALL_RADIUS, 0))
 
@@ -71,3 +70,28 @@ func _on_event(ev: Dictionary) -> void:
 	await get_tree().create_timer(1.5).timeout
 	ball.reset_to(Vector3(0, PitchDimensions.BALL_RADIUS, 0))
 	events.restart_play()
+
+
+## Yayın + oyuncu arkası kamera, tekrar kamerası ve tekrar kaydı (F1: kamera değiştir).
+func _setup_cameras(input: HumanInputController) -> void:
+	var behind := BehindPlayerCamera.new()
+	behind.name = "BehindCamera"
+	behind.team = home
+	add_child(behind)
+	var replay := ReplayCamera.new()
+	replay.name = "ReplayCamera"
+	add_child(replay)
+	director = CameraDirector.new()
+	director.name = "CameraDirector"
+	add_child(director)
+	director.replay_camera = replay
+	director.camera_changed.connect(func(cam: Camera3D) -> void: input.camera = cam)
+	director.add_camera(camera)
+	director.add_camera(behind)
+	input.camera = director.active_camera()
+	recorder = ReplayRecorder.new()
+	recorder.name = "ReplayRecorder"
+	add_child(recorder)
+	recorder.track(ball)
+	for p in home.players + away.players:
+		recorder.track(p)
