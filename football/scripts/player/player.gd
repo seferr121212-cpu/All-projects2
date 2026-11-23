@@ -8,7 +8,7 @@ signal shot_taken(power: float)
 signal tackle_made(victim: FootballPlayer, won_ball: bool)
 signal foul_committed(victim: FootballPlayer)
 
-enum State { NORMAL, SLIDING, STUMBLE, SKILL }
+enum State { NORMAL, SLIDING, STUMBLE, SKILL, DIVE }
 
 const GRAVITY := 9.81
 const TURN_RATE_SLOW := 14.0 # rad/s, dururken
@@ -20,6 +20,7 @@ const SHOT_CHARGE_TIME := 1.0
 
 @export var stats: PlayerStats
 @export var team_id := 0
+@export var is_goalkeeper := false
 
 var ball: Ball
 var possession: Possession
@@ -30,6 +31,10 @@ var stamina := 100.0
 var state := State.NORMAL
 var shot_charge := -1.0 # >= 0 iken şut gücü doluyor
 var is_sprinting := false
+var holding_ball := false # kaleci topu elinde tutuyor
+var accuracy_bonus := 0 # AI zorluk ayarı (pas/şut isabetine eklenir)
+var has_look_target := false # dururken bu noktaya dön
+var look_target := Vector3.ZERO
 
 var _state_timer := 0.0
 var _touch_cooldown := 0.0
@@ -80,6 +85,11 @@ func _physics_process(delta: float) -> void:
 		State.SKILL:
 			if _state_timer <= 0.0:
 				_set_state(State.NORMAL)
+		State.DIVE:
+			_damp_horizontal(1.5, delta)
+			if _state_timer <= 0.0:
+				_state_timer = 0.5
+				_set_state(State.STUMBLE) # yerden kalkma
 	if is_on_floor():
 		velocity.y = 0.0
 	else:
@@ -120,6 +130,10 @@ func _update_movement(delta: float) -> void:
 		facing = rotate_towards(facing, dir, turn_rate * delta)
 		# Hareket bakış yönünde; keskin dönüşte yavaşlar (ani 180° dönüş yok)
 		desired = facing * input_len * max_speed * clampf(facing.dot(dir), 0.3, 1.0)
+	elif has_look_target:
+		var to_look := PlayerActions.horizontal(look_target - global_position)
+		if to_look.length() > 0.3:
+			facing = rotate_towards(facing, to_look.normalized(), TURN_RATE_SLOW * 0.6 * delta)
 	var rate := stats.acceleration() if desired.length() > hv.length() else DECELERATION
 	hv = hv.move_toward(desired, rate * delta)
 	velocity.x = hv.x
@@ -160,7 +174,7 @@ func _set_state(s: State) -> void:
 # --- Top sürme -----------------------------------------------------------
 
 func _dribble() -> void:
-	if _touch_cooldown > 0.0 or ball == null or ball.global_position.y > 0.5:
+	if holding_ball or _touch_cooldown > 0.0 or ball == null or ball.global_position.y > 0.5:
 		return
 	if _ball_distance() > TOUCH_REACH:
 		return
@@ -190,6 +204,18 @@ func do_pass(kind: PassTargeting.Kind) -> void:
 	var opps := possession.players_of_team(1 - team_id)
 	var idx := PassTargeting.pick(global_position, aim, _positions(mates), _positions(opps), kind)
 	var target: FootballPlayer = mates[idx] if idx >= 0 else null
+	_execute_pass(target, kind, aim)
+
+
+## AI için: belirli bir arkadaşa pas.
+func pass_to(target: FootballPlayer, kind: PassTargeting.Kind) -> bool:
+	if not _can_kick() or target == null:
+		return false
+	_execute_pass(target, kind, PlayerActions.horizontal(target.global_position - global_position))
+	return true
+
+
+func _execute_pass(target: FootballPlayer, kind: PassTargeting.Kind, aim: Vector3) -> void:
 	var point: Vector3
 	if target == null:
 		var dist := 14.0 if kind == PassTargeting.Kind.SHORT else 25.0
@@ -204,11 +230,11 @@ func do_pass(kind: PassTargeting.Kind) -> void:
 		v = PlayerActions.lob_velocity(ball.global_position, point, 35.0)
 	else:
 		v = PlayerActions.ground_pass_velocity(ball.global_position, point, 5.0 if kind == PassTargeting.Kind.THROUGH else 4.0)
-	v = PlayerActions.apply_error(v, stats.passing, 0.3, _rng)
+	v = PlayerActions.apply_error(v, stats.passing + accuracy_bonus, 0.3, _rng)
 	var spin := Vector3.ZERO
 	if kind == PassTargeting.Kind.LOB:
 		spin = Vector3.UP.cross(PlayerActions.horizontal(v).normalized()) * -15.0 # hafif alt falso
-	ball.kick(v, spin, team_id)
+	_kick_ball(v, spin)
 	pass_made.emit(target)
 
 
@@ -227,13 +253,43 @@ func release_shot(aim_lateral: float) -> void:
 		return
 	var power := shot_charge
 	shot_charge = -1.0
-	if not _can_kick():
-		return
 	var target := Vector3(attack_sign() * PitchDimensions.HALF_LENGTH, 0.0, clampf(aim_lateral, -1.0, 1.0) * (PitchDimensions.GOAL_WIDTH * 0.5 - 0.5))
+	shoot_at(target, power)
+
+
+## Hedef noktaya (kale çizgisi üzerinde) verilen güçle şut.
+func shoot_at(target: Vector3, power: float) -> bool:
+	if not _can_kick():
+		return false
 	var v := PlayerActions.shot_velocity(ball.global_position, target, power, stats.shooting)
-	v = PlayerActions.apply_error(v, stats.shooting, power, _rng)
-	ball.kick(v, Vector3.ZERO, team_id)
+	v = PlayerActions.apply_error(v, stats.shooting + accuracy_bonus, power, _rng)
+	_kick_ball(v, Vector3.ZERO)
 	shot_taken.emit(power)
+	return true
+
+
+## Uzun vuruş (degaj/uzaklaştırma): noktaya havadan.
+func clear_to(point: Vector3, elevation_deg := 30.0) -> bool:
+	if not _can_kick():
+		return false
+	var v := PlayerActions.lob_velocity(ball.global_position, point, elevation_deg)
+	v = PlayerActions.apply_error(v, stats.passing + accuracy_bonus, 0.5, _rng)
+	_kick_ball(v, Vector3.ZERO)
+	return true
+
+
+## Kaleci uzanması: verilen hızla yana atılır.
+func dive(dive_velocity: Vector3, duration := 0.6) -> void:
+	if state == State.DIVE or holding_ball:
+		return
+	velocity = dive_velocity
+	_state_timer = duration
+	_set_state(State.DIVE)
+
+
+func _kick_ball(v: Vector3, spin: Vector3) -> void:
+	holding_ball = false
+	ball.kick(v, spin, team_id)
 
 
 func slide_tackle() -> void:
@@ -277,7 +333,7 @@ func shoulder_challenge() -> void:
 	if state != State.NORMAL or _challenge_cooldown > 0.0 or possession == null:
 		return
 	var opp := possession.owner_player
-	if opp == null or opp.team_id == team_id:
+	if opp == null or opp.team_id == team_id or opp.holding_ball:
 		return
 	if PlayerActions.horizontal(opp.global_position - global_position).length() > 1.4:
 		return
@@ -310,6 +366,9 @@ func skill_move() -> void:
 
 func stumble(duration: float) -> void:
 	shot_charge = -1.0
+	if holding_ball:
+		holding_ball = false
+		ball.release_hold()
 	_state_timer = duration
 	_set_state(State.STUMBLE)
 	if has_ball():

@@ -2,5 +2,10 @@
   "physics_ticks_per_second": 120,
   "half_length_minutes": 5,
   "difficulty": "medium",
-  "language": "tr"
+  "language": "tr",
+  "difficulty_levels": {
+    "easy":   {"reaction_time": 0.45, "decision_noise": 0.35, "accuracy_bonus": -12, "press_intensity": 0.5, "tackle_chance": 0.15, "gk_reaction": 0.35, "gk_skill_bonus": -15},
+    "medium": {"reaction_time": 0.25, "decision_noise": 0.18, "accuracy_bonus": 0,   "press_intensity": 0.75, "tackle_chance": 0.3, "gk_reaction": 0.2, "gk_skill_bonus": 0},
+    "hard":   {"reaction_time": 0.12, "decision_noise": 0.06, "accuracy_bonus": 10,  "press_intensity": 1.0, "tackle_chance": 0.45, "gk_reaction": 0.1, "gk_skill_bonus": 10}
+  }
 }

@@ -10,6 +10,7 @@ const AUTO_SWITCH_MARGIN := 4.0 # m: daha yakın arkadaş bu kadar öndeyse geç
 @export var team_name := "Takım"
 @export var color := Color(0.85, 0.15, 0.15)
 @export var human := false
+@export var goalkeeper_color := Color(0.95, 0.85, 0.1)
 
 var players: Array[FootballPlayer] = []
 var controlled: FootballPlayer
@@ -22,7 +23,7 @@ func add_player(p: FootballPlayer) -> void:
 	p.team_id = team_id
 	players.append(p)
 	if p.visual and p.visual.has_method("set_team_color"):
-		p.visual.set_team_color(color)
+		p.visual.set_team_color(goalkeeper_color if p.is_goalkeeper else color)
 	p.pass_made.connect(_on_pass_made)
 	if possession:
 		possession.register_player(p)
@@ -39,6 +40,7 @@ func set_controlled(p: FootballPlayer) -> void:
 	controlled = p
 	if p:
 		p.set_controlled(true)
+		p.has_look_target = false
 	controlled_changed.emit(p)
 
 
@@ -50,7 +52,7 @@ func closest_to_ball(exclude: FootballPlayer = null) -> FootballPlayer:
 	var best: FootballPlayer = null
 	var best_d := INF
 	for p in players:
-		if p == exclude:
+		if p == exclude or p.is_goalkeeper:
 			continue
 		var d := PlayerActions.horizontal(p.global_position - bp).length()
 		if d < best_d:
@@ -70,11 +72,11 @@ func _physics_process(delta: float) -> void:
 	if not human or possession == null:
 		return
 	_auto_cooldown -= delta
-	if controlled == null and not players.is_empty():
-		set_controlled(players[0])
+	if controlled == null:
+		set_controlled(closest_to_ball())
 	var owner := possession.owner_player
 	if owner != null and owner.team_id == team_id:
-		if owner != controlled:
+		if owner != controlled and not owner.is_goalkeeper:
 			set_controlled(owner) # topu alan arkadaşa geç
 		return
 	if _auto_cooldown > 0.0 or controlled == null:
@@ -91,6 +93,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_pass_made(target: FootballPlayer) -> void:
-	if human and target != null:
+	if human and target != null and not target.is_goalkeeper:
 		set_controlled(target)
 		_auto_cooldown = 0.8

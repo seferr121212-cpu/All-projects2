@@ -16,6 +16,8 @@ var grounded := false
 
 var _net_count := 0
 var _net_damping := 0.0
+var _held := false
+var _hold_position := Vector3.ZERO
 var _reset_pending := false
 var _reset_position := Vector3.ZERO
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 
 ## velocity: m/s, spin: rad/s (açısal hız vektörü), team: vuran takım.
 func kick(velocity: Vector3, spin: Vector3, team := -1, is_dribble := false) -> void:
+	_held = false
 	linear_velocity = velocity
 	# Yerden vuruşta top kaymadan yuvarlanmaya başlasın (gerçekçi pas mesafesi)
 	if grounded and velocity.y < 1.0:
@@ -46,7 +49,22 @@ func kick(velocity: Vector3, spin: Vector3, team := -1, is_dribble := false) -> 
 func reset_to(pos: Vector3) -> void:
 	_reset_position = pos
 	_reset_pending = true
+	_held = false
 	last_touch_team = -1
+
+
+## Kaleci topu elde tutar: her fizik adımında bu konuma sabitlenir.
+func hold(pos: Vector3) -> void:
+	_held = true
+	_hold_position = pos
+
+
+func release_hold() -> void:
+	_held = false
+
+
+func is_held() -> bool:
+	return _held
 
 
 func set_in_net(inside: bool, damping: float) -> void:
@@ -64,6 +82,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var t := state.transform
 		t.origin = _reset_position
 		state.transform = t
+		state.linear_velocity = Vector3.ZERO
+		state.angular_velocity = Vector3.ZERO
+		return
+
+	if _held:
+		var ht := state.transform
+		ht.origin = _hold_position
+		state.transform = ht
 		state.linear_velocity = Vector3.ZERO
 		state.angular_velocity = Vector3.ZERO
 		return

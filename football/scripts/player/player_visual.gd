@@ -21,6 +21,9 @@ func set_pose(state: int) -> void:
 		FootballPlayer.State.SLIDING:
 			rotation = Vector3(deg_to_rad(-70.0), 0.0, 0.0)
 			position.y = 0.3
+		FootballPlayer.State.DIVE:
+			rotation = Vector3(0.0, 0.0, deg_to_rad(70.0))
+			position.y = 0.4
 		FootballPlayer.State.STUMBLE:
 			rotation = Vector3(deg_to_rad(-15.0), 0.0, 0.0)
 			position.y = 0.0

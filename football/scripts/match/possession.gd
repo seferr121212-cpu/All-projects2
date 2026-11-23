@@ -44,6 +44,11 @@ func players_of_team(team_id: int, exclude: FootballPlayer = null) -> Array[Foot
 	return out
 
 
+## Sahipliği doğrudan verir (ör. kaleci topu tuttu).
+func take(p: FootballPlayer) -> void:
+	_set_owner(p)
+
+
 func force_release(p: FootballPlayer, no_retake_time: float) -> void:
 	if owner_player == p:
 		_set_owner(null)
@@ -65,7 +70,7 @@ func _physics_process(delta: float) -> void:
 	var best: FootballPlayer = null
 	var best_d := CONTROL_RADIUS
 	for p in all_players():
-		if p.state == FootballPlayer.State.SLIDING or p.state == FootballPlayer.State.STUMBLE or _no_retake.has(p):
+		if (p.state != FootballPlayer.State.NORMAL and p.state != FootballPlayer.State.SKILL) or _no_retake.has(p):
 			continue
 		var d := _dist(p)
 		var rel := (ball.linear_velocity - p.velocity).length()
