@@ -35,6 +35,19 @@ func test_shot_into_goal_is_detected_and_net_holds() -> void:
 	await clear_children()
 
 
+func test_ball_off_inside_of_post_goes_in() -> void:
+	var ball := _setup()
+	# Direğin iç kenarına yakın, çapraz şut: direğe sürtüp içeri girmeli
+	ball.reset_to(Vector3(40, 0.11, -1.0))
+	await step_physics(5)
+	var target := Vector3(PD.HALF_LENGTH + 1.0, 0.5, PD.GOAL_WIDTH * 0.5 - 0.05)
+	var dir := (target - ball.global_position).normalized()
+	ball.kick(dir * 24.0 + Vector3.UP * 1.5, Vector3.ZERO, MatchEvents.HOME)
+	await step_physics(240)
+	check(_events.size() >= 1 and _events[0].type == MatchEvents.EventType.GOAL, "İç direkten giren top gol (olay: %s)" % str(_events.map(func(e): return e.type)))
+	await clear_children()
+
+
 func test_post_bounces_ball_back() -> void:
 	var ball := _setup()
 	var post_z := PD.GOAL_WIDTH * 0.5 + PD.POST_RADIUS

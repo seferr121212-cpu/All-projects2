@@ -18,4 +18,10 @@ func _ready() -> void:
 	col.add_child(UIUtil.button(tr("MENU_TRAINING"), func() -> void: Game.open_team_select(Game.Mode.TRAINING)))
 	col.add_child(UIUtil.button(tr("MENU_SETTINGS"), func() -> void: Game.open_settings()))
 	col.add_child(UIUtil.button(tr("MENU_QUIT"), func() -> void: get_tree().quit()))
+	var ver := Label.new()
+	ver.text = "v" + str(ProjectSettings.get_setting("application/config/version", ""))
+	ver.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	ver.position = Vector2(-120, -40)
+	ver.add_theme_color_override("font_color", UITheme.MUTED)
+	add_child(ver)
 	_first.grab_focus.call_deferred() # gamepad ile gezinme

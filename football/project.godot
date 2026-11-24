@@ -4,7 +4,7 @@ config_version=5
 [application]
 
 config/name="Futbol 3D"
-config/version="0.1.0"
+config/version="1.0.0"
 run/main_scene="res://scenes/ui/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 

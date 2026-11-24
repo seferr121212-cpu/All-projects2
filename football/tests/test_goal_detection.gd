@@ -41,6 +41,18 @@ func test_defender_last_touch_is_corner() -> void:
 	check(ev.type == E.CORNER and ev.team == MatchEvents.HOME, "Savunmacı son dokunduysa korner")
 
 
+func test_corner_area_out_over_goal_line() -> void:
+	# Köşeden (iki çizgiyi birden) çıkan top: kale çizgisi kuralı uygulanır
+	var ev := _cls(Vector3(PD.HALF_LENGTH + 0.3, 0.2, PD.HALF_WIDTH + 0.3), MatchEvents.AWAY)
+	check(ev.type == E.CORNER and ev.team == MatchEvents.HOME, "Köşeden çıkış: savunmacı son dokunduysa korner")
+
+
+func test_ball_bouncing_on_line_under_bar_is_not_goal() -> void:
+	# Üst direkten sekip çizginin üstüne düşen top (tamamı geçmedi) gol değildir
+	var ev := _cls(Vector3(PD.HALF_LENGTH + R * 0.5, R, 1.0), MatchEvents.HOME)
+	check(ev.type == E.NONE, "Çizgi üstüne düşen top gol değil")
+
+
 func test_throw_in() -> void:
 	var ev := _cls(Vector3(0.0, R, PD.HALF_WIDTH + R + 0.01), MatchEvents.HOME)
 	check(ev.type == E.THROW_IN and ev.team == MatchEvents.AWAY, "Yan çizgiden çıkış taç, rakibin")
