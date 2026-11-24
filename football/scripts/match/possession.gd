@@ -5,8 +5,8 @@ extends Node
 
 signal owner_changed(new_owner: FootballPlayer, old_owner: FootballPlayer)
 
-const CONTROL_RADIUS := 0.9
-const KEEP_RADIUS := 2.4
+const CONTROL_RADIUS := 1.1
+const KEEP_RADIUS := 3.0
 const MAX_CONTROL_HEIGHT := 0.8
 const BASE_CONTROL_SPEED := 9.0
 
@@ -14,7 +14,10 @@ const BASE_CONTROL_SPEED := 9.0
 
 var ball: Ball
 var owner_player: FootballPlayer
+## Son sahiplik bırakma nedeni (hata ayıklama/istatistik): kick, distance, height, forced
+var last_release_reason := ""
 var _no_retake := {} # FootballPlayer -> kalan süre
+var _players: Array[FootballPlayer] = [] # kayıtlı oyuncular (her karede grup taraması yapılmaz)
 
 
 func _ready() -> void:
@@ -27,13 +30,19 @@ func _ready() -> void:
 func register_player(p: FootballPlayer) -> void:
 	p.ball = ball
 	p.possession = self
+	if not p in _players:
+		_players.append(p)
+
+
+func unregister_player(p: FootballPlayer) -> void:
+	_players.erase(p)
+	_no_retake.erase(p)
+	if owner_player == p:
+		_set_owner(null)
 
 
 func all_players() -> Array[FootballPlayer]:
-	var out: Array[FootballPlayer] = []
-	for n in get_tree().get_nodes_in_group("players"):
-		out.append(n as FootballPlayer)
-	return out
+	return _players
 
 
 func players_of_team(team_id: int, exclude: FootballPlayer = null) -> Array[FootballPlayer]:
@@ -51,6 +60,7 @@ func take(p: FootballPlayer) -> void:
 
 func force_release(p: FootballPlayer, no_retake_time: float) -> void:
 	if owner_player == p:
+		last_release_reason = "forced"
 		_set_owner(null)
 	_no_retake[p] = no_retake_time
 
@@ -64,6 +74,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if owner_player != null:
 		if _dist(owner_player) > KEEP_RADIUS or ball.global_position.y > 1.5:
+			last_release_reason = "distance" if _dist(owner_player) > KEEP_RADIUS else "height"
 			_set_owner(null)
 		else:
 			return
@@ -73,15 +84,16 @@ func _physics_process(delta: float) -> void:
 		if (p.state != FootballPlayer.State.NORMAL and p.state != FootballPlayer.State.SKILL) or _no_retake.has(p):
 			continue
 		var d := _dist(p)
-		var rel := (ball.linear_velocity - p.velocity).length()
-		var max_rel := BASE_CONTROL_SPEED * (0.7 + 0.6 * PlayerStats.ratio(p.stats.dribbling))
-		if d < best_d and ball.global_position.y < MAX_CONTROL_HEIGHT and rel < max_rel:
+		# Kontrol topun hızına bağlı (karşıdan koşarak karşılamak da mümkün olmalı)
+		var ball_speed := ball.linear_velocity.length()
+		var max_speed := BASE_CONTROL_SPEED * (1.0 + 0.6 * PlayerStats.ratio(p.stats.dribbling))
+		if d < best_d and ball.global_position.y < MAX_CONTROL_HEIGHT and ball_speed < max_speed:
 			best = p
 			best_d = d
 	if best != null:
 		_set_owner(best)
-		# İlk kontrol: topu oyuncunun hızına yaklaştır (top sönümlenir)
-		var v := PlayerActions.horizontal(best.velocity) * 0.9
+		# İlk kontrol: top yastıklanır, oyuncunun hızının altında kalır
+		var v := PlayerActions.horizontal(best.velocity) * 0.6
 		ball.kick(v, Vector3.ZERO, best.team_id, true)
 
 
@@ -100,4 +112,5 @@ func _set_owner(p: FootballPlayer) -> void:
 func _on_ball_kicked(_team: int, is_dribble: bool) -> void:
 	if not is_dribble and owner_player != null:
 		_no_retake[owner_player] = 0.35
+		last_release_reason = "kick"
 		_set_owner(null)

@@ -15,7 +15,7 @@ const TURN_RATE_SLOW := 14.0 # rad/s, dururken
 const TURN_RATE_FAST := 4.5 # rad/s, tam sprintte
 const DECELERATION := 16.0
 const KICK_REACH := 1.5
-const TOUCH_REACH := 1.1
+const TOUCH_REACH := 1.4
 const SHOT_CHARGE_TIME := 1.0
 
 @export var stats: PlayerStats
@@ -246,7 +246,7 @@ func _execute_pass(target: FootballPlayer, kind: PassTargeting.Kind, aim: Vector
 	if kind == PassTargeting.Kind.LOB:
 		v = PlayerActions.lob_velocity(ball.global_position, point, 35.0)
 	else:
-		v = PlayerActions.ground_pass_velocity(ball.global_position, point, 5.0 if kind == PassTargeting.Kind.THROUGH else 4.0)
+		v = PlayerActions.ground_pass_velocity(ball.global_position, point, 6.0 if kind == PassTargeting.Kind.THROUGH else 7.0)
 	v = PlayerActions.apply_error(v, stats.passing + accuracy_bonus, 0.3, _rng)
 	var spin := Vector3.ZERO
 	if kind == PassTargeting.Kind.LOB:
@@ -356,6 +356,26 @@ func _update_slide(delta: float) -> void:
 	if _state_timer <= 0.0:
 		_state_timer = 0.45
 		_set_state(State.STUMBLE) # yerden kalkma
+
+
+## Ayakta müdahale: rakibin ayağındaki topa uzanıp uzaklaştırma. Başarı savunma/top sürme farkına bağlı.
+## Döndürür: deneme yapıldıysa true.
+func standing_tackle() -> bool:
+	if locked or state != State.NORMAL or has_ball() or _challenge_cooldown > 0.0 or possession == null:
+		return false
+	var opp := possession.owner_player
+	if opp == null or opp.team_id == team_id or opp.holding_ball:
+		return false
+	var to_ball := PlayerActions.horizontal(ball.global_position - global_position)
+	if to_ball.length() > 1.6 or ball.global_position.y > 0.6:
+		return false
+	_challenge_cooldown = 0.9
+	var p_win := clampf(0.4 + (stats.defending - opp.stats.dribbling) / 150.0, 0.15, 0.8)
+	if _rng.randf() < p_win:
+		var away := (facing + to_ball.normalized()).normalized()
+		ball.kick(away * 4.0, Vector3.ZERO, team_id, false, self)
+		tackle_made.emit(opp, true)
+	return true
 
 
 func shoulder_challenge() -> void:

@@ -4,6 +4,7 @@ extends Resource
 
 @export var player_name := "Oyuncu"
 @export var number := 0
+@export var position := "MID" # GK / DEF / MID / FWD
 @export_range(1, 99) var pace := 70
 @export_range(1, 99) var shooting := 70
 @export_range(1, 99) var passing := 70

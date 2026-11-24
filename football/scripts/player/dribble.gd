@@ -15,9 +15,11 @@ static func compute_touch(player_pos: Vector3, player_vel: Vector3, facing: Vect
 	var target := player_pos + facing * lead
 	var to := Vector3(target.x - ball_pos.x, 0.0, target.z - ball_pos.z)
 	var ahead := Vector3(ball_pos.x - player_pos.x, 0.0, ball_pos.z - player_pos.z).dot(facing)
-	var need := ahead < lead * 0.7 or to.length() > 0.35
-	var v := pv * 1.1 + to * 2.5
-	return {"need": need, "velocity": v.limit_length(12.0)}
+	# Top geride/yanda kaldıysa ya da fazla öne kaçtıysa dokun
+	var need := ahead < lead * 0.7 or ahead > lead * 1.6 or to.length() > 0.35
+	var v := pv + to * 2.2
+	# Top, oyuncunun hızından fazla kaçmasın (sprintte topu kaybetmeyi önler)
+	return {"need": need, "velocity": v.limit_length(pv.length() + 1.8)}
 
 
 static func touch_cooldown(dribbling: int) -> float:

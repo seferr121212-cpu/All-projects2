@@ -1,0 +1,44 @@
+{
+  "teams": [
+    {
+      "id": "kuzey",
+      "name": "Kuzey Yıldızları",
+      "short": "KYZ",
+      "color": "#c62828",
+      "away_color": "#f5f5f5",
+      "goalkeeper_color": "#fbc02d",
+      "formation": "4-3-3",
+      "strength": 78
+    },
+    {
+      "id": "liman",
+      "name": "Liman Spor",
+      "short": "LMN",
+      "color": "#1565c0",
+      "away_color": "#ffeb3b",
+      "goalkeeper_color": "#43a047",
+      "formation": "4-4-2",
+      "strength": 75
+    },
+    {
+      "id": "bozkir",
+      "name": "Bozkır Atlıları",
+      "short": "BZK",
+      "color": "#ef6c00",
+      "away_color": "#212121",
+      "goalkeeper_color": "#8e24aa",
+      "formation": "4-2-3-1",
+      "strength": 72
+    },
+    {
+      "id": "ege",
+      "name": "Ege Rüzgarı",
+      "short": "EGE",
+      "color": "#00897b",
+      "away_color": "#ffffff",
+      "goalkeeper_color": "#e53935",
+      "formation": "3-5-2",
+      "strength": 70
+    }
+  ]
+}

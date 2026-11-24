@@ -5,7 +5,10 @@ extends Node3D
 const PlayerScene = preload("res://scenes/player.tscn")
 
 @export var human_team := 0
-@export var formation_id := "5v5_2-1-1"
+@export var home_team_id := "kuzey"
+@export var away_team_id := "liman"
+## Boşsa takımın teams.json'daki formasyonu kullanılır (ör. "5v5_2-1-1" ile 5'e 5)
+@export var formation_override := ""
 @export var difficulty_level := ""
 @export var half_minutes_override := 0.0 # >0 ise settings.json yerine (testler için)
 @export var replay_enabled := true
@@ -15,7 +18,8 @@ var home: Team
 var away: Team
 var home_ai: TeamAI
 var away_ai: TeamAI
-var formation: Formation
+var home_formation: Formation
+var away_formation: Formation
 var referee: Referee
 var flow: MatchFlow
 var director: CameraDirector
@@ -31,19 +35,24 @@ var score: Array:
 
 
 func _ready() -> void:
-	formation = Formation.load_formation(formation_id)
+	var home_data := TeamData.load_team(home_team_id)
+	var away_data := TeamData.load_team(away_team_id)
+	home_formation = Formation.load_formation(formation_override if formation_override != "" else home_data.formation_id)
+	away_formation = Formation.load_formation(formation_override if formation_override != "" else away_data.formation_id)
 	var level := difficulty_level if difficulty_level != "" else AIDifficulty.default_level()
 	var difficulty := AIDifficulty.load_level(level)
 	possession = Possession.new()
 	possession.name = "Possession"
 	possession.ball = ball
 	add_child(possession)
-	home = _make_team(0, "Kırmızılar", Color(0.85, 0.15, 0.15), human_team == 0)
-	away = _make_team(1, "Maviler", Color(0.15, 0.35, 0.9), human_team == 1)
-	_spawn(home)
-	_spawn(away)
-	home_ai = _make_ai(home, away, difficulty)
-	away_ai = _make_ai(away, home, difficulty)
+	var away_color := away_data.away_color if TeamData.kits_clash(home_data.color, away_data.color) else away_data.color
+	home = _make_team(0, home_data, home_data.color, human_team == 0)
+	away = _make_team(1, away_data, away_color, human_team == 1)
+	_spawn(home, home_data, home_formation)
+	_spawn(away, away_data, away_formation)
+	home_ai = _make_ai(home, away, difficulty, home_formation)
+	away_ai = _make_ai(away, home, difficulty, away_formation)
+	away_ai.tick_offset = TeamAI.TICK * 0.5 # iki takımın AI hesabı farklı karelere düşsün
 
 	var input: HumanInputController = null
 	if human_team >= 0:
@@ -85,35 +94,36 @@ func _ready() -> void:
 	flow.start()
 
 
-func _make_team(id: int, team_name: String, color: Color, human: bool) -> Team:
+func _make_team(id: int, data: TeamData, color: Color, human: bool) -> Team:
 	var t := Team.new()
-	t.name = team_name
+	t.name = data.short_name if data.short_name != "" else "Team%d" % id
 	t.team_id = id
-	t.team_name = team_name
+	t.team_name = data.display_name
 	t.color = color
+	t.goalkeeper_color = data.goalkeeper_color
 	t.human = human
 	t.possession = possession
 	add_child(t)
 	return t
 
 
-func _make_ai(t: Team, opp: Team, difficulty: AIDifficulty) -> TeamAI:
+func _make_ai(t: Team, opp: Team, difficulty: AIDifficulty, formation: Formation) -> TeamAI:
 	var ai := TeamAI.new()
-	ai.name = t.team_name + "AI"
+	ai.name = t.name + "AI"
 	add_child(ai)
 	ai.setup(t, opp, possession, difficulty, formation)
+	if formation.slots.size() <= 5:
+		ai.mark_radius = 25.0 # 5'e 5'te saha geniş, markaj daha uzaktan
 	return ai
 
 
-func _spawn(t: Team) -> void:
+func _spawn(t: Team, data: TeamData, formation: Formation) -> void:
+	var lineup := TeamData.assign_to_formation(data.players, formation.roles)
 	for i in formation.slots.size():
 		var p: FootballPlayer = PlayerScene.instantiate()
-		p.stats = PlayerStats.new()
-		p.stats.number = i + 1
-		p.stats.player_name = "%s %d" % [formation.roles[i], i + 1]
+		p.stats = lineup[i]
 		p.is_goalkeeper = formation.roles[i] == "GK"
-		if p.is_goalkeeper:
-			p.stats.goalkeeping = 75
+		p.name = "%s_%d" % [t.name, p.stats.number]
 		add_child(p)
 		p.shot_taken.connect(func(_pw: float) -> void: shots += 1)
 		t.add_player(p)

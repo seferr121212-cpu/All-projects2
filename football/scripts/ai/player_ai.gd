@@ -15,8 +15,13 @@ var target := Vector3.ZERO
 var sprint := false
 var speed_scale := 1.0
 var role := ""
+## Formasyondaki mevki (GK/DEF/MID/FWD)
+var position_role := "MID"
 
 var _decision_timer := 0.0
+var _owned_time := 0.0 # topa sahip olunan süre
+## Baskı yokken topu aldıktan sonra karar öncesi sürme süresi (s)
+const SETTLE_TIME := 0.6
 var _dribble_dir := Vector3.ZERO
 var _rng := RandomNumberGenerator.new()
 
@@ -33,6 +38,7 @@ func setup(p: FootballPlayer, ai: TeamAI, formation_slot: Vector2) -> void:
 
 func frame_update(delta: float) -> void:
 	_decision_timer -= delta
+	_owned_time = _owned_time + delta if player.has_ball() else 0.0
 	steer()
 
 
@@ -46,6 +52,13 @@ func steer() -> void:
 		return
 	var to := PlayerActions.horizontal(target - player.global_position)
 	var d := to.length()
+	if role == "chase" or role == "receive":
+		# Topa giderken yavaşlama yok; yakındaysa doğrudan topa koş
+		var to_ball := PlayerActions.horizontal(ball.global_position - player.global_position)
+		var dir := to_ball if to_ball.length() < 3.0 else to
+		player.move_input = dir.normalized() if dir.length() > 0.05 else Vector3.ZERO
+		player.sprint_input = player.stamina > 10.0
+		return
 	if d < 0.4:
 		player.move_input = Vector3.ZERO
 		player.sprint_input = false
@@ -71,8 +84,8 @@ func think(ctx: Dictionary) -> void:
 			_decide_with_ball()
 		"press":
 			_press()
-		"chase":
-			target = ctx.point
+		"chase", "receive":
+			target = intercept_point(player.global_position, player.stats.sprint_speed(), team_ai.possession.ball)
 			sprint = true
 		_:
 			target = ctx.point
@@ -85,14 +98,19 @@ func _press() -> void:
 		return
 	var own_goal := Vector3(-player.attack_sign() * PD.HALF_LENGTH, 0.0, 0.0)
 	# Rakip ile kendi kalemiz arasında dur
-	target = opp.global_position + PlayerActions.horizontal(own_goal - opp.global_position).normalized() * 0.8
+	# Rakibin gideceği yeri tahmin et, kale tarafından kapat
+	var ahead := opp.global_position + PlayerActions.horizontal(opp.velocity) * 0.35
+	target = ahead + PlayerActions.horizontal(own_goal - ahead).normalized() * 0.8
 	var intensity := team_ai.difficulty.press_intensity
 	sprint = intensity >= 0.75
 	speed_scale = lerpf(0.7, 1.0, intensity)
 	var d := PlayerActions.horizontal(opp.global_position - player.global_position).length()
 	var chance := team_ai.difficulty.tackle_chance
-	if d < 1.4 and _rng.randf() < chance:
-		player.shoulder_challenge()
+	if d < 1.8 and _rng.randf() < chance:
+		if _rng.randf() < 0.7:
+			player.standing_tackle()
+		elif d < 1.4:
+			player.shoulder_challenge()
 	elif d > 1.2 and d < 2.8 and _rng.randf() < chance * 0.4:
 		var to_ball := PlayerActions.horizontal(team_ai.possession.ball.global_position - player.global_position).normalized()
 		if player.facing.dot(to_ball) > 0.8:
@@ -105,6 +123,14 @@ func _decide_with_ball() -> void:
 	for m in mates:
 		mate_pos.append(m.global_position)
 	var opp_pos := team_ai.opponent_positions()
+	# Baskı yoksa topu hemen elden çıkarma: kısa süre sür, sonra karar ver
+	var pressure := 99.0
+	for o in opp_pos:
+		pressure = minf(pressure, PlayerActions.horizontal(o - player.global_position).length())
+	if _owned_time < SETTLE_TIME and pressure > 3.0:
+		_dribble_dir = dribble_direction(player.global_position, player.attack_sign(), opp_pos)
+		_decision_timer = minf(_decision_timer, SETTLE_TIME - _owned_time)
+		return
 	var choice := choose_action(player.global_position, player.attack_sign(), mate_pos, opp_pos, team_ai.difficulty.decision_noise, _rng)
 	match choice.type:
 		Action.SHOOT:
@@ -134,6 +160,30 @@ func _pass_kind(mate: FootballPlayer, opps: Array[Vector3]) -> PassTargeting.Kin
 	if progress > 6.0 and _rng.randf() < 0.4:
 		return PassTargeting.Kind.THROUGH
 	return PassTargeting.Kind.SHORT
+
+
+## Topu karşılama noktası: oyuncunun topa yetişebileceği en erken yer (yerde yavaşlama dahil).
+static func intercept_point(from: Vector3, run_speed: float, ball: Ball) -> Vector3:
+	return intercept_point_raw(from, run_speed, ball.global_position, ball.linear_velocity)
+
+
+static func intercept_point_raw(from: Vector3, run_speed: float, ball_pos: Vector3, ball_vel: Vector3) -> Vector3:
+	var v := PlayerActions.horizontal(ball_vel)
+	var speed := v.length()
+	var dir := v / speed if speed > 0.01 else Vector3.ZERO
+	var decel := PlayerActions.ROLL_DECEL + 0.3
+	var stop_t := speed / decel
+	var p := Vector3(ball_pos.x, 0.0, ball_pos.z)
+	var t := 0.0
+	while t <= 3.0:
+		var tt := minf(t, stop_t)
+		p = Vector3(ball_pos.x, 0.0, ball_pos.z) + dir * (speed * tt - 0.5 * decel * tt * tt)
+		if PlayerActions.horizontal(p - from).length() / maxf(run_speed, 1.0) <= t + 0.15:
+			break
+		t += 0.1
+	p.x = clampf(p.x, -PD.HALF_LENGTH, PD.HALF_LENGTH)
+	p.z = clampf(p.z, -PD.HALF_WIDTH, PD.HALF_WIDTH)
+	return p
 
 
 # --- Fayda fonksiyonları (saf, test edilebilir) ---------------------------------
@@ -173,7 +223,8 @@ static func pass_utility(from: Vector3, mate: Vector3, attack_sign: float, opps:
 	for o in opps:
 		nearest = minf(nearest, PlayerActions.horizontal(o - mate).length())
 		lane += PassTargeting.lane_block(from, mate, o)
-	return 0.3 + progress * 0.5 + clampf(nearest / 8.0, 0.0, 1.0) * 0.4 - lane * 0.9
+	# Uzun pas riskli: 18 m üstü mesafe cezası
+	return 0.3 + progress * 0.5 + clampf(nearest / 8.0, 0.0, 1.0) * 0.4 - lane * 0.9 - maxf(0.0, d - 18.0) * 0.025
 
 
 static func dribble_utility(from: Vector3, attack_sign: float, opps: Array[Vector3]) -> Dictionary:

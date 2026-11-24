@@ -39,7 +39,9 @@ func _physics_process(_delta: float) -> void:
 		elif p.shot_charge >= 0.0 and not Input.is_action_pressed("shoot"):
 			p.release_shot(_aim_lateral(p))
 	elif Input.is_action_just_pressed("tackle"):
-		p.slide_tackle()
+		# Rakibin dibindeyse ayakta müdahale, değilse kayarak
+		if not p.standing_tackle():
+			p.slide_tackle()
 
 	if Input.is_action_just_pressed("shoulder"):
 		p.shoulder_challenge()

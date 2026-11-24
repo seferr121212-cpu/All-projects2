@@ -45,6 +45,6 @@ func show_message(text: String, color: Color) -> void:
 func _process(delta: float) -> void:
 	if flow == null:
 		return
-	_score.text = "%s  %d - %d  %s     %d'" % [flow.teams[0].team_name, flow.score[0], flow.score[1], flow.teams[1].team_name, flow.game_minute()]
+	_score.text = "%s  %d - %d  %s     %d'" % [flow.teams[0].name, flow.score[0], flow.score[1], flow.teams[1].name, flow.game_minute()]
 	_banner_time -= delta
 	_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)

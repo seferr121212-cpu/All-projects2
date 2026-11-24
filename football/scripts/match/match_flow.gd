@@ -172,6 +172,7 @@ func _on_sent_off(p: FootballPlayer) -> void:
 	var ai := team_ais[p.team_id]
 	team.remove_player(p)
 	ai.ais.erase(p)
+	possession.unregister_player(p)
 	p.remove_from_group("players")
 	p.visible = false
 	p.collision_layer = 0

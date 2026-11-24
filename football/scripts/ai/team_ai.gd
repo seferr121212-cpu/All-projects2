@@ -17,6 +17,10 @@ var ais := {} # FootballPlayer -> PlayerAI
 var enabled := true
 
 var _accum := 0.0
+## Tick fazı (0..TICK): iki takımın hesaplaması aynı kareye düşmesin
+var tick_offset := 0.0
+## Markaj için rakibin formasyon noktasına en fazla uzaklığı (m)
+var mark_radius := 15.0
 
 
 func setup(p_team: Team, p_opponent: Team, p_possession: Possession, p_difficulty: AIDifficulty, p_formation: Formation) -> void:
@@ -26,12 +30,16 @@ func setup(p_team: Team, p_opponent: Team, p_possession: Possession, p_difficult
 	difficulty = p_difficulty
 	formation = p_formation
 	ais.clear()
+	_accum = tick_offset
 	for i in team.players.size():
 		var p := team.players[i]
 		var ai: PlayerAI = GoalkeeperAI.new() if p.is_goalkeeper else PlayerAI.new()
 		ai.setup(p, self, formation.slots[i] if i < formation.slots.size() else Vector2.ZERO)
+		ai.position_role = formation.roles[i] if i < formation.roles.size() else "MID"
 		ais[p] = ai
 		p.accuracy_bonus = difficulty.accuracy_bonus
+		if not p.pass_made.is_connected(_on_pass_made):
+			p.pass_made.connect(_on_pass_made)
 
 
 func is_ai(p: FootballPlayer) -> bool:
@@ -42,6 +50,7 @@ func _physics_process(delta: float) -> void:
 	if not enabled or team == null:
 		return
 	_accum += delta
+	_time += delta
 	if _accum >= TICK:
 		_accum = fmod(_accum, TICK)
 		tick()
@@ -90,6 +99,17 @@ func tick() -> void:
 			gk = p
 		elif is_ai(p):
 			field.append(p)
+	_update_defensive_line()
+	# Pas alıcısı: top sahipsizken karşılamaya koşar, diğer rollerden çıkarılır
+	var receiver: FootballPlayer = null
+	_active_receiver = null
+	if _receiver != null and _time < _receiver_until and possession.owner_player == null and is_ai(_receiver) and _receiver in field:
+		receiver = _receiver
+		field.erase(receiver)
+		ais[receiver].think({"role": "receive"})
+		_active_receiver = receiver
+	elif possession.owner_player != null:
+		_receiver = null
 	var bp := ball.global_position
 	field.sort_custom(func(a: FootballPlayer, b: FootballPlayer) -> bool:
 		return a.global_position.distance_squared_to(bp) < b.global_position.distance_squared_to(bp))
@@ -107,7 +127,31 @@ func tick() -> void:
 
 
 func _formation_point(p: FootballPlayer) -> Vector3:
-	return Formation.target_for(ais[p].slot, possession.ball.global_position, p.attack_sign(), phase)
+	var t := Formation.target_for(ais[p].slot, possession.ball.global_position, p.attack_sign(), phase)
+	if ais[p].position_role == "DEF" and _defensive_line != INF:
+		t.x = _defensive_line * p.attack_sign()
+	return t
+
+
+## Savunma hattı: savunmacıların formasyon hedeflerinin ortalaması (hücum yönünde x).
+## Savunmacılar aynı hizada durur, böylece ofsayt çizgisi tutarlı olur.
+var _defensive_line := INF
+
+## Pas sonrası alıcı: top yoldayken topu karşılamaya koşar
+var _receiver: FootballPlayer
+var _receiver_until := 0.0
+var _time := 0.0
+var _active_receiver: FootballPlayer
+
+
+func _update_defensive_line() -> void:
+	var sum := 0.0
+	var n := 0
+	for p in team.players:
+		if ais.has(p) and ais[p].position_role == "DEF" and not p.is_goalkeeper:
+			sum += Formation.target_for(ais[p].slot, possession.ball.global_position, p.attack_sign(), phase).x * p.attack_sign()
+			n += 1
+	_defensive_line = sum / n if n >= 2 else INF
 
 
 func _assign_attack(field: Array[FootballPlayer], owner: FootballPlayer) -> void:
@@ -175,7 +219,7 @@ func _assign_defense(field: Array[FootballPlayer], owner: FootballPlayer, human_
 
 func _nearest_unmarked(from: Vector3, marked: Dictionary) -> FootballPlayer:
 	var best: FootballPlayer = null
-	var best_d := 25.0
+	var best_d := mark_radius
 	for o in opponent.players:
 		if o.is_goalkeeper or marked.has(o):
 			continue
@@ -194,10 +238,16 @@ func _assign_transition(field: Array[FootballPlayer], human_nearest: bool) -> vo
 	predicted.y = 0.0
 	for i in field.size():
 		var p := field[i]
-		if i == 0 and not human_nearest:
+		if i == 0 and not human_nearest and _active_receiver == null:
 			ais[p].think({"role": "chase", "point": predicted})
 		else:
 			ais[p].think({"role": "formation", "point": _formation_point(p)})
+
+
+func _on_pass_made(target: FootballPlayer) -> void:
+	if target != null and target.team_id == team.team_id:
+		_receiver = target
+		_receiver_until = _time + 3.0
 
 
 ## Kaleci ceza sahasındaki sahipsiz topa, en yakın oyuncuysa çıkar.

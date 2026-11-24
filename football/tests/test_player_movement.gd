@@ -135,7 +135,7 @@ func test_slide_tackle_wins_ball() -> void:
 	await step_physics(10)
 	check(pos.owner_player == p, "Hücumcu topa sahip")
 	defender.slide_tackle()
-	await step_physics(60)
+	await step_physics(100) # kayma 0.7 sn sürer
 	check(pos.owner_player != p, "Kayarak müdahale topu almalı")
 	check(p.state == FootballPlayer.State.STUMBLE or p.state == FootballPlayer.State.NORMAL, "Hücumcu sendelemeli")
 	await clear_children()
