@@ -14,6 +14,7 @@ const TEST_FILES := [
 	"res://tests/test_rules.gd",
 	"res://tests/test_team_data.gd",
 	"res://tests/test_performance.gd",
+	"res://tests/test_ui.gd",
 ]
 
 
@@ -32,7 +33,13 @@ func _run() -> void:
 			if not name.begins_with("test_"):
 				continue
 			suite.failures.clear()
-			await suite.call(name)
+			var done := [false]
+			var runner := func() -> void:
+				await suite.call(name)
+				done[0] = true
+			await runner.call()
+			if not done[0]:
+				suite.failures.append("Test yarıda kesildi (betik hatası, çıktıya bakın)")
 			if suite.failures.is_empty():
 				passed += 1
 				print("  OK   %s::%s" % [path.get_file(), name])

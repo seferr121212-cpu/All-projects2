@@ -12,6 +12,10 @@ const PlayerScene = preload("res://scenes/player.tscn")
 @export var difficulty_level := ""
 @export var half_minutes_override := 0.0 # >0 ise settings.json yerine (testler için)
 @export var replay_enabled := true
+## Menüden gelen Game.match_config varsa onu kullan
+@export var use_game_config := true
+
+var pause_menu: CanvasLayer
 
 var possession: Possession
 var home: Team
@@ -35,6 +39,7 @@ var score: Array:
 
 
 func _ready() -> void:
+	_apply_game_config()
 	var home_data := TeamData.load_team(home_team_id)
 	var away_data := TeamData.load_team(away_team_id)
 	home_formation = Formation.load_formation(formation_override if formation_override != "" else home_data.formation_id)
@@ -91,7 +96,31 @@ func _ready() -> void:
 	var match_hud: CanvasLayer = preload("res://scripts/ui/match_hud.gd").new()
 	match_hud.flow = flow
 	add_child(match_hud)
+	pause_menu = preload("res://scripts/ui/pause_menu.gd").new()
+	pause_menu.can_pause = func() -> bool: return flow.state != MatchFlow.MatchState.REPLAY and flow.state != MatchFlow.MatchState.FULL_TIME
+	add_child(pause_menu)
+	flow.match_finished.connect(_on_match_finished)
 	flow.start()
+
+
+func _apply_game_config() -> void:
+	var game := get_node_or_null("/root/Game")
+	if not use_game_config or game == null or game.match_config.is_empty():
+		return
+	var c: Dictionary = game.match_config
+	home_team_id = c.get("home", home_team_id)
+	away_team_id = c.get("away", away_team_id)
+	formation_override = c.get("formation", formation_override)
+	human_team = int(c.get("human_team", human_team))
+	half_minutes_override = float(c.get("half_minutes", half_minutes_override))
+	difficulty_level = c.get("difficulty", difficulty_level)
+	replay_enabled = bool(c.get("replay", replay_enabled))
+
+
+func _on_match_finished(final: Array) -> void:
+	await get_tree().create_timer(2.5).timeout
+	if is_inside_tree():
+		pause_menu.show_result("%s  %d - %d  %s" % [home.team_name, final[0], final[1], away.team_name])
 
 
 func _make_team(id: int, data: TeamData, color: Color, human: bool) -> Team:

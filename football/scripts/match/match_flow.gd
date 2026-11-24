@@ -126,23 +126,23 @@ func _on_out_event(ev: Dictionary) -> void:
 		MatchEvents.EventType.GOAL:
 			score[ev.team] += 1
 			score_changed.emit(score[0], score[1])
-			message.emit("GOL! %s" % teams[ev.team].team_name, Color(1, 0.85, 0.2))
+			message.emit(tr("MSG_GOAL") % teams[ev.team].team_name, Color(1, 0.85, 0.2))
 			_set_ai(false)
 			_set_state(MatchState.CELEBRATION)
 			_timer = CELEBRATION_TIME
 			restart_team = 1 - ev.team
 		MatchEvents.EventType.THROW_IN:
-			_stop(Restart.THROW_IN, ev.team, Vector3(clampf(pos.x, -PD.HALF_LENGTH + 1.0, PD.HALF_LENGTH - 1.0), PD.BALL_RADIUS, sz * (PD.HALF_WIDTH - 0.3)), "TAÇ")
+			_stop(Restart.THROW_IN, ev.team, Vector3(clampf(pos.x, -PD.HALF_LENGTH + 1.0, PD.HALF_LENGTH - 1.0), PD.BALL_RADIUS, sz * (PD.HALF_WIDTH - 0.3)), tr("MSG_THROW_IN"))
 		MatchEvents.EventType.CORNER:
-			_stop(Restart.CORNER, ev.team, Vector3(sx * (PD.HALF_LENGTH - 0.5), PD.BALL_RADIUS, sz * (PD.HALF_WIDTH - 0.5)), "KORNER")
+			_stop(Restart.CORNER, ev.team, Vector3(sx * (PD.HALF_LENGTH - 0.5), PD.BALL_RADIUS, sz * (PD.HALF_WIDTH - 0.5)), tr("MSG_CORNER"))
 		MatchEvents.EventType.GOAL_KICK:
-			_stop(Restart.GOAL_KICK, ev.team, Vector3(sx * (PD.HALF_LENGTH - PD.GOAL_AREA_DEPTH), PD.BALL_RADIUS, 0.0), "AUT")
+			_stop(Restart.GOAL_KICK, ev.team, Vector3(sx * (PD.HALF_LENGTH - PD.GOAL_AREA_DEPTH), PD.BALL_RADIUS, 0.0), tr("MSG_GOAL_KICK"))
 
 
 func _on_offside(offender: FootballPlayer, pos: Vector3) -> void:
 	if state != MatchState.PLAYING:
 		return
-	_stop(Restart.INDIRECT_FREE_KICK, 1 - offender.team_id, _clamp_field(pos), "OFSAYT")
+	_stop(Restart.INDIRECT_FREE_KICK, 1 - offender.team_id, _clamp_field(pos), tr("MSG_OFFSIDE"))
 
 
 func _on_foul(offender: FootballPlayer, victim: FootballPlayer, pos: Vector3, card: int) -> void:
@@ -150,13 +150,13 @@ func _on_foul(offender: FootballPlayer, victim: FootballPlayer, pos: Vector3, ca
 		return
 	match card:
 		Referee.Card.YELLOW:
-			message.emit("SARI KART: %s" % offender.stats.player_name, Color(1, 0.9, 0.1))
+			message.emit(tr("MSG_YELLOW") % offender.stats.player_name, Color(1, 0.9, 0.1))
 		Referee.Card.RED:
-			message.emit("KIRMIZI KART: %s" % offender.stats.player_name, Color(1, 0.2, 0.2))
+			message.emit(tr("MSG_RED") % offender.stats.player_name, Color(1, 0.2, 0.2))
 	if Referee.in_penalty_area(pos, victim.attack_sign()):
-		_stop(Restart.PENALTY, victim.team_id, Vector3(victim.attack_sign() * (PD.HALF_LENGTH - PD.PENALTY_SPOT_DISTANCE), PD.BALL_RADIUS, 0.0), "PENALTI")
+		_stop(Restart.PENALTY, victim.team_id, Vector3(victim.attack_sign() * (PD.HALF_LENGTH - PD.PENALTY_SPOT_DISTANCE), PD.BALL_RADIUS, 0.0), tr("MSG_PENALTY"))
 	else:
-		_stop(Restart.FREE_KICK, victim.team_id, _clamp_field(pos), "FAUL")
+		_stop(Restart.FREE_KICK, victim.team_id, _clamp_field(pos), tr("MSG_FOUL"))
 
 
 func _on_kicked(_team: int, is_dribble: bool) -> void:
@@ -411,11 +411,11 @@ func _end_half() -> void:
 	_set_lock(true)
 	events.ball_in_play = false
 	if half == 1:
-		message.emit("DEVRE ARASI", Color.WHITE)
+		message.emit(tr("MSG_HALF_TIME"), Color.WHITE)
 		_set_state(MatchState.HALF_TIME)
 		_timer = HALF_TIME_PAUSE
 	else:
-		message.emit("MAÇ SONU  %d - %d" % [score[0], score[1]], Color.WHITE)
+		message.emit(tr("MSG_FULL_TIME") % [score[0], score[1]], Color.WHITE)
 		_set_state(MatchState.FULL_TIME)
 		match_finished.emit(score)
 
@@ -427,7 +427,7 @@ func _start_second_half() -> void:
 	for t in teams:
 		t.set_attack_direction(-t.attack_direction)
 	events.home_attack_sign = teams[0].attack_direction
-	message.emit("2. YARI", Color.WHITE)
+	message.emit(tr("MSG_SECOND_HALF"), Color.WHITE)
 	_begin_restart(Restart.KICKOFF, 1 - first_kickoff_team, Vector3(0, PD.BALL_RADIUS, 0))
 
 
@@ -443,7 +443,7 @@ func _start_replay() -> void:
 			n.set_physics_process(false)
 	if director:
 		director.begin_replay()
-	message.emit("TEKRAR", Color(0.8, 0.9, 1.0))
+	message.emit(tr("MSG_REPLAY"), Color(0.8, 0.9, 1.0))
 
 
 func _update_replay(delta: float) -> void:

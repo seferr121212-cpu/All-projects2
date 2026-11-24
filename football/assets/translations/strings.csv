@@ -1,0 +1,97 @@
+keys,tr,en
+MENU_TITLE,FUTBOL 3D,FOOTBALL 3D
+MENU_QUICK_MATCH,Hızlı Maç,Quick Match
+MENU_PENALTIES,Penaltı Atışları,Penalty Shootout
+MENU_TRAINING,Antrenman,Training
+MENU_SETTINGS,Ayarlar,Settings
+MENU_QUIT,Çıkış,Quit
+MENU_BACK,Geri,Back
+MENU_START,Başla,Start
+SELECT_TITLE,Takım Seçimi,Team Selection
+SELECT_HOME,Ev Sahibi,Home
+SELECT_AWAY,Deplasman,Away
+SELECT_FORMATION,Formasyon,Formation
+SELECT_FORMATION_DEFAULT,Takım varsayılanı,Team default
+SELECT_CONTROL,Kontrol,Control
+SELECT_CONTROL_HOME,Ev sahibini ben oynarım,I play home
+SELECT_CONTROL_AWAY,Deplasmanı ben oynarım,I play away
+SELECT_CONTROL_WATCH,İzle (AI - AI),Watch (AI vs AI)
+SELECT_HALF_LENGTH,Devre süresi (dk),Half length (min)
+SELECT_DIFFICULTY,Zorluk,Difficulty
+SELECT_REPLAY,Gol tekrarı,Goal replays
+DIFF_EASY,Kolay,Easy
+DIFF_MEDIUM,Orta,Medium
+DIFF_HARD,Zor,Hard
+PAUSE_TITLE,Duraklatıldı,Paused
+PAUSE_RESUME,Devam,Resume
+PAUSE_MAIN_MENU,Ana Menü,Main Menu
+RESULT_PLAY_AGAIN,Tekrar Oyna,Play Again
+SETTINGS_GRAPHICS,Grafik,Graphics
+SETTINGS_AUDIO,Ses,Audio
+SETTINGS_CONTROLS,Kontroller,Controls
+SETTINGS_LANGUAGE,Dil,Language
+SETTINGS_WINDOW_MODE,Pencere modu,Window mode
+SETTINGS_WINDOWED,Pencereli,Windowed
+SETTINGS_FULLSCREEN,Tam ekran,Fullscreen
+SETTINGS_VSYNC,Dikey eşitleme (VSync),VSync
+SETTINGS_SHADOWS,Gölge kalitesi,Shadow quality
+SETTINGS_MSAA,Kenar yumuşatma (MSAA),Anti-aliasing (MSAA)
+SETTINGS_SCALE,Çözünürlük ölçeği,Resolution scale
+SETTINGS_OFF,Kapalı,Off
+SETTINGS_LOW,Düşük,Low
+SETTINGS_MEDIUM,Orta,Medium
+SETTINGS_HIGH,Yüksek,High
+SETTINGS_MASTER,Ana ses,Master volume
+SETTINGS_SFX,Efektler,Effects
+SETTINGS_CROWD,Seyirci,Crowd
+SETTINGS_KEYBOARD,Klavye / Fare,Keyboard / Mouse
+SETTINGS_GAMEPAD,Gamepad,Gamepad
+SETTINGS_PRESS_KEY,Tuşa basın... (Esc iptal),Press a key... (Esc cancels)
+SETTINGS_RESET_CONTROLS,Varsayılana dön,Reset to defaults
+SETTINGS_SAVE,Kaydet,Save
+SETTINGS_SAVED,Kaydedildi,Saved
+ACTION_move_up,İleri,Move up
+ACTION_move_down,Geri,Move down
+ACTION_move_left,Sol,Move left
+ACTION_move_right,Sağ,Move right
+ACTION_sprint,Sprint,Sprint
+ACTION_pass_short,Kısa pas,Short pass
+ACTION_pass_through,Ara pas,Through pass
+ACTION_pass_lob,Orta / havadan pas,Lob / cross
+ACTION_shoot,Şut,Shoot
+ACTION_tackle,Müdahale,Tackle
+ACTION_shoulder,Omuz,Shoulder
+ACTION_skill,Çalım,Skill move
+ACTION_switch_player,Oyuncu değiştir,Switch player
+ACTION_camera_next,Kamera değiştir,Next camera
+ACTION_pause,Duraklat,Pause
+ACTION_reset_ball,Topu getir (antrenman),Reset ball (training)
+MSG_GOAL,GOL! %s,GOAL! %s
+MSG_THROW_IN,TAÇ,THROW-IN
+MSG_CORNER,KORNER,CORNER
+MSG_GOAL_KICK,AUT,GOAL KICK
+MSG_OFFSIDE,OFSAYT,OFFSIDE
+MSG_FOUL,FAUL,FOUL
+MSG_PENALTY,PENALTI,PENALTY
+MSG_YELLOW,SARI KART: %s,YELLOW CARD: %s
+MSG_RED,KIRMIZI KART: %s,RED CARD: %s
+MSG_HALF_TIME,DEVRE ARASI,HALF TIME
+MSG_SECOND_HALF,2. YARI,SECOND HALF
+MSG_FULL_TIME,MAÇ SONU  %d - %d,FULL TIME  %d - %d
+MSG_REPLAY,TEKRAR,REPLAY
+MSG_SAVED,KURTARIŞ!,SAVED!
+MSG_MISSED,KAÇTI,MISSED
+MSG_WINNER,%s KAZANDI,%s WIN
+HUD_CONTROL,Kontrol: %s (#%d),Control: %s (#%d)
+HUD_BALL,Top: %s,Ball: %s
+HUD_STAMINA,Stamina,Stamina
+HUD_SHOT_POWER,Şut gücü,Shot power
+HUD_KICK_PROMPT,"Vuruş sizde: nişan alın, pas veya şut tuşuna basın","Your kick: aim, then press pass or shoot"
+HUD_KICKOFF_PROMPT,Başlama vuruşu: pas tuşuna basın,Kick-off: press pass
+PEN_YOUR_SHOT,"Sıra sizde: nişan alın, şutu basılı tutup bırakın","Your penalty: aim, hold and release shoot"
+PEN_YOUR_SAVE,Kalede sizsiniz: vuruş anında sol/sağ ile uzanın,You're in goal: hold left/right to dive at the kick
+PEN_ROUND,Atış %d,Kick %d
+PEN_SUDDEN_DEATH,Ani ölüm,Sudden death
+TRAIN_TITLE,Antrenman,Training
+TRAIN_HINT,"Rakipsiz serbest oyun. T: topu getir, Esc: menü","Free play, no opponents. T: reset ball, Esc: menu"
+TRAIN_STATS,Şut: %d  Gol: %d,Shots: %d  Goals: %d

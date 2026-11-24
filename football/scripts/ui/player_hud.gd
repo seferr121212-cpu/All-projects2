@@ -20,8 +20,8 @@ func _ready() -> void:
 	_info.add_theme_color_override("font_outline_color", Color.BLACK)
 	_info.add_theme_constant_override("outline_size", 4)
 	box.add_child(_info)
-	_stamina = _make_bar(box, "Stamina", Color(0.2, 0.8, 0.3))
-	_power = _make_bar(box, "Şut gücü", Color(0.95, 0.6, 0.1))
+	_stamina = _make_bar(box, tr("HUD_STAMINA"), Color(0.2, 0.8, 0.3))
+	_power = _make_bar(box, tr("HUD_SHOT_POWER"), Color(0.95, 0.6, 0.1))
 
 
 func _make_bar(parent: Control, title: String, color: Color) -> ProgressBar:
@@ -45,7 +45,6 @@ func _process(_delta: float) -> void:
 	var owner_name := "-"
 	if p.possession and p.possession.owner_player:
 		owner_name = p.possession.owner_player.stats.player_name
-	_info.text = "Kontrol: %s (#%d)\nTop: %s\nWASD hareket | Shift sprint | Space pas | E ara pas | Q orta\nF/Sol tık şut (basılı tut) | C kayarak müdahale | V omuz | R çalım | Tab oyuncu değiştir" % [
-		p.stats.player_name, p.stats.number, owner_name]
+	_info.text = (tr("HUD_CONTROL") % [p.stats.player_name, p.stats.number]) + "\n" + (tr("HUD_BALL") % owner_name)
 	_stamina.value = p.stamina / p.stats.max_stamina * 100.0
 	_power.value = maxf(p.shot_charge, 0.0) * 100.0

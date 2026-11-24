@@ -133,7 +133,8 @@ func _build_lighting() -> void:
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.rotation = Vector3(deg_to_rad(-55.0), deg_to_rad(30.0), 0.0)
-	sun.shadow_enabled = true
+	var game := get_node_or_null("/root/Game")
+	sun.shadow_enabled = game == null or game.settings.shadows_enabled()
 	sun.directional_shadow_max_distance = 120.0
 	add_child(sun)
 	var env := Environment.new()

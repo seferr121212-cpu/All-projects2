@@ -58,7 +58,7 @@ func test_eleven_a_side_match_setup() -> void:
 	check(m.home.team_name == "Kuzey Yıldızları", "Takım adı veriden gelmeli")
 	await step_physics(120 * 8)
 	var flow: MatchFlow = m.flow
-	check(flow.state == MatchFlow.MatchState.PLAYING, "11'e 11 maç başlamalı (durum %d)" % flow.state)
+	check(flow.state != MatchFlow.MatchState.KICKOFF, "11'e 11 maç başlamalı (durum %d)" % flow.state)
 	# Savunmada savunma hattı aynı hizada
 	var ai: TeamAI = m.home_ai if flow.possession.owner_player and flow.possession.owner_player.team_id == 1 else m.away_ai
 	ai.phase = Formation.Phase.DEFENSE

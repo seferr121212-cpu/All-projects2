@@ -5,6 +5,7 @@ var flow: MatchFlow
 var _score: Label
 var _banner: Label
 var _banner_time := 0.0
+var _prompt: Label
 
 
 func _ready() -> void:
@@ -32,8 +33,27 @@ func _ready() -> void:
 	_banner.add_theme_color_override("font_outline_color", Color.BLACK)
 	_banner.add_theme_constant_override("outline_size", 8)
 	add_child(_banner)
+	_prompt = Label.new()
+	_prompt.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	_prompt.position = Vector2(-400, -90)
+	_prompt.custom_minimum_size = Vector2(800, 0)
+	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_prompt.add_theme_font_size_override("font_size", 24)
+	_prompt.add_theme_color_override("font_outline_color", Color.BLACK)
+	_prompt.add_theme_constant_override("outline_size", 6)
+	add_child(_prompt)
 	if flow:
 		flow.message.connect(show_message)
+
+
+## İnsan oyuncunun yapacağı duran top / başlama vuruşu için ipucu.
+func _prompt_text() -> String:
+	if flow.state != MatchFlow.MatchState.KICKOFF and flow.state != MatchFlow.MatchState.SET_PIECE:
+		return ""
+	var t: Team = flow.teams[flow.restart_team]
+	if not t.human or flow.taker == null or flow.taker.is_goalkeeper or t.controlled != flow.taker:
+		return ""
+	return tr("HUD_KICKOFF_PROMPT") if flow.state == MatchFlow.MatchState.KICKOFF else tr("HUD_KICK_PROMPT")
 
 
 func show_message(text: String, color: Color) -> void:
@@ -46,5 +66,6 @@ func _process(delta: float) -> void:
 	if flow == null:
 		return
 	_score.text = "%s  %d - %d  %s     %d'" % [flow.teams[0].name, flow.score[0], flow.score[1], flow.teams[1].name, flow.game_minute()]
+	_prompt.text = _prompt_text()
 	_banner_time -= delta
 	_banner.modulate.a = clampf(_banner_time, 0.0, 1.0)

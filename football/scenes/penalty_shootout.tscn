@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/match/penalty_shootout.gd" id="1_pen"]
+[ext_resource type="PackedScene" path="res://scenes/stadium.tscn" id="2_stadium"]
+[ext_resource type="PackedScene" path="res://scenes/ball.tscn" id="3_ball"]
+[ext_resource type="Script" path="res://scripts/match/match_events.gd" id="4_events"]
+
+[node name="PenaltyShootout" type="Node3D"]
+script = ExtResource("1_pen")
+
+[node name="Stadium" parent="." instance=ExtResource("2_stadium")]
+
+[node name="Ball" parent="." instance=ExtResource("3_ball")]
+
+[node name="MatchEvents" type="Node" parent="."]
+script = ExtResource("4_events")
+ball_path = NodePath("../Ball")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0, 0.165, -0.986, 0, 0.986, 0.165, 1, 0, 0, 32.5, 3.5, 0)
+current = true
+fov = 55.0
