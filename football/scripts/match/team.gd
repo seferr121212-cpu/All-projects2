@@ -30,6 +30,8 @@ func add_player(p: FootballPlayer) -> void:
 	players.append(p)
 	if p.visual and p.visual.has_method("set_team_color"):
 		p.visual.set_team_color(goalkeeper_color if p.is_goalkeeper else color)
+		if p.visual.has_method("set_number") and p.stats:
+			p.visual.set_number(p.stats.number)
 	p.pass_made.connect(_on_pass_made)
 	if possession:
 		possession.register_player(p)

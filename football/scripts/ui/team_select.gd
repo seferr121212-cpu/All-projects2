@@ -12,6 +12,7 @@ var _control: OptionButton
 var _half: SpinBox
 var _difficulty: OptionButton
 var _replay: CheckBox
+var _time: OptionButton
 
 
 func _ready() -> void:
@@ -57,6 +58,9 @@ func _ready() -> void:
 	if mode == Game.Mode.QUICK_MATCH:
 		form.add_child(UIUtil.row(tr("SELECT_REPLAY"), _replay))
 
+	_time = UIUtil.option([tr("TIME_DAY"), tr("TIME_NIGHT")], 1 if cfg.get("night", false) else 0)
+	form.add_child(UIUtil.row(tr("SELECT_TIME"), _time))
+
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation", 12)
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -76,6 +80,7 @@ func config() -> Dictionary:
 	c.half_minutes = _half.value
 	c.difficulty = DIFFICULTIES[maxi(_difficulty.selected, 0)]
 	c.replay = _replay.button_pressed
+	c.night = _time.selected == 1
 	if Game.mode == Game.Mode.TRAINING:
 		c.human_team = 0
 	return c

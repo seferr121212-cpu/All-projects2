@@ -95,3 +95,6 @@ PEN_SUDDEN_DEATH,Ani ölüm,Sudden death
 TRAIN_TITLE,Antrenman,Training
 TRAIN_HINT,"Rakipsiz serbest oyun. T: topu getir, Esc: menü","Free play, no opponents. T: reset ball, Esc: menu"
 TRAIN_STATS,Şut: %d  Gol: %d,Shots: %d  Goals: %d
+SELECT_TIME,Maç saati,Time of day
+TIME_DAY,Gündüz,Day
+TIME_NIGHT,Gece (ışıklar),Night (floodlights)

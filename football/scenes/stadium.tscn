@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/match/pitch_builder.gd" id="1_pitch"]
 [ext_resource type="PackedScene" path="res://scenes/goal.tscn" id="2_goal"]
+[ext_resource type="Script" path="res://scripts/match/stadium_builder.gd" id="3_stands"]
 
 [node name="Stadium" type="Node3D"]
 script = ExtResource("1_pitch")
@@ -11,3 +12,6 @@ side = -1
 
 [node name="GoalRight" parent="." instance=ExtResource("2_goal")]
 side = 1
+
+[node name="Stands" type="Node3D" parent="."]
+script = ExtResource("3_stands")

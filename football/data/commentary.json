@@ -1,0 +1,15 @@
+{
+  "_not": "Spiker altyapısı. 'audio' alanına res:// yolu verilen ses dosyaları çalınır; boşsa yalnızca metin (altyazı) yayınlanır.",
+  "events": {
+    "kickoff":   {"priority": 1, "cooldown": 10, "lines": [{"tr": "Ve maç başlıyor!", "en": "And we're under way!", "audio": ""}]},
+    "goal":      {"priority": 5, "cooldown": 3,  "lines": [{"tr": "GOL! Ağlar havalanıyor!", "en": "GOAL! It's in the back of the net!", "audio": ""}, {"tr": "Ve top ağlarda!", "en": "And it's in!", "audio": ""}]},
+    "shot":      {"priority": 2, "cooldown": 4,  "lines": [{"tr": "Şut!", "en": "Shot!", "audio": ""}]},
+    "save":      {"priority": 3, "cooldown": 4,  "lines": [{"tr": "Kaleci kurtarıyor!", "en": "Great save!", "audio": ""}]},
+    "post":      {"priority": 3, "cooldown": 4,  "lines": [{"tr": "Direkten döndü!", "en": "Off the post!", "audio": ""}]},
+    "foul":      {"priority": 2, "cooldown": 5,  "lines": [{"tr": "Hakem faul diyor.", "en": "The referee blows for a foul.", "audio": ""}]},
+    "card":      {"priority": 4, "cooldown": 5,  "lines": [{"tr": "Kart çıkıyor!", "en": "Out comes the card!", "audio": ""}]},
+    "offside":   {"priority": 2, "cooldown": 5,  "lines": [{"tr": "Bayrak kalkıyor, ofsayt.", "en": "The flag is up, offside.", "audio": ""}]},
+    "half_time": {"priority": 4, "cooldown": 30, "lines": [{"tr": "İlk yarı sona erdi.", "en": "That's half time.", "audio": ""}]},
+    "full_time": {"priority": 5, "cooldown": 30, "lines": [{"tr": "Ve maç sona eriyor!", "en": "And that's full time!", "audio": ""}]}
+  }
+}

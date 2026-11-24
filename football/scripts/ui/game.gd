@@ -29,7 +29,7 @@ func _ready() -> void:
 func default_config() -> Dictionary:
 	return {
 		"home": "kuzey", "away": "liman", "formation": "", "human_team": 0,
-		"half_minutes": 5.0, "difficulty": AIDifficulty.default_level(), "replay": true,
+		"half_minutes": 5.0, "difficulty": AIDifficulty.default_level(), "replay": true, "night": false,
 	}
 
 

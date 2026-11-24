@@ -16,6 +16,7 @@ const PlayerScene = preload("res://scenes/player.tscn")
 @export var use_game_config := true
 
 var pause_menu: CanvasLayer
+var audio: MatchAudio
 
 var possession: Possession
 var home: Team
@@ -100,6 +101,10 @@ func _ready() -> void:
 	pause_menu.can_pause = func() -> bool: return flow.state != MatchFlow.MatchState.REPLAY and flow.state != MatchFlow.MatchState.FULL_TIME
 	add_child(pause_menu)
 	flow.match_finished.connect(_on_match_finished)
+	audio = MatchAudio.new()
+	audio.name = "MatchAudio"
+	add_child(audio)
+	audio.setup(ball, flow, get_node_or_null("Stadium/Stands"))
 	flow.start()
 
 

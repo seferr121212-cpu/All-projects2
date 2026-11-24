@@ -8,11 +8,15 @@ const LINE_Y := 0.01 # z-fighting önlemek için çizgiler zeminin hafif üstün
 @export var grass_color := Color(0.18, 0.45, 0.16)
 @export var line_color := Color(0.95, 0.95, 0.95)
 @export var build_lighting := true
+@export var night := false
 
 var _st: SurfaceTool
 
 
 func _ready() -> void:
+	var game := get_node_or_null("/root/Game")
+	if game != null and not game.match_config.is_empty():
+		night = bool(game.match_config.get("night", night))
 	_build_ground()
 	_build_lines()
 	if build_lighting:
@@ -39,9 +43,8 @@ func _build_ground() -> void:
 	grass.name = "Grass"
 	var plane := PlaneMesh.new()
 	plane.size = Vector2(PD.LENGTH + margin, PD.WIDTH + margin)
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = grass_color
-	mat.roughness = 0.95
+	var mat := ShaderMaterial.new()
+	mat.shader = preload("res://assets/shaders/grass.gdshader")
 	plane.material = mat
 	grass.mesh = plane
 	add_child(grass)
@@ -133,6 +136,10 @@ func _build_lighting() -> void:
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.rotation = Vector3(deg_to_rad(-55.0), deg_to_rad(30.0), 0.0)
+	if night:
+		# Ay ışığı: zayıf, soğuk; asıl aydınlatma ışık kulelerinden
+		sun.light_energy = 0.12
+		sun.light_color = Color(0.6, 0.7, 1.0)
 	var game := get_node_or_null("/root/Game")
 	sun.shadow_enabled = game == null or game.settings.shadows_enabled()
 	sun.directional_shadow_max_distance = 120.0
@@ -140,9 +147,18 @@ func _build_lighting() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	var sky := Sky.new()
-	sky.sky_material = ProceduralSkyMaterial.new()
+	var sky_mat := ProceduralSkyMaterial.new()
+	if night:
+		sky_mat.sky_top_color = Color(0.02, 0.03, 0.07)
+		sky_mat.sky_horizon_color = Color(0.08, 0.1, 0.16)
+		sky_mat.ground_horizon_color = Color(0.05, 0.06, 0.08)
+		sky_mat.ground_bottom_color = Color(0.01, 0.01, 0.02)
+		sky_mat.sun_angle_max = 1.0
+	sky.sky_material = sky_mat
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+	env.ambient_light_energy = 0.35 if night else 1.0
+	env.glow_enabled = night
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	var we := WorldEnvironment.new()
 	we.name = "WorldEnvironment"

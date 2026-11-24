@@ -102,6 +102,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= GRAVITY * delta
 	move_and_slide()
 	_update_stamina(delta)
+	if visual and visual.has_method("set_locomotion"):
+		visual.set_locomotion(PlayerActions.horizontal(velocity).length() if state == State.NORMAL or state == State.SKILL else 0.0)
 	if shot_charge >= 0.0:
 		shot_charge = minf(1.0, shot_charge + delta / SHOT_CHARGE_TIME)
 	if has_ball() and state != State.SLIDING and state != State.STUMBLE:
@@ -185,7 +187,9 @@ func _apply_facing() -> void:
 func _set_state(s: State) -> void:
 	state = s
 	if visual and visual.has_method("set_pose"):
-		visual.set_pose(s)
+		# Uzanma yönü: oyuncunun sağına (+1) ya da soluna (-1)
+		var right := facing.cross(Vector3.UP).normalized()
+		visual.set_pose(s, signf(PlayerActions.horizontal(velocity).dot(right)))
 
 
 # --- Top sürme -----------------------------------------------------------
@@ -318,6 +322,8 @@ func dive(dive_velocity: Vector3, duration := 0.6) -> void:
 
 func _kick_ball(v: Vector3, spin: Vector3) -> void:
 	holding_ball = false
+	if visual and visual.has_method("play_kick"):
+		visual.play_kick()
 	ball.kick(v, spin, team_id, false, self)
 
 

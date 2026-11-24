@@ -63,6 +63,9 @@ func _ready() -> void:
 	_build_stats_hud()
 	pause_menu = preload("res://scripts/ui/pause_menu.gd").new()
 	add_child(pause_menu)
+	var audio := MatchAudio.new()
+	add_child(audio)
+	audio.setup(ball, null, get_node_or_null("Stadium/Stands"))
 	events.event_detected.connect(_on_event)
 	reset_ball()
 

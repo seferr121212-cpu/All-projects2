@@ -69,6 +69,12 @@ func _ready() -> void:
 	cam.look_at(Vector3(PD.HALF_LENGTH, 1.0, 0.0))
 	pause_menu = preload("res://scripts/ui/pause_menu.gd").new()
 	add_child(pause_menu)
+	var audio := MatchAudio.new()
+	add_child(audio)
+	audio.setup(ball, null, get_node_or_null("Stadium/Stands"))
+	events.event_detected.connect(func(ev: Dictionary) -> void:
+		if ev.type == MatchEvents.EventType.GOAL:
+			audio.goal())
 	_setup_kick()
 
 
@@ -96,6 +102,7 @@ func _spawn(team: int, stats: PlayerStats, gk: bool) -> FootballPlayer:
 	if team == 1 and not gk and TeamData.kits_clash(teams_data[0].color, teams_data[1].color):
 		color = teams_data[1].away_color
 	p.visual.set_team_color(color)
+	p.visual.set_number(stats.number)
 	possession.register_player(p)
 	p.locked = true
 	_park(p)

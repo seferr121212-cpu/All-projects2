@@ -6,7 +6,7 @@ extends Camera3D
 const PD = preload("res://scripts/match/pitch_dimensions.gd")
 
 @export var target_path: NodePath
-@export var height := 20.0
+@export var height := 22.0
 @export var side_distance := 30.0 # dış çizgiden (+Z) uzaklık
 @export var lead_time := 0.35 # topun hızına göre ileri bakma (s)
 @export var follow_speed := 3.0
